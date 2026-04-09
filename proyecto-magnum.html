@@ -35,7 +35,8 @@ body {
 /* HERO FULL WIDTH REAL */
 .hero {
   width: 100vw;
-  height: 100vh;
+  height: 70vh; /* 👈 MÁS BAJO, no pantalla completa */
+  margin-left: calc(-50vw + 50%);
   background: url("Magnum-hero.png") center/cover no-repeat;
   display: flex;
   align-items: center;
@@ -78,13 +79,16 @@ section {
 
 /* FLECHA MÁS BONITA */
 .arrow {
-  font-size: 18px;
-  transition: transform 0.3s ease;
+  font-size: 22px;
+  font-weight: bold;
+  margin-left: 10px;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
-/* ROTACIÓN */
 .open .arrow {
   transform: rotate(180deg);
+  color: #f5e6c8;
+  opacity: 0.9;
 }
 
 /* COLOR AL ABRIR */
@@ -210,7 +214,26 @@ section {
 
 <body>
 
-<a href="index.html" class="back-home">← Volver</a>
+.back-home {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(270deg,#ff4ecd,#6c63ff);
+  padding: 12px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  z-index: 999;
+  animation: floatBtn 3s ease-in-out infinite;
+}
+
+@keyframes floatBtn {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
 
 <!-- HERO -->
 <section class="hero fade-in"></section>
@@ -273,23 +296,20 @@ section {
 <section class="fade-in opis-section">
 <div class="opis-bg"></div>
 
-<div class="opis-content">
-<h2>Cartelería exterior digital</h2>
-
 <div class="grid-2">
-<div class="placeholder" style="height:180px; background:#111; border-radius:10px;"></div>
-<div class="placeholder" style="height:180px; background:#111; border-radius:10px;"></div>
+<img src="magnum-cuadrada-izquierda.png" class="merch-img">
+<img src="magnum-cuadrada-derecha.png" class="merch-img">
 </div>
-
-<div class="placeholder" style="height:200px; margin-top:15px; background:#111; border-radius:10px;"></div>
-
-</div>
+ <section class="fade-in">
+<img src="billboard-magnum.png" style="width:100%; max-width:1737px; border-radius:12px; display:block; margin:auto; box-shadow:0 10px 25px rgba(0,0,0,0.4);">
 </section>
 
 <!-- POSTS -->
 <section class="fade-in">
 <h2>Posts en redes sociales</h2>
-<div class="placeholder" style="height:250px; background:#222; border-radius:10px;"></div>
+
+<img src="rrss_magnum.png" style="width:100%; max-width:1737px; border-radius:12px; display:block; margin:auto; box-shadow:0 10px 25px rgba(0,0,0,0.4);">
+
 </section>
 
 <!-- VIDEO -->
