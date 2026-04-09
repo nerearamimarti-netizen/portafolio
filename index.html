@@ -91,7 +91,6 @@ section {
   border-radius: 999px;
   cursor: pointer;
   color: white;
-  font-size: 13px;
 }
 
 .tab-buttons button.active {
@@ -101,14 +100,42 @@ section {
 .tab-content {
   margin-top: 15px;
   display: none;
-  animation: fade 0.4s ease;
 }
 
 .tab-content.active {
   display: block;
 }
 
-/* PROJECTS */
+/* QUE PUEDO HACER */
+.services {
+  display: grid;
+  gap: 20px;
+}
+
+@media(min-width:768px){
+  .services {
+    grid-template-columns: repeat(3,1fr);
+  }
+}
+
+.service {
+  background: #1c1c1c;
+  padding: 20px;
+  border-radius: 16px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.service:hover {
+  transform: translateY(-5px);
+}
+
+.service img {
+  width: 40px;
+  margin-bottom: 10px;
+}
+
+/* PROYECTOS */
 .grid {
   display: grid;
   gap: 20px;
@@ -124,31 +151,25 @@ section {
   background: #1c1c1c;
   padding: 20px;
   border-radius: 16px;
-  transition: transform 0.3s ease, background 0.3s;
+  transition: transform 0.3s ease;
 }
 
 .card:hover {
   transform: translateY(-6px);
-  background: #222;
 }
 
-/* IMAGEN PROYECTO (CORREGIDA) */
+/* IMAGEN PROYECTO */
 .project-img {
   width: 100%;
   height: 240px;
-  object-fit: cover;
+  background: #333;
   border-radius: 12px;
   margin-bottom: 15px;
-  transition: transform 0.3s ease;
+  background-size: cover;
+  background-position: center;
 }
 
-.project-img:hover {
-  transform: scale(1.03);
-}
-
-/* TEXTOS */
 .project-title {
-  font-size: 18px;
   font-weight: 600;
 }
 
@@ -160,14 +181,12 @@ section {
 
 /* BOTONES */
 button {
-  margin-top: 10px;
   padding: 10px 18px;
   border: none;
   border-radius: 999px;
   background: linear-gradient(270deg,#ff4ecd,#6c63ff);
   color: white;
   cursor: pointer;
-  transition: transform 0.2s ease;
 }
 
 button:hover {
@@ -176,7 +195,14 @@ button:hover {
 
 /* CONTACTO */
 .contact-item {
-  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.contact-item img {
+  width: 20px;
 }
 
 /* FOOTER */
@@ -187,11 +213,6 @@ footer {
 }
 
 /* ANIMACIONES */
-@keyframes fade {
-  from {opacity:0; transform:translateY(10px);}
-  to {opacity:1; transform:translateY(0);}
-}
-
 @keyframes gradientMove {
   0% {background-position:0% 50%;}
   50% {background-position:100% 50%;}
@@ -228,13 +249,10 @@ footer {
 <h2>Sobre mí</h2>
 
 <p>
-Soy creadora visual enfocada en contenido digital y redes sociales. Trabajo en edición de vídeo,
-diseño gráfico y creación de contenido visual con una visión centrada en estética, coherencia de marca
-y comunicación efectiva.
+Soy creadora visual enfocada en contenido digital y redes sociales.
 </p>
 
 <div class="tabs">
-
 <div class="tab-buttons">
 <button class="active" onclick="showTab('skills')">Skills</button>
 <button onclick="showTab('experiencia')">Experiencia</button>
@@ -243,27 +261,19 @@ y comunicación efectiva.
 </div>
 
 <div id="skills" class="tab-content active">
-Adobe Photoshop, Illustrator, InDesign, Premiere, After Effects<br><br>
-ChatGPT, Sora, Gemini, Freepik AI<br><br>
-CapCut, Metricool, Meta Business, Wordpress, Shopify, Prestashop
+Adobe, IA generativa, herramientas digitales
 </div>
 
 <div id="experiencia" class="tab-content">
-Diseñadora gráfica y Community Manager - Ádraba<br><br>
-Community Manager - Lunaro Solutions<br><br>
-Diseño y comunicación digital - Jastag
+Experiencia en diseño, RRSS y contenido
 </div>
 
 <div id="estudios" class="tab-content">
-CEI - Motion Graphics, VFX y Dirección de arte<br><br>
-CEI - Diseño gráfico y marketing digital<br><br>
-IES Clara del Rey - Marketing y Publicidad
+Formación en diseño y marketing
 </div>
 
 <div id="certificaciones" class="tab-content">
-Elements of AI - University of Helsinki<br><br>
-Hubspot Academy - Inbound Marketing<br><br>
-Google Actívate - Marketing Digital
+Certificaciones en IA y marketing
 </div>
 
 </div>
@@ -274,63 +284,75 @@ Google Actívate - Marketing Digital
 
 </section>
 
+<!-- QUE PUEDO HACER -->
+<section>
+
+<h2>Qué puedo hacer</h2>
+
+<div class="services">
+
+<div class="service">
+<img src="video.png">
+<p>Edición de vídeo</p>
+</div>
+
+<div class="service">
+<img src="vector.png">
+<p>Diseño gráfico</p>
+</div>
+
+<div class="service">
+<img src="rrss.png">
+<p>Contenido RRSS</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- PROYECTOS -->
 <section>
 
 <h2>Proyectos</h2>
 
 <div class="grid">
 
-<!-- MAGNUM CON IMAGEN -->
 <div class="card">
-<img src="destacada-magnum.png" class="project-img">
+<div class="project-img" style="background-image:url('destacada-magnum-final.png')"></div>
 <div class="project-title">Campaña Magnum</div>
-<div class="project-subtitle">
-Algunos placeres no entienden de estaciones
+<div class="project-subtitle">Algunos placeres no entienden de estaciones</div>
+<a href="proyecto-magnum.html"><button>Ver proyecto</button></a>
 </div>
 
-<a href="proyecto-magnum.html">
-  <button>Ver proyecto</button>
-</a>
-</div>
-
-<div class="card">
-<div class="project-img"></div>
-<div class="project-title">Dolce Vita</div>
-<div class="project-subtitle">Branding y diseño de redes sociales</div>
-<button>Ver proyecto</button>
-</div>
-
-<div class="card">
-<div class="project-img"></div>
-<div class="project-title">Home 3D</div>
-<div class="project-subtitle">After Effects y Illustrator</div>
-<button>Ver proyecto</button>
-</div>
-
-<!-- SUPERBOY -->
 <div class="card">
 <div class="project-img"></div>
 <div class="project-title">Simulación Superboy</div>
 <div class="project-subtitle">Vídeo corto en After Effects</div>
-
-<a href="proyecto-superboy.html">
-  <button>Ver proyecto</button>
-</a>
+<a href="proyecto-superboy.html"><button>Ver proyecto</button></a>
 </div>
 
 </div>
 
 </section>
 
+<!-- CONTACTO -->
 <section>
 
 <h2>¿Hablamos? :)</h2>
 
 <div class="card">
 
-<div class="contact-item">📞 653607909</div>
-<div class="contact-item">✉️ nerearamimarti@gmail.com</div>
-<div class="contact-item">📍 Madrid</div>
+<div class="contact-item">
+<img src="llamar.png"> 653607909
+</div>
+
+<div class="contact-item">
+<img src="correo.png"> nerearamimarti@gmail.com
+</div>
+
+<div class="contact-item">
+<img src="mapa.png"> Madrid
+</div>
 
 </div>
 
@@ -341,6 +363,7 @@ Algunos placeres no entienden de estaciones
 </footer>
 
 <script>
+
 function showTab(tabId){
   document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
   document.querySelectorAll('.tab-buttons button').forEach(btn=>btn.classList.remove('active'));
@@ -348,6 +371,7 @@ function showTab(tabId){
   document.getElementById(tabId).classList.add('active');
   event.target.classList.add('active');
 }
+
 </script>
 
 </body>
