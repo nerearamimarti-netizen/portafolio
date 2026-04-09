@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Campaña Magnum</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<title>Magnum</title>
 
 <style>
 
@@ -14,186 +15,194 @@ body {
   font-family: 'Poppins', sans-serif;
   background: #493026;
   color: white;
+  overflow-x: hidden;
 }
 
-/* HERO FULL WIDTH */
+/* BOTÓN */
+.back-home {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: linear-gradient(270deg,#ff4ecd,#6c63ff);
+  padding: 8px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: white;
+  font-size: 13px;
+  z-index: 999;
+}
+
+/* HERO FULL WIDTH REAL */
 .hero {
   width: 100vw;
   height: 100vh;
-  margin-left: -50vw;
-  left: 50%;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* CONTAINER */
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 40px 20px;
-}
-
-/* TEXTOS */
-h1, h2, h3 {
-  font-weight: 600;
-}
-
-p {
-  font-weight: 300;
-  line-height: 1.6;
-}
-
-/* ACCORDION */
-.accordion-container {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.accordion {
-  background: rgba(255,255,255,0.05);
-  padding: 15px;
-  border-radius: 10px;
-  cursor: pointer;
-  width: 48%;
-  transition: 0.3s;
-}
-
-.accordion:hover {
-  background: rgba(255,255,255,0.1);
-}
-
-.accordion-header {
+  background: url("Magnum-hero.png") center/cover no-repeat;
   display: flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* SECCIONES */
+section {
+  padding: 30px 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+/* ACORDEÓN */
+.accordion {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+@media(min-width:768px){
+  .accordion {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.accordion-item button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #2b1b14;
+  color: white;
+  cursor: pointer;
+  display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
+/* FLECHA MÁS BONITA */
 .arrow {
-  width: 22px;
-  height: 22px;
-  transition: 0.3s;
-  fill: white;
+  font-size: 18px;
+  transition: transform 0.3s ease;
 }
 
-.accordion.open .arrow {
+/* ROTACIÓN */
+.open .arrow {
   transform: rotate(180deg);
-  fill: #f5e6c8;
 }
 
+/* COLOR AL ABRIR */
+.open button {
+  background: #6c63ff;
+}
+
+/* CONTENIDO */
 .accordion-content {
-  display: none;
-  margin-top: 10px;
-}
-
-.accordion.open .accordion-content {
-  display: block;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+  background: rgba(0,0,0,0.2);
+  padding: 0 10px;
+  border-radius: 0 0 10px 10px;
 }
 
 /* MERCH */
-.merch-grid {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  flex-wrap: wrap;
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+@media(min-width:768px){
+  .grid-2 {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .merch-img {
-  width: 300px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-}
-
-/* BILLBOARD */
-.billboard img {
-  width: 100%;
-  max-width: 1737px;
-  display: block;
-  margin: 30px auto;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-}
-
-/* RRSS */
-.rrss-img {
-  width: 100%;
-  max-width: 1737px;
-  display: block;
-  margin: auto;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-}
-
-/* YOUTUBE RESPONSIVE */
-.video-container {
-  position: relative;
-  width: 100%;
-  padding-bottom: 56.25%;
-  margin-top: 30px;
-}
-
-.video-container iframe {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-}
-
-/* FOOTER */
-.footer {
-  position: relative;
-  margin-top: 60px;
-}
-
-.footer img {
   width: 100%;
   height: auto;
-  display: block;
+  border-radius: 10px;
 }
 
-.footer-overlay {
+/* OPPIS */
+.opis-section {
+  position: relative;
+}
+
+.opis-bg {
+  position: absolute;
+  inset: 0;
+  background: #222;
+  opacity: 0.4;
+  border-radius: 12px;
+}
+
+.opis-content {
+  position: relative;
+}
+
+/* VIDEO */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.video-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* FOOTER MÁS LIMPIO */
+.footer-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+/* degradado encima */
+.footer-gradient {
   position: absolute;
   top: 0;
   width: 100%;
-  height: 100%;
-  background: linear-gradient(#493026, transparent);
+  height: 100px;
+  background: linear-gradient(to bottom, #493026, transparent);
+  z-index: 2;
+}
+
+.footer-image {
+  width: 100%;
+  height: 180px;
+  background: url("footer-nuevo.png") center/cover no-repeat;
 }
 
 .footer-text {
   position: absolute;
-  bottom: 20px;
+  top: 40%;
   width: 100%;
   text-align: center;
-  color: white;
-  font-size: 14px;
+  z-index: 3;
 }
 
-/* BOTÓN VOLVER */
-.back-btn {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  background: white;
-  color: black;
-  padding: 12px 18px;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: bold;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-  animation: floatBtn 3s ease-in-out infinite;
-  z-index: 999;
+.copyright-box {
+  display: inline-block;
+  background: rgba(0,0,0,0.5);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
 }
 
-@keyframes floatBtn {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0); }
+/* ANIMACIÓN */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 </style>
@@ -201,103 +210,126 @@ p {
 
 <body>
 
+<a href="index.html" class="back-home">← Volver</a>
+
 <!-- HERO -->
-<section class="hero">
-  <img src="Magnum-hero.png">
+<section class="hero fade-in"></section>
+
+<!-- DESCRIPCIÓN + CONCEPTO -->
+<section class="fade-in">
+
+<p><strong>Proyecto conceptual ficticio</strong> desarrollado para Magnum.</p>
+
+<h2>Concepto de campaña</h2>
+
+<div class="accordion">
+
+<div class="accordion-item">
+<button onclick="toggleAccordion(this)">
+<strong>Tensión</strong>
+<span class="arrow">⌄</span>
+</button>
+<div class="accordion-content">
+<p><strong>En invierno, el helado parece prohibido</strong> por el frío y la incomodidad.</p>
+</div>
+</div>
+
+<div class="accordion-item">
+<button onclick="toggleAccordion(this)">
+<strong>Insight</strong>
+<span class="arrow">⌄</span>
+</button>
+<div class="accordion-content">
+<p><strong>Asociar Magnum con momentos cálidos</strong> del invierno.</p>
+</div>
+</div>
+
+<div class="accordion-item">
+<button onclick="toggleAccordion(this)">
+<strong>Idea</strong>
+<span class="arrow">⌄</span>
+</button>
+<div class="accordion-content">
+<p><strong>Magnum acompaña el invierno</strong> con una experiencia envolvente y una manta.</p>
+</div>
+</div>
+
+</div>
+
 </section>
 
-<div class="container">
-
-<!-- DESCRIPCIÓN -->
-<p><strong>Campaña ficticia de branding y experiencia de marca para Magnum.</strong>  
-Una propuesta creativa que conecta el placer del helado con los momentos cálidos del invierno.</p>
-
-<!-- ACCORDIONS -->
-<div class="accordion-container">
-
-<div class="accordion" onclick="toggleAccordion(this)">
-<div class="accordion-header">
-<strong>Tensión</strong>
-<svg class="arrow" viewBox="0 0 24 24">
-<path d="M7 10l5 5 5-5z"/>
-</svg>
-</div>
-<div class="accordion-content">
-<p>En invierno el helado parece “prohibido”, el frío hace que consumirlo resulte incómodo y el placer se pospone hasta el verano.</p>
-</div>
-</div>
-
-<div class="accordion" onclick="toggleAccordion(this)">
-<div class="accordion-header">
-<strong>Insight</strong>
-<svg class="arrow" viewBox="0 0 24 24">
-<path d="M7 10l5 5 5-5z"/>
-</svg>
-</div>
-<div class="accordion-content">
-<p>Asociar Magnum con los placeres de invierno: una experiencia cálida, envolvente y sensorial.</p>
-</div>
-</div>
-
-<div class="accordion" onclick="toggleAccordion(this)">
-<div class="accordion-header">
-<strong>Idea</strong>
-<svg class="arrow" viewBox="0 0 24 24">
-<path d="M7 10l5 5 5-5z"/>
-</svg>
-</div>
-<div class="accordion-content">
-<p>Crear un concepto donde Magnum acompaña momentos de invierno con manta incluida, generando una experiencia completa de disfrute.</p>
-</div>
-</div>
-
-</div>
-
-<!-- MERCHANDISING -->
+<!-- MERCH -->
+<section class="fade-in">
 <h2>Merchandising</h2>
 
-<div class="merch-grid">
+<div class="grid-2">
 <img src="merchandising-magnum-izquierda.png" class="merch-img">
 <img src="merchandising-magnum-derecha.png" class="merch-img">
 </div>
 
-<!-- CUADRADAS -->
-<div class="merch-grid">
-<img src="magnum-cuadrada-izquierda.png" class="merch-img">
-<img src="magnum-cuadrada-derecha.png" class="merch-img">
+</section>
+
+<!-- OPPIS -->
+<section class="fade-in opis-section">
+<div class="opis-bg"></div>
+
+<div class="opis-content">
+<h2>Cartelería exterior digital</h2>
+
+<div class="grid-2">
+<div class="placeholder" style="height:180px; background:#111; border-radius:10px;"></div>
+<div class="placeholder" style="height:180px; background:#111; border-radius:10px;"></div>
 </div>
 
-<!-- BILLBOARD -->
-<div class="billboard">
-<img src="billboard-magnum.png">
-</div>
+<div class="placeholder" style="height:200px; margin-top:15px; background:#111; border-radius:10px;"></div>
 
-<!-- RRSS -->
-<h2>Redes sociales</h2>
-<img src="rrss_magnum.png" class="rrss-img">
+</div>
+</section>
+
+<!-- POSTS -->
+<section class="fade-in">
+<h2>Posts en redes sociales</h2>
+<div class="placeholder" style="height:250px; background:#222; border-radius:10px;"></div>
+</section>
 
 <!-- VIDEO -->
-<div class="video-container">
-<iframe src="https://www.youtube.com/embed/dPMp22JkiI0"
-allowfullscreen></iframe>
+<section class="fade-in">
+<h2>Vídeo campaña</h2>
+
+<div class="video-wrapper">
+<iframe src="https://www.youtube.com/embed/dPMp22JkiI0" allowfullscreen></iframe>
 </div>
 
-</div>
+</section>
 
 <!-- FOOTER -->
-<div class="footer">
-<img src="footer-nuevo.png">
-<div class="footer-overlay"></div>
-<div class="footer-text">© 2026 Neergraphs</div>
+<div class="footer-wrapper fade-in">
+
+<div class="footer-gradient"></div>
+
+<div class="footer-text">
+  <div class="copyright-box">© 2026 Neeergraphs</div>
 </div>
 
-<!-- BOTÓN VOLVER -->
-<a href="index.html" class="back-btn">Volver al inicio</a>
+<div class="footer-image"></div>
+
+</div>
 
 <script>
-function toggleAccordion(el) {
-  el.classList.toggle("open");
+
+function toggleAccordion(button){
+  const item = button.parentElement;
+  const content = button.nextElementSibling;
+
+  item.classList.toggle("open");
+
+  if(content.style.maxHeight){
+    content.style.maxHeight = null;
+  } else {
+    content.style.maxHeight = content.scrollHeight + "px";
+  }
 }
+
 </script>
 
 </body>
