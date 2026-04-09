@@ -32,10 +32,10 @@ body {
   z-index: 999;
 }
 
-/* HERO FULL WIDTH REAL */
+/* HERO PROPORCIONAL 1920x800 */
 .hero {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  aspect-ratio: 1920 / 800;
   background: url("Magnum-hero.png") center/cover no-repeat;
   display: flex;
   align-items: center;
@@ -48,6 +48,11 @@ section {
   padding: 30px 20px;
   max-width: 1100px;
   margin: auto;
+}
+
+/* DESCRIPCIÓN */
+.description {
+  margin-top: -10px;
 }
 
 /* ACORDEÓN */
@@ -65,7 +70,7 @@ section {
 
 .accordion-item button {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   border: none;
   border-radius: 10px;
   background: #2b1b14;
@@ -76,20 +81,20 @@ section {
   align-items: center;
 }
 
-/* FLECHA MÁS BONITA */
+/* ICONO SVG */
 .arrow {
-  font-size: 18px;
-  transition: transform 0.3s ease;
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  fill: white;
+  opacity: 0.8;
 }
 
 /* ROTACIÓN */
 .open .arrow {
   transform: rotate(180deg);
-}
-
-/* COLOR AL ABRIR */
-.open button {
-  background: #6c63ff;
+  fill: #6c63ff;
+  opacity: 0.5;
 }
 
 /* CONTENIDO */
@@ -106,7 +111,7 @@ section {
 .grid-2 {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 15px;
+  gap: 20px;
 }
 
 @media(min-width:768px){
@@ -115,27 +120,23 @@ section {
   }
 }
 
+.merch-card {
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(0,0,0,0.2);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.merch-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+}
+
 .merch-img {
   width: 100%;
   height: auto;
-  border-radius: 10px;
-}
-
-/* OPPIS */
-.opis-section {
-  position: relative;
-}
-
-.opis-bg {
-  position: absolute;
-  inset: 0;
-  background: #222;
-  opacity: 0.4;
-  border-radius: 12px;
-}
-
-.opis-content {
-  position: relative;
+  display: block;
 }
 
 /* VIDEO */
@@ -153,25 +154,24 @@ section {
   border: 0;
 }
 
-/* FOOTER MÁS LIMPIO */
+/* FOOTER */
 .footer-wrapper {
   width: 100%;
   position: relative;
 }
 
-/* degradado encima */
 .footer-gradient {
   position: absolute;
   top: 0;
   width: 100%;
-  height: 100px;
+  height: 120px;
   background: linear-gradient(to bottom, #493026, transparent);
   z-index: 2;
 }
 
 .footer-image {
   width: 100%;
-  height: 180px;
+  height: 220px;
   background: url("footer-nuevo.png") center/cover no-repeat;
 }
 
@@ -188,7 +188,6 @@ section {
   background: rgba(0,0,0,0.5);
   padding: 6px 12px;
   border-radius: 6px;
-  font-size: 13px;
 }
 
 /* ANIMACIÓN */
@@ -215,10 +214,17 @@ section {
 <!-- HERO -->
 <section class="hero fade-in"></section>
 
-<!-- DESCRIPCIÓN + CONCEPTO -->
-<section class="fade-in">
+<!-- DESCRIPCIÓN -->
+<section class="fade-in description">
 
-<p><strong>Proyecto conceptual ficticio</strong> desarrollado para Magnum.</p>
+<p>
+<strong>Proyecto conceptual ficticio</strong> desarrollado para la marca Magnum, centrado en posicionar el helado como un placer también en invierno.
+</p>
+
+</section>
+
+<!-- CONCEPTO -->
+<section class="fade-in">
 
 <h2>Concepto de campaña</h2>
 
@@ -227,7 +233,9 @@ section {
 <div class="accordion-item">
 <button onclick="toggleAccordion(this)">
 <strong>Tensión</strong>
-<span class="arrow">⌄</span>
+<svg class="arrow" viewBox="0 0 24 24">
+<path d="M7 10l5 5 5-5z"></path>
+</svg>
 </button>
 <div class="accordion-content">
 <p><strong>En invierno, el helado parece prohibido</strong> por el frío y la incomodidad.</p>
@@ -237,20 +245,24 @@ section {
 <div class="accordion-item">
 <button onclick="toggleAccordion(this)">
 <strong>Insight</strong>
-<span class="arrow">⌄</span>
+<svg class="arrow" viewBox="0 0 24 24">
+<path d="M7 10l5 5 5-5z"></path>
+</svg>
 </button>
 <div class="accordion-content">
-<p><strong>Asociar Magnum con momentos cálidos</strong> del invierno.</p>
+<p><strong>Magnum se asocia a momentos cálidos</strong> incluso en invierno.</p>
 </div>
 </div>
 
 <div class="accordion-item">
 <button onclick="toggleAccordion(this)">
 <strong>Idea</strong>
-<span class="arrow">⌄</span>
+<svg class="arrow" viewBox="0 0 24 24">
+<path d="M7 10l5 5 5-5z"></path>
+</svg>
 </button>
 <div class="accordion-content">
-<p><strong>Magnum acompaña el invierno</strong> con una experiencia envolvente y una manta.</p>
+<p><strong>Una experiencia envolvente con manta</strong> que convierte el consumo en placer completo.</p>
 </div>
 </div>
 
@@ -263,33 +275,16 @@ section {
 <h2>Merchandising</h2>
 
 <div class="grid-2">
+
+<div class="merch-card">
 <img src="merchandising-magnum-izquierda.png" class="merch-img">
+</div>
+
+<div class="merch-card">
 <img src="merchandising-magnum-derecha.png" class="merch-img">
 </div>
 
-</section>
-
-<!-- OPPIS -->
-<section class="fade-in opis-section">
-<div class="opis-bg"></div>
-
-<div class="opis-content">
-<h2>Cartelería exterior digital</h2>
-
-<div class="grid-2">
-<div class="placeholder" style="height:180px; background:#111; border-radius:10px;"></div>
-<div class="placeholder" style="height:180px; background:#111; border-radius:10px;"></div>
 </div>
-
-<div class="placeholder" style="height:200px; margin-top:15px; background:#111; border-radius:10px;"></div>
-
-</div>
-</section>
-
-<!-- POSTS -->
-<section class="fade-in">
-<h2>Posts en redes sociales</h2>
-<div class="placeholder" style="height:250px; background:#222; border-radius:10px;"></div>
 </section>
 
 <!-- VIDEO -->
