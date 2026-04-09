@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<title>Campaña Magnum</title>
+
+<style>
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #493026;
+  color: white;
+}
+
+/* BOTÓN FLOTANTE */
+.back-home {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(270deg,#ff4ecd,#6c63ff);
+  padding: 10px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  z-index: 999;
+}
+
+/* SECCIONES */
+section {
+  padding: 80px 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* HERO */
+.hero {
+  height: 400px;
+  background: #2b1b14;
+  border-radius: 16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size: 32px;
+  font-weight: 600;
+}
+
+/* TEXTOS */
+h1, h2 {
+  font-weight: 600;
+}
+
+.subtitle {
+  color: #ddd;
+  margin-bottom: 20px;
+}
+
+/* GRID MERCH */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media(min-width:768px){
+  .grid-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.box {
+  background: rgba(0,0,0,0.2);
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 300px;
+  background: #222;
+  border-radius: 12px;
+}
+
+/* CARTELERÍA */
+.billboard-section {
+  position: relative;
+  padding: 100px 20px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.billboard-bg {
+  position: absolute;
+  inset: 0;
+  background: #222;
+  opacity: 0.4;
+}
+
+.billboard-content {
+  position: relative;
+}
+
+.overlay-images {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.overlay-images div {
+  flex: 1;
+  height: 200px;
+  background: #111;
+  border-radius: 12px;
+}
+
+/* BILLBOARD GRANDE */
+.billboard-large {
+  height: 250px;
+  background: #111;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+/* VIDEO */
+video {
+  width: 100%;
+  border-radius: 12px;
+}
+
+/* POSTS */
+.post {
+  height: 300px;
+  background: #111;
+  border-radius: 12px;
+}
+
+/* FOOTER */
+.footer-img {
+  height: 200px;
+  background: #2b1b14;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  background: #2b1b14;
+  color: white;
+}
+
+.copyright {
+  background: #493026;
+  padding: 10px;
+  display: inline-block;
+  border-radius: 6px;
+  margin-top: 10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<a href="index.html" class="back-home">← Volver al inicio</a>
+
+<section>
+<div class="hero">
+MAGNUM CAMPAÑA
+</div>
+</section>
+
+<section>
+<h1>Campaña Magnum</h1>
+<p class="subtitle">Algunos placeres no entienden de estaciones</p>
+
+<p>
+Campaña conceptual centrada en redefinir el consumo de helado en invierno,
+asociando Magnum con momentos de confort, calidez y placer fuera de temporada.
+</p>
+</section>
+
+<section>
+<h2>Tensión</h2>
+<p>
+En invierno, el helado parece "prohibido": el frío hace que comerlo se sienta incómodo, y el placer se retrasa hasta verano.
+Cuando hace frío buscamos otros placeres reconfortantes.
+</p>
+</section>
+
+<section>
+<h2>Insight</h2>
+<p>
+Asociar Magnum con los placeres de invierno: una experiencia cálida, envolvente y sensorial.
+</p>
+</section>
+
+<section>
+<h2>Idea</h2>
+<p>
+Crear un concepto donde Magnum acompaña momentos de invierno con una manta, generando una experiencia de disfrute completa.
+</p>
+</section>
+
+<section>
+<h2>Merchandising</h2>
+
+<div class="grid-2">
+
+<div class="box">
+<div class="image-placeholder"></div>
+</div>
+
+<div class="box">
+<div class="image-placeholder"></div>
+</div>
+
+</div>
+
+</section>
+
+<section class="billboard-section">
+
+<div class="billboard-bg"></div>
+
+<div class="billboard-content">
+
+<h2>Cartelería exterior digital</h2>
+
+<div class="overlay-images">
+<div></div>
+<div></div>
+</div>
+
+<div class="billboard-large"></div>
+
+</div>
+
+</section>
+
+<section>
+<h2>Posts en redes sociales</h2>
+<div class="post"></div>
+</section>
+
+<section>
+<h2>Vídeo campaña</h2>
+
+<video controls>
+<source src="video-magnum.mp4" type="video/mp4">
+Tu navegador no soporta vídeo.
+</video>
+
+</section>
+
+<section>
+<p style="font-size:18px; text-align:center;">
+Por que cada estación merece su momento Magnum.
+</p>
+</section>
+
+<div class="footer-img"></div>
+
+<footer>
+<div>© 2026 Neeergraphs</div>
+<div class="copyright">Todos los derechos reservados</div>
+</footer>
+
+</body>
+</html>
