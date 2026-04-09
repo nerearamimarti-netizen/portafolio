@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
 
 <title>Superboy Project</title>
 
@@ -13,12 +13,12 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: #cfe9ff; /* azul clarito */
+  background: linear-gradient(180deg,#cfe9ff,#eaf6ff);
   color: #111;
   overflow-x: hidden;
 }
 
-/* BOTÓN VOLVER */
+/* BOTÓN (intacto) */
 .back-home {
   position: fixed;
   top: 18px;
@@ -40,84 +40,147 @@ body {
 }
 
 @keyframes float {
-  0% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
-  100% { transform: translateY(0); }
 }
 
-/* HERO */
+/* HERO PRO */
 .hero {
-  height: 60vh;
+  height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: linear-gradient(135deg,#bfe6ff,#eaf6ff);
+  position: relative;
+  overflow: hidden;
+}
+
+/* fondo animado */
+.hero::before {
+  content:"";
+  position:absolute;
+  width:200%;
+  height:200%;
+  background: radial-gradient(circle at 30% 30%, #ffffff40, transparent 60%),
+              radial-gradient(circle at 70% 70%, #4dabff40, transparent 60%);
+  animation: moveBg 10s linear infinite;
+}
+
+@keyframes moveBg {
+  0% {transform: translate(0,0);}
+  50% {transform: translate(-10%, -10%);}
+  100% {transform: translate(0,0);}
 }
 
 .hero h1 {
-  font-size: 48px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 64px;
   margin: 0;
-  color: #0a0a0a;
+  z-index: 2;
+  background: linear-gradient(270deg,#0077ff,#00c6ff,#0077ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 6s infinite;
+}
+
+@keyframes gradientMove {
+  0% {background-position:0%}
+  100% {background-position:100%}
 }
 
 /* SECCIONES */
 section {
   max-width: 1000px;
   margin: auto;
-  padding: 40px 20px;
+  padding: 50px 20px;
+}
+
+/* BLOQUE TEXTO */
+.text-box {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+
+.text-box:hover {
+  transform: translateY(-6px);
 }
 
 p {
-  line-height: 1.6;
+  line-height: 1.7;
   color: #333;
 }
 
-/* VIDEO RESPONSIVE */
+/* VIDEO */
 .video-wrapper {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
 }
 
-.video-wrapper iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
+.video-wrapper:hover {
+  transform: scale(1.02);
 }
 
-/* ICONOS */
+/* ICONOS PRO */
 .icon-row {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
   margin-top: 20px;
+  justify-content: center;
 }
 
 .icon-box {
-  width: 80px;
-  height: 80px;
-  background: #ffffff;
-  border-radius: 12px;
+  width: 90px;
+  height: 90px;
+  background: white;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  border: 1px solid #ddd;
-  transition: transform 0.3s ease;
+  font-weight: 600;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
 }
 
 .icon-box:hover {
-  transform: scale(1.1);
+  transform: translateY(-8px) scale(1.05);
 }
 
+/* TITULOS */
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Fredoka', sans-serif;
+}
+
+/* DIVIDER BONITO */
 .divider {
-  height: 1px;
-  background: #ccc;
-  margin: 30px 0;
+  height: 2px;
+  width: 60px;
+  background: #0077ff;
+  margin: 20px auto;
+  border-radius: 10px;
+}
+
+/* ANIM ENTRADA */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fade 0.8s forwards;
+}
+
+@keyframes fade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 </style>
@@ -125,18 +188,19 @@ p {
 
 <body>
 
-<!-- BOTÓN -->
 <a class="back-home" href="index.html">← Volver</a>
 
 <!-- HERO -->
-<header class="hero">
+<header class="hero fade-in">
   <h1>SUPERBOY</h1>
 </header>
 
 <!-- TEXTO -->
-<section>
+<section class="fade-in">
 
-<p><strong>Este vídeo forma parte de un proyecto creativo y experimental de VFX realizado con After Effects.</strong></p>
+<div class="text-box">
+
+<p><strong>Proyecto creativo y experimental de VFX realizado con After Effects.</strong></p>
 
 <div class="divider"></div>
 
@@ -145,17 +209,19 @@ A partir de una grabación real en la calle de un OPPI, se integra un pequeño s
 </p>
 
 <p>
-Es un ejercicio técnico y narrativo centrado en la integración de efectos visuales en entornos reales, con un tono ligero, divertido y experimental.
+Ejercicio técnico y narrativo centrado en la integración de efectos visuales en entornos reales, con un tono ligero, divertido y experimental.
 </p>
 
 <p>
-Proyecto realizado con fines académicos y de aprendizaje en composición y postproducción.
+Proyecto académico enfocado en composición, integración y postproducción.
 </p>
+
+</div>
 
 </section>
 
 <!-- VIDEO -->
-<section>
+<section class="fade-in">
 
 <h2>Vídeo del proyecto</h2>
 
@@ -166,7 +232,7 @@ Proyecto realizado con fines académicos y de aprendizaje en composición y post
 </section>
 
 <!-- SOFTWARE -->
-<section>
+<section class="fade-in">
 
 <h2>Herramientas utilizadas</h2>
 
