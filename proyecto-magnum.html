@@ -6,7 +6,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-<title>Campaña Magnum</title>
+<title>Magnum</title>
 
 <style>
 
@@ -15,6 +15,7 @@ body {
   font-family: 'Poppins', sans-serif;
   background: #493026;
   color: white;
+  overflow-x: hidden;
 }
 
 /* BOTÓN */
@@ -33,8 +34,8 @@ body {
 
 /* HERO FULL WIDTH REAL */
 .hero {
-  width: 100%;
-  height: 80vh;
+  width: 100vw;
+  height: 100vh;
   background: url("Magnum-hero.png") center/cover no-repeat;
   display: flex;
   align-items: center;
@@ -42,20 +43,14 @@ body {
   text-align: center;
 }
 
-.hero-content {
-  background: rgba(0,0,0,0.4);
-  padding: 20px;
-  border-radius: 12px;
-}
-
 /* SECCIONES */
 section {
-  padding: 25px 20px;
+  padding: 30px 20px;
   max-width: 1100px;
   margin: auto;
 }
 
-/* ACORDEÓN EN GRID */
+/* ACORDEÓN */
 .accordion {
   display: grid;
   grid-template-columns: 1fr;
@@ -68,12 +63,11 @@ section {
   }
 }
 
-/* ITEMS */
 .accordion-item button {
   width: 100%;
   padding: 10px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   background: #2b1b14;
   color: white;
   cursor: pointer;
@@ -82,14 +76,20 @@ section {
   align-items: center;
 }
 
-/* FLECHA DINÁMICA */
+/* FLECHA MÁS BONITA */
 .arrow {
-  transition: transform 0.3s ease;
   font-size: 18px;
+  transition: transform 0.3s ease;
 }
 
+/* ROTACIÓN */
 .open .arrow {
   transform: rotate(180deg);
+}
+
+/* COLOR AL ABRIR */
+.open button {
+  background: #6c63ff;
 }
 
 /* CONTENIDO */
@@ -99,7 +99,7 @@ section {
   transition: max-height 0.4s ease, padding 0.3s ease;
   background: rgba(0,0,0,0.2);
   padding: 0 10px;
-  border-radius: 0 0 8px 8px;
+  border-radius: 0 0 10px 10px;
 }
 
 /* MERCH */
@@ -115,13 +115,30 @@ section {
   }
 }
 
-.placeholder {
-  height: 220px;
-  background: #222;
+.merch-img {
+  width: 100%;
+  height: auto;
   border-radius: 10px;
 }
 
-/* VIDEO RESPONSIVE */
+/* OPPIS */
+.opis-section {
+  position: relative;
+}
+
+.opis-bg {
+  position: absolute;
+  inset: 0;
+  background: #222;
+  opacity: 0.4;
+  border-radius: 12px;
+}
+
+.opis-content {
+  position: relative;
+}
+
+/* VIDEO */
 .video-wrapper {
   position: relative;
   width: 100%;
@@ -136,33 +153,45 @@ section {
   border: 0;
 }
 
-/* FOOTER REAL FULL WIDTH */
+/* FOOTER MÁS LIMPIO */
 .footer-wrapper {
   width: 100%;
   position: relative;
 }
 
+/* degradado encima */
+.footer-gradient {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to bottom, #493026, transparent);
+  z-index: 2;
+}
+
 .footer-image {
   width: 100%;
-  height: 300px;
+  height: 180px;
   background: url("footer-nuevo.png") center/cover no-repeat;
 }
 
 .footer-text {
   position: absolute;
-  top: 20px;
+  top: 40%;
   width: 100%;
   text-align: center;
+  z-index: 3;
 }
 
 .copyright-box {
   display: inline-block;
   background: rgba(0,0,0,0.5);
-  padding: 8px 12px;
+  padding: 6px 12px;
   border-radius: 6px;
+  font-size: 13px;
 }
 
-/* ANIMACIONES */
+/* ANIMACIÓN */
 .fade-in {
   opacity: 0;
   transform: translateY(20px);
@@ -184,17 +213,12 @@ section {
 <a href="index.html" class="back-home">← Volver</a>
 
 <!-- HERO -->
-<section class="hero fade-in">
-  <div class="hero-content">
-    <h1>Campaña Magnum</h1>
-    <p><strong>Algunos placeres no entienden de estaciones</strong></p>
-  </div>
-</section>
+<section class="hero fade-in"></section>
 
-<!-- DESCRIPCIÓN + ACORDEÓN -->
+<!-- DESCRIPCIÓN + CONCEPTO -->
 <section class="fade-in">
 
-<p><strong>Proyecto conceptual ficticio</strong> desarrollado para Magnum, enfocado en posicionar el helado como un placer también en invierno.</p>
+<p><strong>Proyecto conceptual ficticio</strong> desarrollado para Magnum.</p>
 
 <h2>Concepto de campaña</h2>
 
@@ -203,30 +227,30 @@ section {
 <div class="accordion-item">
 <button onclick="toggleAccordion(this)">
 <strong>Tensión</strong>
-<span class="arrow">▼</span>
+<span class="arrow">⌄</span>
 </button>
 <div class="accordion-content">
-<p><strong>En invierno, el helado parece "prohibido"</strong> debido al frío y la incomodidad de consumirlo.</p>
+<p><strong>En invierno, el helado parece prohibido</strong> por el frío y la incomodidad.</p>
 </div>
 </div>
 
 <div class="accordion-item">
 <button onclick="toggleAccordion(this)">
 <strong>Insight</strong>
-<span class="arrow">▼</span>
+<span class="arrow">⌄</span>
 </button>
 <div class="accordion-content">
-<p><strong>Asociar Magnum con momentos de invierno</strong> como una experiencia cálida y reconfortante.</p>
+<p><strong>Asociar Magnum con momentos cálidos</strong> del invierno.</p>
 </div>
 </div>
 
 <div class="accordion-item">
 <button onclick="toggleAccordion(this)">
 <strong>Idea</strong>
-<span class="arrow">▼</span>
+<span class="arrow">⌄</span>
 </button>
 <div class="accordion-content">
-<p><strong>Magnum acompaña el invierno</strong> mediante una manta que potencia la experiencia de confort.</p>
+<p><strong>Magnum acompaña el invierno</strong> con una experiencia envolvente y una manta.</p>
 </div>
 </div>
 
@@ -239,9 +263,33 @@ section {
 <h2>Merchandising</h2>
 
 <div class="grid-2">
-<div class="placeholder"></div>
-<div class="placeholder"></div>
+<img src="merchandising-magnum-izquierda.png" class="merch-img">
+<img src="merchandising-magnum-derecha.png" class="merch-img">
 </div>
+
+</section>
+
+<!-- OPPIS -->
+<section class="fade-in opis-section">
+<div class="opis-bg"></div>
+
+<div class="opis-content">
+<h2>Cartelería exterior digital</h2>
+
+<div class="grid-2">
+<div class="placeholder" style="height:180px; background:#111; border-radius:10px;"></div>
+<div class="placeholder" style="height:180px; background:#111; border-radius:10px;"></div>
+</div>
+
+<div class="placeholder" style="height:200px; margin-top:15px; background:#111; border-radius:10px;"></div>
+
+</div>
+</section>
+
+<!-- POSTS -->
+<section class="fade-in">
+<h2>Posts en redes sociales</h2>
+<div class="placeholder" style="height:250px; background:#222; border-radius:10px;"></div>
 </section>
 
 <!-- VIDEO -->
@@ -249,16 +297,15 @@ section {
 <h2>Vídeo campaña</h2>
 
 <div class="video-wrapper">
-<iframe 
-src="https://www.youtube.com/embed/dPMp22JkiI0"
-allowfullscreen>
-</iframe>
+<iframe src="https://www.youtube.com/embed/dPMp22JkiI0" allowfullscreen></iframe>
 </div>
 
 </section>
 
 <!-- FOOTER -->
 <div class="footer-wrapper fade-in">
+
+<div class="footer-gradient"></div>
 
 <div class="footer-text">
   <div class="copyright-box">© 2026 Neeergraphs</div>
@@ -278,10 +325,8 @@ function toggleAccordion(button){
 
   if(content.style.maxHeight){
     content.style.maxHeight = null;
-    content.style.padding = "0 10px";
   } else {
     content.style.maxHeight = content.scrollHeight + "px";
-    content.style.padding = "10px";
   }
 }
 
