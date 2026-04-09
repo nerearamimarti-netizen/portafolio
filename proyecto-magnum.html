@@ -18,37 +18,74 @@ body {
   overflow-x: hidden;
 }
 
-/* BOTÓN */
+/* =========================
+BOTÓN VOLVER (MEJORADO)
+========================= */
 .back-home {
   position: fixed;
-  top: 15px;
-  right: 15px;
+  top: 18px;
+  right: 18px;
   background: linear-gradient(270deg,#ff4ecd,#6c63ff);
-  padding: 12px 18px;
+  padding: 14px 22px;
   border-radius: 999px;
   text-decoration: none;
   color: white;
-  font-size: 14px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   z-index: 999;
+  animation: floatBtn 3s ease-in-out infinite;
+  transition: transform 0.3s ease;
+  overflow: hidden;
 }
 
-/* HERO FULL WIDTH + PARALLAX */
+/* flecha del botón */
+.back-home span {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+/* hover botón */
+.back-home:hover {
+  transform: scale(1.08);
+}
+
+/* flecha sale hacia la izquierda */
+.back-home:hover span {
+  transform: translateX(-20px);
+  opacity: 0;
+}
+
+/* flotación */
+@keyframes floatBtn {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+/* =========================
+HERO (ARREGLADO SIN CORTE)
+========================= */
 .hero {
-  width: 100vw;
-  height: 60vh;
-  margin-left: calc(-50vw + 50%);
-  background: url("Magnum-hero.png") center/cover no-repeat;
-  background-attachment: fixed; /* efecto movimiento */
+  width: 100%;
+  height: 70vh;
+  background: url("Magnum-hero.png") center center / contain no-repeat;
+  background-color: #493026;
 }
 
-/* SECCIONES */
+/* =========================
+SECCIONES
+========================= */
 section {
   padding: 25px 20px;
   max-width: 1100px;
   margin: auto;
 }
 
-/* ACORDEÓN */
+/* =========================
+ACORDEÓN
+========================= */
 .accordion {
   display: grid;
   grid-template-columns: 1fr;
@@ -71,34 +108,22 @@ section {
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
-/* FLECHA SVG RELLENA */
+/* flecha */
 .arrow {
-  width: 22px;
-  height: 22px;
-  fill: white;
-  transition: 0.3s;
+  font-size: 22px;
+  transition: transform 0.3s ease;
 }
 
-/* ABIERTO */
 .open .arrow {
   transform: rotate(180deg);
-  fill: #ffe7a3; /* amarillo más visible */
+  color: #ffe7a3;
 }
 
-/* CONTENIDO */
-.accordion-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease;
-  background: rgba(0,0,0,0.2);
-  padding: 0 10px;
-  border-radius: 0 0 10px 10px;
-}
-
-/* MERCH */
+/* =========================
+MERCH
+========================= */
 .grid-2 {
   display: grid;
   grid-template-columns: 1fr;
@@ -114,31 +139,38 @@ section {
 .merch-img {
   width: 100%;
   border-radius: 10px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 
-/* CUADRADAS */
+/* =========================
+CUADRADAS (SIN SOMBRA, MÁS PEQUEÑAS)
+========================= */
 .square-img {
-  width: 100%;
+  width: 85%;
+  margin: auto;
+  display: block;
   border-radius: 10px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 
-/* RRSS SIN SOMBRA */
+/* =========================
+BILLBOARD
+========================= */
+.billboard {
+  width: 100%;
+  margin-top: 15px;
+  border-radius: 12px;
+}
+
+/* =========================
+RRSS
+========================= */
 .rrss-img {
   width: 100%;
   border-radius: 10px;
 }
 
-/* BILLBOARD */
-.billboard {
-  width: 100%;
-  border-radius: 12px;
-  margin-top: 15px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-}
-
-/* VIDEO */
+/* =========================
+VIDEO
+========================= */
 .video-wrapper {
   position: relative;
   width: 100%;
@@ -153,7 +185,9 @@ section {
   border: 0;
 }
 
-/* FOOTER */
+/* =========================
+FOOTER
+========================= */
 .footer-wrapper {
   width: 100%;
   position: relative;
@@ -197,7 +231,10 @@ section {
 
 <body>
 
-<a href="index.html" class="back-home">← Volver</a>
+<!-- BOTÓN -->
+<a class="back-home" href="index.html">
+← <span>Volver</span>
+</a>
 
 <!-- HERO -->
 <section class="hero"></section>
@@ -214,21 +251,17 @@ section {
 <div class="accordion-item">
 <button onclick="toggleAccordion(this)">
 <strong>Tensión</strong>
-<svg class="arrow" viewBox="0 0 24 24">
-<path d="M7 10l5 5 5-5z"/>
-</svg>
+<span class="arrow">⌄</span>
 </button>
 <div class="accordion-content">
-<p><strong>En invierno, el helado parece prohibido</strong> por el frío.</p>
+<p><strong>En invierno, el helado parece prohibido</strong>.</p>
 </div>
 </div>
 
 <div class="accordion-item">
 <button onclick="toggleAccordion(this)">
 <strong>Insight</strong>
-<svg class="arrow" viewBox="0 0 24 24">
-<path d="M7 10l5 5 5-5z"/>
-</svg>
+<span class="arrow">⌄</span>
 </button>
 <div class="accordion-content">
 <p><strong>Asociar Magnum con momentos cálidos</strong>.</p>
@@ -238,12 +271,10 @@ section {
 <div class="accordion-item">
 <button onclick="toggleAccordion(this)">
 <strong>Idea</strong>
-<svg class="arrow" viewBox="0 0 24 24">
-<path d="M7 10l5 5 5-5z"/>
-</svg>
+<span class="arrow">⌄</span>
 </button>
 <div class="accordion-content">
-<p><strong>Magnum acompaña el invierno</strong> con una experiencia envolvente.</p>
+<p><strong>Magnum acompaña el invierno</strong>.</p>
 </div>
 </div>
 
@@ -259,24 +290,18 @@ section {
 <img src="merchandising-magnum-izquierda.png" class="merch-img">
 <img src="merchandising-magnum-derecha.png" class="merch-img">
 </div>
+</section>
 
-<div class="grid-2" style="margin-top:15px;">
+<!-- CARTELERÍA EXTERIOR (CORREGIDO) -->
+<section>
+<h2>Cartelería exterior digital</h2>
+
+<div class="grid-2">
 <img src="magnum-cuadrada-izquierda.png" class="square-img">
 <img src="magnum-cuadrada-derecha.png" class="square-img">
 </div>
 
 <img src="billboard-magnum.png" class="billboard">
-
-</section>
-
-<!-- OPPIS -->
-<section>
-<h2>Cartelería exterior digital</h2>
-
-<div class="grid-2">
-<img src="oppis-1.png" class="square-img">
-<img src="oppis-2.png" class="square-img">
-</div>
 
 </section>
 
@@ -310,7 +335,6 @@ section {
 </div>
 
 <script>
-
 function toggleAccordion(button){
   const item = button.parentElement;
   const content = button.nextElementSibling;
@@ -323,7 +347,6 @@ function toggleAccordion(button){
     content.style.maxHeight = content.scrollHeight + "px";
   }
 }
-
 </script>
 
 </body>
