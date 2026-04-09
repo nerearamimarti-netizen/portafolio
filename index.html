@@ -47,13 +47,14 @@ header .content {
   position: relative;
 }
 
-/* ABOUT */
+/* SECCIONES */
 section {
   padding: 80px 20px;
   max-width: 1000px;
   margin: auto;
 }
 
+/* ABOUT */
 .about-container {
   display: flex;
   gap: 40px;
@@ -70,10 +71,6 @@ section {
 
 .about-text {
   max-width: 500px;
-}
-
-.about-text p {
-  font-weight: 400;
 }
 
 /* TABS */
@@ -105,7 +102,6 @@ section {
   margin-top: 15px;
   display: none;
   animation: fade 0.4s ease;
-  font-weight: 400;
 }
 
 .tab-content.active {
@@ -136,16 +132,21 @@ section {
   background: #222;
 }
 
-/* IMAGEN PROYECTO */
+/* IMAGEN PROYECTO (CORREGIDA) */
 .project-img {
   width: 100%;
   height: 240px;
-  background: #333;
+  object-fit: cover;
   border-radius: 12px;
   margin-bottom: 15px;
+  transition: transform 0.3s ease;
 }
 
-/* TITULOS PROYECTOS */
+.project-img:hover {
+  transform: scale(1.03);
+}
+
+/* TEXTOS */
 .project-title {
   font-size: 18px;
   font-weight: 600;
@@ -154,7 +155,6 @@ section {
 .project-subtitle {
   font-size: 14px;
   color: #aaa;
-  font-weight: 400;
   margin-bottom: 10px;
 }
 
@@ -167,7 +167,6 @@ button {
   background: linear-gradient(270deg,#ff4ecd,#6c63ff);
   color: white;
   cursor: pointer;
-  font-weight: 500;
   transition: transform 0.2s ease;
 }
 
@@ -178,7 +177,6 @@ button:hover {
 /* CONTACTO */
 .contact-item {
   margin: 8px 0;
-  font-weight: 400;
 }
 
 /* FOOTER */
@@ -186,7 +184,6 @@ footer {
   text-align: center;
   padding: 40px;
   color: #888;
-  font-size: 14px;
 }
 
 /* ANIMACIONES */
@@ -236,7 +233,6 @@ diseño gráfico y creación de contenido visual con una visión centrada en est
 y comunicación efectiva.
 </p>
 
-<!-- TABS -->
 <div class="tabs">
 
 <div class="tab-buttons">
@@ -284,8 +280,9 @@ Google Actívate - Marketing Digital
 
 <div class="grid">
 
+<!-- MAGNUM CON IMAGEN -->
 <div class="card">
-<div class="project-img"></div>
+<img src="destacada-magnum.png" class="project-img">
 <div class="project-title">Campaña Magnum</div>
 <div class="project-subtitle">
 Algunos placeres no entienden de estaciones
@@ -310,7 +307,7 @@ Algunos placeres no entienden de estaciones
 <button>Ver proyecto</button>
 </div>
 
-<!-- 🔥 SUPERBOY CORREGIDO -->
+<!-- SUPERBOY -->
 <div class="card">
 <div class="project-img"></div>
 <div class="project-title">Simulación Superboy</div>
