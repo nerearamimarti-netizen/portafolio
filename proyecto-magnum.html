@@ -19,13 +19,12 @@ body {
 }
 
 /* =========================
-BOTÓN VOLVER (CORREGIDO)
+BOTÓN VOLVER (ANIMADO BIEN)
 ========================= */
 .back-home {
   position: fixed;
   top: 18px;
   right: 18px;
-  background: linear-gradient(270deg,#ff4ecd,#6c63ff);
   padding: 14px 20px;
   border-radius: 999px;
   text-decoration: none;
@@ -35,29 +34,39 @@ BOTÓN VOLVER (CORREGIDO)
   align-items: center;
   gap: 10px;
   z-index: 999;
+
+  /* degradado animado */
+  background: linear-gradient(270deg, #ff4ecd, #6c63ff, #ffb86b);
+  background-size: 600% 600%;
+  animation: gradientMove 6s ease infinite, floatBtn 3s ease-in-out infinite;
+
+  /* sombra */
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+
   transition: transform 0.3s ease;
-  overflow: hidden;
 }
 
-/* flecha */
-.back-home span {
-  display: inline-block;
-  transition: transform 0.4s ease;
-}
-
-/* hover botón */
+/* hover zoom */
 .back-home:hover {
   transform: scale(1.08);
 }
 
-/* flecha sale hacia la izquierda pero visible */
-.back-home:hover span {
-  transform: translateX(-25px);
-  opacity: 1;
+/* degradado animado */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* flotación */
+@keyframes floatBtn {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
 }
 
 /* =========================
-HERO (CORRECTO)
+HERO
 ========================= */
 .hero {
   width: 100%;
@@ -76,7 +85,7 @@ section {
 }
 
 /* =========================
-ACORDEÓN (ORIGINAL RESTAURADO)
+ACORDEÓN
 ========================= */
 .accordion {
   display: grid;
@@ -102,7 +111,6 @@ ACORDEÓN (ORIGINAL RESTAURADO)
   justify-content: space-between;
 }
 
-/* flecha simple */
 .arrow {
   font-size: 18px;
   transition: transform 0.3s ease;
@@ -112,19 +120,21 @@ ACORDEÓN (ORIGINAL RESTAURADO)
   transform: rotate(180deg);
 }
 
-/* contenido */
-.accordion-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease;
-  background: rgba(0,0,0,0.2);
-  padding: 0 10px;
-  border-radius: 0 0 10px 10px;
+/* =========================
+MERCH
+========================= */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
 }
 
-/* =========================
-MERCHANDISING (HOVER + SOMBRA)
-========================= */
+@media(min-width:768px){
+  .grid-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 .merch-img {
   width: 100%;
   border-radius: 10px;
@@ -137,21 +147,8 @@ MERCHANDISING (HOVER + SOMBRA)
 }
 
 /* =========================
-CARTELERÍA EXTERIOR
+CARTELERÍA
 ========================= */
-.grid-2 {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-}
-
-@media(min-width:768px){
-  .grid-2 {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-/* cuadradas */
 .square-img {
   width: 90%;
   margin: auto;
@@ -164,10 +161,9 @@ CARTELERÍA EXTERIOR
   transform: scale(1.05);
 }
 
-/* billboard */
 .billboard {
   width: 100%;
-  margin-top: 25px;
+  margin-top: 20px;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.35);
   transition: transform 0.3s ease;
@@ -177,17 +173,17 @@ CARTELERÍA EXTERIOR
   transform: scale(1.03);
 }
 
-/* separación extra entre bloques */
-section h2 {
-  margin-bottom: 20px;
-}
-
 /* =========================
-RRSS
+RRSS (HOVER NUEVO)
 ========================= */
 .rrss-img {
   width: 100%;
   border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.rrss-img:hover {
+  transform: scale(1.04);
 }
 
 /* =========================
@@ -254,7 +250,7 @@ FOOTER
 <body>
 
 <a class="back-home" href="index.html">
-← <span>Volver</span>
+← Volver
 </a>
 
 <!-- HERO -->
@@ -313,7 +309,7 @@ FOOTER
 </div>
 </section>
 
-<!-- CARTELERÍA EXTERIOR -->
+<!-- CARTELERÍA -->
 <section>
 <h2>Cartelería exterior</h2>
 
