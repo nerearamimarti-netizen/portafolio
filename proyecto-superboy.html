@@ -23,7 +23,7 @@ body {
   position: fixed;
   top: 18px;
   right: 18px;
-  background: linear-gradient(270deg,#ff4ecd,#6c63ff);
+  background: linear-gradient(270deg,#4facfe,#00f2fe,#3a8dff);
   padding: 14px 20px;
   border-radius: 999px;
   color: white;
@@ -45,10 +45,10 @@ body {
   100% { transform: translateY(0); }
 }
 
-/* HERO */
+/* HERO (más bajo) */
 .hero {
   position: relative;
-  height: 45vh;
+  height: 32vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,29 +67,43 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(207,233,255,0.2), rgba(207,233,255,0.9));
+  background: linear-gradient(
+    180deg,
+    rgba(207,233,255,0.1),
+    rgba(207,233,255,0.85)
+  );
 }
 
-/* TÍTULO SUPERBOY */
+/* TÍTULO SUPERBOY (SOLO AZULES PRO) */
 .hero h1 {
   position: relative;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 70px;
-  letter-spacing: 4px;
+  font-size: 72px;
+  letter-spacing: 5px;
   margin: 0;
   z-index: 2;
 
-  background: linear-gradient(270deg,#ff4ecd,#6c63ff,#00d4ff,#ff4ecd);
-  background-size: 800% 800%;
+  background: linear-gradient(
+    270deg,
+    #b3e5ff,
+    #4fc3ff,
+    #1e90ff,
+    #00b7ff,
+    #5ad7ff,
+    #2f80ff,
+    #a6e3ff
+  );
+
+  background-size: 900% 900%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradientMove 6s ease infinite;
+  animation: blueFlow 7s ease infinite;
 }
 
-@keyframes gradientMove {
-  0% {background-position:0% 50%;}
-  50% {background-position:100% 50%;}
-  100% {background-position:0% 50%;}
+@keyframes blueFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* SECCIONES */
@@ -118,7 +132,7 @@ section {
 
 /* TEXTO */
 .text-block {
-  background: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.7);
   padding: 25px;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
@@ -135,9 +149,10 @@ section {
   margin-top: 25px;
 }
 
+/* ICONOS SIN FONDO */
 .icon-box {
-  width: 90px;
-  height: 90px;
+  width: 95px;
+  height: 95px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -154,12 +169,20 @@ section {
   object-fit: contain;
 }
 
-/* FOOTER */
+/* FOOTER AZUL */
 footer {
   margin-top: 40px;
-  padding: 60px 20px;
+  padding: 70px 20px;
   text-align: center;
-  background: linear-gradient(135deg,#ff4ecd,#6c63ff,#00d4ff);
+
+  background: linear-gradient(
+    135deg,
+    #0f2027,
+    #203a43,
+    #2c5364,
+    #4facfe
+  );
+
   color: white;
   position: relative;
   overflow: hidden;
@@ -175,15 +198,16 @@ footer p {
   opacity: 0.9;
 }
 
+/* efecto decorativo */
 footer::before {
-  content: "⚡ VFX • AFTER EFFECTS • MAGIC ⚡";
+  content: "SUPERBOY • VFX • MOTION • COMPOSITE";
   position: absolute;
   top: 50%;
   left: -50%;
   width: 200%;
   transform: rotate(-5deg);
-  font-size: 40px;
-  opacity: 0.08;
+  font-size: 38px;
+  opacity: 0.07;
 }
 
 </style>
@@ -193,11 +217,12 @@ footer::before {
 
 <a class="back-home" href="index.html">← Volver</a>
 
-<!-- HERO ACTUALIZADO -->
+<!-- HERO -->
 <header class="hero">
   <video autoplay muted loop playsinline>
-    <source src="header-superboy.mp4" type="video/mp4">
+    <source src="header-superboy-final.mp4" type="video/mp4">
   </video>
+
   <h1>SUPERBOY</h1>
 </header>
 
@@ -218,24 +243,22 @@ footer::before {
 <p><strong>SUPERBOY</strong> es un experimento visual donde la realidad se rompe un poco… literalmente.</p>
 
 <p>
-Partimos de una grabación real en la calle y le damos un giro imposible: un pequeño superhéroe digital aparece en escena,
-interactúa con el entorno y termina rompiendo la propia ilusión del anuncio.
+A partir de una grabación real en la calle, se introduce un personaje digital que altera la escena y rompe la lógica del plano.
 </p>
 
 <p>
-Es un proyecto centrado en la mezcla entre lo real y lo digital, jugando con la idea de que los VFX no solo decoran la imagen,
-sino que pueden alterar la narrativa y abrir mundos dentro de una simple toma.
+El objetivo es explorar la integración de VFX en entornos reales, jugando con la narrativa visual y la ilusión cinematográfica.
 </p>
 
 <p>
-Realizado con After Effects como base principal, junto con Premiere para montaje y Photoshop/Illustrator para elementos de apoyo.
+Proyecto realizado con After Effects, Premiere, Photoshop e Illustrator.
 </p>
 
 </div>
 
 </section>
 
-<!-- SOFTWARE -->
+<!-- HERRAMIENTAS -->
 <section>
 
 <h2 style="text-align:center;">Herramientas utilizadas</h2>
@@ -265,7 +288,7 @@ Realizado con After Effects como base principal, junto con Premiere para montaje
 <!-- FOOTER -->
 <footer>
   <h3>SUPERBOY PROJECT</h3>
-  <p>VFX • Motion • Breaking reality</p>
+  <p>VFX • Motion • Digital storytelling</p>
 </footer>
 
 </body>
