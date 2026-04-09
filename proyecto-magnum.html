@@ -30,21 +30,15 @@ body {
   color: white;
   font-size: 14px;
   z-index: 999;
-  animation: floatBtn 3s ease-in-out infinite;
 }
 
-@keyframes floatBtn {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0); }
-}
-
-/* HERO FULL WIDTH PERO MÁS BAJO */
+/* HERO FULL WIDTH + PARALLAX */
 .hero {
   width: 100vw;
-  height: 70vh;
+  height: 60vh;
   margin-left: calc(-50vw + 50%);
   background: url("Magnum-hero.png") center/cover no-repeat;
+  background-attachment: fixed; /* efecto movimiento */
 }
 
 /* SECCIONES */
@@ -80,17 +74,18 @@ section {
   align-items: center;
 }
 
-/* FLECHA */
+/* FLECHA SVG RELLENA */
 .arrow {
-  font-size: 22px;
-  font-weight: bold;
-  transition: transform 0.3s ease, color 0.3s ease;
+  width: 22px;
+  height: 22px;
+  fill: white;
+  transition: 0.3s;
 }
 
-/* ROTACIÓN + COLOR */
+/* ABIERTO */
 .open .arrow {
   transform: rotate(180deg);
-  color: #f5e6c8;
+  fill: #ffe7a3; /* amarillo más visible */
 }
 
 /* CONTENIDO */
@@ -122,18 +117,24 @@ section {
   box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 
-/* RRSS */
-.rrss-img {
+/* CUADRADAS */
+.square-img {
   width: 100%;
   border-radius: 10px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-  margin-top: 10px;
 }
 
-/* OPPIS */
-.opis-img {
+/* RRSS SIN SOMBRA */
+.rrss-img {
   width: 100%;
   border-radius: 10px;
+}
+
+/* BILLBOARD */
+.billboard {
+  width: 100%;
+  border-radius: 12px;
+  margin-top: 15px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 
@@ -179,8 +180,8 @@ section {
   top: 50%;
   width: 100%;
   text-align: center;
-  z-index: 3;
   transform: translateY(-50%);
+  z-index: 3;
 }
 
 .copyright-box {
@@ -191,20 +192,6 @@ section {
   font-size: 13px;
 }
 
-/* ANIMACIÓN */
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 0.8s ease forwards;
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 </style>
 </head>
 
@@ -213,10 +200,10 @@ section {
 <a href="index.html" class="back-home">← Volver</a>
 
 <!-- HERO -->
-<section class="hero fade-in"></section>
+<section class="hero"></section>
 
 <!-- DESCRIPCIÓN -->
-<section class="fade-in">
+<section>
 
 <p><strong>Proyecto conceptual ficticio</strong> desarrollado para Magnum.</p>
 
@@ -227,30 +214,36 @@ section {
 <div class="accordion-item">
 <button onclick="toggleAccordion(this)">
 <strong>Tensión</strong>
-<span class="arrow">⌄</span>
+<svg class="arrow" viewBox="0 0 24 24">
+<path d="M7 10l5 5 5-5z"/>
+</svg>
 </button>
 <div class="accordion-content">
-<p><strong>En invierno, el helado parece prohibido</strong> por el frío y la incomodidad.</p>
+<p><strong>En invierno, el helado parece prohibido</strong> por el frío.</p>
 </div>
 </div>
 
 <div class="accordion-item">
 <button onclick="toggleAccordion(this)">
 <strong>Insight</strong>
-<span class="arrow">⌄</span>
+<svg class="arrow" viewBox="0 0 24 24">
+<path d="M7 10l5 5 5-5z"/>
+</svg>
 </button>
 <div class="accordion-content">
-<p><strong>Asociar Magnum con momentos cálidos</strong> del invierno.</p>
+<p><strong>Asociar Magnum con momentos cálidos</strong>.</p>
 </div>
 </div>
 
 <div class="accordion-item">
 <button onclick="toggleAccordion(this)">
 <strong>Idea</strong>
-<span class="arrow">⌄</span>
+<svg class="arrow" viewBox="0 0 24 24">
+<path d="M7 10l5 5 5-5z"/>
+</svg>
 </button>
 <div class="accordion-content">
-<p><strong>Magnum acompaña el invierno</strong> con una experiencia envolvente y una manta.</p>
+<p><strong>Magnum acompaña el invierno</strong> con una experiencia envolvente.</p>
 </div>
 </div>
 
@@ -259,7 +252,7 @@ section {
 </section>
 
 <!-- MERCH -->
-<section class="fade-in">
+<section>
 <h2>Merchandising</h2>
 
 <div class="grid-2">
@@ -268,33 +261,33 @@ section {
 </div>
 
 <div class="grid-2" style="margin-top:15px;">
-<img src="magnum-cuadrada-izquierda.png" class="opis-img">
-<img src="magnum-cuadrada-derecha.png" class="opis-img">
+<img src="magnum-cuadrada-izquierda.png" class="square-img">
+<img src="magnum-cuadrada-derecha.png" class="square-img">
 </div>
 
-<img src="billboard-magnum.png" class="opis-img" style="margin-top:15px;">
+<img src="billboard-magnum.png" class="billboard">
 
 </section>
 
 <!-- OPPIS -->
-<section class="fade-in">
+<section>
 <h2>Cartelería exterior digital</h2>
 
 <div class="grid-2">
-<div style="height:180px; background:#111; border-radius:10px;"></div>
-<div style="height:180px; background:#111; border-radius:10px;"></div>
+<img src="oppis-1.png" class="square-img">
+<img src="oppis-2.png" class="square-img">
 </div>
 
 </section>
 
 <!-- RRSS -->
-<section class="fade-in">
+<section>
 <h2>Contenido para RRSS</h2>
 <img src="rrss_magnum.png" class="rrss-img">
 </section>
 
 <!-- VIDEO -->
-<section class="fade-in">
+<section>
 <h2>Vídeo campaña</h2>
 
 <div class="video-wrapper">
@@ -304,7 +297,7 @@ section {
 </section>
 
 <!-- FOOTER -->
-<div class="footer-wrapper fade-in">
+<div class="footer-wrapper">
 
 <div class="footer-gradient"></div>
 
