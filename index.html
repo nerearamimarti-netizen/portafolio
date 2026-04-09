@@ -4,201 +4,240 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-<title>Neeergraphs</title>
+<title>Magnum</title>
 
 <style>
 
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: #0f0f0f;
+  background: #493026;
   color: white;
+  overflow-x: hidden;
 }
 
-h1, h2 {
-  font-family: 'Fredoka', sans-serif;
-  background: linear-gradient(270deg,#ff4ecd,#6c63ff,#00d4ff,#ff4ecd);
-  background-size: 800% 800%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientMove 8s ease infinite;
-}
-
-/* HEADER */
-header {
-  padding: 100px 20px;
-  text-align: center;
+/* =========================
+HERO FULLSCREEN CON VIDEO (NUEVO)
+========================= */
+.hero {
   position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
-header video {
+.hero video {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.25;
-  top: 0;
-  left: 0;
+  z-index: 1;
 }
 
-header .content {
+/* capa oscura encima */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 2;
+}
+
+/* texto encima del video */
+.hero-content {
   position: relative;
+  z-index: 3;
+  padding: 20px;
 }
 
-/* ABOUT */
+.hero-content h1 {
+  font-size: 48px;
+  margin: 0;
+}
+
+.hero-content p {
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+/* BOTÓN VOLVER */
+.back-home {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  background: linear-gradient(270deg,#ff4ecd,#6c63ff);
+  padding: 14px 20px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: white;
+  font-size: 15px;
+  z-index: 999;
+  transition: transform 0.3s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  animation: floatBtn 3s ease-in-out infinite;
+}
+
+.back-home:hover {
+  transform: scale(1.08);
+}
+
+@keyframes floatBtn {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+/* SECCIONES */
 section {
-  padding: 80px 20px;
-  max-width: 1000px;
+  padding: 30px 20px;
+  max-width: 1100px;
   margin: auto;
 }
 
-.about-container {
-  display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.profile {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.about-text {
-  max-width: 500px;
-}
-
-.about-text p {
-  font-weight: 400;
-}
-
-/* TABS */
-.tabs {
-  margin-top: 25px;
-}
-
-.tab-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.tab-buttons button {
-  background: #2a2a2a;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 999px;
-  cursor: pointer;
-  color: white;
-  font-size: 13px;
-}
-
-.tab-buttons button.active {
-  background: linear-gradient(270deg,#ff4ecd,#6c63ff);
-}
-
-.tab-content {
-  margin-top: 15px;
-  display: none;
-  animation: fade 0.4s ease;
-  font-weight: 400;
-}
-
-.tab-content.active {
-  display: block;
-}
-
-/* PROJECTS */
-.grid {
+/* ACORDEÓN (IGUAL) */
+.accordion {
   display: grid;
-  gap: 20px;
+  grid-template-columns: 1fr;
+  gap: 10px;
 }
 
 @media(min-width:768px){
-  .grid {
-    grid-template-columns: repeat(2,1fr);
+  .accordion {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-.card {
-  background: #1c1c1c;
-  padding: 20px;
-  border-radius: 16px;
-  transition: transform 0.3s ease, background 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-6px);
-  background: #222;
-}
-
-/* IMAGEN PROYECTO */
-.project-img {
+.accordion-item button {
   width: 100%;
-  height: 240px;
-  background: #333;
-  border-radius: 12px;
-  margin-bottom: 15px;
-}
-
-/* TITULOS PROYECTOS */
-.project-title {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.project-subtitle {
-  font-size: 14px;
-  color: #aaa;
-  font-weight: 400;
-  margin-bottom: 10px;
-}
-
-/* BOTONES */
-button {
-  margin-top: 10px;
-  padding: 10px 18px;
+  padding: 12px;
   border: none;
-  border-radius: 999px;
-  background: linear-gradient(270deg,#ff4ecd,#6c63ff);
+  border-radius: 10px;
+  background: #2b1b14;
   color: white;
   cursor: pointer;
-  font-weight: 500;
-  transition: transform 0.2s ease;
+  display: flex;
+  justify-content: space-between;
 }
 
-button:hover {
-  transform: scale(1.05);
+.arrow {
+  font-size: 18px;
+  transition: transform 0.3s ease;
 }
 
-/* CONTACTO */
-.contact-item {
-  margin: 8px 0;
-  font-weight: 400;
+.open .arrow {
+  transform: rotate(180deg);
+}
+
+/* CONTENIDO */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  background: rgba(0,0,0,0.2);
+  padding: 0 10px;
+  border-radius: 0 0 10px 10px;
+}
+
+/* MERCH */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+@media(min-width:768px){
+  .grid-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.merch-img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.35);
+}
+
+/* CUADRADAS */
+.square-img {
+  width: 90%;
+  margin: auto;
+  display: block;
+  border-radius: 10px;
+}
+
+/* BILLBOARD */
+.billboard {
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 12px;
+}
+
+/* RRSS */
+.rrss-img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* VIDEO YOUTUBE */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.video-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 /* FOOTER */
-footer {
+.footer-wrapper {
+  width: 100%;
+  position: relative;
+  margin-top: 50px;
+}
+
+.footer-gradient {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 120px;
+  background: linear-gradient(to bottom, #493026, transparent);
+  z-index: 2;
+}
+
+.footer-image {
+  width: 100%;
+  height: 140px;
+  background: url("footer-nuevo.png") center/cover no-repeat;
+}
+
+.footer-text {
+  position: absolute;
+  top: 50%;
+  width: 100%;
   text-align: center;
-  padding: 40px;
-  color: #888;
-  font-size: 14px;
+  transform: translateY(-50%);
+  z-index: 3;
 }
 
-/* ANIMACIONES */
-@keyframes fade {
-  from {opacity:0; transform:translateY(10px);}
-  to {opacity:1; transform:translateY(0);}
-}
-
-@keyframes gradientMove {
-  0% {background-position:0% 50%;}
-  50% {background-position:100% 50%;}
-  100% {background-position:0% 50%;}
+.copyright-box {
+  display: inline-block;
+  background: rgba(0,0,0,0.5);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
 }
 
 </style>
@@ -206,150 +245,130 @@ footer {
 
 <body>
 
-<header>
+<!-- BOTÓN -->
+<a class="back-home" href="index.html">← Volver</a>
+
+<!-- HERO NUEVO CON VIDEO FULLSCREEN -->
+<header class="hero">
 
 <video autoplay muted loop playsinline>
-<source src="background-nerea.mp4">
+  <source src="background-nerea.mp4" type="video/mp4">
 </video>
 
-<div class="content">
-<h1>NEEERGRAPHS</h1>
-<p>Edición de vídeo • Diseño gráfico</p>
-<p>Contenido creativo para RRSS</p>
+<div class="hero-content">
+  <h1>MAGNUM</h1>
+  <p>Algunos placeres no entienden de estaciones</p>
 </div>
 
 </header>
 
+<!-- RESTO IGUAL -->
 <section>
 
-<div class="about-container">
+<p><strong>Proyecto conceptual ficticio</strong> desarrollado para Magnum.</p>
 
-<img src="nerea.ramirez.png" class="profile">
+<h2>Concepto de campaña</h2>
 
-<div class="about-text">
+<div class="accordion">
 
-<h2>Sobre mí</h2>
-
-<p>
-Soy creadora visual enfocada en contenido digital y redes sociales. Trabajo en edición de vídeo,
-diseño gráfico y creación de contenido visual con una visión centrada en estética, coherencia de marca
-y comunicación efectiva.
-</p>
-
-<!-- TABS -->
-<div class="tabs">
-
-<div class="tab-buttons">
-<button class="active" onclick="showTab('skills')">Skills</button>
-<button onclick="showTab('experiencia')">Experiencia</button>
-<button onclick="showTab('estudios')">Estudios</button>
-<button onclick="showTab('certificaciones')">Certificaciones</button>
+<div class="accordion-item">
+<button onclick="toggleAccordion(this)">
+<strong>Tensión</strong>
+<span class="arrow">⌄</span>
+</button>
+<div class="accordion-content">
+<p><strong>En invierno el helado parece prohibido</strong>.</p>
+</div>
 </div>
 
-<div id="skills" class="tab-content active">
-Adobe Photoshop, Illustrator, InDesign, Premiere, After Effects<br><br>
-ChatGPT, Sora, Gemini, Freepik AI<br><br>
-CapCut, Metricool, Meta Business, Wordpress, Shopify, Prestashop
+<div class="accordion-item">
+<button onclick="toggleAccordion(this)">
+<strong>Insight</strong>
+<span class="arrow">⌄</span>
+</button>
+<div class="accordion-content">
+<p><strong>Asociar Magnum con momentos cálidos</strong>.</p>
+</div>
 </div>
 
-<div id="experiencia" class="tab-content">
-Diseñadora gráfica y Community Manager - Ádraba<br><br>
-Community Manager - Lunaro Solutions<br><br>
-Diseño y comunicación digital - Jastag
+<div class="accordion-item">
+<button onclick="toggleAccordion(this)">
+<strong>Idea</strong>
+<span class="arrow">⌄</span>
+</button>
+<div class="accordion-content">
+<p><strong>Magnum acompaña el invierno</strong>.</p>
 </div>
-
-<div id="estudios" class="tab-content">
-CEI - Motion Graphics, VFX y Dirección de arte<br><br>
-CEI - Diseño gráfico y marketing digital<br><br>
-IES Clara del Rey - Marketing y Publicidad
-</div>
-
-<div id="certificaciones" class="tab-content">
-Elements of AI - University of Helsinki<br><br>
-Hubspot Academy - Inbound Marketing<br><br>
-Google Actívate - Marketing Digital
-</div>
-
-</div>
-
 </div>
 
 </div>
 
 </section>
 
+<!-- MERCH -->
 <section>
+<h2>Merchandising</h2>
 
-<h2>Proyectos</h2>
+<div class="grid-2">
+<img src="merchandising-magnum-izquierda.png">
+<img src="merchandising-magnum-derecha.png">
+</div>
+</section>
 
-<div class="grid">
+<!-- CARTELERÍA -->
+<section>
+<h2>Cartelería exterior</h2>
 
-<div class="card">
-
-<div class="project-img"></div>
-
-<div class="project-title">Campaña Magnum</div>
-
-<div class="project-subtitle">
-Algunos placeres no entienden de estaciones
+<div class="grid-2">
+<img src="magnum-cuadrada-izquierda.png" class="square-img">
+<img src="magnum-cuadrada-derecha.png" class="square-img">
 </div>
 
-<a href="proyecto-magnum.html">
-  <button>Ver proyecto</button>
-</a>
+<img src="billboard-magnum.png" class="billboard">
 
-</div>
+</section>
 
-<div class="card">
-<div class="project-img"></div>
-<div class="project-title">Dolce Vitta</div>
-<div class="project-subtitle">Branding y diseño de redes sociales</div>
-<button>Ver proyecto</button>
-</div>
+<!-- RRSS -->
+<section>
+<h2>Contenido para RRSS</h2>
+<img src="rrss_magnum.png" class="rrss-img">
+</section>
 
-<div class="card">
-<div class="project-img"></div>
-<div class="project-title">Home 3D</div>
-<div class="project-subtitle">After Effects y Illustrator</div>
-<button>Ver proyecto</button>
-</div>
+<!-- VIDEO -->
+<section>
+<h2>Vídeo campaña</h2>
 
-<div class="card">
-<div class="project-img"></div>
-<div class="project-title">Simulación Superboy</div>
-<div class="project-subtitle">Vídeo corto en After Effects</div>
-<button>Ver proyecto</button>
-</div>
-
+<div class="video-wrapper">
+<iframe src="https://www.youtube.com/embed/dPMp22JkiI0" allowfullscreen></iframe>
 </div>
 
 </section>
 
-<section>
+<!-- FOOTER -->
+<div class="footer-wrapper">
 
-<h2>¿Hablamos? :)</h2>
+<div class="footer-gradient"></div>
 
-<div class="card">
-
-<div class="contact-item">📞 653607909</div>
-<div class="contact-item">✉️ nerearamimarti@gmail.com</div>
-<div class="contact-item">📍 Madrid</div>
-
+<div class="footer-text">
+  <div class="copyright-box">© 2026 Neergraphs</div>
 </div>
 
-</section>
+<div class="footer-image"></div>
 
-<footer>
-© 2026 Neeergraphs
-</footer>
+</div>
 
 <script>
-function showTab(tabId){
-  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
-  document.querySelectorAll('.tab-buttons button').forEach(btn=>btn.classList.remove('active'));
+function toggleAccordion(button){
+  const item = button.parentElement;
+  const content = button.nextElementSibling;
 
-  document.getElementById(tabId).classList.add('active');
-  event.target.classList.add('active');
+  item.classList.toggle("open");
+
+  if(content.style.maxHeight){
+    content.style.maxHeight = null;
+  } else {
+    content.style.maxHeight = content.scrollHeight + "px";
+  }
 }
 </script>
 
