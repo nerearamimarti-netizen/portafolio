@@ -79,15 +79,24 @@
       border-radius: 50%;
       object-fit: cover;
       box-shadow: 0 0 25px rgba(108,99,255,0.4);
-      transition: transform 0.4s ease;
-    }
-
-    .profile:hover {
-      transform: scale(1.05);
     }
 
     .about-text {
       max-width: 500px;
+    }
+
+    /* ICONOS SKILLS */
+    .skills {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    .skills img {
+      width: 32px;
+      height: 32px;
+      opacity: 0.9;
     }
 
     /* GRID */
@@ -118,7 +127,6 @@
       width: 32px;
       height: 32px;
       margin-bottom: 10px;
-      opacity: 0.9;
     }
 
     button {
@@ -129,12 +137,7 @@
       background: linear-gradient(270deg, #ff4ecd, #6c63ff);
       color: white;
       cursor: pointer;
-      transition: transform 0.2s ease;
       font-weight: 500;
-    }
-
-    button:hover {
-      transform: scale(1.05);
     }
 
     footer {
@@ -187,7 +190,7 @@
 
   <div class="about-container">
 
-    <img src="nerea.ramirez.png" class="profile" alt="Foto de perfil">
+    <img src="nerea.ramirez.png" class="profile">
 
     <div class="about-text">
 
@@ -197,9 +200,15 @@
         Soy creadora visual enfocada en contenido digital y redes sociales. Trabajo en edición de vídeo,
         diseño gráfico y creación de contenido visual con una visión centrada en estética, coherencia de marca
         y comunicación efectiva.
-        <br><br>
-        Mi objetivo es transformar ideas en contenido atractivo que conecte con el público y refuerce la identidad visual de cada proyecto.
       </p>
+
+      <!-- SKILLS ICONS -->
+      <div class="skills">
+        <img src="vector.png">
+        <img src="paleta.png">
+        <img src="video.png">
+        <img src="rrss.png">
+      </div>
 
     </div>
 
@@ -215,25 +224,25 @@
     <div class="card">
       <img src="video.png" class="icon-img">
       <h3>Edición de vídeo</h3>
-      <p>Contenido corto para redes (Reels, TikTok), edición con CapCut y producción avanzada con Adobe Premiere Pro y After Effects.</p>
+      <p>Contenido corto para redes (Reels, TikTok), CapCut y edición profesional con Premiere Pro y After Effects.</p>
     </div>
 
     <div class="card">
       <img src="paleta.png" class="icon-img">
       <h3>Diseño gráfico</h3>
-      <p>Posts para redes, carteles, infografías, flyers, dípticos y cartelería digital con enfoque visual y branding.</p>
+      <p>Posts, carteles, infografías, flyers, dípticos y piezas digitales orientadas a branding visual.</p>
     </div>
 
     <div class="card">
       <img src="rrss.png" class="icon-img">
       <h3>Contenido para RRSS</h3>
-      <p>Reels, TikToks, carruseles, stories, contenido para YouTube, LinkedIn y estrategias multiplataforma.</p>
+      <p>Reels, TikToks, carruseles, stories y contenido adaptado para Instagram, YouTube y LinkedIn.</p>
     </div>
 
     <div class="card">
       <img src="vector.png" class="icon-img">
       <h3>Branding</h3>
-      <p>Creación de marca desde cero: logotipo, identidad visual, dirección creativa y estrategia de contenido.</p>
+      <p>Creación de marca desde cero: logotipo, identidad visual y estrategia creativa.</p>
     </div>
 
   </div>
@@ -245,14 +254,15 @@
   <div class="grid">
 
     <div class="card">
-      <h3>Proyecto 1</h3>
-      <p>Edición de vídeo y dirección creativa.</p>
+      <h3>Campaña Magnum</h3>
+      <p><strong>"Algunos placeres no entienden de estaciones"</strong></p>
+      <p>Proyecto de branding y contenido creativo enfocado en campaña visual y storytelling para redes sociales.</p>
       <button>Ver proyecto</button>
     </div>
 
     <div class="card">
-      <h3>Proyecto 2</h3>
-      <p>Diseño de contenido y branding visual.</p>
+      <h3>Branding & RRSS Dolce Vita</h3>
+      <p>Creación de marca desde cero y diseño de contenido para redes sociales con enfoque visual coherente y estrategia digital.</p>
       <button>Ver proyecto</button>
     </div>
 
