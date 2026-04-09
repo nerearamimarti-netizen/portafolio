@@ -18,12 +18,12 @@ body {
   overflow-x: hidden;
 }
 
-/* BOTÓN VOLVER */
+/* BOTÓN VOLVER (RESTAURADO ORIGINAL) */
 .back-home {
   position: fixed;
   top: 18px;
   right: 18px;
-  background: linear-gradient(270deg,#4facfe,#00f2fe,#3a8dff);
+  background: linear-gradient(270deg,#ff4ecd,#6c63ff);
   padding: 14px 20px;
   border-radius: 999px;
   color: white;
@@ -45,7 +45,7 @@ body {
   100% { transform: translateY(0); }
 }
 
-/* HERO (más bajo) */
+/* HERO */
 .hero {
   position: relative;
   height: 32vh;
@@ -63,6 +63,7 @@ body {
   filter: brightness(1.05) saturate(1.2);
 }
 
+/* 🔥 TRANSICIÓN SUAVE FONDO → HERO */
 .hero::after {
   content: "";
   position: absolute;
@@ -70,11 +71,11 @@ body {
   background: linear-gradient(
     180deg,
     rgba(207,233,255,0.1),
-    rgba(207,233,255,0.85)
+    rgba(207,233,255,0.95)
   );
 }
 
-/* TÍTULO SUPERBOY (SOLO AZULES PRO) */
+/* TÍTULO SUPERBOY */
 .hero h1 {
   position: relative;
   font-family: 'Bebas Neue', sans-serif;
@@ -149,7 +150,6 @@ section {
   margin-top: 25px;
 }
 
-/* ICONOS SIN FONDO */
 .icon-box {
   width: 95px;
   height: 95px;
@@ -169,19 +169,24 @@ section {
   object-fit: contain;
 }
 
-/* FOOTER AZUL */
+/* 🔵 TÍTULO CON DEGRADADO NUEVO */
+.section-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+
+  background: linear-gradient(90deg, #4285ec, #3fcbff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* FOOTER NUEVO */
 footer {
   margin-top: 40px;
   padding: 70px 20px;
   text-align: center;
 
-  background: linear-gradient(
-    135deg,
-    #0f2027,
-    #203a43,
-    #2c5364,
-    #4facfe
-  );
+  background: linear-gradient(135deg, #4285ec, #3fcbff);
 
   color: white;
   position: relative;
@@ -198,9 +203,8 @@ footer p {
   opacity: 0.9;
 }
 
-/* efecto decorativo */
 footer::before {
-  content: "SUPERBOY • VFX • MOTION • COMPOSITE";
+  content: "SUPERBOY • VFX • MOTION • DIGITAL WORLD";
   position: absolute;
   top: 50%;
   left: -50%;
@@ -228,40 +232,35 @@ footer::before {
 
 <!-- VIDEO -->
 <section>
-
 <div class="video-wrapper">
   <iframe src="https://www.youtube.com/embed/Se0s5MMtKYY" allowfullscreen></iframe>
 </div>
-
 </section>
 
 <!-- TEXTO -->
 <section>
-
 <div class="text-block">
-
 <p><strong>SUPERBOY</strong> es un experimento visual donde la realidad se rompe un poco… literalmente.</p>
 
 <p>
-A partir de una grabación real en la calle, se introduce un personaje digital que altera la escena y rompe la lógica del plano.
+Un personaje digital aparece dentro de una grabación real y altera la narrativa del plano,
+jugando con la idea de romper la frontera entre lo físico y lo digital.
 </p>
 
 <p>
-El objetivo es explorar la integración de VFX en entornos reales, jugando con la narrativa visual y la ilusión cinematográfica.
+Un proyecto centrado en VFX, composición y narrativa visual experimental.
 </p>
 
 <p>
-Proyecto realizado con After Effects, Premiere, Photoshop e Illustrator.
+Realizado con After Effects, Premiere, Photoshop e Illustrator.
 </p>
-
 </div>
-
 </section>
 
 <!-- HERRAMIENTAS -->
 <section>
 
-<h2 style="text-align:center;">Herramientas utilizadas</h2>
+<h2 class="section-title">Herramientas utilizadas</h2>
 
 <div class="icon-row">
 
