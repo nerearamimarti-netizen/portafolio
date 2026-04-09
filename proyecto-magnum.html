@@ -18,36 +18,19 @@ body {
   overflow-x: hidden;
 }
 
-/* HERO */
+/* HERO IMAGEN FULL */
 .hero {
+  height: 90vh;
+  width: 100%;
+  background: url("Magnum-hero.png") center/cover no-repeat;
   position: relative;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-}
-
-.hero video {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .hero::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.35);
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  background: rgba(0,0,0,0.3);
 }
 
 /* BOTÓN VOLVER */
@@ -72,22 +55,19 @@ body {
 }
 
 @keyframes float {
-  0% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
-  100% { transform: translateY(0); }
 }
 
-/* SECCIONES */
+/* SECCIONES MÁS COMPACTAS */
 section {
-  padding: 30px 20px;
+  padding: 20px 20px;
   max-width: 1100px;
   margin: auto;
 }
 
-/* ACORDEÓN (RESTAURADO BIEN) */
+/* ACORDEÓN */
 .accordion {
   display: grid;
-  grid-template-columns: 1fr;
   gap: 10px;
 }
 
@@ -119,17 +99,13 @@ section {
   border-radius: 0 0 10px 10px;
 }
 
-/* ICONO FLECHA (IMAGEN) */
 .arrow {
   width: 22px;
-  height: 22px;
-  transition: transform 0.3s ease;
 }
 
-/* MERCH */
+/* GRID */
 .grid-2 {
   display: grid;
-  grid-template-columns: 1fr;
   gap: 15px;
 }
 
@@ -139,9 +115,32 @@ section {
   }
 }
 
+/* EFECTO IMÁGENES GLOBAL */
+img {
+  transition: transform 0.3s ease;
+}
+
+img:hover {
+  transform: scale(1.04);
+}
+
+/* MERCH */
 .merch-img {
   width: 100%;
   border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.35);
+}
+
+/* OPPIS */
+.square-img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.billboard {
+  width: 100%;
+  border-radius: 12px;
+  margin-top: 15px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.35);
 }
 
@@ -153,9 +152,8 @@ section {
 
 /* VIDEO */
 .video-wrapper {
-  position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16/9;
   border-radius: 12px;
   overflow: hidden;
 }
@@ -163,23 +161,20 @@ section {
 .video-wrapper iframe {
   width: 100%;
   height: 100%;
-  border: 0;
 }
 
 /* FOOTER */
 .footer-wrapper {
   position: relative;
-  width: 100%;
-  margin-top: 40px;
+  margin-top: 30px;
 }
 
 .footer-gradient {
   position: absolute;
   top: 0;
   width: 100%;
-  height: 120px;
+  height: 100px;
   background: linear-gradient(to bottom, #493026, transparent);
-  z-index: 2;
 }
 
 .footer-image {
@@ -194,25 +189,12 @@ section {
   width: 100%;
   text-align: center;
   transform: translateY(-50%);
-  z-index: 3;
 }
 
 .copyright-box {
-  display: inline-block;
   background: rgba(0,0,0,0.5);
   padding: 6px 12px;
   border-radius: 6px;
-  font-size: 13px;
-}
-
-/* ANIM */
-.fade-in {
-  animation: fade 0.6s ease forwards;
-}
-
-@keyframes fade {
-  from {opacity:0; transform:translateY(10px);}
-  to {opacity:1; transform:translateY(0);}
 }
 
 </style>
@@ -223,14 +205,7 @@ section {
 <a class="back-home" href="index.html">← Volver</a>
 
 <!-- HERO -->
-<header class="hero">
-<video autoplay muted loop playsinline>
-  <source src="background-nerea.mp4">
-</video>
-<div class="hero-content">
-  <h1>MAGNUM</h1>
-</div>
-</header>
+<header class="hero"></header>
 
 <!-- DESCRIPCIÓN -->
 <section>
@@ -282,6 +257,19 @@ Idea
 </div>
 </section>
 
+<!-- CARTELERÍA -->
+<section>
+<h2>Cartelería exterior</h2>
+
+<div class="grid-2">
+<img src="magnum-cuadrada-izquierda.png" class="square-img">
+<img src="magnum-cuadrada-derecha.png" class="square-img">
+</div>
+
+<img src="billboard-magnum.png" class="billboard">
+
+</section>
+
 <!-- RRSS -->
 <section>
 <h2>Contenido RRSS</h2>
@@ -308,11 +296,8 @@ Idea
 <script>
 
 function toggleAccordion(button){
-  const item = button.parentElement;
   const content = button.nextElementSibling;
   const img = button.querySelector(".arrow");
-
-  item.classList.toggle("open");
 
   if(content.style.maxHeight){
     content.style.maxHeight = null;
