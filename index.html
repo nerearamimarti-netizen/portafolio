@@ -18,54 +18,36 @@ body {
   overflow-x: hidden;
 }
 
-/* =========================
-HERO FULLSCREEN CON VIDEO (NUEVO)
-========================= */
+/* HERO */
 .hero {
   position: relative;
   height: 100vh;
   width: 100%;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
 }
 
 .hero video {
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 1;
 }
 
-/* capa oscura encima */
 .hero::after {
   content: "";
   position: absolute;
   inset: 0;
   background: rgba(0,0,0,0.35);
-  z-index: 2;
 }
 
-/* texto encima del video */
 .hero-content {
   position: relative;
-  z-index: 3;
-  padding: 20px;
-}
-
-.hero-content h1 {
-  font-size: 48px;
-  margin: 0;
-}
-
-.hero-content p {
-  margin: 5px 0;
-  font-size: 16px;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /* BOTÓN VOLVER */
@@ -76,20 +58,20 @@ HERO FULLSCREEN CON VIDEO (NUEVO)
   background: linear-gradient(270deg,#ff4ecd,#6c63ff);
   padding: 14px 20px;
   border-radius: 999px;
-  text-decoration: none;
   color: white;
+  text-decoration: none;
   font-size: 15px;
   z-index: 999;
-  transition: transform 0.3s ease;
   box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  animation: floatBtn 3s ease-in-out infinite;
+  animation: float 3s ease-in-out infinite;
+  transition: transform 0.3s ease;
 }
 
 .back-home:hover {
   transform: scale(1.08);
 }
 
-@keyframes floatBtn {
+@keyframes float {
   0% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
   100% { transform: translateY(0); }
@@ -102,7 +84,7 @@ section {
   margin: auto;
 }
 
-/* ACORDEÓN (IGUAL) */
+/* ACORDEÓN (RESTAURADO BIEN) */
 .accordion {
   display: grid;
   grid-template-columns: 1fr;
@@ -125,18 +107,9 @@ section {
   cursor: pointer;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
-.arrow {
-  font-size: 18px;
-  transition: transform 0.3s ease;
-}
-
-.open .arrow {
-  transform: rotate(180deg);
-}
-
-/* CONTENIDO */
 .accordion-content {
   max-height: 0;
   overflow: hidden;
@@ -144,6 +117,13 @@ section {
   background: rgba(0,0,0,0.2);
   padding: 0 10px;
   border-radius: 0 0 10px 10px;
+}
+
+/* ICONO FLECHA (IMAGEN) */
+.arrow {
+  width: 22px;
+  height: 22px;
+  transition: transform 0.3s ease;
 }
 
 /* MERCH */
@@ -165,28 +145,13 @@ section {
   box-shadow: 0 10px 20px rgba(0,0,0,0.35);
 }
 
-/* CUADRADAS */
-.square-img {
-  width: 90%;
-  margin: auto;
-  display: block;
-  border-radius: 10px;
-}
-
-/* BILLBOARD */
-.billboard {
-  width: 100%;
-  margin-top: 20px;
-  border-radius: 12px;
-}
-
 /* RRSS */
 .rrss-img {
   width: 100%;
   border-radius: 10px;
 }
 
-/* VIDEO YOUTUBE */
+/* VIDEO */
 .video-wrapper {
   position: relative;
   width: 100%;
@@ -203,9 +168,9 @@ section {
 
 /* FOOTER */
 .footer-wrapper {
-  width: 100%;
   position: relative;
-  margin-top: 50px;
+  width: 100%;
+  margin-top: 40px;
 }
 
 .footer-gradient {
@@ -240,64 +205,67 @@ section {
   font-size: 13px;
 }
 
+/* ANIM */
+.fade-in {
+  animation: fade 0.6s ease forwards;
+}
+
+@keyframes fade {
+  from {opacity:0; transform:translateY(10px);}
+  to {opacity:1; transform:translateY(0);}
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- BOTÓN -->
 <a class="back-home" href="index.html">← Volver</a>
 
-<!-- HERO NUEVO CON VIDEO FULLSCREEN -->
+<!-- HERO -->
 <header class="hero">
-
 <video autoplay muted loop playsinline>
-  <source src="background-nerea.mp4" type="video/mp4">
+  <source src="background-nerea.mp4">
 </video>
-
 <div class="hero-content">
   <h1>MAGNUM</h1>
-  <p>Algunos placeres no entienden de estaciones</p>
 </div>
-
 </header>
 
-<!-- RESTO IGUAL -->
+<!-- DESCRIPCIÓN -->
 <section>
 
-<p><strong>Proyecto conceptual ficticio</strong> desarrollado para Magnum.</p>
-
-<h2>Concepto de campaña</h2>
+<p><strong>Proyecto conceptual ficticio</strong></p>
 
 <div class="accordion">
 
 <div class="accordion-item">
 <button onclick="toggleAccordion(this)">
-<strong>Tensión</strong>
-<span class="arrow">⌄</span>
+Tensión
+<img class="arrow" src="flecha-magnum-cerrado.png">
 </button>
 <div class="accordion-content">
-<p><strong>En invierno el helado parece prohibido</strong>.</p>
+<p><strong>El helado en invierno parece prohibido</strong></p>
 </div>
 </div>
 
 <div class="accordion-item">
 <button onclick="toggleAccordion(this)">
-<strong>Insight</strong>
-<span class="arrow">⌄</span>
+Insight
+<img class="arrow" src="flecha-magnum-cerrado.png">
 </button>
 <div class="accordion-content">
-<p><strong>Asociar Magnum con momentos cálidos</strong>.</p>
+<p><strong>Asociar Magnum con momentos cálidos</strong></p>
 </div>
 </div>
 
 <div class="accordion-item">
 <button onclick="toggleAccordion(this)">
-<strong>Idea</strong>
-<span class="arrow">⌄</span>
+Idea
+<img class="arrow" src="flecha-magnum-cerrado.png">
 </button>
 <div class="accordion-content">
-<p><strong>Magnum acompaña el invierno</strong>.</p>
+<p><strong>Magnum acompaña el invierno</strong></p>
 </div>
 </div>
 
@@ -308,68 +276,53 @@ section {
 <!-- MERCH -->
 <section>
 <h2>Merchandising</h2>
-
 <div class="grid-2">
-<img src="merchandising-magnum-izquierda.png">
-<img src="merchandising-magnum-derecha.png">
+<img src="merchandising-magnum-izquierda.png" class="merch-img">
+<img src="merchandising-magnum-derecha.png" class="merch-img">
 </div>
-</section>
-
-<!-- CARTELERÍA -->
-<section>
-<h2>Cartelería exterior</h2>
-
-<div class="grid-2">
-<img src="magnum-cuadrada-izquierda.png" class="square-img">
-<img src="magnum-cuadrada-derecha.png" class="square-img">
-</div>
-
-<img src="billboard-magnum.png" class="billboard">
-
 </section>
 
 <!-- RRSS -->
 <section>
-<h2>Contenido para RRSS</h2>
+<h2>Contenido RRSS</h2>
 <img src="rrss_magnum.png" class="rrss-img">
 </section>
 
 <!-- VIDEO -->
 <section>
-<h2>Vídeo campaña</h2>
-
+<h2>Vídeo</h2>
 <div class="video-wrapper">
 <iframe src="https://www.youtube.com/embed/dPMp22JkiI0" allowfullscreen></iframe>
 </div>
-
 </section>
 
 <!-- FOOTER -->
 <div class="footer-wrapper">
-
 <div class="footer-gradient"></div>
-
 <div class="footer-text">
   <div class="copyright-box">© 2026 Neergraphs</div>
 </div>
-
 <div class="footer-image"></div>
-
 </div>
 
 <script>
+
 function toggleAccordion(button){
   const item = button.parentElement;
   const content = button.nextElementSibling;
+  const img = button.querySelector(".arrow");
 
   item.classList.toggle("open");
 
   if(content.style.maxHeight){
     content.style.maxHeight = null;
+    img.src = "flecha-magnum-cerrado.png";
   } else {
     content.style.maxHeight = content.scrollHeight + "px";
+    img.src = "flecha-magnum-abierto.png";
   }
 }
+
 </script>
 
 </body>
