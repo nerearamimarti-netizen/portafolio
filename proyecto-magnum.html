@@ -18,22 +18,32 @@ body {
   overflow-x: hidden;
 }
 
-/* HERO IMAGEN FULL */
+/* HERO */
 .hero {
-  height: 90vh;
-  width: 100%;
-  background: url("Magnum-hero.png") center/cover no-repeat;
   position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: url("Magnum-hero.png") center/cover no-repeat;
 }
 
 .hero::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.35);
 }
 
-/* BOTÓN VOLVER */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* BOTÓN */
 .back-home {
   position: fixed;
   top: 18px;
@@ -55,7 +65,9 @@ body {
 }
 
 @keyframes float {
+  0% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
 }
 
 /* SECCIONES MÁS COMPACTAS */
@@ -68,12 +80,13 @@ section {
 /* ACORDEÓN */
 .accordion {
   display: grid;
+  grid-template-columns: 1fr;
   gap: 10px;
 }
 
 @media(min-width:768px){
   .accordion {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -99,6 +112,7 @@ section {
   border-radius: 0 0 10px 10px;
 }
 
+/* ICONO */
 .arrow {
   width: 22px;
 }
@@ -106,6 +120,7 @@ section {
 /* GRID */
 .grid-2 {
   display: grid;
+  grid-template-columns: 1fr;
   gap: 15px;
 }
 
@@ -115,43 +130,38 @@ section {
   }
 }
 
-/* EFECTO IMÁGENES GLOBAL */
-img {
-  transition: transform 0.3s ease;
-}
-
-img:hover {
-  transform: scale(1.04);
-}
-
-/* MERCH */
-.merch-img {
-  width: 100%;
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.35);
-}
-
-/* OPPIS */
-.square-img {
-  width: 100%;
-  border-radius: 10px;
-}
-
-.billboard {
-  width: 100%;
-  border-radius: 12px;
-  margin-top: 15px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.35);
-}
-
-/* RRSS */
+/* IMÁGENES */
+.merch-img,
+.opis-img,
+.billboard-img,
 .rrss-img {
   width: 100%;
   border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.merch-img,
+.billboard-img {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.35);
+}
+
+.merch-img:hover,
+.opis-img:hover,
+.billboard-img:hover,
+.rrss-img:hover {
+  transform: scale(1.03);
+}
+
+/* CUADRADAS */
+.opis-img {
+  max-width: 300px;
+  margin: auto;
+  display: block;
 }
 
 /* VIDEO */
 .video-wrapper {
+  position: relative;
   width: 100%;
   aspect-ratio: 16/9;
   border-radius: 12px;
@@ -163,9 +173,10 @@ img:hover {
   height: 100%;
 }
 
-/* FOOTER */
+/* FOOTER ARREGLADO */
 .footer-wrapper {
   position: relative;
+  width: 100%;
   margin-top: 30px;
 }
 
@@ -173,14 +184,17 @@ img:hover {
   position: absolute;
   top: 0;
   width: 100%;
-  height: 100px;
+  height: 120px;
   background: linear-gradient(to bottom, #493026, transparent);
+  z-index: 2;
 }
 
+/* 🔥 IMPORTANTE: eliminado problema franja */
 .footer-image {
   width: 100%;
   height: 140px;
   background: url("footer-nuevo.png") center/cover no-repeat;
+  display: block;
 }
 
 .footer-text {
@@ -189,12 +203,15 @@ img:hover {
   width: 100%;
   text-align: center;
   transform: translateY(-50%);
+  z-index: 3;
 }
 
 .copyright-box {
   background: rgba(0,0,0,0.5);
   padding: 6px 12px;
   border-radius: 6px;
+  display: inline-block;
+  font-size: 13px;
 }
 
 </style>
@@ -205,14 +222,29 @@ img:hover {
 <a class="back-home" href="index.html">← Volver</a>
 
 <!-- HERO -->
-<header class="hero"></header>
+<header class="hero">
+<div class="hero-content">
+<h1>MAGNUM</h1>
+</div>
+</header>
 
-<!-- DESCRIPCIÓN -->
+<!-- DESCRIPCIÓN + ACORDEÓN -->
 <section>
 
 <p><strong>Proyecto conceptual ficticio</strong></p>
 
 <div class="accordion">
+
+<!-- NUEVO DESPLEGABLE -->
+<div class="accordion-item">
+<button onclick="toggleAccordion(this)">
+Descripción
+<img class="arrow" src="flecha-magnum-cerrado.png">
+</button>
+<div class="accordion-content">
+<p><strong>Campaña conceptual que reinterpreta el consumo de helado en invierno</strong>, transformándolo en una experiencia cálida y sensorial.</p>
+</div>
+</div>
 
 <div class="accordion-item">
 <button onclick="toggleAccordion(this)">
@@ -262,11 +294,13 @@ Idea
 <h2>Cartelería exterior</h2>
 
 <div class="grid-2">
-<img src="magnum-cuadrada-izquierda.png" class="square-img">
-<img src="magnum-cuadrada-derecha.png" class="square-img">
+<img src="magnum-cuadrada-izquierda.png" class="opis-img">
+<img src="magnum-cuadrada-derecha.png" class="opis-img">
 </div>
 
-<img src="billboard-magnum.png" class="billboard">
+<br>
+
+<img src="billboard-magnum.png" class="billboard-img">
 
 </section>
 
@@ -287,10 +321,13 @@ Idea
 <!-- FOOTER -->
 <div class="footer-wrapper">
 <div class="footer-gradient"></div>
+
 <div class="footer-text">
   <div class="copyright-box">© 2026 Neergraphs</div>
 </div>
+
 <div class="footer-image"></div>
+
 </div>
 
 <script>
