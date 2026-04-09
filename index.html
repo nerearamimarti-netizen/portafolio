@@ -25,7 +25,6 @@
       animation: gradientMove 8s ease infinite;
     }
 
-    /* HEADER */
     header {
       padding: 100px 20px;
       text-align: center;
@@ -40,8 +39,8 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      z-index: 0;
       opacity: 0.25;
+      z-index: 0;
     }
 
     header .content {
@@ -65,7 +64,7 @@
       margin: auto;
     }
 
-    /* ABOUT LAYOUT */
+    /* ABOUT */
     .about-container {
       display: flex;
       flex-wrap: wrap;
@@ -79,9 +78,7 @@
       height: 180px;
       border-radius: 50%;
       object-fit: cover;
-      border: 4px solid;
-      border-image: linear-gradient(270deg, #ff4ecd, #6c63ff, #00d4ff) 1;
-      box-shadow: 0 0 25px rgba(108,99,255,0.6);
+      box-shadow: 0 0 25px rgba(108,99,255,0.4);
       transition: transform 0.4s ease;
     }
 
@@ -162,7 +159,6 @@
 
 <header>
 
-  <!-- VIDEO DE FONDO -->
   <video autoplay muted loop playsinline>
     <source src="background-nerea.mp4" type="video/mp4">
   </video>
@@ -171,8 +167,7 @@
 
     <h1>NEEERGRAPHS</h1>
 
-    <p class="subtitle">Video Editing • Graphic Design</p>
-    <p class="subtitle">Creative Content for Social Media</p>
+    <p class="subtitle">Edición de vídeo • Diseño gráfico</p>
     <p class="subtitle">Contenido creativo para RRSS</p>
 
   </div>
@@ -183,23 +178,19 @@
 
   <div class="about-container">
 
-    <!-- IMAGEN IZQUIERDA -->
     <img src="nerea.ramirez.png" class="profile" alt="Foto de perfil">
 
-    <!-- TEXTO DERECHA -->
     <div class="about-text">
 
-      <h2>About me</h2>
+      <h2>Sobre mí</h2>
 
       <p>
-        I’m a creative visual designer focused on digital content and social media storytelling.
-        I specialize in video editing, motion content and graphic design, combining aesthetics,
-        branding and strategy to create content that not only looks good, but communicates and performs.
-
+        Soy creadora visual enfocada en contenido digital y redes sociales. Trabajo en edición de vídeo,
+        diseño gráfico y creación de contenido visual con una visión centrada en estética, coherencia de marca
+        y comunicación efectiva.
         <br><br>
-
-        My work is driven by visual identity, consistency and impact — turning ideas into engaging
-        content across platforms like Instagram, TikTok, YouTube and LinkedIn.
+        Mi objetivo es transformar ideas en contenido atractivo que conecte con el público y refuerce la identidad
+        visual de cada proyecto.
       </p>
 
     </div>
@@ -209,55 +200,55 @@
 </section>
 
 <section>
-  <h2>¿Todo lo que puedo hacer?</h2>
+  <h2>Todo lo que puedo hacer</h2>
 
   <div class="grid">
 
     <div class="card">
       <div class="icon">▶</div>
-      <h3>Video Editing</h3>
-      <p>Short-form content (Reels, TikToks), CapCut workflows, and professional editing with Adobe Premiere Pro & After Effects. Motion graphics, transitions and storytelling.</p>
+      <h3>Edición de vídeo</h3>
+      <p>Contenido corto para redes (Reels, TikTok), edición con CapCut y producción más avanzada con Adobe Premiere Pro y After Effects, incluyendo motion graphics y storytelling visual.</p>
     </div>
 
     <div class="card">
       <div class="icon">▦</div>
-      <h3>Graphic Design</h3>
-      <p>Social media posts, posters, infographics, flyers, diptychs and digital assets with strong visual hierarchy and brand consistency.</p>
+      <h3>Diseño gráfico</h3>
+      <p>Diseño de posts para redes sociales, carteles, infografías, flyers, dípticos y cartelería digital con enfoque en composición y coherencia visual.</p>
     </div>
 
     <div class="card">
       <div class="icon">◉</div>
-      <h3>Social Media Content</h3>
-      <p>Reels, TikToks, carousels, stories, YouTube content, LinkedIn visuals and cross-platform creative content strategies.</p>
+      <h3>Contenido para RRSS</h3>
+      <p>Reels, TikToks, carruseles, stories, contenido para YouTube, LinkedIn y adaptación multiplataforma con enfoque en engagement.</p>
     </div>
 
     <div class="card">
       <div class="icon">◆</div>
-      <h3>Branding & Identity</h3>
-      <p>Brand creation from scratch: logo design, visual identity systems, brand guidelines and cohesive content strategy.</p>
+      <h3>Branding</h3>
+      <p>Creación de marca desde cero: logotipo, identidad visual, dirección creativa y estrategia de contenido coherente en todos los canales.</p>
     </div>
 
   </div>
 </section>
 
 <section>
-  <h2>Projects</h2>
+  <h2>Proyectos</h2>
 
   <div class="grid">
 
     <div class="card">
-      <h3>Project One</h3>
-      <p>Creative video editing and visual direction.</p>
+      <h3>Proyecto 1</h3>
+      <p>Edición de vídeo y dirección creativa.</p>
       <a href="proyecto1.html">
-        <button>View project</button>
+        <button>Ver proyecto</button>
       </a>
     </div>
 
     <div class="card">
-      <h3>Project Two</h3>
-      <p>Social media branding and content design.</p>
+      <h3>Proyecto 2</h3>
+      <p>Diseño de contenido y branding visual.</p>
       <a href="proyecto2.html">
-        <button>View project</button>
+        <button>Ver proyecto</button>
       </a>
     </div>
 
@@ -265,11 +256,13 @@
 </section>
 
 <section>
-  <h2>Contact</h2>
+  <h2>Contacto</h2>
 
-  <p>Email: nerearamimartiarrobagmail.com</p>
-  <p>Phone: 653607909</p>
-  <p>Location: San Sebastián de los Reyes</p>
+  <div class="card">
+    <p>✉️ nerearamimartiarrobagmail.com</p>
+    <p>📞 653607909</p>
+    <p>📍 San Sebastián de los Reyes</p>
+  </div>
 
 </section>
 
