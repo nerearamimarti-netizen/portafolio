@@ -17,7 +17,7 @@ body {
   color: white;
 }
 
-/* BOTÓN VOLVER */
+/* BOTÓN */
 .back-home {
   position: fixed;
   top: 15px;
@@ -31,16 +31,9 @@ body {
   z-index: 999;
 }
 
-/* SECCIONES (menos espacio) */
-section {
-  padding: 40px 20px;
-  max-width: 1000px;
-  margin: auto;
-}
-
-/* HERO */
+/* HERO MÁS CONTROLADO */
 .hero {
-  height: 100vh;
+  height: 70vh;
   background: url("Magnum-hero.png") center/cover no-repeat;
   display: flex;
   align-items: center;
@@ -54,17 +47,65 @@ section {
   border-radius: 12px;
 }
 
-/* TEXTO GENERAL */
+/* SECCIONES MÁS PEGADAS */
+section {
+  padding: 20px 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+/* TEXTO */
 p {
-  font-weight: 400;
   line-height: 1.6;
 }
 
-/* GRID */
+/* FLEX ACORDEONES EN FILA */
+.accordion {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+@media(min-width:768px){
+  .accordion {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* ACORDEÓN */
+.accordion-item button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #2b1b14;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accordion-item span {
+  font-size: 20px; /* flecha más grande */
+  margin-left: 5px;
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  background: rgba(0,0,0,0.2);
+  padding: 0 10px;
+  border-radius: 0 0 8px 8px;
+}
+
+/* MERCH */
 .grid-2 {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
+  gap: 15px;
 }
 
 @media(min-width:768px){
@@ -73,25 +114,16 @@ p {
   }
 }
 
-.box {
-  background: rgba(0,0,0,0.2);
-  padding: 15px;
-  border-radius: 12px;
-}
-
 .placeholder {
-  width: 100%;
-  height: 250px;
+  height: 220px;
   background: #222;
-  border-radius: 12px;
+  border-radius: 10px;
 }
 
 /* BILLBOARD */
 .billboard-section {
   position: relative;
-  padding: 60px 20px;
-  border-radius: 16px;
-  overflow: hidden;
+  padding: 40px 20px;
 }
 
 .billboard-bg {
@@ -107,81 +139,65 @@ p {
 
 .overlay-images {
   display: flex;
-  gap: 15px;
-  margin-bottom: 15px;
+  gap: 10px;
 }
 
 .overlay-images div {
   flex: 1;
-  height: 160px;
+  height: 140px;
   background: #111;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 .billboard-large {
-  height: 220px;
+  height: 200px;
   background: #111;
-  border-radius: 12px;
-  margin-top: 15px;
+  border-radius: 10px;
+  margin-top: 10px;
 }
 
-/* ACORDEÓN */
-.accordion-item {
-  margin-bottom: 8px;
-}
-
-.accordion button {
+/* VIDEO PERFECTO 16:9 */
+.video-wrapper {
+  position: relative;
   width: 100%;
-  text-align: left;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  background: #2b1b14;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.accordion-content {
-  max-height: 0;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
   overflow: hidden;
-  transition: max-height 0.4s ease;
-  background: rgba(0,0,0,0.2);
-  padding: 0 12px;
-  border-radius: 0 0 8px 8px;
 }
 
-.accordion-content p {
-  margin: 10px 0;
-}
-
-/* VIDEO */
-iframe {
+.video-wrapper iframe {
   width: 100%;
-  height: 400px;
-  border-radius: 12px;
+  height: 100%;
+  border: 0;
 }
 
 /* FOOTER */
+.footer-wrapper {
+  position: relative;
+  width: 100%;
+}
+
 .footer-image {
-  height: 250px;
+  width: 100%;
+  height: 300px;
   background: url("Magnum-footer.png") center/cover no-repeat;
 }
 
-footer {
+/* COPYRIGHT ENCIMA */
+.footer-text {
+  position: absolute;
+  top: 20px;
+  width: 100%;
   text-align: center;
-  padding: 20px;
-  background: #493026;
+  color: white;
 }
 
-.copyright {
-  background: rgba(0,0,0,0.3);
+.copyright-box {
   display: inline-block;
+  background: rgba(0,0,0,0.4);
   padding: 8px 12px;
   border-radius: 6px;
-  margin-top: 8px;
+  margin-top: 5px;
 }
 
 </style>
@@ -199,17 +215,12 @@ footer {
   </div>
 </section>
 
-<!-- DESCRIPCIÓN (sin título) -->
-<section>
-<p>
-<strong>Proyecto conceptual ficticio</strong> desarrollado para la marca Magnum, centrado en posicionar el producto como una experiencia de placer también en invierno, alejándolo de su uso estacional tradicional.
-</p>
-</section>
-
-<!-- CONTEXTO + ACORDEÓN -->
+<!-- DESCRIPCIÓN + CONTEXTO -->
 <section>
 
-<h2 style="margin-bottom:10px;">Concepto de campaña</h2>
+<p><strong>Proyecto conceptual ficticio</strong> desarrollado para Magnum, enfocado en posicionar el helado como un placer también en invierno.</p>
+
+<h2 style="margin-top:10px;">Concepto de campaña</h2>
 
 <div class="accordion">
 
@@ -219,9 +230,7 @@ footer {
 <span>▼</span>
 </button>
 <div class="accordion-content">
-<p>
-<strong>En invierno, el helado parece "prohibido":</strong> el frío hace que consumirlo resulte incómodo y el placer se asocia únicamente al verano. Cuando hace frío buscamos otros momentos de confort.
-</p>
+<p><strong>En invierno, el helado parece "prohibido"</strong>, ya que el frío hace que consumirlo resulte incómodo y se asocie al verano.</p>
 </div>
 </div>
 
@@ -231,9 +240,7 @@ footer {
 <span>▼</span>
 </button>
 <div class="accordion-content">
-<p>
-<strong>Asociar Magnum con los placeres de invierno</strong>, creando una experiencia cálida, envolvente y sensorial que conecte con momentos de disfrute en frío.
-</p>
+<p><strong>Asociar Magnum con momentos de invierno</strong> como una experiencia cálida, envolvente y reconfortante.</p>
 </div>
 </div>
 
@@ -243,9 +250,7 @@ footer {
 <span>▼</span>
 </button>
 <div class="accordion-content">
-<p>
-<strong>Crear un concepto donde Magnum acompaña el invierno</strong> mediante una manta que refuerza la sensación de confort y convierte el consumo en una experiencia completa.
-</p>
+<p><strong>Crear una experiencia donde Magnum acompaña el invierno</strong> mediante una manta que refuerza el confort.</p>
 </div>
 </div>
 
@@ -258,14 +263,13 @@ footer {
 <h2>Merchandising</h2>
 
 <div class="grid-2">
-<div class="box"><div class="placeholder"></div></div>
-<div class="box"><div class="placeholder"></div></div>
+<div class="placeholder"></div>
+<div class="placeholder"></div>
 </div>
 </section>
 
 <!-- CARTELERÍA -->
 <section class="billboard-section">
-
 <div class="billboard-bg"></div>
 
 <div class="billboard-content">
@@ -280,7 +284,6 @@ footer {
 <div class="billboard-large"></div>
 
 </div>
-
 </section>
 
 <!-- POSTS -->
@@ -294,45 +297,35 @@ footer {
 <h2>Vídeo campaña</h2>
 
 <div class="video-wrapper">
-  <iframe 
-    src="https://www.youtube.com/embed/dPMp22JkiI0?si=WT5hsCDMvBZmPOca"
-    title="YouTube video player"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    allowfullscreen>
-  </iframe>
+<iframe 
+src="https://www.youtube.com/embed/dPMp22JkiI0"
+allowfullscreen>
+</iframe>
 </div>
 
 </section>
 
-<!-- FRASE FINAL -->
-<section>
-<p style="text-align:center;">
-<strong>Por que cada estación merece su momento Magnum.</strong>
-</p>
-</section>
-
 <!-- FOOTER -->
+<div class="footer-wrapper">
+
+<div class="footer-text">
+  <div class="copyright-box">© 2026 Neeergraphs</div>
+</div>
+
 <div class="footer-image"></div>
 
-<footer>
-<div>© 2026 Neeergraphs</div>
-<div class="copyright">Todos los derechos reservados</div>
-</footer>
+</div>
 
 <script>
-
 function toggleAccordion(button){
   const content = button.nextElementSibling;
-  const isOpen = content.style.maxHeight;
 
-  if(isOpen){
+  if(content.style.maxHeight){
     content.style.maxHeight = null;
   } else {
     content.style.maxHeight = content.scrollHeight + "px";
   }
 }
-
 </script>
 
 </body>
