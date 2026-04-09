@@ -15,12 +15,16 @@
       font-family: 'Poppins', sans-serif;
       background: #0f0f0f;
       color: #ffffff;
-      scroll-behavior: smooth;
     }
 
     h1, h2 {
       font-family: 'Fredoka', sans-serif;
       font-weight: 600;
+      background: linear-gradient(270deg, #ff4ecd, #6c63ff, #00d4ff, #ff4ecd);
+      background-size: 800% 800%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientMove 8s ease infinite;
     }
 
     header {
@@ -31,7 +35,6 @@
       align-items: center;
       text-align: center;
       background: linear-gradient(135deg, #111, #1a1a1a);
-      animation: fadeIn 1.5s ease-in-out;
     }
 
     h1 {
@@ -74,37 +77,16 @@
       }
     }
 
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 1s forwards;
-    }
-
-    .delay-1 { animation-delay: 0.3s; }
-    .delay-2 { animation-delay: 0.6s; }
-    .delay-3 { animation-delay: 0.9s; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     footer {
       text-align: center;
       padding: 40px;
       color: #888;
     }
 
-    a {
-      color: #ffffff;
-      text-decoration: none;
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
   </style>
 </head>
@@ -117,51 +99,59 @@
 </header>
 
 <section>
-  <h2 class="fade-in">Sobre mí</h2>
-  <p class="fade-in delay-1">
+  <h2>Sobre mí</h2>
+  <p>
     Soy creadora visual especializada en diseño gráfico y edición de vídeo para redes sociales.
     Combino estética y estrategia para crear contenido atractivo, coherente y orientado a resultados.
   </p>
-</section>
 
-<section>
-  <h2 class="fade-in">Servicios</h2>
-
+  <!-- Cards debajo de Sobre mí -->
   <div class="grid">
-    <div class="card fade-in delay-1">
+
+    <div class="card">
       <h3>🎬 Edición de vídeo</h3>
-      <p>Reels, TikToks, contenido dinámico y promocional optimizado para redes.</p>
+      <p>Reels, TikToks y contenido dinámico optimizado para redes sociales.</p>
     </div>
 
-    <div class="card fade-in delay-2">
+    <div class="card">
       <h3>🎨 Diseño gráfico</h3>
-      <p>Posts, carruseles, banners y piezas visuales para branding y redes sociales.</p>
+      <p>Posts, carruseles y piezas visuales para identidad de marca.</p>
     </div>
 
-    <div class="card fade-in delay-3">
-      <h3>📢 Contenido para redes</h3>
-      <p>Creación de contenido visual coherente con identidad de marca.</p>
+    <div class="card">
+      <h3>📱 Contenido para RRSS</h3>
+      <p>Creación de contenido visual coherente y adaptado a plataformas sociales.</p>
     </div>
+
+    <div class="card">
+      <h3>🚀 Branding visual</h3>
+      <p>Desarrollo de identidad visual para marcas y proyectos digitales.</p>
+    </div>
+
   </div>
 </section>
 
 <section>
-  <h2 class="fade-in">Proyectos</h2>
+  <h2>Proyectos</h2>
 
-  <div class="card fade-in delay-1">
+  <div class="card">
     <h3>Proyecto 1</h3>
-    <p>Descripción breve del proyecto, objetivos y enfoque creativo.</p>
+    <p>Descripción breve del proyecto, enfoque creativo y objetivo.</p>
   </div>
 
-  <div class="card fade-in delay-2">
+  <div class="card">
     <h3>Proyecto 2</h3>
     <p>Trabajo centrado en contenido visual para redes sociales.</p>
   </div>
+
 </section>
 
 <section>
-  <h2 class="fade-in">Contacto</h2>
-  <p class="fade-in delay-1">Email: tuemail@gmail.com</p>
+  <h2>Contacto</h2>
+
+  <p>Email: nerearamimartiarrobagmail.com</p>
+  <p>Teléfono: 653607909</p>
+  <p>Ubicación: San Sebastián de los Reyes</p>
 </section>
 
 <footer>
