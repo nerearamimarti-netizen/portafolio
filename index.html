@@ -14,6 +14,7 @@
       font-family: 'Poppins', sans-serif;
       background: #0f0f0f;
       color: #ffffff;
+      font-weight: bold;
     }
 
     h1, h2 {
@@ -23,6 +24,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: gradientMove 8s ease infinite;
+      font-weight: bold;
     }
 
     header {
@@ -50,12 +52,12 @@
 
     h1 {
       font-size: 3rem;
-      margin-bottom: 10px;
     }
 
     .subtitle {
       color: #aaa;
       margin: 5px 0;
+      font-weight: bold;
     }
 
     section {
@@ -85,18 +87,15 @@
       max-width: 500px;
     }
 
-    /* ICONOS SKILLS */
     .skills {
       display: flex;
       gap: 15px;
       margin-top: 15px;
-      flex-wrap: wrap;
     }
 
     .skills img {
       width: 32px;
       height: 32px;
-      opacity: 0.9;
     }
 
     /* GRID */
@@ -115,7 +114,7 @@
       background: #1c1c1c;
       padding: 20px;
       border-radius: 16px;
-      transition: transform 0.3s ease, background 0.3s;
+      transition: transform 0.3s ease;
     }
 
     .card:hover {
@@ -123,10 +122,13 @@
       background: #222;
     }
 
-    .icon-img {
-      width: 32px;
-      height: 32px;
-      margin-bottom: 10px;
+    .project-img {
+      width: 100%;
+      height: 140px;
+      background: #333;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      object-fit: cover;
     }
 
     button {
@@ -134,22 +136,21 @@
       padding: 10px 16px;
       border: none;
       border-radius: 8px;
-      background: linear-gradient(270deg, #ff4ecd, #6c63ff);
+      background: #2b2b2b;
       color: white;
       cursor: pointer;
-      font-weight: 500;
+      font-weight: bold;
+      border: 1px solid #444;
     }
 
-    footer {
-      text-align: center;
-      padding: 40px;
-      color: #888;
+    button:hover {
+      background: #3a3a3a;
     }
 
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    .icon-img {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 10px;
     }
 
     .contact-item {
@@ -162,6 +163,20 @@
     .contact-icon {
       width: 22px;
       height: 22px;
+      object-fit: contain;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: #888;
+      font-weight: bold;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
   </style>
@@ -202,7 +217,6 @@
         y comunicación efectiva.
       </p>
 
-      <!-- SKILLS ICONS -->
       <div class="skills">
         <img src="vector.png">
         <img src="paleta.png">
@@ -224,25 +238,25 @@
     <div class="card">
       <img src="video.png" class="icon-img">
       <h3>Edición de vídeo</h3>
-      <p>Contenido corto para redes (Reels, TikTok), CapCut y edición profesional con Premiere Pro y After Effects.</p>
+      <p>Contenido corto para redes, CapCut y edición profesional con Premiere Pro y After Effects.</p>
     </div>
 
     <div class="card">
       <img src="paleta.png" class="icon-img">
       <h3>Diseño gráfico</h3>
-      <p>Posts, carteles, infografías, flyers, dípticos y piezas digitales orientadas a branding visual.</p>
+      <p>Posts, carteles, infografías, flyers y piezas digitales con coherencia visual.</p>
     </div>
 
     <div class="card">
       <img src="rrss.png" class="icon-img">
       <h3>Contenido para RRSS</h3>
-      <p>Reels, TikToks, carruseles, stories y contenido adaptado para Instagram, YouTube y LinkedIn.</p>
+      <p>Reels, TikToks, carruseles, stories y contenido multiplataforma.</p>
     </div>
 
     <div class="card">
       <img src="vector.png" class="icon-img">
       <h3>Branding</h3>
-      <p>Creación de marca desde cero: logotipo, identidad visual y estrategia creativa.</p>
+      <p>Creación de marca desde cero: logotipo, identidad visual y estrategia.</p>
     </div>
 
   </div>
@@ -254,15 +268,31 @@
   <div class="grid">
 
     <div class="card">
+      <div class="project-img"></div>
       <h3>Campaña Magnum</h3>
-      <p><strong>"Algunos placeres no entienden de estaciones"</strong></p>
-      <p>Proyecto de branding y contenido creativo enfocado en campaña visual y storytelling para redes sociales.</p>
+      <p>"Algunos placeres no entienden de estaciones"</p>
+      <p>Proyecto de branding y contenido creativo para redes sociales.</p>
       <button>Ver proyecto</button>
     </div>
 
     <div class="card">
-      <h3>Branding & RRSS Dolce Vita</h3>
-      <p>Creación de marca desde cero y diseño de contenido para redes sociales con enfoque visual coherente y estrategia digital.</p>
+      <div class="project-img"></div>
+      <h3>Dolce Vita</h3>
+      <p>Creación de marca y diseño de redes sociales.</p>
+      <button>Ver proyecto</button>
+    </div>
+
+    <div class="card">
+      <div class="project-img"></div>
+      <h3>Home 3D</h3>
+      <p>After Effects y Illustrator.</p>
+      <button>Ver proyecto</button>
+    </div>
+
+    <div class="card">
+      <div class="project-img"></div>
+      <h3>Simulación Superboy</h3>
+      <p>Vídeo corto realizado en After Effects.</p>
       <button>Ver proyecto</button>
     </div>
 
@@ -270,7 +300,7 @@
 </section>
 
 <section>
-  <h2>Contacto</h2>
+  <h2>¿Hablamos? :)</h2>
 
   <div class="card">
 
