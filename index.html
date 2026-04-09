@@ -25,8 +25,9 @@
       animation: gradientMove 8s ease infinite;
     }
 
+    /* HEADER */
     header {
-      padding: 80px 20px;
+      padding: 100px 20px;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -39,13 +40,13 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.2;
       z-index: 0;
+      opacity: 0.25;
     }
 
     header .content {
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
 
     h1 {
@@ -53,10 +54,9 @@
       margin-bottom: 10px;
     }
 
-    p {
-      color: #ccc;
-      max-width: 600px;
-      margin: auto;
+    .subtitle {
+      color: #aaa;
+      margin: 5px 0;
     }
 
     section {
@@ -65,16 +65,23 @@
       margin: auto;
     }
 
-    /* FOTO PERFIL */
+    /* ABOUT LAYOUT */
+    .about-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      align-items: center;
+      justify-content: center;
+    }
+
     .profile {
-      width: 140px;
-      height: 140px;
+      width: 180px;
+      height: 180px;
       border-radius: 50%;
       object-fit: cover;
-      display: block;
-      margin: 20px auto;
-      border: 3px solid #6c63ff;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      border: 4px solid;
+      border-image: linear-gradient(270deg, #ff4ecd, #6c63ff, #00d4ff) 1;
+      box-shadow: 0 0 25px rgba(108,99,255,0.6);
       transition: transform 0.4s ease;
     }
 
@@ -82,7 +89,11 @@
       transform: scale(1.05);
     }
 
-    /* CARDS */
+    .about-text {
+      max-width: 500px;
+    }
+
+    /* GRID */
     .grid {
       display: grid;
       gap: 20px;
@@ -106,7 +117,12 @@
       background: #222;
     }
 
-    /* BOTONES */
+    .icon {
+      font-size: 18px;
+      margin-bottom: 10px;
+      opacity: 0.8;
+    }
+
     button {
       margin-top: 10px;
       padding: 10px 16px;
@@ -147,76 +163,101 @@
 <header>
 
   <!-- VIDEO DE FONDO -->
-  <video autoplay muted loop>
-    <source src="video.mp4" type="video/mp4">
+  <video autoplay muted loop playsinline>
+    <source src="background-nerea.mp4" type="video/mp4">
   </video>
 
   <div class="content">
 
     <h1>NEEERGRAPHS</h1>
-    <p>Contenido creativo para RRSS</p>
+
+    <p class="subtitle">Video Editing • Graphic Design</p>
+    <p class="subtitle">Creative Content for Social Media</p>
+    <p class="subtitle">Contenido creativo para RRSS</p>
 
   </div>
+
 </header>
 
 <section>
-  <h2>Sobre mí</h2>
 
-  <!-- FOTO -->
-  <img src="nerea.ramirez.jpg" class="profile" alt="Foto de perfil">
+  <div class="about-container">
 
-  <p>
-    Soy creadora visual especializada en diseño gráfico y edición de vídeo para redes sociales.
-    Me enfoco en crear contenido atractivo, dinámico y adaptado a cada marca.
-  </p>
+    <!-- IMAGEN IZQUIERDA -->
+    <img src="nerea.ramirez.png" class="profile" alt="Foto de perfil">
+
+    <!-- TEXTO DERECHA -->
+    <div class="about-text">
+
+      <h2>About me</h2>
+
+      <p>
+        I’m a creative visual designer focused on digital content and social media storytelling.
+        I specialize in video editing, motion content and graphic design, combining aesthetics,
+        branding and strategy to create content that not only looks good, but communicates and performs.
+
+        <br><br>
+
+        My work is driven by visual identity, consistency and impact — turning ideas into engaging
+        content across platforms like Instagram, TikTok, YouTube and LinkedIn.
+      </p>
+
+    </div>
+
+  </div>
+
 </section>
 
 <section>
-  <h2>Servicios</h2>
+  <h2>¿Todo lo que puedo hacer?</h2>
 
   <div class="grid">
 
     <div class="card">
-      <h3>🎬 Edición de vídeo</h3>
-      <p>Reels, TikToks y contenido dinámico optimizado.</p>
+      <div class="icon">▶</div>
+      <h3>Video Editing</h3>
+      <p>Short-form content (Reels, TikToks), CapCut workflows, and professional editing with Adobe Premiere Pro & After Effects. Motion graphics, transitions and storytelling.</p>
     </div>
 
     <div class="card">
-      <h3>🎨 Diseño gráfico</h3>
-      <p>Posts, carruseles y piezas visuales para marcas.</p>
+      <div class="icon">▦</div>
+      <h3>Graphic Design</h3>
+      <p>Social media posts, posters, infographics, flyers, diptychs and digital assets with strong visual hierarchy and brand consistency.</p>
     </div>
 
     <div class="card">
-      <h3>📱 Contenido para RRSS</h3>
-      <p>Creación de contenido visual estratégico.</p>
+      <div class="icon">◉</div>
+      <h3>Social Media Content</h3>
+      <p>Reels, TikToks, carousels, stories, YouTube content, LinkedIn visuals and cross-platform creative content strategies.</p>
     </div>
 
     <div class="card">
-      <h3>🚀 Branding</h3>
-      <p>Identidad visual para proyectos y marcas.</p>
+      <div class="icon">◆</div>
+      <h3>Branding & Identity</h3>
+      <p>Brand creation from scratch: logo design, visual identity systems, brand guidelines and cohesive content strategy.</p>
     </div>
 
   </div>
 </section>
 
 <section>
-  <h2>Proyectos</h2>
+  <h2>Projects</h2>
 
   <div class="grid">
 
     <div class="card">
-      <h3>Proyecto 1</h3>
-      <p>Descripción breve del proyecto.</p>
+      <h3>Project One</h3>
+      <p>Creative video editing and visual direction.</p>
       <a href="proyecto1.html">
-        <button>Ver proyecto</button>
+        <button>View project</button>
       </a>
     </div>
 
     <div class="card">
-      <h3>Proyecto 2</h3>
-      <p>Contenido visual para redes sociales.</p>
+      <h3>Project Two</h3>
+      <p>Social media branding and content design.</p>
       <a href="proyecto2.html">
-        <button>Ver proyecto</button>
+        <button>View project</button>
       </a>
     </div>
 
@@ -224,11 +265,12 @@
 </section>
 
 <section>
-  <h2>Contacto</h2>
+  <h2>Contact</h2>
 
   <p>Email: nerearamimartiarrobagmail.com</p>
-  <p>Teléfono: 653607909</p>
-  <p>Ubicación: San Sebastián de los Reyes</p>
+  <p>Phone: 653607909</p>
+  <p>Location: San Sebastián de los Reyes</p>
+
 </section>
 
 <footer>
