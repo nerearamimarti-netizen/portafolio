@@ -114,10 +114,11 @@
       background: #222;
     }
 
-    .icon {
-      font-size: 18px;
+    .icon-img {
+      width: 32px;
+      height: 32px;
       margin-bottom: 10px;
-      opacity: 0.8;
+      opacity: 0.9;
     }
 
     button {
@@ -136,10 +137,6 @@
       transform: scale(1.05);
     }
 
-    a {
-      text-decoration: none;
-    }
-
     footer {
       text-align: center;
       padding: 40px;
@@ -150,6 +147,18 @@
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    .contact-icon {
+      width: 22px;
+      height: 22px;
     }
 
   </style>
@@ -189,8 +198,7 @@
         diseño gráfico y creación de contenido visual con una visión centrada en estética, coherencia de marca
         y comunicación efectiva.
         <br><br>
-        Mi objetivo es transformar ideas en contenido atractivo que conecte con el público y refuerce la identidad
-        visual de cada proyecto.
+        Mi objetivo es transformar ideas en contenido atractivo que conecte con el público y refuerce la identidad visual de cada proyecto.
       </p>
 
     </div>
@@ -205,27 +213,27 @@
   <div class="grid">
 
     <div class="card">
-      <div class="icon">▶</div>
+      <img src="video.png" class="icon-img">
       <h3>Edición de vídeo</h3>
-      <p>Contenido corto para redes (Reels, TikTok), edición con CapCut y producción más avanzada con Adobe Premiere Pro y After Effects, incluyendo motion graphics y storytelling visual.</p>
+      <p>Contenido corto para redes (Reels, TikTok), edición con CapCut y producción avanzada con Adobe Premiere Pro y After Effects.</p>
     </div>
 
     <div class="card">
-      <div class="icon">▦</div>
+      <img src="paleta.png" class="icon-img">
       <h3>Diseño gráfico</h3>
-      <p>Diseño de posts para redes sociales, carteles, infografías, flyers, dípticos y cartelería digital con enfoque en composición y coherencia visual.</p>
+      <p>Posts para redes, carteles, infografías, flyers, dípticos y cartelería digital con enfoque visual y branding.</p>
     </div>
 
     <div class="card">
-      <div class="icon">◉</div>
+      <img src="rrss.png" class="icon-img">
       <h3>Contenido para RRSS</h3>
-      <p>Reels, TikToks, carruseles, stories, contenido para YouTube, LinkedIn y adaptación multiplataforma con enfoque en engagement.</p>
+      <p>Reels, TikToks, carruseles, stories, contenido para YouTube, LinkedIn y estrategias multiplataforma.</p>
     </div>
 
     <div class="card">
-      <div class="icon">◆</div>
+      <img src="vector.png" class="icon-img">
       <h3>Branding</h3>
-      <p>Creación de marca desde cero: logotipo, identidad visual, dirección creativa y estrategia de contenido coherente en todos los canales.</p>
+      <p>Creación de marca desde cero: logotipo, identidad visual, dirección creativa y estrategia de contenido.</p>
     </div>
 
   </div>
@@ -239,17 +247,13 @@
     <div class="card">
       <h3>Proyecto 1</h3>
       <p>Edición de vídeo y dirección creativa.</p>
-      <a href="proyecto1.html">
-        <button>Ver proyecto</button>
-      </a>
+      <button>Ver proyecto</button>
     </div>
 
     <div class="card">
       <h3>Proyecto 2</h3>
       <p>Diseño de contenido y branding visual.</p>
-      <a href="proyecto2.html">
-        <button>Ver proyecto</button>
-      </a>
+      <button>Ver proyecto</button>
     </div>
 
   </div>
@@ -259,9 +263,22 @@
   <h2>Contacto</h2>
 
   <div class="card">
-    <p>✉️ nerearamimartiarrobagmail.com</p>
-    <p>📞 653607909</p>
-    <p>📍 San Sebastián de los Reyes</p>
+
+    <div class="contact-item">
+      <img src="correo.png" class="contact-icon">
+      <span>nerearamimartiarrobagmail.com</span>
+    </div>
+
+    <div class="contact-item">
+      <img src="llamar.png" class="contact-icon">
+      <span>653607909</span>
+    </div>
+
+    <div class="contact-item">
+      <img src="mapa.png" class="contact-icon">
+      <span>San Sebastián de los Reyes</span>
+    </div>
+
   </div>
 
 </section>
