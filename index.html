@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
 
   <title>Neeergraphs</title>
@@ -19,7 +18,6 @@
 
     h1, h2 {
       font-family: 'Fredoka', sans-serif;
-      font-weight: 600;
       background: linear-gradient(270deg, #ff4ecd, #6c63ff, #00d4ff, #ff4ecd);
       background-size: 800% 800%;
       -webkit-background-clip: text;
@@ -28,23 +26,37 @@
     }
 
     header {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      padding: 80px 20px;
       text-align: center;
-      background: linear-gradient(135deg, #111, #1a1a1a);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.2;
+      z-index: 0;
+    }
+
+    header .content {
+      position: relative;
+      z-index: 1;
     }
 
     h1 {
-      font-size: 4rem;
-      letter-spacing: 2px;
+      font-size: 3rem;
+      margin-bottom: 10px;
     }
 
     p {
-      color: #cccccc;
+      color: #ccc;
       max-width: 600px;
+      margin: auto;
     }
 
     section {
@@ -53,19 +65,24 @@
       margin: auto;
     }
 
-    .card {
-      background: #1c1c1c;
-      padding: 20px;
-      border-radius: 16px;
-      margin-bottom: 20px;
-      transition: transform 0.3s ease, background 0.3s;
+    /* FOTO PERFIL */
+    .profile {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      margin: 20px auto;
+      border: 3px solid #6c63ff;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      transition: transform 0.4s ease;
     }
 
-    .card:hover {
-      transform: translateY(-8px);
-      background: #222;
+    .profile:hover {
+      transform: scale(1.05);
     }
 
+    /* CARDS */
     .grid {
       display: grid;
       gap: 20px;
@@ -75,6 +92,39 @@
       .grid {
         grid-template-columns: repeat(2, 1fr);
       }
+    }
+
+    .card {
+      background: #1c1c1c;
+      padding: 20px;
+      border-radius: 16px;
+      transition: transform 0.3s ease, background 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      background: #222;
+    }
+
+    /* BOTONES */
+    button {
+      margin-top: 10px;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(270deg, #ff4ecd, #6c63ff);
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font-weight: 500;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    a {
+      text-decoration: none;
     }
 
     footer {
@@ -88,44 +138,62 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
+
   </style>
 </head>
 
 <body>
 
 <header>
-  <h1>NEEERGRAPHS</h1>
-  <p>Edición de vídeo · Diseño gráfico · Contenido creativo para redes</p>
+
+  <!-- VIDEO DE FONDO -->
+  <video autoplay muted loop>
+    <source src="video.mp4" type="video/mp4">
+  </video>
+
+  <div class="content">
+
+    <h1>NEEERGRAPHS</h1>
+    <p>Contenido creativo para RRSS</p>
+
+  </div>
 </header>
 
 <section>
   <h2>Sobre mí</h2>
+
+  <!-- FOTO -->
+  <img src="nerea.ramirez.jpg" class="profile" alt="Foto de perfil">
+
   <p>
     Soy creadora visual especializada en diseño gráfico y edición de vídeo para redes sociales.
-    Combino estética y estrategia para crear contenido atractivo, coherente y orientado a resultados.
+    Me enfoco en crear contenido atractivo, dinámico y adaptado a cada marca.
   </p>
+</section>
 
-  <!-- Cards debajo de Sobre mí -->
+<section>
+  <h2>Servicios</h2>
+
   <div class="grid">
 
     <div class="card">
       <h3>🎬 Edición de vídeo</h3>
-      <p>Reels, TikToks y contenido dinámico optimizado para redes sociales.</p>
+      <p>Reels, TikToks y contenido dinámico optimizado.</p>
     </div>
 
     <div class="card">
       <h3>🎨 Diseño gráfico</h3>
-      <p>Posts, carruseles y piezas visuales para identidad de marca.</p>
+      <p>Posts, carruseles y piezas visuales para marcas.</p>
     </div>
 
     <div class="card">
       <h3>📱 Contenido para RRSS</h3>
-      <p>Creación de contenido visual coherente y adaptado a plataformas sociales.</p>
+      <p>Creación de contenido visual estratégico.</p>
     </div>
 
     <div class="card">
-      <h3>🚀 Branding visual</h3>
-      <p>Desarrollo de identidad visual para marcas y proyectos digitales.</p>
+      <h3>🚀 Branding</h3>
+      <p>Identidad visual para proyectos y marcas.</p>
     </div>
 
   </div>
@@ -134,16 +202,25 @@
 <section>
   <h2>Proyectos</h2>
 
-  <div class="card">
-    <h3>Proyecto 1</h3>
-    <p>Descripción breve del proyecto, enfoque creativo y objetivo.</p>
-  </div>
+  <div class="grid">
 
-  <div class="card">
-    <h3>Proyecto 2</h3>
-    <p>Trabajo centrado en contenido visual para redes sociales.</p>
-  </div>
+    <div class="card">
+      <h3>Proyecto 1</h3>
+      <p>Descripción breve del proyecto.</p>
+      <a href="proyecto1.html">
+        <button>Ver proyecto</button>
+      </a>
+    </div>
 
+    <div class="card">
+      <h3>Proyecto 2</h3>
+      <p>Contenido visual para redes sociales.</p>
+      <a href="proyecto2.html">
+        <button>Ver proyecto</button>
+      </a>
+    </div>
+
+  </div>
 </section>
 
 <section>
