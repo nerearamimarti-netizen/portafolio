@@ -10,33 +10,16 @@
 
 <style>
 
-/* ===================== BASE ===================== */
-
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   background: #0f0f0f;
   color: white;
-  cursor: none;
 }
 
-/* CURSOR GLOW */
-.cursor {
-  position: fixed;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  pointer-events: none;
-  background: radial-gradient(circle, #6c63ff, transparent 70%);
-  transform: translate(-50%, -50%);
-  z-index: 9999;
-  mix-blend-mode: screen;
-}
-
-/* ===================== HEADER ===================== */
-
+/* HEADER */
 header {
-  padding: 120px 20px;
+  padding: 100px 20px;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -56,38 +39,35 @@ header .content {
   position: relative;
 }
 
-h1 {
+/* TITULO NEERGRAPHS */
+header h1 {
   font-family: 'Fredoka', sans-serif;
   font-size: 64px;
   letter-spacing: 2px;
-  background: linear-gradient(90deg,#6c63ff,#00d4ff,#6c63ff);
+  font-weight: 600;
+
+  background: linear-gradient(90deg,#ff4ecd,#6c63ff,#00d4ff,#ff4ecd);
+  background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: glowMove 3s infinite alternate ease-in-out;
+
+  animation: gradientMove 4s ease infinite, floatTitle 3s ease-in-out infinite;
 }
 
-@keyframes glowMove {
-  from { filter: drop-shadow(0 0 10px #6c63ff); }
-  to { filter: drop-shadow(0 0 25px #00d4ff); }
+/* animación flotante suave letras */
+@keyframes floatTitle {
+  0%,100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
 }
 
-/* ===================== SECCIONES ===================== */
-
+/* SECCIONES */
 section {
-  padding: 70px 20px;
-  max-width: 1100px;
+  padding: 80px 20px;
+  max-width: 1000px;
   margin: auto;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeUp 1s forwards;
 }
 
-@keyframes fadeUp {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ===================== ABOUT ===================== */
-
+/* ABOUT */
 .about-container {
   display: flex;
   gap: 40px;
@@ -100,147 +80,132 @@ section {
   height: 180px;
   border-radius: 50%;
   object-fit: cover;
-  transition: transform 0.3s ease;
 }
 
-.profile:hover {
-  transform: scale(1.05);
-}
-
+/* TEXTO */
 .about-text {
   max-width: 500px;
 }
 
 /* TABS */
 .tabs {
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 .tab-buttons {
   display: flex;
-  gap: 10px;
   flex-wrap: wrap;
+  gap: 8px;
 }
 
 .tab-buttons button {
-  background: #222;
+  background: #2a2a2a;
   border: none;
   padding: 8px 14px;
   border-radius: 999px;
-  color: white;
   cursor: pointer;
+  color: white;
 }
 
 .tab-buttons button.active {
-  background: linear-gradient(90deg,#6c63ff,#00d4ff);
+  background: linear-gradient(270deg,#ff4ecd,#6c63ff);
 }
 
 .tab-content {
-  display: none;
   margin-top: 15px;
+  display: none;
 }
 
 .tab-content.active {
   display: block;
 }
 
-/* ===================== PROYECTOS ===================== */
+/* SERVICIOS */
+.services {
+  display: grid;
+  gap: 20px;
+}
 
+@media(min-width:768px){
+  .services {
+    grid-template-columns: repeat(3,1fr);
+  }
+}
+
+.service {
+  background: #1c1c1c;
+  padding: 20px;
+  border-radius: 16px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.service:hover {
+  transform: translateY(-5px);
+}
+
+.service img {
+  width: 40px;
+  margin-bottom: 10px;
+}
+
+/* PROYECTOS */
 .grid {
   display: grid;
   gap: 20px;
 }
 
-/* IMPORTANTE: ahora horizontal */
+@media(min-width:768px){
+  .grid {
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+
 .card {
-  display: flex;
-  flex-direction: row;
   background: #1c1c1c;
-  border-radius: 18px;
-  overflow: hidden;
+  padding: 20px;
+  border-radius: 16px;
   transition: transform 0.3s ease;
 }
 
 .card:hover {
-  transform: scale(1.02);
+  transform: translateY(-6px);
 }
 
-/* imagen horizontal */
 .project-img {
-  width: 45%;
-  min-height: 180px;
+  width: 100%;
+  height: 240px;
+  border-radius: 12px;
+  margin-bottom: 15px;
   background-size: cover;
   background-position: center;
+  background-color: #333;
 }
 
-.card-content {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 10px;
-}
-
-.project-title {
-  font-weight: 600;
-  font-size: 18px;
-}
-
-.project-subtitle {
-  font-size: 14px;
-  color: #aaa;
-}
-
-/* botón */
-button {
-  padding: 10px 18px;
-  border: none;
-  border-radius: 999px;
-  background: linear-gradient(90deg,#6c63ff,#00d4ff);
-  color: white;
-  cursor: pointer;
-  width: fit-content;
-}
-
-/* ===================== CONTACTO ===================== */
-
+/* CONTACTO */
 .contact-item {
   display: flex;
+  align-items: center;
   gap: 10px;
   margin: 10px 0;
 }
 
-/* ===================== FOOTER NUEVO ===================== */
+.contact-item img {
+  width: 20px;
+}
 
+/* FOOTER */
 footer {
   text-align: center;
-  padding: 60px;
-  background: linear-gradient(90deg,#111,#1a1a1a,#111);
-  position: relative;
-  overflow: hidden;
+  padding: 40px;
+  color: #888;
 }
 
-footer::before {
-  content: "";
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle,#6c63ff33,transparent);
-  top: -100px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-footer p {
-  position: relative;
-  color: #aaa;
-}
-
-/* ===================== SCROLL ===================== */
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+/* ANIMACIONES */
+@keyframes gradientMove {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
 }
 
 </style>
@@ -248,21 +213,23 @@ footer p {
 
 <body>
 
-<div class="cursor"></div>
-
 <header>
+
 <video autoplay muted loop playsinline>
 <source src="background-nerea.mp4">
 </video>
 
 <div class="content">
 <h1>NEEERGRAPHS</h1>
-<p>Diseño gráfico • Motion • RRSS</p>
+<p>Edición de vídeo • Diseño gráfico</p>
+<p>Contenido creativo para RRSS</p>
 </div>
+
 </header>
 
 <!-- ABOUT -->
 <section>
+
 <div class="about-container">
 
 <img src="nerea.ramirez.png" class="profile">
@@ -271,102 +238,143 @@ footer p {
 
 <h2>Sobre mí</h2>
 
-<p>Creativa visual enfocada en diseño, vídeo y narrativa digital.</p>
+<p>
+Soy creadora visual enfocada en contenido digital y redes sociales.
+</p>
 
 <div class="tabs">
+
 <div class="tab-buttons">
 <button class="active" onclick="showTab('skills')">Skills</button>
-<button onclick="showTab('exp')">Experiencia</button>
-<button onclick="showTab('studies')">Estudios</button>
+<button onclick="showTab('experiencia')">Experiencia</button>
+<button onclick="showTab('estudios')">Estudios</button>
+<button onclick="showTab('certificaciones')">Certificaciones</button>
 </div>
 
-<div id="skills" class="tab-content active">Adobe Suite, AI, RRSS</div>
-<div id="exp" class="tab-content">Agencias creativas y freelance</div>
-<div id="studies" class="tab-content">Diseño gráfico + marketing</div>
+<div id="skills" class="tab-content active">
+Herramientas Adobe, IA, RRSS
+</div>
+
+<div id="experiencia" class="tab-content">
+Ádraba, Lunaro, Jastag
+</div>
+
+<div id="estudios" class="tab-content">
+CEI + Marketing
+</div>
+
+<div id="certificaciones" class="tab-content">
+Google, Hubspot, AI
+</div>
 
 </div>
 
 </div>
+
 </div>
+
+</section>
+
+<!-- SERVICIOS -->
+<section>
+
+<h2>Qué puedo hacer</h2>
+
+<div class="services">
+
+<div class="service">
+<img src="video.png">
+<p>Edición de vídeo</p>
+</div>
+
+<div class="service">
+<img src="vector.png">
+<p>Diseño gráfico</p>
+</div>
+
+<div class="service">
+<img src="rrss.png">
+<p>Contenido RRSS</p>
+</div>
+
+</div>
+
 </section>
 
 <!-- PROYECTOS -->
 <section>
+
 <h2>Proyectos</h2>
 
 <div class="grid">
 
 <div class="card">
 <div class="project-img" style="background-image:url('destacada-magnum-final.png')"></div>
-<div class="card-content">
-<div class="project-title">Magnum Campaign</div>
-<div class="project-subtitle">Concepto de invierno emocional</div>
+<div class="project-title">Campaña 360 Magnum</div>
+<div class="project-subtitle">Algunos placeres no entienden de estaciones</div>
 <a href="proyecto-magnum.html"><button>Ver proyecto</button></a>
 </div>
-</div>
 
 <div class="card">
-<div class="project-img" style="background-image:url('home.jpg')"></div>
-<div class="card-content">
-<div class="project-title">Home 3D</div>
-<div class="project-subtitle">Motion design & composición</div>
+<div class="project-img"></div>
+<div class="project-title">Dolce Vitta</div>
+<div class="project-subtitle">Branding y RRSS</div>
 <button>Ver proyecto</button>
 </div>
-</div>
 
 <div class="card">
-<div class="project-img" style="background-image:url('dolcevita.jpg')"></div>
-<div class="card-content">
-<div class="project-title">Dolce Vita</div>
-<div class="project-subtitle">Branding social media</div>
+<div class="project-img" style="background-image:url('destacadas-HOME.png')"></div>
+<div class="project-title">Vídeo inmersivo Home</div>
+<div class="project-subtitle">After Effects y Premiere</div>
 <button>Ver proyecto</button>
 </div>
-</div>
 
 <div class="card">
-<div class="project-img" style="background-image:url('superboy.jpg')"></div>
-<div class="card-content">
-<div class="project-title">Superboy</div>
-<div class="project-subtitle">VFX + composición</div>
+<div class="project-img" style="background-image:url('destacadas-superboy.png')"></div>
+<div class="project-title">Vídeo simulación Superboy</div>
+<div class="project-subtitle">After Effects y Premiere</div>
 <a href="proyecto-superboy.html"><button>Ver proyecto</button></a>
 </div>
-</div>
 
 </div>
+
 </section>
 
 <!-- CONTACTO -->
 <section>
-<h2>Contacto</h2>
 
-<div class="contact-item">📞 653607909</div>
-<div class="contact-item">✉️ correo@ejemplo.com</div>
-<div class="contact-item">📍 Madrid</div>
+<h2>¿Hablamos? :)</h2>
+
+<div class="card">
+
+<div class="contact-item">
+<img src="llamar.png"> 653607909
+</div>
+
+<div class="contact-item">
+<img src="correo.png"> nerearamimarti@gmail.com
+</div>
+
+<div class="contact-item">
+<img src="mapa.png"> Madrid
+</div>
+
+</div>
 
 </section>
 
 <footer>
-<p>© 2026 Neeergraphs — Creative Studio</p>
+© 2026 Neeergraphs
 </footer>
 
 <script>
+function showTab(tabId){
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.tab-buttons button').forEach(btn=>btn.classList.remove('active'));
 
-// cursor glow
-const cursor = document.querySelector(".cursor");
-document.addEventListener("mousemove", e=>{
-  cursor.style.left = e.clientX + "px";
-  cursor.style.top = e.clientY + "px";
-});
-
-// tabs
-function showTab(id){
-  document.querySelectorAll(".tab-content").forEach(e=>e.classList.remove("active"));
-  document.querySelectorAll(".tab-buttons button").forEach(e=>e.classList.remove("active"));
-
-  document.getElementById(id).classList.add("active");
-  event.target.classList.add("active");
+  document.getElementById(tabId).classList.add('active');
+  event.target.classList.add('active');
 }
-
 </script>
 
 </body>
