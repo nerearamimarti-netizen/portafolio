@@ -20,20 +20,90 @@
             margin: 0;
             padding: 0;
             font-family: 'Poppins', sans-serif;
-            background-color: var(--cake-pink); /* Color base siempre visible */
+            background-color: var(--cake-pink);
             color: var(--cake-dark);
             overflow-x: hidden;
             line-height: 1.6;
+            cursor: none; /* Ocultar cursor por defecto para poner el personalizado */
         }
 
-        /* --- CANVAS THREE.JS (FONDO SIEMPRE ATRÁS) --- */
+        /* Ocultar cursor personalizado en móviles */
+        @media (max-width: 1024px) {
+            body { cursor: auto; }
+            #custom-cursor, #cursor-trail { display: none !important; }
+        }
+
+        /* --- CURSOR PERSONALIZADO Y RASTRO --- */
+        #custom-cursor {
+            position: fixed;
+            width: 30px;
+            height: 35px;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+        }
+
+        /* El cuerpo de la cereza */
+        #custom-cursor::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 18px;
+            background-color: var(--cherry-red);
+            border-radius: 50% 50% 45% 45%; /* Achatada */
+            box-shadow: inset -3px -3px 6px rgba(0,0,0,0.2);
+        }
+
+        /* El tallo */
+        #custom-cursor::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px;
+            background-color: var(--cake-dark);
+            border-radius: 2px;
+        }
+
+        /* Contenedor del rastro */
+        #cursor-trail {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .trail-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.6); /* Humo/azúcar */
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleFade 1s ease-out forwards;
+        }
+
+        @keyframes particleFade {
+            0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(2) translateY(-20px); }
+        }
+
+        /* --- CANVAS THREE.JS (FONDO) --- */
         #canvas-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1; /* Asegura que esté detrás del contenido */
+            z-index: -1;
             pointer-events: none;
         }
 
@@ -51,61 +121,63 @@
             font-weight: 600;
             z-index: 1000;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
         }
-        .back-home:hover { transform: scale(1.05); }
+        .back-home:hover { transform: scale(1.05) translateY(-2px); background: #000; }
 
         /* --- CONTENIDO --- */
         .hero {
-            height: 60vh;
+            height: 70vh;
             width: 100%;
             background: url("hero-dolcevitta.png") center/cover no-repeat;
-            background-color: #e5d1d1; /* Fallback */
+            background-color: #e5d1d1;
         }
 
         section {
             position: relative;
-            padding: 60px 20px;
-            max-width: 900px;
+            padding: 80px 20px;
+            max-width: 1000px;
             margin: auto;
-            z-index: 2; /* Por encima del canvas */
+            z-index: 2;
         }
 
         .description-box {
             background: rgba(255, 255, 255, 0.4);
-            padding: 40px;
-            border-radius: 30px;
+            padding: 50px;
+            border-radius: 40px;
             backdrop-filter: blur(10px);
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.03);
+            margin-bottom: 40px;
         }
 
         h2 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 800;
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
-        /* --- IMÁGENES --- */
+        /* --- IMÁGENES ESTILIZADAS --- */
         .img-project {
             width: 100%;
             display: block;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
+            border-radius: 40px; /* Puntas muy redondeadas */
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            margin-bottom: 50px;
         }
 
-        .rrss-img {
-            border-radius: 30px; /* Redondeado solo para esta */
-            width: 100%;
-            display: block;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        /* Efecto Hover Delicado */
+        .img-project:hover {
+            transform: scale(1.03);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.15);
         }
 
         .grid-2 {
             display: grid;
-            gap: 30px;
-            margin-bottom: 40px;
+            gap: 40px;
+            margin-bottom: 50px;
         }
 
         @media(min-width:768px){
@@ -116,13 +188,13 @@
         .icon-row {
             display: flex;
             justify-content: center;
-            gap: 60px;
-            padding: 40px 0;
+            gap: 70px;
+            padding: 50px 0;
         }
 
         .icon-floating {
-            width: 70px;
-            filter: drop-shadow(0 8px 10px rgba(0,0,0,0.15));
+            width: 75px;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
             animation: floatAnim 4s ease-in-out infinite;
         }
 
@@ -131,17 +203,23 @@
             50% { transform: translateY(-15px); }
         }
 
+        /* --- FOOTER BLANCO --- */
         footer {
+            background-color: white; /* Fondo blanco */
+            color: var(--cake-dark);
             text-align: center;
             padding: 60px;
             font-weight: 600;
-            opacity: 0.5;
+            border-top: 1px solid rgba(0,0,0,0.05);
         }
 
     </style>
 </head>
 
 <body>
+
+    <div id="custom-cursor"></div>
+    <div id="cursor-trail"></div>
 
     <div id="canvas-container"></div>
 
@@ -161,7 +239,7 @@
     </section>
 
     <section>
-        <h2>Packaging</h2>
+        <h2>Packaging premium</h2>
         <div class="grid-2">
             <img src="cuadrada-dolcevitta-izq.png" class="img-project" alt="Pack 1">
             <img src="cuadrada-dolcevitta-der.png" class="img-project" alt="Pack 2">
@@ -171,7 +249,7 @@
 
     <section>
         <h2>Social Media Content</h2>
-        <img src="imagen-rrss-dolcevitta.png" class="rrss-img" alt="Instagram">
+        <img src="imagen-rrss-dolcevitta.png" class="img-project" alt="Instagram">
     </section>
 
     <section>
@@ -185,8 +263,45 @@
     <footer>© 2026 NEERGRAPHS • DOLCE VITTA</footer>
 
     <script>
-        // CONFIGURACIÓN THREE.JS
-        let scene, camera, renderer, points, cherry, croissant, muffin;
+        // --- CURSOR PERSONALIZADO Y RASTRO ---
+        const cursor = document.getElementById('custom-cursor');
+        const trailContainer = document.getElementById('cursor-trail');
+        let lastX = 0, lastY = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            // Mover el cursor principal
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+
+            // Crear rastro si el movimiento es significativo
+            const dist = Math.hypot(e.clientX - lastX, e.clientY - lastY);
+            if (dist > 15) {
+                createParticle(e.clientX, e.clientY);
+                lastX = e.clientX;
+                lastY = e.clientY;
+            }
+        });
+
+        function createParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.className = 'trail-particle';
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            // Tamaño aleatorio sutil
+            const size = Math.random() * 6 + 4;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            
+            trailContainer.appendChild(particle);
+            
+            // Borrar partícula después de la animación
+            setTimeout(() => {
+                particle.remove();
+            }, 1000);
+        }
+
+        // --- CONFIGURACIÓN THREE.JS (FONDO CON VARIAS CEREZAS ACHATADAS) ---
+        let scene, camera, renderer, points, cherries = [];
 
         function init() {
             scene = new THREE.Scene();
@@ -196,55 +311,70 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-            // Luz
-            const light = new THREE.DirectionalLight(0xffffff, 1.2);
+            // Luces
+            const light = new THREE.DirectionalLight(0xffffff, 1.3);
             light.position.set(5, 5, 5);
-            scene.add(light, new THREE.AmbientLight(0xffffff, 0.7));
+            scene.add(light, new THREE.AmbientLight(0xffffff, 0.8));
 
-            // Partículas
+            // Partículas de fondo (Topping)
             const pGeo = new THREE.BufferGeometry();
             const pPos = [];
-            for (let i = 0; i < 300; i++) pPos.push(Math.random()*20-10, Math.random()*20-10, Math.random()*20-10);
+            for (let i = 0; i < 250; i++) pPos.push(Math.random()*25-12.5, Math.random()*25-12.5, Math.random()*25-12.5);
             pGeo.setAttribute('position', new THREE.Float32BufferAttribute(pPos, 3));
-            points = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.05 }));
+            points = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.05, transparent: true, opacity: 0.6 }));
             scene.add(points);
 
-            // CEREZA (DERECHA)
-            const cGroup = new THREE.Group();
-            const body = new THREE.Mesh(new THREE.SphereGeometry(0.5, 32, 32), new THREE.MeshPhongMaterial({ color: 0xdc1e23 }));
-            const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 1), new THREE.MeshBasicMaterial({ color: 0x493026 }));
-            stem.position.set(0.2, 0.6, 0);
-            stem.rotation.z = -0.3;
-            cGroup.add(body, stem);
-            cGroup.position.set(4, 1, 0);
-            scene.add(cGroup);
-            cherry = cGroup;
+            // --- FUNCIÓN PARA CREAR CEREZA ACHATADA ---
+            function createCherry(size, posX, posY, posZ) {
+                const cGroup = new THREE.Group();
+                
+                // Cuerpo de la cereza (Achatada usando SphereGeometry con escala)
+                const bodyGeo = new THREE.SphereGeometry(size, 32, 32);
+                const bodyMat = new THREE.MeshPhongMaterial({ color: 0xdc1e23, shininess: 80 });
+                const body = new THREE.Mesh(bodyGeo, bodyMat);
+                body.scale.set(1, 0.85, 1); // Achatar verticalmente
+                
+                // Tallo
+                const stemMat = new THREE.MeshBasicMaterial({ color: 0x493026 });
+                const stemGeo = new THREE.CylinderGeometry(size*0.04, size*0.04, size*2);
+                const stem = new THREE.Mesh(stemGeo, stemMat);
+                stem.position.set(size*0.3, size*1.2, 0);
+                stem.rotation.z = -0.3;
+                
+                cGroup.add(body, stem);
+                cGroup.position.set(posX, posY, posZ);
+                
+                // Atributos de animación aleatorios
+                cGroup.userData = {
+                    rotSpeed: Math.random() * 0.01 + 0.005,
+                    floatOffset: Math.random() * Math.PI * 2
+                };
+                
+                scene.add(cGroup);
+                cherries.push(cGroup);
+            }
 
-            // CROISSANT (IZQUIERDA) - Forma simplificada
-            const croiss = new THREE.Mesh(new THREE.TorusGeometry(0.4, 0.2, 8, 16), new THREE.MeshPhongMaterial({ color: 0xe3a857 }));
-            croiss.position.set(-4.5, 2, 0);
-            scene.add(croiss);
-            croissant = croiss;
+            // --- DISTRIBUIR CEREZAS POR LA PANTALLA ---
+            createCherry(0.5, 5, 2, -2);      // Derecha Arriba (Grande)
+            createCherry(0.3, -4.5, 3, -1);   // Izquierda Arriba (Mediana)
+            createCherry(0.4, 6, -1.5, -3);   // Derecha Abajo (Mediana)
+            createCherry(0.2, -5.5, -3, -2);  // Izquierda Abajo (Pequeña)
+            createCherry(0.35, 0, -5, -4);    // Centro Abajo (Fondo)
 
-            // BOLLO (IZQUIERDA ABAJO)
-            const muf = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.2, 0.5), new THREE.MeshPhongMaterial({ color: 0x8d5524 }));
-            muf.position.set(-4, -2, 0);
-            scene.add(muf);
-            muffin = muf;
-
-            camera.position.z = 6;
+            camera.position.z = 7;
             animate();
         }
 
         function animate() {
             requestAnimationFrame(animate);
-            points.rotation.y += 0.001;
+            points.rotation.y += 0.0007;
             
-            cherry.rotation.y += 0.01;
-            cherry.position.y = 1 + Math.sin(Date.now() * 0.002) * 0.2;
-            
-            croissant.rotation.x += 0.01;
-            croissant.position.y = 2 + Math.cos(Date.now() * 0.0015) * 0.2;
+            // Animar cada cereza
+            cherries.forEach(cherry => {
+                cherry.rotation.y += cherry.userData.rotSpeed;
+                // Flotación sutil
+                cherry.position.y += Math.sin(Date.now() * 0.001 + cherry.userData.floatOffset) * 0.005;
+            });
 
             renderer.render(scene, camera);
         }
