@@ -37,19 +37,8 @@
     .ctrail{position:fixed;border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);animation:tfade .7s ease forwards}
     @keyframes tfade{0%{opacity:.9;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(.05)}}
 
-    /* ── BACK TO TOP — flotante y brillante ── */
-    #back-top{
-      position:fixed;bottom:36px;right:36px;z-index:900;
-      width:50px;height:50px;border-radius:50%;
-      background:linear-gradient(135deg,rgba(79,140,255,.18),rgba(192,132,252,.18));
-      border:1.5px solid rgba(79,140,255,.5);
-      display:flex;align-items:center;justify-content:center;
-      cursor:pointer;
-      opacity:0;pointer-events:none;
-      transition:opacity .4s,background .25s;
-      box-shadow:0 0 20px rgba(79,140,255,.35),0 0 40px rgba(192,132,252,.2);
-      animation:floatBtn 3s ease-in-out infinite;
-    }
+    /* ── BACK TO TOP ── */
+    #back-top{position:fixed;bottom:36px;right:36px;z-index:900;width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,rgba(79,140,255,.18),rgba(192,132,252,.18));border:1.5px solid rgba(79,140,255,.5);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .4s,background .25s;box-shadow:0 0 20px rgba(79,140,255,.35),0 0 40px rgba(192,132,252,.2);animation:floatBtn 3s ease-in-out infinite}
     #back-top.show{opacity:1;pointer-events:auto}
     #back-top:hover{background:linear-gradient(135deg,rgba(79,140,255,.35),rgba(192,132,252,.35));box-shadow:0 0 32px rgba(79,140,255,.6),0 0 60px rgba(192,132,252,.4)}
     #back-top svg{width:20px;height:20px}
@@ -61,67 +50,19 @@
     .hero-overlay{position:absolute;inset:0;z-index:2;background:radial-gradient(ellipse 90% 90% at 50% 50%,rgba(6,6,15,.4) 0%,rgba(6,6,15,.88) 100%)}
     .hero-body{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;gap:22px;padding:40px 20px}
 
-    /* Foto limpia, sin filtros */
-    .hero-photo-wrap{
-      position:relative;width:120px;height:120px;
-    }
-    .hero-photo-wrap::before{
-      content:'';position:absolute;inset:-3px;border-radius:50%;
-      background:linear-gradient(135deg,var(--blue),var(--pink));
-      z-index:0;animation:spinRing 8s linear infinite;
-    }
-    @keyframes spinRing{to{transform:rotate(360deg)}}
-    .hero-avatar{
-      position:relative;z-index:1;
-      width:120px;height:120px;border-radius:50%;
-      object-fit:cover;object-position:center top;
-      border:3px solid var(--bg);display:block;
-    }
-
     /* ── TÍTULO HERO ── */
     .hero-title{font-family:'Fredoka',sans-serif;font-size:clamp(58px,13vw,155px);font-weight:700;line-height:.9;letter-spacing:-2px}
     .hero-title .l1{display:block;color:var(--ink);animation:slideUp .9s cubic-bezier(.16,1,.3,1) both}
-
-    /* GRAPHS — Playfair italic + trazo SVG animado */
     .hero-title .l2-wrap{display:block;position:relative;margin-top:4px}
-    .graphs-svg{
-      display:block;margin:0 auto;
-      width:min(90vw,860px);
-      overflow:visible;
-    }
-    /* Trazo que se "dibuja" */
-    .graphs-path{
-      fill:none;
-      stroke:url(#gGrad);
-      stroke-width:3;
-      stroke-linecap:round;
-      stroke-linejoin:round;
-      stroke-dasharray:3000;
-      stroke-dashoffset:3000;
-      animation:drawGraphs 2.4s cubic-bezier(.4,0,.2,1) 0.5s forwards;
-      filter:drop-shadow(0 0 8px rgba(79,140,255,.5)) drop-shadow(0 0 24px rgba(192,132,252,.3));
-    }
+    .graphs-svg{display:block;margin:0 auto;width:min(90vw,860px);overflow:visible}
+    .graphs-path{fill:none;stroke:url(#gGrad);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:3000;stroke-dashoffset:3000;animation:drawGraphs 2.4s cubic-bezier(.4,0,.2,1) 0.5s forwards;filter:drop-shadow(0 0 8px rgba(79,140,255,.5)) drop-shadow(0 0 24px rgba(192,132,252,.3))}
     @keyframes drawGraphs{to{stroke-dashoffset:0}}
-    /* Rielleno que aparece al final del trazo */
-    .graphs-fill{
-      fill:url(#gFill);
-      opacity:0;
-      animation:fillAppear .5s ease 2.6s forwards;
-      filter:drop-shadow(0 0 6px rgba(79,140,255,.4));
-    }
+    .graphs-fill{fill:url(#gFill);opacity:0;animation:fillAppear .5s ease 2.6s forwards;filter:drop-shadow(0 0 6px rgba(79,140,255,.4))}
     @keyframes fillAppear{to{opacity:1}}
-
     @keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
-    .hero-desc{font-size:clamp(13px,1.6vw,16px);color:var(--muted);max-width:460px;line-height:1.7;animation:slideUp .9s cubic-bezier(.16,1,.3,1) .25s both}
 
-    .btn-primary{
-      font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;letter-spacing:1.5px;
-      text-transform:uppercase;text-decoration:none;padding:14px 36px;border-radius:999px;
-      background:linear-gradient(135deg,var(--blue),var(--pink));color:#fff;border:none;cursor:pointer;
-      box-shadow:0 4px 28px rgba(79,140,255,.35);
-      transition:transform .2s,box-shadow .2s;
-      animation:slideUp .9s cubic-bezier(.16,1,.3,1) .38s both;display:inline-block;
-    }
+    .hero-desc{font-size:clamp(13px,1.6vw,16px);color:var(--muted);max-width:460px;line-height:1.7;animation:slideUp .9s cubic-bezier(.16,1,.3,1) .25s both}
+    .btn-primary{font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;padding:14px 36px;border-radius:999px;background:linear-gradient(135deg,var(--blue),var(--pink));color:#fff;border:none;cursor:pointer;box-shadow:0 4px 28px rgba(79,140,255,.35);transition:transform .2s,box-shadow .2s;animation:slideUp .9s cubic-bezier(.16,1,.3,1) .38s both;display:inline-block}
     .btn-primary:hover{transform:scale(1.07);box-shadow:0 8px 40px rgba(79,140,255,.55)}
 
     .scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:6px;animation:fadeInUp 1s 1s both}
@@ -146,34 +87,119 @@
     .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
     .reveal.visible{opacity:1;transform:none}
 
-    /* ── SOBRE MÍ ── */
+    /* ── SOBRE MÍ — nuevo layout creativo ── */
     .about-quick{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:32px}
     .aq-chip{font-size:11px;padding:5px 14px;border-radius:999px;border:1px solid var(--bdr);background:rgba(79,140,255,.06);color:var(--blue2);transition:border-color .25s,background .25s}
     .aq-chip:hover{border-color:var(--blue2);background:rgba(79,140,255,.13)}
     .aq-chip.alt{border-color:rgba(192,132,252,.3);background:rgba(192,132,252,.06);color:var(--pink)}
 
-    /* Foto dentro del sobre mí — horizontal con texto */
-    .about-profile{display:flex;align-items:flex-start;gap:28px;margin-bottom:32px;flex-wrap:wrap}
-    .about-profile-img-wrap{position:relative;flex-shrink:0}
-    .about-profile-img{
-      width:130px;height:160px;
-      border-radius:16px;
-      object-fit:cover;object-position:center top;
-      border:1px solid var(--bdr);
-      box-shadow:0 0 24px rgba(79,140,255,.18);
-      display:block;
+    /* Bloque de presentación — foto + datos como un carnet creativo */
+    .about-hero{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:0;
+      border:1px solid var(--bdrW);
+      border-radius:20px;
+      overflow:hidden;
+      margin-bottom:32px;
+      background:linear-gradient(135deg,rgba(12,12,26,.9) 0%,rgba(13,13,32,.95) 100%);
     }
-    .about-profile-img-wrap::after{
-      content:'';position:absolute;inset:0;border-radius:16px;
-      background:linear-gradient(180deg,transparent 55%,rgba(6,6,15,.6) 100%);
+    @media(min-width:700px){
+      .about-hero{grid-template-columns:240px 1fr}
+    }
+
+    /* Panel izquierdo — foto con overlay de datos */
+    .about-photo-side{
+      position:relative;
+      min-height:280px;
+      overflow:hidden;
+    }
+    .about-photo-side img{
+      width:100%;height:100%;
+      object-fit:cover;object-position:center top;
+      display:block;
+      filter:saturate(1.05) contrast(1.02);
+    }
+    /* Degradado sobre la foto */
+    .about-photo-side::after{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(180deg,transparent 40%,rgba(6,6,15,.85) 100%),
+                 linear-gradient(90deg,transparent 70%,rgba(13,13,32,.6) 100%);
       pointer-events:none;
     }
-    .about-profile-text{flex:1;min-width:200px}
-    .about-profile-text h3{font-family:'Fredoka',sans-serif;font-size:22px;font-weight:600;color:var(--ink);margin-bottom:8px}
-    .about-profile-text p{font-size:13px;color:var(--muted);line-height:1.8}
+    /* Etiqueta flotante sobre la foto */
+    .photo-badge{
+      position:absolute;bottom:16px;left:16px;z-index:2;
+      font-size:10px;letter-spacing:2px;text-transform:uppercase;
+      color:var(--blue2);
+      background:rgba(6,6,15,.7);
+      border:1px solid var(--bdr);
+      padding:4px 12px;border-radius:999px;
+      backdrop-filter:blur(8px);
+    }
 
-    .about-tabs{display:flex;border:1px solid var(--bdrW);border-radius:16px;overflow:hidden}
-    .at-btn{flex:1;padding:13px 8px;background:transparent;border:none;font-family:'Poppins',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-right:1px solid var(--bdrW);transition:background .25s,color .25s}
+    /* Panel derecho — texto creativo */
+    .about-text-side{
+      padding:36px 32px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:20px;
+      border-left:1px solid var(--bdrW);
+    }
+    @media(max-width:699px){.about-text-side{border-left:none;border-top:1px solid var(--bdrW);padding:24px 20px}}
+
+    /* Nombre grande como encabezado */
+    .about-name{
+      font-family:'Fredoka',sans-serif;
+      font-size:clamp(22px,4vw,36px);
+      font-weight:700;
+      line-height:1.1;
+      color:var(--ink);
+    }
+    .about-name em{
+      font-style:normal;
+      background:linear-gradient(90deg,var(--blue),var(--pink));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    }
+
+    /* Rol con línea lateral */
+    .about-role{
+      display:flex;align-items:center;gap:12px;
+      font-size:12px;letter-spacing:1.5px;text-transform:uppercase;
+      color:var(--blue);
+    }
+    .about-role::before{content:'';width:20px;height:1px;background:var(--blue);flex-shrink:0}
+
+    /* Frases cortas estilo typewriter — una por línea */
+    .about-lines{
+      display:flex;flex-direction:column;gap:8px;
+    }
+    .about-line{
+      display:flex;align-items:flex-start;gap:10px;
+      font-size:13px;color:var(--muted);line-height:1.6;
+    }
+    .about-line::before{
+      content:'→';color:var(--blue);font-size:12px;flex-shrink:0;margin-top:2px;
+    }
+
+    /* Stats mini en fila */
+    .about-stats{
+      display:flex;gap:24px;flex-wrap:wrap;
+      padding-top:12px;border-top:1px solid var(--bdrW);
+    }
+    .about-stat-item{}
+    .about-stat-num{
+      font-family:'Fredoka',sans-serif;font-size:26px;font-weight:700;
+      background:linear-gradient(90deg,var(--blue2),var(--pink));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      line-height:1;
+    }
+    .about-stat-label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+
+    /* tabs */
+    .about-tabs{display:flex;border:1px solid var(--bdrW);border-radius:16px;overflow:hidden;flex-wrap:wrap}
+    .at-btn{flex:1;min-width:80px;padding:13px 8px;background:transparent;border:none;font-family:'Poppins',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-right:1px solid var(--bdrW);transition:background .25s,color .25s}
     .at-btn:last-child{border-right:none}
     .at-btn.active{background:rgba(79,140,255,.1);color:var(--blue2)}
     .at-btn:hover:not(.active){background:rgba(255,255,255,.03)}
@@ -188,7 +214,6 @@
     .p-tag.lit{border-color:rgba(79,140,255,.35);color:var(--blue2);background:rgba(79,140,255,.06)}
     .p-tag.pink{border-color:rgba(192,132,252,.35);color:var(--pink);background:rgba(192,132,252,.06)}
 
-    /* Párrafo de pasión dentro del panel */
     .p-passion{font-size:13px;color:var(--muted);line-height:1.9;padding:4px 0}
     .p-passion strong{color:var(--blue2);font-weight:500}
 
@@ -224,7 +249,6 @@
     .service:hover::before{opacity:1;transform:translateX(-50%) scale(1.5)}
     .service::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.04) 50%,transparent 70%);transform:translateX(-100%);transition:transform .5s ease}
     .service:hover::after{transform:translateX(100%)}
-    /* Número en morado oscuro, casi invisible */
     .service-num{position:absolute;top:14px;right:18px;font-family:'Fredoka',sans-serif;font-size:80px;font-weight:700;color:#6a22c8;opacity:.09;line-height:1;pointer-events:none}
     .service-icon-wrap{width:52px;height:52px;border-radius:14px;border:1px solid var(--bdrW);background:rgba(79,140,255,.05);display:flex;align-items:center;justify-content:center;margin-bottom:20px;transition:border-color .3s,background .3s}
     .service:hover .service-icon-wrap{border-color:var(--bdr);background:rgba(79,140,255,.1)}
@@ -288,8 +312,7 @@
   <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
     <defs>
       <linearGradient id="bArrow" x1="0" y1="24" x2="24" y2="0" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#4f8cff"/>
-        <stop offset="1" stop-color="#c084fc"/>
+        <stop stop-color="#4f8cff"/><stop offset="1" stop-color="#c084fc"/>
       </linearGradient>
     </defs>
     <polyline points="18 15 12 9 6 15" stroke="url(#bArrow)"/>
@@ -307,41 +330,32 @@
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- HERO — sin foto -->
 <section class="hero" id="hero">
   <video autoplay muted loop playsinline><source src="background-nerea.mp4"></video>
   <div class="hero-overlay"></div>
   <div class="hero-body">
-
-    <div class="hero-photo-wrap">
-      <img src="nerea.ramirez.png" class="hero-avatar" alt="Nerea Ramírez">
-    </div>
-
     <h1 class="hero-title">
       <span class="l1">NEEER</span>
       <span class="l2-wrap">
-        <!-- GRAPHS dibujado con trazos SVG animados — Playfair Display italic -->
         <svg class="graphs-svg" viewBox="0 0 860 140" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="gGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stop-color="#4f8cff"/>
-              <stop offset="50%"  stop-color="#c084fc"/>
+              <stop offset="0%" stop-color="#4f8cff"/>
+              <stop offset="50%" stop-color="#c084fc"/>
               <stop offset="100%" stop-color="#7eb3ff"/>
             </linearGradient>
             <linearGradient id="gFill" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stop-color="#4f8cff" stop-opacity="0.85"/>
-              <stop offset="50%"  stop-color="#c084fc" stop-opacity="0.85"/>
+              <stop offset="0%" stop-color="#4f8cff" stop-opacity="0.85"/>
+              <stop offset="50%" stop-color="#c084fc" stop-opacity="0.85"/>
               <stop offset="100%" stop-color="#7eb3ff" stop-opacity="0.85"/>
             </linearGradient>
           </defs>
-          <!-- Texto real de Playfair que se dibuja y luego rellena -->
           <text class="graphs-fill" x="430" y="122" font-family="'Playfair Display', Georgia, serif" font-size="130" font-style="italic" font-weight="700" text-anchor="middle">GRAPHS</text>
-          <text class="graphs-path" x="430" y="122" font-family="'Playfair Display', Georgia, serif" font-size="130" font-style="italic" font-weight="700" text-anchor="middle"
-            style="fill:none;stroke:url(#gGrad);stroke-width:2.5;paint-order:stroke fill;">GRAPHS</text>
+          <text class="graphs-path" x="430" y="122" font-family="'Playfair Display', Georgia, serif" font-size="130" font-style="italic" font-weight="700" text-anchor="middle" style="fill:none;stroke:url(#gGrad);stroke-width:2.5;paint-order:stroke fill;">GRAPHS</text>
         </svg>
       </span>
     </h1>
-
     <p class="hero-desc">Edición de vídeo · Diseño gráfico · Contenido creativo para RRSS</p>
     <a href="#proyectos" class="btn-primary">Ver proyectos</a>
   </div>
@@ -380,17 +394,51 @@
   <div class="s-eyebrow">Sobre mí</div>
   <h2 class="s-title">Nerea Ramírez</h2>
 
-  <!-- Foto + texto descriptivo -->
-  <div class="about-profile">
-    <div class="about-profile-img-wrap">
-      <img src="nerea.ramirez.png" class="about-profile-img" alt="Nerea Ramírez">
+  <!-- Bloque de presentación creativo: foto + datos -->
+  <div class="about-hero">
+
+    <!-- Foto limpia, sin filtros de color -->
+    <div class="about-photo-side">
+      <img src="nerea.ramirez.png" alt="Nerea Ramírez">
+      <span class="photo-badge">Madrid · Disponible</span>
     </div>
-    <div class="about-profile-text">
-      <h3>Diseñadora gráfica &amp; Editora de vídeo</h3>
-      <p>Soy creadora visual especializada en contenido digital. Me apasiona transformar ideas en piezas visuales con identidad propia — desde el concepto hasta la publicación. Domino toda la cadena de producción, combinando diseño, postproducción, motion graphics e IA generativa.</p>
+
+    <!-- Panel de texto con identidad visual -->
+    <div class="about-text-side">
+      <div>
+        <div class="about-role">Diseñadora gráfica & editora de vídeo</div>
+        <div class="about-name" style="margin-top:10px">
+          Creo imágenes.<br>
+          Cuento <em>historias</em>.<br>
+          Diseño experiencias.
+        </div>
+      </div>
+
+      <div class="about-lines">
+        <div class="about-line">Del concepto al píxel final — sin intermediarios.</div>
+        <div class="about-line">Motion, vídeo, gráfica e IA: dominio de toda la cadena.</div>
+        <div class="about-line">Cada pieza tiene que emocionar <em>y</em> funcionar.</div>
+      </div>
+
+      <div class="about-stats">
+        <div class="about-stat-item">
+          <div class="about-stat-num">3+</div>
+          <div class="about-stat-label">Años creando</div>
+        </div>
+        <div class="about-stat-item">
+          <div class="about-stat-num">5</div>
+          <div class="about-stat-label">Apps Adobe</div>
+        </div>
+        <div class="about-stat-item">
+          <div class="about-stat-num">∞</div>
+          <div class="about-stat-label">Ganas</div>
+        </div>
+      </div>
     </div>
+
   </div>
 
+  <!-- Chips de herramientas -->
   <div class="about-quick">
     <span class="aq-chip">Photoshop</span>
     <span class="aq-chip">Illustrator</span>
@@ -401,6 +449,7 @@
     <span class="aq-chip alt">Wordpress · Shopify</span>
   </div>
 
+  <!-- Tabs -->
   <div class="about-tabs">
     <button class="at-btn active" onclick="showAt('exp',this)">Experiencia</button>
     <button class="at-btn" onclick="showAt('edu',this)">Formación</button>
@@ -466,12 +515,11 @@
     </div>
   </div>
 
-  <!-- NUEVO tab: Sobre mí / Pasión -->
   <div class="about-panel" id="at-yo">
     <p class="p-passion">
       El diseño no es solo mi trabajo — es la forma en que veo el mundo. Desde pequeña siempre tuve la necesidad de <strong>crear</strong>, de expresar ideas a través de imágenes, movimiento y color. Con los años convertí esa necesidad en una profesión.<br><br>
       Me apasiona especialmente el <strong>vídeo y el motion graphics</strong>: ese momento en que una pieza cobra vida, cuando el ritmo del corte encaja con la música y el mensaje llega de verdad. También el diseño gráfico, porque hay algo casi mágico en encontrar la tipografía, el color o la composición perfecta que lo dice todo sin palabras.<br><br>
-      Trabajo con <strong>IA generativa</strong> no para sustituir la creatividad, sino para ampliarla — para explorar más rápido, iterar más y llegar a resultados que antes no eran posibles. Me gusta estar en la frontera de lo que la tecnología permite hacer en diseño.<br><br>
+      Trabajo con <strong>IA generativa</strong> no para sustituir la creatividad, sino para ampliarla — para explorar más rápido, iterar más y llegar a resultados que antes no eran posibles.<br><br>
       Si algo me define es la energía que le pongo a cada proyecto, grande o pequeño. Creo que el <strong>detalle importa</strong>, que la estética tiene que servir a un propósito y que el mejor diseño es el que emociona y funciona al mismo tiempo.
     </p>
   </div>
@@ -565,6 +613,22 @@
         <a href="proyecto-superboy.html"><button class="btn-proyecto">Ver proyecto</button></a>
       </div>
     </div>
+    <div class="card reveal" style="transition-delay:.4s">
+      <div class="project-img" style="background-image:url('destacadas-hotwheels.png')"></div>
+      <div class="card-body">
+        <div class="project-title">Vídeo Hot Wheels</div>
+        <div class="project-subtitle">IA generativa y Premiere</div>
+        <button class="btn-proyecto">Ver proyecto</button>
+      </div>
+    </div>
+    <div class="card reveal" style="transition-delay:.5s">
+      <div class="project-img" style="background-image:url('destacadas-camisetas.png')"></div>
+      <div class="card-body">
+        <div class="project-title">Diseños de camisetas</div>
+        <div class="project-subtitle">En mi tiempo libre me gusta regalar camisetas personalizadas</div>
+        <button class="btn-proyecto">Ver proyecto</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -615,38 +679,32 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-/* ================================================================
-   THREE.JS — fondo 3D con herramientas de diseño + iconos vídeo/rrss
-================================================================ */
+/* THREE.JS */
 (function(){
-  const canvas = document.getElementById('bg-canvas');
-  const renderer = new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  const canvas=document.getElementById('bg-canvas');
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
   renderer.setClearColor(0x000000,0);
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,200);
-  camera.position.z = 28;
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,200);
+  camera.position.z=28;
   function resize(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix()}
-  resize(); window.addEventListener('resize',resize);
+  resize();window.addEventListener('resize',resize);
 
-  const C_BLUE=new THREE.Color(0x4f8cff), C_PINK=new THREE.Color(0xc084fc), C_WHITE=new THREE.Color(0xaabbff);
-
-  /* partículas */
+  const C_BLUE=new THREE.Color(0x4f8cff),C_PINK=new THREE.Color(0xc084fc),C_WHITE=new THREE.Color(0xaabbff);
   const pCount=1800,pGeo=new THREE.BufferGeometry(),pPos=new Float32Array(pCount*3),pCol=new Float32Array(pCount*3),pSpd=new Float32Array(pCount);
   for(let i=0;i<pCount;i++){
-    pPos[i*3]=(Math.random()-.5)*120; pPos[i*3+1]=(Math.random()-.5)*80; pPos[i*3+2]=(Math.random()-.5)*60;
+    pPos[i*3]=(Math.random()-.5)*120;pPos[i*3+1]=(Math.random()-.5)*80;pPos[i*3+2]=(Math.random()-.5)*60;
     const t=Math.random(),c=t<.5?C_BLUE.clone().lerp(C_PINK,t*2):C_PINK.clone().lerp(C_WHITE,(t-.5)*2);
-    pCol[i*3]=c.r;pCol[i*3+1]=c.g;pCol[i*3+2]=c.b; pSpd[i]=.02+Math.random()*.06;
+    pCol[i*3]=c.r;pCol[i*3+1]=c.g;pCol[i*3+2]=c.b;pSpd[i]=.02+Math.random()*.06;
   }
   pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
   pGeo.setAttribute('color',new THREE.BufferAttribute(pCol,3));
-  const particles=new THREE.Points(pGeo,new THREE.PointsMaterial({size:.18,vertexColors:true,transparent:true,opacity:.7,sizeAttenuation:true}));
-  scene.add(particles);
+  scene.add(new THREE.Points(pGeo,new THREE.PointsMaterial({size:.18,vertexColors:true,transparent:true,opacity:.7,sizeAttenuation:true})));
 
-  function wMat(col,op=.28){return new THREE.MeshBasicMaterial({color:col,wireframe:true,transparent:true,opacity:op})}
   function lMat(col,op=.55){return new THREE.LineBasicMaterial({color:col,transparent:true,opacity:op})}
+  function wMat(col,op=.28){return new THREE.MeshBasicMaterial({color:col,wireframe:true,transparent:true,opacity:op})}
 
-  /* herramientas diseño */
   function bezierObj(col){
     const g=new THREE.Group();
     const pts=new THREE.CubicBezierCurve3(new THREE.Vector3(-2,0,0),new THREE.Vector3(-1,2,.5),new THREE.Vector3(1,-2,-.5),new THREE.Vector3(2,0,0)).getPoints(30);
@@ -667,17 +725,36 @@
     const g=new THREE.Group();
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,2,0),new THREE.Vector3(-.6,.6,0),new THREE.Vector3(0,0,0),new THREE.Vector3(.6,.6,0),new THREE.Vector3(0,2,0)]),lMat(col,.75)));
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),new THREE.Vector3(0,-1.2,0)]),lMat(col,.9)));
-    const d=new THREE.Mesh(new THREE.SphereGeometry(.15,6,6),wMat(col,.8));d.position.set(0,-1.2,0);g.add(d);
-    return g;
+    const d=new THREE.Mesh(new THREE.SphereGeometry(.15,6,6),wMat(col,.8));d.position.set(0,-1.2,0);g.add(d);return g;
   }
   function audioWave(col){
     const g=new THREE.Group();
-    for(let r=0;r<3;r++){
-      const pts=[];
-      for(let i=0;i<=24;i++){const x=(i/24)*4-2,amp=.6*Math.exp(-Math.abs(x)*.5),y=amp*Math.sin(i*.8+r*1.2),z=(r-1)*.5;pts.push(new THREE.Vector3(x,y,z))}
-      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.45+r*.12)));
-    }
+    for(let r=0;r<3;r++){const pts=[];for(let i=0;i<=24;i++){const x=(i/24)*4-2,amp=.6*Math.exp(-Math.abs(x)*.5),y=amp*Math.sin(i*.8+r*1.2),z=(r-1)*.5;pts.push(new THREE.Vector3(x,y,z))}g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.45+r*.12)))}
     return g;
+  }
+  function videoIcon(col){
+    const g=new THREE.Group();
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-1.8,-.9,0),new THREE.Vector3(1.8,-.9,0),new THREE.Vector3(1.8,.9,0),new THREE.Vector3(-1.8,.9,0),new THREE.Vector3(-1.8,-.9,0)]),lMat(col,.65)));
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-.5,-.6,0),new THREE.Vector3(.9,0,0),new THREE.Vector3(-.5,.6,0),new THREE.Vector3(-.5,-.6,0)]),lMat(col,.85)));
+    return g;
+  }
+  function heartIcon(col){
+    const g=new THREE.Group(),pts=[];
+    for(let i=0;i<=40;i++){const t=(i/40)*Math.PI*2,x=1.1*(16*Math.pow(Math.sin(t),3))/16,y=1.1*(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))/16;pts.push(new THREE.Vector3(x,y,0))}
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.65)));return g;
+  }
+  function bubbleIcon(col){
+    const g=new THREE.Group(),pts=[];
+    for(let i=0;i<=32;i++){const a=(i/32)*Math.PI*2;pts.push(new THREE.Vector3(1.4*Math.cos(a),1.1*Math.sin(a)-.1,0))}
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.6)));
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-.6,-1,0),new THREE.Vector3(-.3,-1.6,0),new THREE.Vector3(.2,-1,0)]),lMat(col,.55)));
+    return g;
+  }
+  function cameraIcon(col){
+    const g=new THREE.Group();
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-2,-.9,0),new THREE.Vector3(2,-.9,0),new THREE.Vector3(2,.9,0),new THREE.Vector3(.9,.9,0),new THREE.Vector3(.6,1.4,0),new THREE.Vector3(-.6,1.4,0),new THREE.Vector3(-.9,.9,0),new THREE.Vector3(-2,.9,0),new THREE.Vector3(-2,-.9,0)]),lMat(col,.65)));
+    const lens=[];for(let i=0;i<=20;i++){const a=(i/20)*Math.PI*2;lens.push(new THREE.Vector3(.65*Math.cos(a),.65*Math.sin(a),0))}
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(lens),lMat(col,.75)));return g;
   }
   function timelineMarker(col){
     const g=new THREE.Group(),sh=new THREE.Shape();
@@ -686,61 +763,7 @@
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),new THREE.Vector3(0,1.6,0)]),lMat(col,.4)));
     return g;
   }
-  function anchorPoint(col){
-    const g=new THREE.Group();
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-.5,.5,0),new THREE.Vector3(.5,.5,0),new THREE.Vector3(.5,-.5,0),new THREE.Vector3(-.5,-.5,0),new THREE.Vector3(-.5,.5,0)]),lMat(col,.7)));
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-.3,0,0),new THREE.Vector3(.3,0,0)]),lMat(col,.5)));
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,-.3,0),new THREE.Vector3(0,.3,0)]),lMat(col,.5)));
-    return g;
-  }
 
-  /* ICONO VÍDEO — triángulo play dentro de un rectángulo redondeado */
-  function videoIcon(col){
-    const g=new THREE.Group();
-    const frame=[new THREE.Vector3(-1.8,-1.1,0),new THREE.Vector3(1.8,-1.1,0),new THREE.Vector3(1.8,1.1,0),new THREE.Vector3(-1.8,1.1,0),new THREE.Vector3(-1.8,-1.1,0)];
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(frame),lMat(col,.65)));
-    const play=[new THREE.Vector3(-.5,-.65,0),new THREE.Vector3(.95,0,0),new THREE.Vector3(-.5,.65,0),new THREE.Vector3(-.5,-.65,0)];
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(play),lMat(col,.85)));
-    return g;
-  }
-
-  /* ICONO RRSS — silueta de "like" (corazón geométrico) */
-  function heartIcon(col){
-    const g=new THREE.Group();
-    const pts=[];const n=40;
-    for(let i=0;i<=n;i++){
-      const t=(i/n)*Math.PI*2;
-      const x=1.1*(16*Math.pow(Math.sin(t),3))/16;
-      const y=1.1*(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))/16;
-      pts.push(new THREE.Vector3(x,y,0));
-    }
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.65)));
-    return g;
-  }
-
-  /* ICONO RRSS — burbuja de mensaje */
-  function bubbleIcon(col){
-    const g=new THREE.Group();
-    const pts=[];const n=32;
-    for(let i=0;i<=n;i++){const a=(i/n)*Math.PI*2;pts.push(new THREE.Vector3(1.4*Math.cos(a),1.1*Math.sin(a)-.1,0))}
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.6)));
-    // Cola de la burbuja
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-.6,-1,0),new THREE.Vector3(-.3,-1.6,0),new THREE.Vector3(.2,-1,0)]),lMat(col,.55)));
-    return g;
-  }
-
-  /* ICONO CÁMARA */
-  function cameraIcon(col){
-    const g=new THREE.Group();
-    const body=[new THREE.Vector3(-2,-.9,0),new THREE.Vector3(2,-.9,0),new THREE.Vector3(2,.9,0),new THREE.Vector3(.9,.9,0),new THREE.Vector3(.6,1.4,0),new THREE.Vector3(-.6,1.4,0),new THREE.Vector3(-.9,.9,0),new THREE.Vector3(-2,.9,0),new THREE.Vector3(-2,-.9,0)];
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(body),lMat(col,.65)));
-    // Lente
-    const lens=[];for(let i=0;i<=20;i++){const a=(i/20)*Math.PI*2;lens.push(new THREE.Vector3(.65*Math.cos(a),.65*Math.sin(a),0))}
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(lens),lMat(col,.75)));
-    return g;
-  }
-
-  /* colocar objetos */
   const floaters=[];
   function addGroup(grp,x,y,z){
     grp.position.set(x,y,z);
@@ -748,31 +771,27 @@
     scene.add(grp);floaters.push(grp);
   }
 
-  addGroup(bezierObj(0x4f8cff),   -18,  6, -8);
-  addGroup(bezierObj(0xc084fc),    12, -4, -6);
+  addGroup(bezierObj(0x4f8cff),  -18,  6, -8);
+  addGroup(bezierObj(0xc084fc),   12, -4, -6);
   addGroup(keyframeObj(0x7eb3ff,1.1),16, 7,-10);
-  addGroup(keyframeObj(0xc084fc,.8),-10,-8, -5);
-  addGroup(timelineMarker(0x4f8cff),  4,  9,-12);
-  addGroup(anchorPoint(0x7eb3ff),    20, -7, -9);
-  addGroup(penCursor(0x4f8cff),      -6,-10, -5);
-  addGroup(audioWave(0xc084fc),      18,  4, -7);
-  // vídeo
-  addGroup(videoIcon(0x7eb3ff),     -14, -3,-10);
-  addGroup(videoIcon(0xc084fc),       6, 10, -8);
-  addGroup(cameraIcon(0x4f8cff),     22, -9,-11);
-  // rrss
-  addGroup(heartIcon(0xc084fc),      -4,  8,-14);
-  addGroup(bubbleIcon(0x7eb3ff),     -22,  2, -9);
-  addGroup(heartIcon(0x4f8cff),      10, -9, -6);
+  addGroup(keyframeObj(0xc084fc,.8),-10,-8,-5);
+  addGroup(timelineMarker(0x4f8cff), 4,  9,-12);
+  addGroup(penCursor(0x4f8cff),     -6,-10, -5);
+  addGroup(audioWave(0xc084fc),     18,  4, -7);
+  addGroup(videoIcon(0x7eb3ff),    -14, -3,-10);
+  addGroup(videoIcon(0xc084fc),      6, 10, -8);
+  addGroup(cameraIcon(0x4f8cff),    22, -9,-11);
+  addGroup(heartIcon(0xc084fc),     -4,  8,-14);
+  addGroup(bubbleIcon(0x7eb3ff),   -22,  2, -9);
+  addGroup(heartIcon(0x4f8cff),     10, -9, -6);
+  addGroup(bubbleIcon(0xc084fc),     0, 12,-13);
 
-  /* líneas de conexión */
   const maxL=floaters.length*(floaters.length-1)/2;
   const lineGeo=new THREE.BufferGeometry();
   const lineArr=new Float32Array(maxL*6);
   lineGeo.setAttribute('position',new THREE.BufferAttribute(lineArr,3));
   scene.add(new THREE.LineSegments(lineGeo,new THREE.LineBasicMaterial({color:0x4f8cff,transparent:true,opacity:.07})));
 
-  /* anillos */
   const ring=new THREE.Mesh(new THREE.TorusGeometry(20,.06,4,120),new THREE.MeshBasicMaterial({color:0x4f8cff,transparent:true,opacity:.08}));
   ring.rotation.x=Math.PI/2.8;scene.add(ring);
   const ring2=new THREE.Mesh(new THREE.TorusGeometry(26,.04,4,120),new THREE.MeshBasicMaterial({color:0xc084fc,transparent:true,opacity:.05}));
@@ -782,21 +801,23 @@
   document.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=(e.clientY/innerHeight-.5)*2});
   let scrollY=0;window.addEventListener('scroll',()=>scrollY=window.scrollY);
 
+  const particles=scene.children.find(c=>c instanceof THREE.Points);
   let tc=0;
   (function animate(){
     requestAnimationFrame(animate);tc+=.007;
     tmx+=(mx*1.5-tmx)*.04;tmy+=(my*.8-tmy)*.04;
     camera.position.x=tmx;camera.position.y=-tmy+scrollY*.003;camera.lookAt(0,scrollY*.003,0);
-    particles.rotation.y=tc*.04;particles.rotation.x=tc*.015;
-    const pos=pGeo.attributes.position.array;
-    for(let i=0;i<pCount;i++) pos[i*3+1]+=Math.sin(tc*pSpd[i]+i)*.003;
-    pGeo.attributes.position.needsUpdate=true;
+    if(particles){particles.rotation.y=tc*.04;particles.rotation.x=tc*.015;
+      const pos=pGeo.attributes.position.array;
+      for(let i=0;i<pCount;i++)pos[i*3+1]+=Math.sin(tc*pSpd[i]+i)*.003;
+      pGeo.attributes.position.needsUpdate=true;
+    }
     floaters.forEach(m=>{
       m.rotation.x+=m.userData.rx;m.rotation.y+=m.userData.ry;m.rotation.z+=m.userData.rz;
       m.position.y=m.userData.baseY+Math.sin(tc*m.userData.floatSpd+m.userData.floatOff)*m.userData.floatAmp;
     });
     let li=0;const lp=lineGeo.attributes.position.array;
-    for(let a=0;a<floaters.length;a++) for(let b=a+1;b<floaters.length;b++) if(floaters[a].position.distanceTo(floaters[b].position)<22){
+    for(let a=0;a<floaters.length;a++)for(let b=a+1;b<floaters.length;b++)if(floaters[a].position.distanceTo(floaters[b].position)<22){
       lp[li++]=floaters[a].position.x;lp[li++]=floaters[a].position.y;lp[li++]=floaters[a].position.z;
       lp[li++]=floaters[b].position.x;lp[li++]=floaters[b].position.y;lp[li++]=floaters[b].position.z;
     }
@@ -807,41 +828,33 @@
   })();
 })();
 
-/* ── CURSOR — rastro más notorio ── */
+/* CURSOR */
 if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){
   const dot=document.getElementById('cur');
   const cols=['#4f8cff','#7eb3ff','#c084fc','#a78bfa'];
   let ti=0,lastX=0,lastY=0;
   document.addEventListener('mousemove',e=>{
     dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';
-    // Solo crear trail si el ratón se ha movido suficiente
     const dist=Math.hypot(e.clientX-lastX,e.clientY-lastY);
-    if(dist>4){
-      lastX=e.clientX;lastY=e.clientY;
-      // Crear varias partículas por movimiento para rastro más denso
+    if(dist>4){lastX=e.clientX;lastY=e.clientY;
       for(let k=0;k<3;k++){
-        const t=document.createElement('div');
-        t.className='ctrail';
-        const sz=Math.random()*9+5;
-        const col=cols[(ti+k)%cols.length];
-        const ox=(Math.random()-.5)*6, oy=(Math.random()-.5)*6;
+        const t=document.createElement('div');t.className='ctrail';
+        const sz=Math.random()*9+5,col=cols[(ti+k)%cols.length],ox=(Math.random()-.5)*6,oy=(Math.random()-.5)*6;
         t.style.cssText=`width:${sz}px;height:${sz}px;left:${e.clientX+ox}px;top:${e.clientY+oy}px;background:${col};box-shadow:0 0 ${sz*2.5}px ${col},0 0 ${sz*4}px ${col}55;`;
-        document.body.appendChild(t);ti++;
-        setTimeout(()=>t.remove(),700);
+        document.body.appendChild(t);ti++;setTimeout(()=>t.remove(),700);
       }
     }
   });
 }
 
-/* ── TABS ── */
+/* TABS */
 function showAt(id,btn){
   document.querySelectorAll('.about-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.at-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('at-'+id).classList.add('active');
-  btn.classList.add('active');
+  document.getElementById('at-'+id).classList.add('active');btn.classList.add('active');
 }
 
-/* ── CONTACTO 3D ── */
+/* CONTACTO 3D */
 const card=document.getElementById('contactCard');
 card.addEventListener('mousemove',e=>{
   const r=card.getBoundingClientRect(),dx=(e.clientX-r.left-r.width/2)/(r.width/2),dy=(e.clientY-r.top-r.height/2)/(r.height/2);
@@ -849,11 +862,11 @@ card.addEventListener('mousemove',e=>{
 });
 card.addEventListener('mouseleave',()=>{card.style.transform='rotateX(0) rotateY(0) scale(1)'});
 
-/* ── SCROLL REVEAL ── */
+/* SCROLL REVEAL */
 const obs=new IntersectionObserver(e=>e.forEach(e2=>{if(e2.isIntersecting)e2.target.classList.add('visible')}),{threshold:.1});
 document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
 
-/* ── BACK TO TOP ── */
+/* BACK TO TOP */
 const bTop=document.getElementById('back-top');
 window.addEventListener('scroll',()=>bTop.classList.toggle('show',window.scrollY>400));
 </script>
