@@ -87,117 +87,45 @@
     .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
     .reveal.visible{opacity:1;transform:none}
 
-    /* ── SOBRE MÍ — nuevo layout creativo ── */
+    /* ── SOBRE MÍ ── */
+
+    /* Bloque de presentación creativo */
+    .about-hero{display:grid;grid-template-columns:1fr;gap:0;border:1px solid var(--bdrW);border-radius:20px;overflow:hidden;margin-bottom:32px;background:linear-gradient(135deg,rgba(12,12,26,.9) 0%,rgba(13,13,32,.95) 100%)}
+    @media(min-width:700px){.about-hero{grid-template-columns:240px 1fr}}
+
+    .about-photo-side{position:relative;min-height:280px;overflow:hidden}
+    .about-photo-side img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;filter:saturate(1.05) contrast(1.02)}
+    .about-photo-side::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(6,6,15,.85) 100%),linear-gradient(90deg,transparent 70%,rgba(13,13,32,.6) 100%);pointer-events:none}
+
+    /* Etiqueta solo con Madrid */
+    .photo-badge{position:absolute;bottom:16px;left:16px;z-index:2;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--blue2);background:rgba(6,6,15,.7);border:1px solid var(--bdr);padding:4px 12px;border-radius:999px;backdrop-filter:blur(8px)}
+
+    .about-text-side{padding:36px 32px;display:flex;flex-direction:column;justify-content:center;gap:20px;border-left:1px solid var(--bdrW)}
+    @media(max-width:699px){.about-text-side{border-left:none;border-top:1px solid var(--bdrW);padding:24px 20px}}
+
+    .about-name{font-family:'Fredoka',sans-serif;font-size:clamp(22px,4vw,36px);font-weight:700;line-height:1.1;color:var(--ink)}
+    .about-name em{font-style:normal;background:linear-gradient(90deg,var(--blue),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+    .about-role{display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue)}
+    .about-role::before{content:'';width:20px;height:1px;background:var(--blue);flex-shrink:0}
+
+    .about-lines{display:flex;flex-direction:column;gap:8px}
+    .about-line{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);line-height:1.6}
+    .about-line::before{content:'→';color:var(--blue);font-size:12px;flex-shrink:0;margin-top:2px}
+
+    .about-stats{display:flex;gap:24px;flex-wrap:wrap;padding-top:12px;border-top:1px solid var(--bdrW)}
+    .about-stat-num{font-family:'Fredoka',sans-serif;font-size:26px;font-weight:700;background:linear-gradient(90deg,var(--blue2),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+    .about-stat-label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+
+    /* Chips de herramientas */
     .about-quick{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:32px}
     .aq-chip{font-size:11px;padding:5px 14px;border-radius:999px;border:1px solid var(--bdr);background:rgba(79,140,255,.06);color:var(--blue2);transition:border-color .25s,background .25s}
     .aq-chip:hover{border-color:var(--blue2);background:rgba(79,140,255,.13)}
     .aq-chip.alt{border-color:rgba(192,132,252,.3);background:rgba(192,132,252,.06);color:var(--pink)}
+    /* Chips marketing — naranja/ámbar */
+    .aq-chip.mkt{border-color:rgba(251,146,60,.3);background:rgba(251,146,60,.06);color:#fb923c}
 
-    /* Bloque de presentación — foto + datos como un carnet creativo */
-    .about-hero{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:0;
-      border:1px solid var(--bdrW);
-      border-radius:20px;
-      overflow:hidden;
-      margin-bottom:32px;
-      background:linear-gradient(135deg,rgba(12,12,26,.9) 0%,rgba(13,13,32,.95) 100%);
-    }
-    @media(min-width:700px){
-      .about-hero{grid-template-columns:240px 1fr}
-    }
-
-    /* Panel izquierdo — foto con overlay de datos */
-    .about-photo-side{
-      position:relative;
-      min-height:280px;
-      overflow:hidden;
-    }
-    .about-photo-side img{
-      width:100%;height:100%;
-      object-fit:cover;object-position:center top;
-      display:block;
-      filter:saturate(1.05) contrast(1.02);
-    }
-    /* Degradado sobre la foto */
-    .about-photo-side::after{
-      content:'';position:absolute;inset:0;
-      background:linear-gradient(180deg,transparent 40%,rgba(6,6,15,.85) 100%),
-                 linear-gradient(90deg,transparent 70%,rgba(13,13,32,.6) 100%);
-      pointer-events:none;
-    }
-    /* Etiqueta flotante sobre la foto */
-    .photo-badge{
-      position:absolute;bottom:16px;left:16px;z-index:2;
-      font-size:10px;letter-spacing:2px;text-transform:uppercase;
-      color:var(--blue2);
-      background:rgba(6,6,15,.7);
-      border:1px solid var(--bdr);
-      padding:4px 12px;border-radius:999px;
-      backdrop-filter:blur(8px);
-    }
-
-    /* Panel derecho — texto creativo */
-    .about-text-side{
-      padding:36px 32px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      gap:20px;
-      border-left:1px solid var(--bdrW);
-    }
-    @media(max-width:699px){.about-text-side{border-left:none;border-top:1px solid var(--bdrW);padding:24px 20px}}
-
-    /* Nombre grande como encabezado */
-    .about-name{
-      font-family:'Fredoka',sans-serif;
-      font-size:clamp(22px,4vw,36px);
-      font-weight:700;
-      line-height:1.1;
-      color:var(--ink);
-    }
-    .about-name em{
-      font-style:normal;
-      background:linear-gradient(90deg,var(--blue),var(--pink));
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-    }
-
-    /* Rol con línea lateral */
-    .about-role{
-      display:flex;align-items:center;gap:12px;
-      font-size:12px;letter-spacing:1.5px;text-transform:uppercase;
-      color:var(--blue);
-    }
-    .about-role::before{content:'';width:20px;height:1px;background:var(--blue);flex-shrink:0}
-
-    /* Frases cortas estilo typewriter — una por línea */
-    .about-lines{
-      display:flex;flex-direction:column;gap:8px;
-    }
-    .about-line{
-      display:flex;align-items:flex-start;gap:10px;
-      font-size:13px;color:var(--muted);line-height:1.6;
-    }
-    .about-line::before{
-      content:'→';color:var(--blue);font-size:12px;flex-shrink:0;margin-top:2px;
-    }
-
-    /* Stats mini en fila */
-    .about-stats{
-      display:flex;gap:24px;flex-wrap:wrap;
-      padding-top:12px;border-top:1px solid var(--bdrW);
-    }
-    .about-stat-item{}
-    .about-stat-num{
-      font-family:'Fredoka',sans-serif;font-size:26px;font-weight:700;
-      background:linear-gradient(90deg,var(--blue2),var(--pink));
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-      line-height:1;
-    }
-    .about-stat-label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
-
-    /* tabs */
+    /* Tabs */
     .about-tabs{display:flex;border:1px solid var(--bdrW);border-radius:16px;overflow:hidden;flex-wrap:wrap}
     .at-btn{flex:1;min-width:80px;padding:13px 8px;background:transparent;border:none;font-family:'Poppins',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-right:1px solid var(--bdrW);transition:background .25s,color .25s}
     .at-btn:last-child{border-right:none}
@@ -330,7 +258,7 @@
   </ul>
 </nav>
 
-<!-- HERO — sin foto -->
+<!-- HERO -->
 <section class="hero" id="hero">
   <video autoplay muted loop playsinline><source src="background-nerea.mp4"></video>
   <div class="hero-overlay"></div>
@@ -394,16 +322,12 @@
   <div class="s-eyebrow">Sobre mí</div>
   <h2 class="s-title">Nerea Ramírez</h2>
 
-  <!-- Bloque de presentación creativo: foto + datos -->
+  <!-- Bloque presentación creativo -->
   <div class="about-hero">
-
-    <!-- Foto limpia, sin filtros de color -->
     <div class="about-photo-side">
       <img src="nerea.ramirez.png" alt="Nerea Ramírez">
-      <span class="photo-badge">Madrid · Disponible</span>
+      <span class="photo-badge">Madrid</span>
     </div>
-
-    <!-- Panel de texto con identidad visual -->
     <div class="about-text-side">
       <div>
         <div class="about-role">Diseñadora gráfica & editora de vídeo</div>
@@ -413,21 +337,15 @@
           Diseño experiencias.
         </div>
       </div>
-
       <div class="about-lines">
         <div class="about-line">Del concepto al píxel final — sin intermediarios.</div>
         <div class="about-line">Motion, vídeo, gráfica e IA: dominio de toda la cadena.</div>
         <div class="about-line">Cada pieza tiene que emocionar <em>y</em> funcionar.</div>
       </div>
-
       <div class="about-stats">
         <div class="about-stat-item">
           <div class="about-stat-num">3+</div>
           <div class="about-stat-label">Años creando</div>
-        </div>
-        <div class="about-stat-item">
-          <div class="about-stat-num">5</div>
-          <div class="about-stat-label">Apps Adobe</div>
         </div>
         <div class="about-stat-item">
           <div class="about-stat-num">∞</div>
@@ -435,10 +353,9 @@
         </div>
       </div>
     </div>
-
   </div>
 
-  <!-- Chips de herramientas -->
+  <!-- Chips de herramientas — Adobe + marketing en naranja -->
   <div class="about-quick">
     <span class="aq-chip">Photoshop</span>
     <span class="aq-chip">Illustrator</span>
@@ -447,6 +364,9 @@
     <span class="aq-chip">InDesign</span>
     <span class="aq-chip alt">ChatGPT · Sora · Gemini</span>
     <span class="aq-chip alt">Wordpress · Shopify</span>
+    <span class="aq-chip mkt">Mailchimp</span>
+    <span class="aq-chip mkt">Metricool</span>
+    <span class="aq-chip mkt">Meta Business</span>
   </div>
 
   <!-- Tabs -->
@@ -581,6 +501,7 @@
   <div class="s-eyebrow">Proyectos</div>
   <h2 class="s-title">Trabajos recientes</h2>
   <div class="grid">
+
     <div class="card reveal">
       <div class="project-img" style="background-image:url('destacada-magnum-final.png')"></div>
       <div class="card-body">
@@ -589,6 +510,7 @@
         <a href="proyecto-magnum.html"><button class="btn-proyecto">Ver proyecto</button></a>
       </div>
     </div>
+
     <div class="card reveal" style="transition-delay:.1s">
       <div class="project-img" style="background-image:url('destacadas-dolce-vitta.png')"></div>
       <div class="card-body">
@@ -597,6 +519,7 @@
         <a href="proyecto-dolcevitta.html"><button class="btn-proyecto">Ver proyecto</button></a>
       </div>
     </div>
+
     <div class="card reveal" style="transition-delay:.2s">
       <div class="project-img" style="background-image:url('destacadas-HOME.png')"></div>
       <div class="card-body">
@@ -605,6 +528,7 @@
         <a href="proyecto-home.html"><button class="btn-proyecto">Ver proyecto</button></a>
       </div>
     </div>
+
     <div class="card reveal" style="transition-delay:.3s">
       <div class="project-img" style="background-image:url('destacadas-superboy.png')"></div>
       <div class="card-body">
@@ -613,6 +537,7 @@
         <a href="proyecto-superboy.html"><button class="btn-proyecto">Ver proyecto</button></a>
       </div>
     </div>
+
     <div class="card reveal" style="transition-delay:.4s">
       <div class="project-img" style="background-image:url('destacadas-hotwheels.png')"></div>
       <div class="card-body">
@@ -621,6 +546,7 @@
         <button class="btn-proyecto">Ver proyecto</button>
       </div>
     </div>
+
     <div class="card reveal" style="transition-delay:.5s">
       <div class="project-img" style="background-image:url('destacadas-camisetas.png')"></div>
       <div class="card-body">
@@ -629,6 +555,25 @@
         <button class="btn-proyecto">Ver proyecto</button>
       </div>
     </div>
+
+    <div class="card reveal" style="transition-delay:.6s">
+      <div class="project-img" style="background-image:url('destacadas-mueblesboom.png')"></div>
+      <div class="card-body">
+        <div class="project-title">Rebranding Muebles Boom</div>
+        <div class="project-subtitle">Identidad de marca y comunicación visual</div>
+        <button class="btn-proyecto">Ver proyecto</button>
+      </div>
+    </div>
+
+    <div class="card reveal" style="transition-delay:.7s">
+      <div class="project-img" style="background-image:url('destacadas-nextfloor.png')"></div>
+      <div class="card-body">
+        <div class="project-title">Coworking Nextfloor</div>
+        <div class="project-subtitle">Infografía y diseño para RRSS</div>
+        <button class="btn-proyecto">Ver proyecto</button>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -647,7 +592,7 @@
     </div>
     <div class="contact-item-3d">
       <div class="contact-icon-wrap"><img src="mapa.png"></div>
-      <div><div class="contact-label">Ubicación</div><div class="contact-value">Madrid · Vehículo propio</div></div>
+      <div><div class="contact-label">Ubicación</div><div class="contact-value">Madrid · San Sebastián de los Reyes</div></div>
     </div>
   </div>
 </div>
@@ -700,7 +645,8 @@
   }
   pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
   pGeo.setAttribute('color',new THREE.BufferAttribute(pCol,3));
-  scene.add(new THREE.Points(pGeo,new THREE.PointsMaterial({size:.18,vertexColors:true,transparent:true,opacity:.7,sizeAttenuation:true})));
+  const partMesh=new THREE.Points(pGeo,new THREE.PointsMaterial({size:.18,vertexColors:true,transparent:true,opacity:.7,sizeAttenuation:true}));
+  scene.add(partMesh);
 
   function lMat(col,op=.55){return new THREE.LineBasicMaterial({color:col,transparent:true,opacity:op})}
   function wMat(col,op=.28){return new THREE.MeshBasicMaterial({color:col,wireframe:true,transparent:true,opacity:op})}
@@ -801,17 +747,15 @@
   document.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=(e.clientY/innerHeight-.5)*2});
   let scrollY=0;window.addEventListener('scroll',()=>scrollY=window.scrollY);
 
-  const particles=scene.children.find(c=>c instanceof THREE.Points);
   let tc=0;
   (function animate(){
     requestAnimationFrame(animate);tc+=.007;
     tmx+=(mx*1.5-tmx)*.04;tmy+=(my*.8-tmy)*.04;
     camera.position.x=tmx;camera.position.y=-tmy+scrollY*.003;camera.lookAt(0,scrollY*.003,0);
-    if(particles){particles.rotation.y=tc*.04;particles.rotation.x=tc*.015;
-      const pos=pGeo.attributes.position.array;
-      for(let i=0;i<pCount;i++)pos[i*3+1]+=Math.sin(tc*pSpd[i]+i)*.003;
-      pGeo.attributes.position.needsUpdate=true;
-    }
+    partMesh.rotation.y=tc*.04;partMesh.rotation.x=tc*.015;
+    const pos=pGeo.attributes.position.array;
+    for(let i=0;i<pCount;i++)pos[i*3+1]+=Math.sin(tc*pSpd[i]+i)*.003;
+    pGeo.attributes.position.needsUpdate=true;
     floaters.forEach(m=>{
       m.rotation.x+=m.userData.rx;m.rotation.y+=m.userData.ry;m.rotation.z+=m.userData.rz;
       m.position.y=m.userData.baseY+Math.sin(tc*m.userData.floatSpd+m.userData.floatOff)*m.userData.floatAmp;
