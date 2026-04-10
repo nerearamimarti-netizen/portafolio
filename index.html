@@ -19,41 +19,38 @@
       font-family: 'Poppins', sans-serif;
       background: #0f0f0f;
       color: white;
-      cursor: none;
     }
 
-    /* ---- CURSOR PERSONALIZADO ---- */
-    #cursor-dot {
-      position: fixed;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #ff4ecd;
-      box-shadow: 0 0 12px #ff4ecd, 0 0 24px #6c63ff;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
+    /* ---- CURSOR PERSONALIZADO (solo desktop) ---- */
+    @media (hover: hover) and (pointer: fine) {
+      body { cursor: none; }
+
+      #cursor-dot {
+        position: fixed;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #ff4ecd;
+        box-shadow: 0 0 12px #ff4ecd, 0 0 24px #6c63ff;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+      }
+
+      .cursor-trail {
+        position: fixed;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9997;
+        transform: translate(-50%, -50%);
+        animation: trailFade 0.6s ease forwards;
+      }
     }
 
-    #cursor-ring {
-      position: fixed;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(108, 99, 255, 0.6);
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: left 0.12s ease, top 0.12s ease;
-    }
+    #cursor-dot { display: none; }
 
-    .cursor-trail {
-      position: fixed;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9997;
-      transform: translate(-50%, -50%);
-      animation: trailFade 0.6s ease forwards;
+    @media (hover: hover) and (pointer: fine) {
+      #cursor-dot { display: block; }
     }
 
     @keyframes trailFade {
@@ -105,46 +102,349 @@
       margin: auto;
     }
 
-    /* --- SOBRE MÍ --- */
-    .about-container {
-      display: flex;
-      gap: 40px;
-      flex-wrap: wrap;
-      align-items: center;
+    /* ============================================================
+      SECCIÓN 3: SOBRE MÍ — Nueva estructura completa
+    ============================================================ */
+
+    .about-section {
+      padding: 80px 20px;
+      max-width: 1000px;
+      margin: auto;
     }
 
-    .profile {
-      width: 180px;
-      height: 180px;
+    .about-section > h2 {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    .about-tagline {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 40px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* Grid principal: izquierda estrecha + derecha ancha */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .about-grid {
+        grid-template-columns: 300px 1fr;
+      }
+    }
+
+    /* ---- Panel izquierdo: skills + idiomas + intereses ---- */
+    .about-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .about-panel {
+      background: #111;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Pequeño orbe decorativo en cada panel */
+    .about-panel::before {
+      content: '';
+      position: absolute;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
-      object-fit: cover;
+      top: -20px;
+      right: -20px;
+      filter: blur(28px);
+      opacity: 0.18;
+      pointer-events: none;
     }
 
-    .about-text { max-width: 500px; }
+    .about-panel.pink::before   { background: #ff4ecd; }
+    .about-panel.purple::before { background: #6c63ff; }
+    .about-panel.cyan::before   { background: #00d4ff; }
 
-    .tabs { margin-top: 25px; }
+    .panel-title {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.3);
+      margin: 0 0 16px;
+    }
 
-    .tab-buttons {
+    /* Grupo de herramientas (ej: Adobe) */
+    .tool-group {
+      margin-bottom: 14px;
+    }
+
+    .tool-group-name {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 8px;
+    }
+
+    .tool-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
     }
 
-    .tab-buttons button {
-      background: #2a2a2a;
-      border: none;
-      padding: 8px 14px;
+    .tool-tag {
+      font-size: 11px;
+      padding: 4px 10px;
       border-radius: 999px;
-      cursor: none;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.7);
+      white-space: nowrap;
+    }
+
+    .tool-tag.highlight {
+      border-color: rgba(255,78,205,0.4);
+      color: rgba(255,78,205,0.9);
+      background: rgba(255,78,205,0.07);
+    }
+
+    /* Idiomas */
+    .lang-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 8px 0;
+    }
+
+    .lang-name {
+      font-size: 13px;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .lang-level {
+      font-size: 10px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(108,99,255,0.15);
+      border: 1px solid rgba(108,99,255,0.3);
+      color: rgba(108,99,255,0.9);
+      letter-spacing: 0.5px;
+    }
+
+    /* ---- Panel derecho: experiencia + estudios + certs ---- */
+    .about-main {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Tabs de navegación */
+    .about-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .about-tab-btn {
+      background: #1c1c1c;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 8px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      color: rgba(255,255,255,0.5);
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .about-tab-btn.active {
+      background: linear-gradient(270deg, #ff4ecd, #6c63ff);
+      border-color: transparent;
       color: white;
     }
 
-    .tab-buttons button.active {
-      background: linear-gradient(270deg, #ff4ecd, #6c63ff);
+    /* Contenido de tabs */
+    .about-tab-content { display: none; }
+    .about-tab-content.active { display: flex; flex-direction: column; gap: 14px; }
+
+    /* Tarjeta de experiencia */
+    .exp-card {
+      background: #111;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 22px 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s ease, transform 0.3s ease;
     }
 
-    .tab-content { margin-top: 15px; display: none; }
-    .tab-content.active { display: block; }
+    .exp-card:hover {
+      border-color: rgba(255,78,205,0.25);
+      transform: translateX(4px);
+    }
+
+    /* Línea lateral de color */
+    .exp-card::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 20px;
+      bottom: 20px;
+      width: 3px;
+      border-radius: 999px;
+    }
+
+    .exp-card.pink-line::after   { background: linear-gradient(180deg, #ff4ecd, #6c63ff); }
+    .exp-card.purple-line::after { background: linear-gradient(180deg, #6c63ff, #00d4ff); }
+    .exp-card.cyan-line::after   { background: linear-gradient(180deg, #00d4ff, #6c63ff); }
+
+    .exp-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .exp-role {
+      font-size: 15px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .exp-date {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.4);
+      white-space: nowrap;
+    }
+
+    .exp-company {
+      font-size: 12px;
+      color: rgba(255,78,205,0.8);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .exp-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .exp-bullets li {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .exp-bullets li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: #6c63ff;
+    }
+
+    /* Tarjeta de estudios */
+    .edu-card {
+      background: #111;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .edu-card:hover {
+      border-color: rgba(108,99,255,0.25);
+      transform: translateX(4px);
+    }
+
+    .edu-year {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: rgba(108,99,255,0.5);
+      min-width: 56px;
+      line-height: 1;
+      padding-top: 2px;
+    }
+
+    .edu-info {}
+
+    .edu-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .edu-place {
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* Tarjeta de certificaciones */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .cert-grid { grid-template-columns: 1fr; }
+    }
+
+    .cert-card {
+      background: #111;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 16px 18px;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .cert-card:hover {
+      border-color: rgba(0,212,255,0.25);
+      transform: translateY(-3px);
+    }
+
+    .cert-year {
+      font-size: 10px;
+      color: rgba(0,212,255,0.6);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .cert-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .cert-entity {
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+    }
 
     /* ============================================================
       SECCIÓN 4: SERVICIOS — Cards originales
@@ -168,10 +468,8 @@
       text-align: center;
       overflow: hidden;
       transition: transform 0.4s ease, border-color 0.4s ease;
-      cursor: none;
     }
 
-    /* Orbe de color que aparece al hover */
     .service::before {
       content: '';
       position: absolute;
@@ -201,7 +499,6 @@
       border-color: rgba(255,255,255,0.2);
     }
 
-    /* Número decorativo de fondo */
     .service-num {
       position: absolute;
       top: 10px;
@@ -215,12 +512,8 @@
       color: white;
     }
 
-    .service-inner {
-      position: relative;
-      z-index: 1;
-    }
+    .service-inner { position: relative; z-index: 1; }
 
-    /* Icono con fondo pill */
     .service-icon-wrap {
       display: inline-flex;
       align-items: center;
@@ -234,10 +527,7 @@
       transition: background 0.4s ease;
     }
 
-    .service:hover .service-icon-wrap {
-      background: rgba(255,255,255,0.1);
-    }
-
+    .service:hover .service-icon-wrap { background: rgba(255,255,255,0.1); }
     .service-icon-wrap img { width: 32px; }
 
     .service h3 {
@@ -254,7 +544,6 @@
       line-height: 1.6;
     }
 
-    /* Línea inferior animada */
     .service-line {
       position: absolute;
       bottom: 0;
@@ -304,7 +593,6 @@
       background-color: #333;
     }
 
-    /* Título del proyecto — grande y en negrita */
     .project-title {
       font-size: 18px;
       font-weight: 700;
@@ -313,7 +601,6 @@
       color: white;
     }
 
-    /* Subtítulo — más pequeño y atenuado */
     .project-subtitle {
       font-size: 13px;
       color: rgba(255,255,255,0.45);
@@ -321,7 +608,6 @@
       line-height: 1.5;
     }
 
-    /* Botón de proyecto con estilo y animación */
     .btn-proyecto {
       display: inline-block;
       background: linear-gradient(135deg, #ff4ecd, #6c63ff);
@@ -332,7 +618,7 @@
       padding: 10px 22px;
       border-radius: 999px;
       border: none;
-      cursor: none;
+      cursor: pointer;
       text-decoration: none;
       letter-spacing: 0.5px;
       transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -345,7 +631,7 @@
     }
 
     /* ============================================================
-      SECCIÓN 6: CONTACTO — Tarjeta 3D con inclinación al mouse
+      SECCIÓN 6: CONTACTO — Tarjeta 3D
     ============================================================ */
 
     .contact-3d-section {
@@ -379,14 +665,11 @@
       overflow: hidden;
     }
 
-    /* Destellos decorativos */
     .contact-card-3d::before {
       content: '';
       position: absolute;
-      top: -60px;
-      right: -60px;
-      width: 200px;
-      height: 200px;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(255,78,205,0.2) 0%, transparent 70%);
       pointer-events: none;
@@ -395,10 +678,8 @@
     .contact-card-3d::after {
       content: '';
       position: absolute;
-      bottom: -60px;
-      left: -60px;
-      width: 200px;
-      height: 200px;
+      bottom: -60px; left: -60px;
+      width: 200px; height: 200px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(0,212,255,0.15) 0%, transparent 70%);
       pointer-events: none;
@@ -424,8 +705,7 @@
     }
 
     .contact-icon-wrap {
-      width: 44px;
-      height: 44px;
+      width: 44px; height: 44px;
       border-radius: 12px;
       display: flex;
       align-items: center;
@@ -465,7 +745,6 @@
       border-top: 1px solid rgba(255,255,255,0.06);
     }
 
-    /* Cuadrícula decorativa de fondo */
     .footer-special::before {
       content: '';
       position: absolute;
@@ -484,7 +763,6 @@
       z-index: 1;
     }
 
-    /* Nombre grande como marca de agua */
     .footer-brand {
       font-family: 'Fredoka', sans-serif;
       font-size: clamp(48px, 10vw, 100px);
@@ -525,11 +803,7 @@
       text-transform: uppercase;
     }
 
-    .footer-tools {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+    .footer-tools { display: flex; gap: 10px; flex-wrap: wrap; }
 
     .footer-tool-badge {
       font-size: 11px;
@@ -549,16 +823,12 @@
       letter-spacing: 1px;
     }
 
-    /* Punto con pulso animado */
     .footer-pulse {
       position: absolute;
-      bottom: 30px;
-      right: 30px;
-      width: 10px;
-      height: 10px;
+      bottom: 30px; right: 30px;
+      width: 10px; height: 10px;
       border-radius: 50%;
       background: #ff4ecd;
-      box-shadow: 0 0 0 0 rgba(255,78,205,0.4);
       animation: pulse 2s ease-in-out infinite;
     }
 
@@ -568,7 +838,6 @@
       100% { box-shadow: 0 0 0 0 rgba(255,78,205,0); }
     }
 
-    /* --- Animación del degradado --- */
     @keyframes gradientMove {
       0%   { background-position: 0% 50%; }
       50%  { background-position: 100% 50%; }
@@ -580,9 +849,8 @@
 </head>
 <body>
 
-  <!-- Cursor personalizado -->
+  <!-- Cursor personalizado (solo desktop) -->
   <div id="cursor-dot"></div>
-  <div id="cursor-ring"></div>
 
 
   <!-- ============================================================
@@ -602,30 +870,201 @@
 
 
   <!-- ============================================================
-    SECCIÓN 3: SOBRE MÍ
+    SECCIÓN 3: SOBRE MÍ — Nueva estructura completa
   ============================================================ -->
 
-  <section>
-    <div class="about-container">
-      <img src="nerea.ramirez.png" class="profile">
-      <div class="about-text">
-        <h2>Sobre mí</h2>
-        <p>Soy creadora visual enfocada en contenido digital y redes sociales.</p>
-        <div class="tabs">
-          <div class="tab-buttons">
-            <button class="active" onclick="showTab('skills')">Skills</button>
-            <button onclick="showTab('experiencia')">Experiencia</button>
-            <button onclick="showTab('estudios')">Estudios</button>
-            <button onclick="showTab('certificaciones')">Certificaciones</button>
+  <div class="about-section">
+
+    <h2>Sobre mí</h2>
+    <p class="about-tagline">Nerea Ramírez · Diseñadora gráfica & Editora de vídeo · Madrid</p>
+
+    <div class="about-grid">
+
+      <!-- COLUMNA IZQUIERDA: Skills, intereses, idiomas -->
+      <div class="about-sidebar">
+
+        <!-- Panel Adobe -->
+        <div class="about-panel pink">
+          <p class="panel-title">Adobe Creative Tools</p>
+          <div class="tool-tags">
+            <span class="tool-tag highlight">Photoshop</span>
+            <span class="tool-tag highlight">Illustrator</span>
+            <span class="tool-tag highlight">InDesign</span>
+            <span class="tool-tag highlight">Premiere</span>
+            <span class="tool-tag highlight">After Effects</span>
           </div>
-          <div id="skills" class="tab-content active">Herramientas Adobe, IA, RRSS</div>
-          <div id="experiencia" class="tab-content">Ádraba, Lunaro, Jastag</div>
-          <div id="estudios" class="tab-content">CEI + Marketing</div>
-          <div id="certificaciones" class="tab-content">Google, Hubspot, AI</div>
         </div>
+
+        <!-- Panel IA + Variado -->
+        <div class="about-panel purple">
+          <p class="panel-title">Herramientas</p>
+          <div class="tool-group">
+            <div class="tool-group-name">IA Generativa</div>
+            <div class="tool-tags">
+              <span class="tool-tag">ChatGPT / Sora</span>
+              <span class="tool-tag">Gemini</span>
+              <span class="tool-tag">Freepik AI</span>
+            </div>
+          </div>
+          <div class="tool-group">
+            <div class="tool-group-name">Plataformas</div>
+            <div class="tool-tags">
+              <span class="tool-tag">Cap Cut</span>
+              <span class="tool-tag">Metricool</span>
+              <span class="tool-tag">Meta Business</span>
+              <span class="tool-tag">Wordpress</span>
+              <span class="tool-tag">Shopify</span>
+              <span class="tool-tag">Prestashop</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel idiomas -->
+        <div class="about-panel cyan">
+          <p class="panel-title">Idiomas</p>
+          <div class="lang-row">
+            <span class="lang-name">Español</span>
+            <span class="lang-level">Nativo</span>
+          </div>
+          <div class="lang-row">
+            <span class="lang-name">Inglés</span>
+            <span class="lang-level">B1</span>
+          </div>
+        </div>
+
+        <!-- Panel intereses -->
+        <div class="about-panel pink">
+          <p class="panel-title">Intereses</p>
+          <div class="tool-tags">
+            <span class="tool-tag">Diseño gráfico</span>
+            <span class="tool-tag">Dirección de arte</span>
+            <span class="tool-tag">Producción visual</span>
+            <span class="tool-tag">IA generativa</span>
+            <span class="tool-tag">Postproducción</span>
+            <span class="tool-tag">Gestión RRSS</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- COLUMNA DERECHA: Tabs experiencia / estudios / certificaciones -->
+      <div class="about-main">
+
+        <div class="about-tabs">
+          <button class="about-tab-btn active" onclick="showAboutTab('experiencia', this)">Experiencia</button>
+          <button class="about-tab-btn" onclick="showAboutTab('estudios', this)">Estudios</button>
+          <button class="about-tab-btn" onclick="showAboutTab('certs', this)">Certificaciones</button>
+        </div>
+
+        <!-- Tab: Experiencia -->
+        <div id="about-experiencia" class="about-tab-content active">
+
+          <div class="exp-card pink-line">
+            <div class="exp-header">
+              <div class="exp-role">Diseñadora gráfica y Community Manager</div>
+              <span class="exp-date">Jun 2024 — Actual</span>
+            </div>
+            <div class="exp-company">Ádraba</div>
+            <ul class="exp-bullets">
+              <li>Producción integral de contenido visual: concepto, diseño, grabación, edición y publicación.</li>
+              <li>Gestión y publicación de RRSS y dirección de campañas de marketing digital.</li>
+              <li>Diseño gráfico e ilustración para campañas digitales.</li>
+              <li>Creación de vídeos animados 2D y motion graphics.</li>
+              <li>Uso de IA generativa para ideación creativa, variaciones gráficas y optimización de producción.</li>
+              <li>Diseño de piezas BTL: flyers, tarjetas, trípticos, spots TV, cartelería.</li>
+            </ul>
+          </div>
+
+          <div class="exp-card purple-line">
+            <div class="exp-header">
+              <div class="exp-role">Community Manager</div>
+              <span class="exp-date">Jun — Sep 2023</span>
+            </div>
+            <div class="exp-company">Lunaro Solutions</div>
+            <ul class="exp-bullets">
+              <li>Gestión estratégica de LinkedIn: contenido, calendario y análisis.</li>
+              <li>Diseño de piezas visuales y contenido audiovisual orientado a marca y engagement.</li>
+            </ul>
+          </div>
+
+          <div class="exp-card cyan-line">
+            <div class="exp-header">
+              <div class="exp-role">Asistente de Diseño y Comunicación Digital</div>
+              <span class="exp-date">Mar — Jun 2023</span>
+            </div>
+            <div class="exp-company">Jastag</div>
+            <ul class="exp-bullets">
+              <li>Diseño web y optimización SEO en Wordpress.</li>
+              <li>Producción y postproducción de contenidos audiovisuales.</li>
+              <li>Diseño de piezas para RRSS y copywriting.</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- Tab: Estudios -->
+        <div id="about-estudios" class="about-tab-content">
+
+          <div class="edu-card">
+            <div class="edu-year">2025</div>
+            <div class="edu-info">
+              <div class="edu-title">Máster Avanzado en Motion Graphics, VFX, Diseño 3D, 4D y Dirección de arte</div>
+              <div class="edu-place">CEI</div>
+            </div>
+          </div>
+
+          <div class="edu-card">
+            <div class="edu-year">2023</div>
+            <div class="edu-info">
+              <div class="edu-title">Máster Avanzado en Diseño Gráfico, Diseño web y Marketing Digital</div>
+              <div class="edu-place">CEI</div>
+            </div>
+          </div>
+
+          <div class="edu-card">
+            <div class="edu-year">2021</div>
+            <div class="edu-info">
+              <div class="edu-title">Grado Superior en Marketing y Publicidad</div>
+              <div class="edu-place">IES Clara del Rey</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Tab: Certificaciones -->
+        <div id="about-certs" class="about-tab-content">
+          <div class="cert-grid">
+
+            <div class="cert-card">
+              <div class="cert-year">2025</div>
+              <div class="cert-name">Elements of AI</div>
+              <div class="cert-entity">University of Helsinki</div>
+            </div>
+
+            <div class="cert-card">
+              <div class="cert-year">2025</div>
+              <div class="cert-name">Curso de Diseño Gráfico</div>
+              <div class="cert-entity">Edutin Academy</div>
+            </div>
+
+            <div class="cert-card">
+              <div class="cert-year">2024</div>
+              <div class="cert-name">Certificado en Inbound Marketing</div>
+              <div class="cert-entity">Hubspot Academy</div>
+            </div>
+
+            <div class="cert-card">
+              <div class="cert-year">2024</div>
+              <div class="cert-name">Fundamentos de Marketing Digital</div>
+              <div class="cert-entity">Google Actívate</div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </div>
-  </section>
+  </div>
 
 
   <!-- ============================================================
@@ -639,9 +1078,7 @@
       <div class="service">
         <span class="service-num">01</span>
         <div class="service-inner">
-          <div class="service-icon-wrap">
-            <img src="video.png">
-          </div>
+          <div class="service-icon-wrap"><img src="video.png"></div>
           <h3>Edición de vídeo</h3>
           <p>Narrativa visual, ritmo y emoción en cada corte.</p>
         </div>
@@ -651,9 +1088,7 @@
       <div class="service">
         <span class="service-num">02</span>
         <div class="service-inner">
-          <div class="service-icon-wrap">
-            <img src="vector.png">
-          </div>
+          <div class="service-icon-wrap"><img src="vector.png"></div>
           <h3>Diseño gráfico</h3>
           <p>Identidad visual que comunica sin palabras.</p>
         </div>
@@ -663,9 +1098,7 @@
       <div class="service">
         <span class="service-num">03</span>
         <div class="service-inner">
-          <div class="service-icon-wrap">
-            <img src="rrss.png">
-          </div>
+          <div class="service-icon-wrap"><img src="rrss.png"></div>
           <h3>Contenido RRSS</h3>
           <p>Piezas pensadas para enganchar, retener y crecer.</p>
         </div>
@@ -722,13 +1155,10 @@
 
   <div class="contact-3d-section">
     <h2>¿Hablamos? :)</h2>
-
     <div class="contact-card-3d" id="contactCard">
 
       <div class="contact-item-3d">
-        <div class="contact-icon-wrap pink">
-          <img src="llamar.png">
-        </div>
+        <div class="contact-icon-wrap pink"><img src="llamar.png"></div>
         <div>
           <div class="contact-label">Teléfono</div>
           <div class="contact-value">653 607 909</div>
@@ -736,9 +1166,7 @@
       </div>
 
       <div class="contact-item-3d">
-        <div class="contact-icon-wrap purple">
-          <img src="correo.png">
-        </div>
+        <div class="contact-icon-wrap purple"><img src="correo.png"></div>
         <div>
           <div class="contact-label">Email</div>
           <div class="contact-value">nerearamimarti@gmail.com</div>
@@ -746,12 +1174,10 @@
       </div>
 
       <div class="contact-item-3d">
-        <div class="contact-icon-wrap cyan">
-          <img src="mapa.png">
-        </div>
+        <div class="contact-icon-wrap cyan"><img src="mapa.png"></div>
         <div>
           <div class="contact-label">Ubicación</div>
-          <div class="contact-value">Madrid, España</div>
+          <div class="contact-value">Madrid · Vehículo propio</div>
         </div>
       </div>
 
@@ -760,7 +1186,7 @@
 
 
   <!-- ============================================================
-    SECCIÓN 7: FOOTER ESPECIAL — Cuadrícula + marca de agua + badges
+    SECCIÓN 7: FOOTER ESPECIAL
   ============================================================ -->
 
   <footer class="footer-special">
@@ -791,12 +1217,12 @@
 
 
   <!-- ============================================================
-    JAVASCRIPT: Pestañas + Cursor con rastro + Efecto 3D contacto
+    JAVASCRIPT
   ============================================================ -->
 
   <script>
 
-    /* --- Pestañas de "Sobre mí" --- */
+    /* --- Pestañas de "Sobre mí" (antiguas, por si se usan) --- */
     function showTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.tab-buttons button').forEach(btn => btn.classList.remove('active'));
@@ -804,40 +1230,43 @@
       event.target.classList.add('active');
     }
 
-    /* --- Cursor personalizado con rastro de partículas --- */
-    const dot  = document.getElementById('cursor-dot');
-    const ring = document.getElementById('cursor-ring');
-    const trailColors = ['#ff4ecd', '#6c63ff', '#00d4ff'];
-    let trailIndex = 0;
+    /* --- Tabs nuevas del about --- */
+    function showAboutTab(tabId, btn) {
+      document.querySelectorAll('.about-tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.about-tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('about-' + tabId).classList.add('active');
+      btn.classList.add('active');
+    }
 
-    document.addEventListener('mousemove', e => {
-      const x = e.clientX;
-      const y = e.clientY;
+    /* --- Cursor con rastro solo en dispositivos con ratón real --- */
+    const isHoverDevice = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-      // Mover punto central al instante
-      dot.style.left = x + 'px';
-      dot.style.top  = y + 'px';
+    if (isHoverDevice) {
+      const dot = document.getElementById('cursor-dot');
+      const trailColors = ['#ff4ecd', '#6c63ff', '#00d4ff'];
+      let trailIndex = 0;
 
-      // Anillo sigue con pequeño retraso (via CSS transition)
-      ring.style.left = x + 'px';
-      ring.style.top  = y + 'px';
+      document.addEventListener('mousemove', e => {
+        const x = e.clientX;
+        const y = e.clientY;
 
-      // Crear partícula de rastro
-      const trail = document.createElement('div');
-      trail.classList.add('cursor-trail');
-      const size = Math.random() * 6 + 4;
-      trail.style.width      = size + 'px';
-      trail.style.height     = size + 'px';
-      trail.style.left       = x + 'px';
-      trail.style.top        = y + 'px';
-      trail.style.background = trailColors[trailIndex % trailColors.length];
-      trail.style.boxShadow  = `0 0 ${size * 2}px ${trailColors[trailIndex % trailColors.length]}`;
-      document.body.appendChild(trail);
-      trailIndex++;
+        dot.style.left = x + 'px';
+        dot.style.top  = y + 'px';
 
-      // Eliminar partícula tras la animación
-      setTimeout(() => trail.remove(), 600);
-    });
+        const trail = document.createElement('div');
+        trail.classList.add('cursor-trail');
+        const size = Math.random() * 6 + 4;
+        trail.style.width      = size + 'px';
+        trail.style.height     = size + 'px';
+        trail.style.left       = x + 'px';
+        trail.style.top        = y + 'px';
+        trail.style.background = trailColors[trailIndex % trailColors.length];
+        trail.style.boxShadow  = `0 0 ${size * 2}px ${trailColors[trailIndex % trailColors.length]}`;
+        document.body.appendChild(trail);
+        trailIndex++;
+        setTimeout(() => trail.remove(), 600);
+      });
+    }
 
     /* --- Efecto 3D en la tarjeta de contacto --- */
     const card = document.getElementById('contactCard');
@@ -848,9 +1277,7 @@
       const cy   = rect.top  + rect.height / 2;
       const dx   = (e.clientX - cx) / (rect.width  / 2);
       const dy   = (e.clientY - cy) / (rect.height / 2);
-      const rotX = -dy * 10;
-      const rotY =  dx * 10;
-      card.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`;
+      card.style.transform = `rotateX(${-dy * 10}deg) rotateY(${dx * 10}deg) scale(1.02)`;
     });
 
     card.addEventListener('mouseleave', () => {
