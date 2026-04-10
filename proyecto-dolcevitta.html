@@ -1,264 +1,261 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>Magnum | Dolce Vitta</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brown-dark: #2b1b14;
+            --brown-medium: #493026;
+            --accent: linear-gradient(270deg, #ff4ecd, #6c63ff);
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
 
-<title>Magnum</title>
+        * {
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
 
-<style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: var(--brown-medium);
+            /* Sutil textura de ruido para que no sea un color plano aburrido */
+            background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+            color: white;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: #493026;
-  color: white;
-  overflow-x: hidden;
-}
+        /* --- BOTÓN VOLVER (MEJORADO) --- */
+        .back-home {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            background: var(--accent);
+            padding: 12px 24px;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 1000;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-/* HERO IMAGEN FULL */
-.hero {
-  height: 90vh;
-  width: 100%;
-  background: url("hero-dolcevitta.png") center/cover no-repeat;
-  position: relative;
-}
+        .back-home:hover {
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
 
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.3);
-}
+        /* --- HERO --- */
+        .hero {
+            height: 85vh;
+            width: 100%;
+            background: url("hero-dolcevitta.png") center/cover no-repeat;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: 60px;
+        }
 
-/* BOTÓN VOLVER */
-.back-home {
-  position: fixed;
-  top: 18px;
-  right: 18px;
-  background: linear-gradient(270deg,#ff4ecd,#6c63ff);
-  padding: 14px 20px;
-  border-radius: 999px;
-  color: white;
-  text-decoration: none;
-  font-size: 15px;
-  z-index: 999;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  animation: float 3s ease-in-out infinite;
-  transition: transform 0.3s ease;
-}
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), var(--brown-medium));
+        }
 
-.back-home:hover {
-  transform: scale(1.08);
-}
+        /* --- CONTENEDOR SECCIONES --- */
+        section {
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: auto;
+            opacity: 0; /* Para el efecto de revelación con JS */
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
 
-@keyframes float {
-  50% { transform: translateY(-6px); }
-}
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-/* SECCIONES MÁS COMPACTAS */
-section {
-  padding: 20px 20px;
-  max-width: 1100px;
-  margin: auto;
-}
+        h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            background: linear-gradient(to right, #fff, #b9a39a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
 
-/* ACORDEÓN */
-.accordion {
-  display: grid;
-  gap: 10px;
-}
+        .description-box {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            font-size: 1.1rem;
+        }
 
-@media(min-width:768px){
-  .accordion {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
+        /* --- GRIDS --- */
+        .grid-2 {
+            display: grid;
+            gap: 25px;
+        }
 
-.accordion-item button {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 10px;
-  background: #2b1b14;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+        @media(min-width:768px){
+            .grid-2 { grid-template-columns: 1fr 1fr; }
+        }
 
-.accordion-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease;
-  background: rgba(0,0,0,0.2);
-  padding: 0 10px;
-  border-radius: 0 0 10px 10px;
-}
+        /* --- IMÁGENES ESTILIZADAS --- */
+        .img-container {
+            overflow: hidden;
+            border-radius: 15px;
+            background: var(--brown-dark);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+        }
 
-.arrow {
-  width: 22px;
-}
+        img {
+            width: 100%;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
 
-/* GRID */
-.grid-2 {
-  display: grid;
-  gap: 15px;
-}
+        .img-container:hover img {
+            transform: scale(1.05);
+        }
 
-@media(min-width:768px){
-  .grid-2 {
-    grid-template-columns: 1fr 1fr;
-  }
-}
+        .billboard {
+            width: 100%;
+            border-radius: 20px;
+            margin-top: 30px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+        }
 
-/* EFECTO IMÁGENES GLOBAL */
-img {
-  transition: transform 0.3s ease;
-}
+        /* --- FOOTER (MÁS ELEGANTE) --- */
+        .footer-wrapper {
+            position: relative;
+            margin-top: 80px;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
 
-img:hover {
-  transform: scale(1.04);
-}
+        .footer-image {
+            position: absolute;
+            inset: 0;
+            background: url("footer-dolcevitta.png") center/cover no-repeat;
+            filter: brightness(0.4);
+            z-index: 1;
+        }
 
-/* MERCH */
-.merch-img {
-  width: 100%;
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.35);
-}
+        .footer-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+        }
 
-/* OPPIS */
-.square-img {
-  width: 100%;
-  border-radius: 10px;
-}
+        .copyright-box {
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            padding: 10px 25px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
 
-.billboard {
-  width: 100%;
-  border-radius: 12px;
-  margin-top: 15px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.35);
-}
-
-/* RRSS */
-.rrss-img {
-  width: 100%;
-  border-radius: 10px;
-}
-
-
-/* FOOTER */
-.footer-wrapper {
-  position: relative;
-  margin-top: 30px;
-}
-
-.footer-gradient {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100px;
-  background: linear-gradient(to bottom, #493026, transparent);
-  z-index: 2;
-}
-
-.footer-image {
-  width: 100%;
-  height: 140px;
-  background: url("footer-dolcevitta.png") center/cover no-repeat;
-  display: block;
-}
-
-.footer-text {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  text-align: center;
-  transform: translateY(-50%);
-  z-index: 3;
-}
-
-.copyright-box {
-  background: rgba(0,0,0,0.5);
-  padding: 6px 12px;
-  border-radius: 6px;
-}
-
-</style>
+    </style>
 </head>
 
 <body>
 
-<a class="back-home" href="index.html">← Volver</a>
+<a class="back-home" href="index.html">
+    <span>←</span> VOLVER
+</a>
 
-<!-- HERO -->
 <header class="hero"></header>
 
-<!-- DESCRIPCIÓN -->
-<section>
-
-<p><strong>Creación de logotipo, aplicaciones, packaging y propuesta para publicaciones en Instagram</strong></p>
-
-</div>
-
+<section id="intro">
+    <div class="description-box">
+        <p><strong>Dolce Vitta:</strong> Creación integral de identidad visual, aplicaciones de marca, packaging premium y estrategia de contenido para redes sociales.</p>
+    </div>
 </section>
 
-<!-- MERCH -->
 <section>
-<h2>Aplicaciones del logotipo</h2>
-<div class="grid-2">
-<img src="aplicaciones-dolcevitta.png" class="rrss-img">
-</div>
+    <h2>Aplicaciones de Marca</h2>
+    <div class="img-container">
+        <img src="aplicaciones-dolcevitta.png" alt="Aplicaciones Logotipo">
+    </div>
 </section>
 
-<!-- CARTELERÍA -->
 <section>
-<h2>Packaging</h2>
-
-<div class="grid-2">
-<img src="cuadrada-dolcevitta-izq.png" class="square-img">
-<img src="cuadrada-dolcevitta-der.png" class="square-img">
-</div>
-
-<img src="grande-dolcevitta.png" class="billboard">
-
+    <h2>Premium Packaging</h2>
+    <div class="grid-2">
+        <div class="img-container">
+            <img src="cuadrada-dolcevitta-izq.png" alt="Packaging detalle 1">
+        </div>
+        <div class="img-container">
+            <img src="cuadrada-dolcevitta-der.png" alt="Packaging detalle 2">
+        </div>
+    </div>
+    <div class="img-container" style="margin-top: 25px;">
+        <img src="grande-dolcevitta.png" class="billboard" alt="Packaging Completo">
+    </div>
 </section>
 
-<!-- RRSS -->
 <section>
-<h2>Contenido RRSS</h2>
-<img src="imagen-rrss-dolcevitta.png" class="rrss-img">
+    <h2>Social Media Content</h2>
+    <div class="img-container">
+        <img src="imagen-rrss-dolcevitta.png" alt="Contenido Instagram">
+    </div>
 </section>
 
-
-<!-- FOOTER -->
 <div class="footer-wrapper">
-<div class="footer-gradient"></div>
-<div class="footer-text">
-  <div class="copyright-box">© 2026 Neergraphs</div>
-</div>
-<div class="footer-image"></div>
+    <div class="footer-image"></div>
+    <div class="footer-content">
+        <div class="copyright-box">© 2026 Neergraphs</div>
+    </div>
 </div>
 
 <script>
+    // EFECTO REVELACIÓN (Scroll Reveal)
+    const observerOptions = {
+        threshold: 0.1
+    };
 
-function toggleAccordion(button){
-  const content = button.nextElementSibling;
-  const img = button.querySelector(".arrow");
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
 
-  if(content.style.maxHeight){
-    content.style.maxHeight = null;
-    img.src = "flecha-magnum-cerrado.png";
-  } else {
-    content.style.maxHeight = content.scrollHeight + "px";
-    img.src = "flecha-magnum-abierto.png";
-  }
-}
+    document.querySelectorAll('section').forEach(section => {
+        observer.observe(section);
+    });
 
+    // Pequeño ajuste para que la descripción aparezca rápido
+    window.addEventListener('load', () => {
+        document.getElementById('intro').classList.add('visible');
+    });
 </script>
 
 </body>
