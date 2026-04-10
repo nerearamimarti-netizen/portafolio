@@ -192,7 +192,7 @@
         <img src="cuadrada-dolcevitta-izq.png" class="img-project" alt="Packaging 1">
         <img src="cuadrada-dolcevitta-der.png" class="img-project" alt="Packaging 2">
     </div>
-    <img src="grande-dolcevitta.png" class="full-img" alt="Banner Dolce Vitta">
+    <img src="grande-dolcevitta.png" class="img-project" alt="Banner Dolce Vitta">
 </section>
 
 <section>
@@ -213,14 +213,14 @@
 </footer>
 
 <script>
-    // --- THREE.JS EFFECT (CHERRY & TOPPINGS) ---
+    // --- THREE.JS EFFECT ---
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-    // Partículas (Mezcla de blanco y rojo cereza)
+    // Partículas
     const geometry = new THREE.BufferGeometry();
     const vertices = [];
     const colors = [];
@@ -239,41 +239,46 @@
     const points = new THREE.Points(geometry, material);
     scene.add(points);
 
-    // --- LA CEREZA 3D (MEJORADA CON DOS TALLOS) ---
-    const cherryGroup = new THREE.Group();
-    const cherryGeo = new THREE.SphereGeometry(0.6, 32, 32);
-    const cherryMat = new THREE.MeshPhongMaterial({ color: 0xdc1e23, shininess: 100 });
-    
-    // Frutos
-    const c1 = new THREE.Mesh(cherryGeo, cherryMat);
-    const c2 = new THREE.Mesh(cherryGeo, cherryMat);
-    c1.position.set(-0.4, 0, 0);
-    c2.position.set(0.4, -0.2, 0.2);
-    
-    // Tallo 1 (original)
-    const stemCurve1 = new THREE.QuadraticBezierCurve3(
-        new THREE.Vector3(-0.2, 0.5, 0),
-        new THREE.Vector3(0.5, 1.5, 0),
-        new THREE.Vector3(1, 2, 0)
-    );
-    
-    // Tallo 2 (añadido para pareja)
-    const stemCurve2 = new THREE.QuadraticBezierCurve3(
-        new THREE.Vector3(0.2, 0.5, 0),
-        new THREE.Vector3(0.5, 1.5, 0),
-        new THREE.Vector3(1, 2, 0)
-    );
-    
-    const stemMat = new THREE.MeshBasicMaterial({ color: 0x493026 });
-    const stemGeo1 = new THREE.TubeGeometry(stemCurve1, 20, 0.05, 8, false);
-    const stemGeo2 = new THREE.TubeGeometry(stemCurve2, 20, 0.05, 8, false);
-    
-    const stem1 = new THREE.Mesh(stemGeo1, stemMat);
-    const stem2 = new THREE.Mesh(stemGeo2, stemMat);
+    // --- FUNCIÓN PARA CREAR PAREJA DE CEREZAS ---
+    function createCherryPair() {
+        const group = new THREE.Group();
+        const cherryGeo = new THREE.SphereGeometry(0.6, 32, 32);
+        const cherryMat = new THREE.MeshPhongMaterial({ color: 0xdc1e23, shininess: 100 });
+        
+        const c1 = new THREE.Mesh(cherryGeo, cherryMat);
+        const c2 = new THREE.Mesh(cherryGeo, cherryMat);
+        c1.position.set(-0.4, 0, 0);
+        c2.position.set(0.4, -0.2, 0.2);
+        
+        const stemMat = new THREE.MeshBasicMaterial({ color: 0x493026 });
+        const stemCurve1 = new THREE.QuadraticBezierCurve3(
+            new THREE.Vector3(-0.2, 0.5, 0),
+            new THREE.Vector3(0.5, 1.5, 0),
+            new THREE.Vector3(1, 2, 0)
+        );
+        const stemCurve2 = new THREE.QuadraticBezierCurve3(
+            new THREE.Vector3(0.2, 0.5, 0),
+            new THREE.Vector3(0.5, 1.5, 0),
+            new THREE.Vector3(1, 2, 0)
+        );
+        
+        const stem1 = new THREE.Mesh(new THREE.TubeGeometry(stemCurve1, 20, 0.05, 8, false), stemMat);
+        const stem2 = new THREE.Mesh(new THREE.TubeGeometry(stemCurve2, 20, 0.05, 8, false), stemMat);
 
-    cherryGroup.add(c1, c2, stem1, stem2);
-    cherryGroup.position.set(2, 0, -2);
-    scene.add(cherryGroup);
+        group.add(c1, c2, stem1, stem2);
+        return group;
+    }
+
+    // Cereza Derecha (Original)
+    const cherryRight = createCherryPair();
+    cherryRight.position.set(2.5, 0, -2);
+    scene.add(cherryRight);
+
+    // Cereza Izquierda (Nueva, un poco más pequeña)
+    const cherryLeft = createCherryPair();
+    cherryLeft.scale.set(0.7, 0.7, 0.7); // 30% más pequeña
+    cherryLeft.position.set(-3, -1, -3); // Lado izquierdo y un poco más al fondo
+    scene.add(cherryLeft);
 
     const light = new THREE.DirectionalLight(0xffffff, 1);
     light.position.set(5, 5, 5);
@@ -284,9 +289,18 @@
 
     function animate() {
         requestAnimationFrame(animate);
+        const time = Date.now() * 0.001;
+        
         points.rotation.y += 0.0008;
-        cherryGroup.rotation.y += 0.01;
-        cherryGroup.position.y = Math.sin(Date.now() * 0.001) * 0.2;
+        
+        // Animación Derecha
+        cherryRight.rotation.y += 0.01;
+        cherryRight.position.y = Math.sin(time) * 0.2;
+        
+        // Animación Izquierda (desfasada para que no sea idéntica)
+        cherryLeft.rotation.y -= 0.008;
+        cherryLeft.position.y = Math.sin(time + 1) * 0.15 - 1; 
+
         renderer.render(scene, camera);
     }
     animate();
@@ -297,7 +311,6 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // --- SCROLL REVEAL ---
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) entry.target.classList.add('visible');
