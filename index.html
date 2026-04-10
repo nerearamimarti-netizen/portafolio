@@ -4,35 +4,37 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
 
 <title>Neeergraphs</title>
 
 <style>
+
+/* ===================== BASE ===================== */
 
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   background: #0f0f0f;
   color: white;
-  overflow-x: hidden;
   cursor: none;
 }
 
 /* CURSOR GLOW */
 .cursor {
+  position: fixed;
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  position: fixed;
   pointer-events: none;
+  background: radial-gradient(circle, #6c63ff, transparent 70%);
+  transform: translate(-50%, -50%);
   z-index: 9999;
-  background: radial-gradient(circle,#ff4ecd,#6c63ff,#00d4ff);
-  box-shadow: 0 0 20px #6c63ff;
-  transform: translate(-50%,-50%);
+  mix-blend-mode: screen;
 }
 
-/* HEADER */
+/* ===================== HEADER ===================== */
+
 header {
   padding: 120px 20px;
   text-align: center;
@@ -46,44 +48,46 @@ header video {
   height: 100%;
   object-fit: cover;
   opacity: 0.25;
+  top: 0;
+  left: 0;
 }
 
 header .content {
   position: relative;
-  z-index: 2;
 }
 
-header h1 {
+h1 {
   font-family: 'Fredoka', sans-serif;
-  font-size: clamp(45px,6vw,90px);
-  font-weight: 600;
-
-  background: linear-gradient(90deg,#ff4ecd,#6c63ff,#00d4ff,#6c63ff);
-  background-size: 300% 300%;
+  font-size: 64px;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg,#6c63ff,#00d4ff,#6c63ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-
-  animation: shine 5s ease infinite, float 6s ease-in-out infinite;
+  animation: glowMove 3s infinite alternate ease-in-out;
 }
 
-@keyframes shine {
-  0% {background-position:0%}
-  100% {background-position:200%}
+@keyframes glowMove {
+  from { filter: drop-shadow(0 0 10px #6c63ff); }
+  to { filter: drop-shadow(0 0 25px #00d4ff); }
 }
 
-@keyframes float {
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-8px)}
-}
+/* ===================== SECCIONES ===================== */
 
-/* SECCIONES */
 section {
-  padding: 80px 20px;
-  max-width: 1000px;
+  padding: 70px 20px;
+  max-width: 1100px;
   margin: auto;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 1s forwards;
 }
 
-/* ABOUT */
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===================== ABOUT ===================== */
+
 .about-container {
   display: flex;
   gap: 40px;
@@ -96,30 +100,39 @@ section {
   height: 180px;
   border-radius: 50%;
   object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.profile:hover {
+  transform: scale(1.05);
+}
+
+.about-text {
+  max-width: 500px;
 }
 
 /* TABS */
 .tabs {
-  margin-top: 25px;
+  margin-top: 20px;
 }
 
 .tab-buttons {
   display: flex;
+  gap: 10px;
   flex-wrap: wrap;
-  gap: 8px;
 }
 
 .tab-buttons button {
-  background: #2a2a2a;
+  background: #222;
   border: none;
-  padding: 10px 14px;
+  padding: 8px 14px;
   border-radius: 999px;
   color: white;
   cursor: pointer;
 }
 
 .tab-buttons button.active {
-  background: linear-gradient(90deg,#ff4ecd,#6c63ff);
+  background: linear-gradient(90deg,#6c63ff,#00d4ff);
 }
 
 .tab-content {
@@ -131,88 +144,103 @@ section {
   display: block;
 }
 
-/* =========================
-   QUE PUEDO HACER (RESTORED ICONS)
-========================= */
-.services {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
-  gap: 20px;
-}
+/* ===================== PROYECTOS ===================== */
 
-.service {
-  background: #1c1c1c;
-  padding: 25px;
-  border-radius: 18px;
-  text-align: center;
-  transition: 0.3s;
-}
-
-.service:hover {
-  transform: translateY(-6px);
-}
-
-.service img {
-  width: 50px;
-  margin-bottom: 10px;
-}
-
-/* =========================
-   PROYECTOS (RESTORED CARDS)
-========================= */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
   gap: 20px;
 }
 
+/* IMPORTANTE: ahora horizontal */
 .card {
+  display: flex;
+  flex-direction: row;
   background: #1c1c1c;
-  padding: 20px;
-  border-radius: 16px;
-  transition: 0.4s;
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
 }
 
 .card:hover {
-  transform: translateY(-6px);
+  transform: scale(1.02);
 }
 
+/* imagen horizontal */
 .project-img {
-  width: 100%;
-  height: 240px;
-  border-radius: 12px;
-  margin-bottom: 15px;
+  width: 45%;
+  min-height: 180px;
   background-size: cover;
   background-position: center;
 }
 
-/* BUTTON */
-button {
-  margin-top: 10px;
-  padding: 10px 18px;
-  border-radius: 999px;
-  border: none;
-  background: linear-gradient(90deg,#ff4ecd,#6c63ff);
-  color: white;
-  cursor: pointer;
+.card-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
 }
 
-/* CONTACT */
+.project-title {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.project-subtitle {
+  font-size: 14px;
+  color: #aaa;
+}
+
+/* botón */
+button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(90deg,#6c63ff,#00d4ff);
+  color: white;
+  cursor: pointer;
+  width: fit-content;
+}
+
+/* ===================== CONTACTO ===================== */
+
 .contact-item {
   display: flex;
   gap: 10px;
   margin: 10px 0;
 }
 
-.contact-item img {
-  width: 20px;
-}
+/* ===================== FOOTER NUEVO ===================== */
 
-/* FOOTER */
 footer {
   text-align: center;
-  padding: 50px;
-  color: #777;
+  padding: 60px;
+  background: linear-gradient(90deg,#111,#1a1a1a,#111);
+  position: relative;
+  overflow: hidden;
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle,#6c63ff33,transparent);
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+footer p {
+  position: relative;
+  color: #aaa;
+}
+
+/* ===================== SCROLL ===================== */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 </style>
@@ -229,13 +257,12 @@ footer {
 
 <div class="content">
 <h1>NEEERGRAPHS</h1>
-<p>Diseño • Motion • Creatividad digital</p>
+<p>Diseño gráfico • Motion • RRSS</p>
 </div>
 </header>
 
 <!-- ABOUT -->
 <section>
-
 <div class="about-container">
 
 <img src="nerea.ramirez.png" class="profile">
@@ -244,55 +271,26 @@ footer {
 
 <h2>Sobre mí</h2>
 
-<p>Creativa visual enfocada en branding, vídeo y diseño emocional.</p>
+<p>Creativa visual enfocada en diseño, vídeo y narrativa digital.</p>
 
 <div class="tabs">
-
 <div class="tab-buttons">
 <button class="active" onclick="showTab('skills')">Skills</button>
 <button onclick="showTab('exp')">Experiencia</button>
 <button onclick="showTab('studies')">Estudios</button>
-<button onclick="showTab('cert')">Certificaciones</button>
 </div>
 
-<div id="skills" class="tab-content active">Adobe Suite, IA, RRSS</div>
-<div id="exp" class="tab-content">Ádraba, Lunaro, Jastag</div>
-<div id="studies" class="tab-content">CEI + Marketing</div>
-<div id="cert" class="tab-content">Google, Hubspot</div>
-
-</div>
+<div id="skills" class="tab-content active">Adobe Suite, AI, RRSS</div>
+<div id="exp" class="tab-content">Agencias creativas y freelance</div>
+<div id="studies" class="tab-content">Diseño gráfico + marketing</div>
 
 </div>
 
 </div>
-
-</section>
-
-<!-- QUE PUEDO HACER (ICONOS RESTAURADOS) -->
-<section>
-<h2>Qué puedo hacer</h2>
-
-<div class="services">
-
-<div class="service">
-<img src="video.png">
-<p>Edición de vídeo</p>
-</div>
-
-<div class="service">
-<img src="vector.png">
-<p>Diseño gráfico</p>
-</div>
-
-<div class="service">
-<img src="rrss.png">
-<p>Contenido RRSS</p>
-</div>
-
 </div>
 </section>
 
-<!-- PROYECTOS (HOME + DOLCE RESTORED) -->
+<!-- PROYECTOS -->
 <section>
 <h2>Proyectos</h2>
 
@@ -300,74 +298,73 @@ footer {
 
 <div class="card">
 <div class="project-img" style="background-image:url('destacada-magnum-final.png')"></div>
-<h3>Magnum</h3>
-<p>Campaña conceptual</p>
+<div class="card-content">
+<div class="project-title">Magnum Campaign</div>
+<div class="project-subtitle">Concepto de invierno emocional</div>
 <a href="proyecto-magnum.html"><button>Ver proyecto</button></a>
 </div>
-
-<div class="card">
-<div class="project-img" style="background-image:url('destacadas-home.png')"></div>
-<h3>Home 3D</h3>
-<p>Motion design</p>
-<button>Ver proyecto</button>
 </div>
 
 <div class="card">
-<div class="project-img" style="background-image:url('destacadas-dolcevita.png')"></div>
-<h3>Dolce Vita</h3>
-<p>Branding y redes</p>
+<div class="project-img" style="background-image:url('home.jpg')"></div>
+<div class="card-content">
+<div class="project-title">Home 3D</div>
+<div class="project-subtitle">Motion design & composición</div>
 <button>Ver proyecto</button>
+</div>
 </div>
 
 <div class="card">
-<div class="project-img" style="background-image:url('destacadas-superboy.png')"></div>
-<h3>Superboy</h3>
-<p>VFX + AE</p>
+<div class="project-img" style="background-image:url('dolcevita.jpg')"></div>
+<div class="card-content">
+<div class="project-title">Dolce Vita</div>
+<div class="project-subtitle">Branding social media</div>
+<button>Ver proyecto</button>
+</div>
+</div>
+
+<div class="card">
+<div class="project-img" style="background-image:url('superboy.jpg')"></div>
+<div class="card-content">
+<div class="project-title">Superboy</div>
+<div class="project-subtitle">VFX + composición</div>
 <a href="proyecto-superboy.html"><button>Ver proyecto</button></a>
+</div>
 </div>
 
 </div>
 </section>
 
-<!-- CONTACTO RESTORED -->
+<!-- CONTACTO -->
 <section>
 <h2>Contacto</h2>
 
-<div class="card">
-
-<div class="contact-item">
-<img src="llamar.png"> 653607909
-</div>
-
-<div class="contact-item">
-<img src="correo.png"> email
-</div>
-
-<div class="contact-item">
-<img src="mapa.png"> Madrid
-</div>
-
-</div>
+<div class="contact-item">📞 653607909</div>
+<div class="contact-item">✉️ correo@ejemplo.com</div>
+<div class="contact-item">📍 Madrid</div>
 
 </section>
 
 <footer>
-© 2026 Neeergraphs
+<p>© 2026 Neeergraphs — Creative Studio</p>
 </footer>
 
 <script>
 
-const cursor = document.querySelector('.cursor');
-document.addEventListener('mousemove', e=>{
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
+// cursor glow
+const cursor = document.querySelector(".cursor");
+document.addEventListener("mousemove", e=>{
+  cursor.style.left = e.clientX + "px";
+  cursor.style.top = e.clientY + "px";
 });
 
+// tabs
 function showTab(id){
-  document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));
-  document.querySelectorAll('.tab-buttons button').forEach(b=>b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  event.target.classList.add('active');
+  document.querySelectorAll(".tab-content").forEach(e=>e.classList.remove("active"));
+  document.querySelectorAll(".tab-buttons button").forEach(e=>e.classList.remove("active"));
+
+  document.getElementById(id).classList.add("active");
+  event.target.classList.add("active");
 }
 
 </script>
