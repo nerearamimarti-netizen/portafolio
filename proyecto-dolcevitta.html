@@ -11,95 +11,37 @@
         :root {
             --cake-pink: #f6dede;
             --cake-dark: #493026;
-            --cherry-red: #FF0015; 
-            --border-round: 40px; 
+            --cherry-red: #dc1e23;
+            --glass: rgba(255, 255, 255, 0.6);
         }
 
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
         body {
             margin: 0;
-            padding: 0;
             font-family: 'Poppins', sans-serif;
             background-color: var(--cake-pink);
             color: var(--cake-dark);
             overflow-x: hidden;
             line-height: 1.6;
-            cursor: none; 
-        }
-
-        @media (max-width: 1024px) {
-            body { cursor: auto; }
-            #custom-cursor, #cursor-trail { display: none !important; }
-        }
-
-        /* --- CURSOR PERSONALIZADO --- */
-        #custom-cursor {
-            position: fixed;
-            width: 35px;
-            height: 48px;
-            pointer-events: none;
-            z-index: 10000;
-            transform: translate(-30%, -75%); 
-        }
-
-        /* --- RASTRO DEL RATÓN --- */
-        #cursor-trail {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-        }
-
-        .trail-particle {
-            position: absolute;
-            width: 6px; height: 6px;
-            background-color: var(--cherry-red);
-            border-radius: 50%;
-            pointer-events: none;
-            animation: particleFade 1s ease-out forwards;
-        }
-
-        @keyframes particleFade {
-            0% { opacity: 0.8; transform: scale(1); }
-            100% { opacity: 0; transform: scale(2) translateY(-15px); }
         }
 
         /* --- CANVAS THREE.JS --- */
         #canvas-container {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -2;
-            pointer-events: none;
-        }
-
-        #background-cherries {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: -1;
             pointer-events: none;
         }
 
-        .bg-cherry-icon {
-            position: absolute;
-            width: 30px;
-            opacity: 0.15;
-            animation: cherryFloat infinite ease-in-out;
-        }
-
-        .bg-cherry-icon:nth-child(1) { top: 15%; left: 10%; animation-duration: 8s; }
-        .bg-cherry-icon:nth-child(2) { top: 70%; left: 80%; animation-duration: 10s; }
-
-        @keyframes cherryFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(15deg); }
-        }
-
+        /* --- BOTÓN VOLVER --- */
         .back-home {
             position: fixed;
-            top: 25px; right: 25px;
+            top: 25px;
+            right: 25px;
             background: var(--cake-dark);
             padding: 12px 24px;
             border-radius: 50px;
@@ -108,246 +50,292 @@
             font-size: 14px;
             font-weight: 600;
             z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
         }
-        .back-home:hover { 
-            background: var(--cherry-red); 
-            transform: scale(1.05) translateY(-3px);
+
+        .back-home:hover {
+            transform: scale(1.05);
+            background: var(--cherry-red);
         }
 
+        /* --- HERO --- */
         .hero {
             height: 70vh;
             width: 100%;
             background: url("hero-dolcevitta.png") center/cover no-repeat;
+            position: relative;
             border-bottom: 8px solid white;
         }
 
+        /* --- SECCIONES --- */
         section {
-            position: relative;
-            padding: 80px 20px;
+            padding: 60px 20px;
             max-width: 1000px;
             margin: auto;
-            z-index: 2;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         h2 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 800;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
+            color: var(--cake-dark);
         }
 
         .description-box {
-            background: rgba(255, 255, 255, 0.4);
-            padding: 50px;
-            border-radius: 40px;
+            background: var(--glass);
+            border: 2px solid white;
+            padding: 40px;
+            border-radius: 30px;
             backdrop-filter: blur(10px);
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
-            margin-bottom: 40px;
+            font-size: 1.1rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
         }
 
-        .img-project {
-            width: 100%;
-            display: block;
-            border-radius: var(--border-round);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-            transition: transform 0.5s ease;
-            margin-bottom: 50px;
-        }
-
-        .img-project:hover { transform: scale(1.03); }
-
-        .grid-2 {
-            display: grid;
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-
-        @media(min-width:768px){ .grid-2 { grid-template-columns: 1fr 1fr; } }
-
-        /* HERRAMIENTAS ALINEADAS A LA IZQUIERDA */
-        .tools-section { text-align: left; }
-        .tools-section h2 { text-align: left; }
-
+        /* --- HERRAMIENTAS --- */
         .icon-row {
             display: flex;
-            justify-content: flex-start;
-            gap: 40px;
-            padding: 20px 0;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
         }
 
-        .icon-floating {
-            width: 75px;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.15));
-            animation: floatAnim 4s ease-in-out infinite;
+        .icon-box {
+            background: white;
+            padding: 15px;
+            border-radius: 18px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08); /* Sombrita suave */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        @keyframes floatAnim {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+        .icon-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(220, 30, 35, 0.2);
         }
 
+        .icon-box img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+
+        /* --- GRID IMÁGENES --- */
+        .grid-2 {
+            display: grid;
+            gap: 30px;
+        }
+
+        @media(min-width:768px){
+            .grid-2 { grid-template-columns: 1fr 1fr; }
+        }
+
+        .img-container {
+            overflow: hidden;
+            border-radius: 25px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 5px solid white;
+        }
+
+        .img-container img {
+            width: 100%;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .img-container:hover img {
+            transform: scale(1.03);
+        }
+
+        .full-img {
+            width: 100%;
+            border-radius: 25px;
+            margin-top: 30px;
+            border: 5px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        /* --- FOOTER --- */
         .footer-wrapper {
-            background-color: white;
-            padding: 60px;
+            background: white;
+            padding: 40px;
             text-align: center;
             margin-top: 50px;
         }
+
+        .copyright-box {
+            font-weight: 600;
+            color: var(--cake-dark);
+            letter-spacing: 1px;
+        }
+
     </style>
 </head>
 
 <body>
 
-    <svg style="display: none;">
-        <symbol id="cherry-icon-svg" viewBox="0 0 119 161">
-            <path d="M72.3,61.9c0,0-5-18.3-24.5-16c-19.4,2.3-23.8,17.2-24.5,23.3c-0.7,6.1,1.9,19.3,7.9,24.1c6,4.7,18.7,3.5,24.8,0C62,109.8,70.5,91.3,72.3,61.9z" fill="#FF0015"/>
-            <path d="M52.3,69.9c0,0,6.5-14.7,21.6-13.4c15,1.2,18.5,13.6,19.1,18.7c0.6,5-1.5,15.7-6.5,19.7c-5,3.9-15.6,2.9-20.6,0C60.9,109.5,53.8,94.2,52.3,69.9z" fill="#FF0015"/>
-            <path d="M47.8,61.9c0,0,13.3-39.2-2.1-48.3C30.3,4.5,20.2,7.3,13.2,12.7c-7,5.5-11.8,16.5-9.7,23c2.1,6.5,10.6,11.8,16,11.3C24.9,56.5,33.1,60.8,47.8,61.9z" fill="#FF0015"/>
-            <path d="M36.8,15.8c0,0,8.8,1.4,14.7,11.3c5.8,9.9,6.5,23.3,6.5,23.3l5.5-1c0,0-0.7-14.7-7.2-25.9C49.9,12.3,41,8.9,41,8.9L36.8,15.8z" fill="#000000"/>
-        </symbol>
-    </svg>
+<div id="canvas-container"></div>
 
-    <div id="custom-cursor">
-        <svg><use href="#cherry-icon-svg"/></svg>
+<a class="back-home" href="index.html">← VOLVER</a>
+
+<header class="hero"></header>
+
+<section id="intro">
+    <div class="description-box">
+        <p><strong>Dolce Vitta</strong><br>Creación integral de identidad visual, aplicaciones de marca, packaging premium y estrategia de contenido para redes sociales.</p>
     </div>
-    <div id="cursor-trail"></div>
+</section>
 
-    <div id="canvas-container"></div>
-
-    <a class="back-home" href="index.html">← VOLVER</a>
-
-    <header class="hero"></header>
-
-    <section id="intro">
-        <div class="description-box">
-            <p><strong>Dolce Vitta</strong><br>Creación integral de identidad visual, aplicaciones de marca, packaging premium y estrategia de contenido para redes sociales.</p>
+<section>
+    <h2>Herramientas utilizadas</h2>
+    <div class="icon-row">
+        <div class="icon-box">
+            <img src="aftereffects.png" alt="After Effects">
         </div>
-    </section>
-
-    <section>
-        <h2>Identidad Visual</h2>
-        <img src="aplicaciones-dolcevitta.png" class="img-project" alt="Branding">
-    </section>
-
-    <section>
-        <h2>Packaging premium</h2>
-        <div class="grid-2">
-            <img src="cuadrada-dolcevitta-izq.png" class="img-project">
-            <img src="cuadrada-dolcevitta-der.png" class="img-project">
+        <div class="icon-box">
+            <img src="premier.png" alt="Premiere">
         </div>
-        <img src="grande-dolcevitta.png" class="img-project">
-    </section>
-
-    <section class="tools-section">
-        <h2>Herramientas utilizadas</h2>
-        <div class="icon-row">
-            <img src="photoshop.png" class="icon-floating">
-            <img src="ilustrador.png" class="icon-floating" style="animation-delay: 0.5s;">
+        <div class="icon-box">
+            <img src="photoshop.png" alt="Photoshop">
         </div>
-    </section>
+        <div class="icon-box">
+            <img src="ilustrador.png" alt="Illustrator">
+        </div>
+    </div>
+</section>
 
-    <footer class="footer-wrapper">
-        <div class="copyright-box">© 2026 NEERGRAPHS • DOLCE VITTA</div>
-    </footer>
+<section>
+    <h2>Identidad Visual</h2>
+    <div class="img-container">
+        <img src="aplicaciones-dolcevitta.png" alt="Branding">
+    </div>
+</section>
 
-    <script>
-        // --- CURSOR Y TRAIL ---
-        const cursor = document.getElementById('custom-cursor');
-        const trailContainer = document.getElementById('cursor-trail');
-        let currentX = 0, currentY = 0;
-        let lastTrailX = 0, lastTrailY = 0;
+<section>
+    <h2>Packaging & Experiencia</h2>
+    <div class="grid-2">
+        <div class="img-container">
+            <img src="cuadrada-dolcevitta-izq.png" alt="Packaging 1">
+        </div>
+        <div class="img-container">
+            <img src="cuadrada-dolcevitta-der.png" alt="Packaging 2">
+        </div>
+    </div>
+    <img src="grande-dolcevitta.png" class="full-img" alt="Banner Dolce Vitta">
+</section>
 
-        window.addEventListener('mousemove', (e) => {
-            currentX = e.clientX; currentY = e.clientY;
-            cursor.style.left = currentX + 'px';
-            cursor.style.top = currentY + 'px';
+<section>
+    <h2>Social Media Content</h2>
+    <div class="img-container">
+        <img src="imagen-rrss-dolcevitta.png" alt="Instagram Feed">
+    </div>
+</section>
 
-            const dist = Math.hypot(currentX - lastTrailX, currentY - lastTrailY);
-            if (dist > 15) {
-                const p = document.createElement('div');
-                p.className = 'trail-particle';
-                p.style.left = currentX + 'px'; p.style.top = currentY + 'px';
-                trailContainer.appendChild(p);
-                lastTrailX = currentX; lastTrailY = currentY;
-                setTimeout(() => p.remove(), 1000);
-            }
-        });
+<footer class="footer-wrapper">
+    <div class="copyright-box">© 2026 NEERGRAPHS • DOLCE VITTA</div>
+</footer>
 
-        // --- THREE.JS (CEREZA 3D EXACTA) ---
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+<script>
+    // --- THREE.JS EFFECT (CHERRY & TOPPINGS) ---
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+    // Partículas (Mezcla de blanco y rojo cereza)
+    const geometry = new THREE.BufferGeometry();
+    const vertices = [];
+    const colors = [];
+    const colorWhite = new THREE.Color(0xffffff);
+    const colorCherry = new THREE.Color(0xdc1e23);
+
+    for (let i = 0; i < 600; i++) {
+        vertices.push(Math.random() * 20 - 10, Math.random() * 20 - 10, Math.random() * 20 - 10);
+        const chosenColor = Math.random() > 0.8 ? colorCherry : colorWhite;
+        colors.push(chosenColor.r, chosenColor.g, chosenColor.b);
+    }
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+    const material = new THREE.PointsMaterial({ size: 0.06, vertexColors: true, transparent: true, opacity: 0.7 });
+    const points = new THREE.Points(geometry, material);
+    scene.add(points);
+
+    // --- LA CEREZA (Isotipo 3D) ---
+    const cherryGroup = new THREE.Group();
+    
+    // Cuerpo de la cereza (dos esferas rojas)
+    const cherryGeo = new THREE.SphereGeometry(0.6, 32, 32);
+    const cherryMat = new THREE.MeshPhongMaterial({ color: 0xdc1e23, shininess: 100 });
+    
+    const c1 = new THREE.Mesh(cherryGeo, cherryMat);
+    const c2 = new THREE.Mesh(cherryGeo, cherryMat);
+    c1.position.set(-0.4, 0, 0);
+    c2.position.set(0.4, -0.2, 0.2);
+    
+    // Tallo (curva)
+    const stemCurve = new THREE.QuadraticBezierCurve3(
+        new THREE.Vector3(-0.2, 0.5, 0),
+        new THREE.Vector3(0.5, 1.5, 0),
+        new THREE.Vector3(1, 2, 0)
+    );
+    const stemGeo = new THREE.TubeGeometry(stemCurve, 20, 0.05, 8, false);
+    const stemMat = new THREE.MeshBasicMaterial({ color: 0x493026 });
+    const stem = new THREE.Mesh(stemGeo, stemMat);
+
+    cherryGroup.add(c1, c2, stem);
+    cherryGroup.position.set(2, 0, -2); // Posicionada un poco al lateral
+    scene.add(cherryGroup);
+
+    // Luz para que brille la cereza
+    const light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.set(5, 5, 5);
+    scene.add(light);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+
+    camera.position.z = 5;
+
+    function animate() {
+        requestAnimationFrame(animate);
+        points.rotation.y += 0.0008;
+        cherryGroup.rotation.y += 0.01;
+        cherryGroup.position.y = Math.sin(Date.now() * 0.001) * 0.2;
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('canvas-container').appendChild(renderer.domElement);
+    });
 
-        // Iluminación
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-        scene.add(ambientLight);
-        const pointLight = new THREE.PointLight(0xffffff, 1);
-        pointLight.position.set(5, 5, 5);
-        scene.add(pointLight);
-
-        // Azúcar Glass (Partículas)
-        const partGeo = new THREE.BufferGeometry();
-        const partPos = [];
-        for (let i = 0; i < 300; i++) {
-            partPos.push(Math.random() * 20 - 10, Math.random() * 20 - 10, Math.random() * 20 - 10);
-        }
-        partGeo.setAttribute('position', new THREE.Float32BufferAttribute(partPos, 3));
-        const particles = new THREE.Points(partGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.04, transparent: true, opacity: 0.6 }));
-        scene.add(particles);
-
-        // --- CONSTRUCCIÓN CEREZA 3D ---
-        const cherryGroup = new THREE.Group();
-        
-        // Forma de "Corazón redondeado"
-        const shape = new THREE.Shape();
-        shape.moveTo(0, 0); 
-        shape.bezierCurveTo(0.6, 0.6, 1.0, -0.2, 0, -1.0); // Lado derecho base redonda
-        shape.bezierCurveTo(-1.0, -0.2, -0.6, 0.6, 0, 0); // Lado izquierdo base redonda
-
-        const extrudeSettings = { depth: 0.6, bevelEnabled: true, bevelThickness: 0.3, bevelSize: 0.3, bevelSegments: 12 };
-        const cherryGeo = new THREE.ExtrudeGeometry(shape, extrudeSettings);
-        const cherryMesh = new THREE.Mesh(cherryGeo, new THREE.MeshPhongMaterial({ color: 0xFF0015, shininess: 100 }));
-        
-        // Invertir para que la hendidura esté arriba
-        cherryMesh.rotation.x = Math.PI; 
-        cherryMesh.position.z = -0.3;
-
-        // Tallo negro curvo
-        const curve = new THREE.QuadraticBezierCurve3(
-            new THREE.Vector3(0, 0, 0),
-            new THREE.Vector3(-0.5, 1.5, 0),
-            new THREE.Vector3(-1.2, 2.5, 0)
-        );
-        const stemGeo = new THREE.TubeGeometry(curve, 20, 0.05, 8, false);
-        const stemMesh = new THREE.Mesh(stemGeo, new THREE.MeshBasicMaterial({ color: 0x000000 }));
-
-        cherryGroup.add(cherryMesh, stemMesh);
-        cherryGroup.position.set(4, 0, -2); // Derecha fondo
-        scene.add(cherryGroup);
-
-        camera.position.z = 6;
-
-        const animate = () => {
-            requestAnimationFrame(animate);
-            particles.rotation.y += 0.001;
-            
-            // Flotación de la cereza
-            const time = Date.now() * 0.001;
-            cherryGroup.position.y = Math.sin(time) * 0.2;
-            cherryGroup.rotation.y = Math.sin(time * 0.5) * 0.1;
-            
-            renderer.render(scene, camera);
-        };
-        animate();
-
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
+    // --- SCROLL REVEAL ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
         });
-    </script>
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section').forEach(s => observer.observe(s));
+</script>
+
 </body>
 </html>
