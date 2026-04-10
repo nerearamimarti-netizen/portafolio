@@ -1,397 +1,383 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <title>Magnum | Dolce Vitta</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        :root {
-            --cake-pink: #f6dede;
-            --cake-dark: #493026;
-            --cherry-red: #FF0015; /* Color exacto de la imagen */
-            --border-round: 40px; /* Redondeado extremo */
-        }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+<title>Magnum | Dolce Vitta</title>
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--cake-pink);
-            color: var(--cake-dark);
-            overflow-x: hidden;
-            line-height: 1.6;
-            cursor: none; /* Ocultar cursor por defecto */
-        }
+<style>
+/* --- ESTILOS GENERALES Y RESET --- */
+:root {
+  --brown-dark: #2b1b14;
+  --brown-medium: #493026;
+  --brown-light: #fff5f5; /* Un rosa pastel sutil para fondo */
+  --accent: linear-gradient(270deg,#ff4ecd,#6c63ff);
+  --cake-color: #f6dede; /* Rosa pastel para detalles */
+}
 
-        /* Ocultar cursor personalizado en móviles */
-        @media (max-width: 1024px) {
-            body { cursor: auto; }
-            #custom-cursor, #cursor-trail { display: none !important; }
-        }
+* { box-sizing: border-box; }
 
-        /* --- CURSOR PERSONALIZADO (CEREZA SVG EXACTA) --- */
-        #custom-cursor {
-            position: fixed;
-            width: 35px; /* Tamaño del icono */
-            height: 48px;
-            pointer-events: none;
-            z-index: 10000;
-            /* Ajuste del punto de click al centro del fruto rojo */
-            transform: translate(-30%, -75%); 
-        }
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--brown-medium);
+  color: white;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 1;
+}
 
-        /* --- RASTRO DEL RATÓN --- */
-        #cursor-trail {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-        }
+/* --- CANVAS THREE.JS (PASTRY WORLD) --- */
+#canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
 
-        .trail-particle {
-            position: absolute;
-            width: 6px; height: 6px;
-            background-color: var(--cherry-red); /* Rastro rojo */
-            border-radius: 50%;
-            pointer-events: none;
-            animation: particleFade 1s ease-out forwards;
-        }
+/* --- BOTÓN VOLVER (MEJORADO) --- */
+.back-home {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--accent);
+  padding: 12px 22px;
+  border-radius: 999px;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 1000;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
 
-        @keyframes particleFade {
-            0% { opacity: 0.8; transform: scale(1); }
-            100% { opacity: 0; transform: scale(2) translateY(-15px); }
-        }
+.back-home:hover {
+  transform: scale(1.1) translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+}
 
-        /* --- CANVAS THREE.JS (FONDO CON PARTÍCULAS) --- */
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2; /* Al fondo del todo */
-            pointer-events: none;
-        }
+/* --- HERO IMAGEN FULL --- */
+.hero {
+  height: 80vh;
+  width: 100%;
+  background: url("hero-dolcevitta.png") center/cover no-repeat;
+  position: relative;
+  border-bottom: 5px solid white; /* Un trazado blanco sutil en el hero */
+}
 
-        /* --- CEREZAS DE FONDO (SVG EXACTO FLOTANDO) --- */
-        #background-cherries {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; /* Detrás del contenido, sobre las partículas */
-            pointer-events: none;
-        }
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
+}
 
-        .bg-cherry-icon {
-            position: absolute;
-            width: 30px; /* Tamaño flotante */
-            opacity: 0.15; /* Sutil en el fondo */
-            animation: cherryFloat infinite ease-in-out;
-        }
+/* --- CONTENEDOR SECCIONES --- */
+section {
+  padding: 60px 20px;
+  max-width: 1000px;
+  margin: auto;
+}
 
-        /* Distribución y animaciones variadas para el fondo */
-        .bg-cherry-icon:nth-child(1) { top: 15%; left: 10%; animation-duration: 8s; }
-        .bg-cherry-icon:nth-child(2) { top: 70%; left: 80%; animation-duration: 10s; animation-delay: 2s; }
-        .bg-cherry-icon:nth-child(3) { top: 40%; left: 90%; animation-duration: 9s; animation-delay: 1s; width: 25px; }
-        .bg-cherry-icon:nth-child(4) { top: 85%; left: 15%; animation-duration: 11s; animation-delay: 3s; width: 35px; }
+h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 30px;
+}
 
-        @keyframes cherryFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(15deg); }
-        }
+/* Caja de descripción premium */
+.description-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 30px;
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+  text-align: center;
+}
 
-        /* --- BOTÓN VOLVER --- */
-        .back-home {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            background: var(--cake-dark);
-            padding: 12px 24px;
-            border-radius: 50px;
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            z-index: 1000;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-        .back-home:hover { 
-            background: var(--cherry-red); 
-            transform: scale(1.05) translateY(-3px);
-        }
+/* --- EFECTO IMÁGENES (SIN TRAZADO) --- */
+img {
+  width: 100%;
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  display: block;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3); /* Sombra elegante */
+}
 
-        /* --- HERO --- */
-        .hero {
-            height: 70vh;
-            width: 100%;
-            background: url("hero-dolcevitta.png") center/cover no-repeat;
-            border-bottom: 8px solid white;
-        }
+img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+}
 
-        /* --- SECCIONES PRINCIPALES --- */
-        section {
-            position: relative;
-            padding: 80px 20px;
-            max-width: 1000px;
-            margin: auto;
-            z-index: 2; /* Por encima de los fondos */
-        }
+/* --- GRIDS Y TARJETAS --- */
+.grid-2 {
+  display: grid;
+  gap: 25px;
+}
 
-        h2 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 40px;
-            text-align: center;
-        }
+@media(min-width:768px){
+  .grid-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
 
-        .description-box {
-            background: rgba(255, 255, 255, 0.4);
-            padding: 50px;
-            border-radius: 40px;
-            backdrop-filter: blur(10px);
-            text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
-            margin-bottom: 40px;
-        }
+.img-container {
+  overflow: hidden;
+  border-radius: 12px;
+}
 
-        .description-box p { font-size: 1.2rem; margin: 0; }
+.merch-img {
+  width: 100%;
+}
 
-        /* --- IMÁGENES ESTILIZADAS --- */
-        .img-project {
-            width: 100%;
-            display: block;
-            border-radius: var(--border-round); /* Puntas muy redondeadas */
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
-            margin-bottom: 50px;
-        }
+.square-img {
+  width: 100%;
+}
 
-        /* Efecto Hover Delicado (Ampliación y sombra más profunda) */
-        .img-project:hover {
-            transform: scale(1.03);
-            box-shadow: 0 30px 70px rgba(0,0,0,0.15);
-        }
+.billboard {
+  width: 100%;
+  border-radius: 12px;
+  margin-top: 25px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
 
-        .grid-2 {
-            display: grid;
-            gap: 40px;
-            margin-bottom: 50px;
-        }
+/* RRSS */
+.rrss-img {
+  width: 100%;
+}
 
-        @media(min-width:768px){
-            .grid-2 { grid-template-columns: 1fr 1fr; }
-        }
+/* --- HERRAMIENTAS ALINEADAS A LA IZQUIERDA --- */
+.left-align-title {
+  text-align: left;
+}
 
-        /* --- HERRAMIENTAS --- */
-        .icon-row {
-            display: flex;
-            justify-content: center;
-            gap: 70px;
-            padding: 50px 0;
-        }
+.icon-row {
+  display: flex;
+  justify-content: flex-start; /* Alineado a la izquierda */
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
 
-        .icon-floating {
-            width: 75px;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.15));
-            animation: floatAnim 4s ease-in-out infinite;
-        }
+.icon-box {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 15px;
+  border-radius: 12px;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.2); /* Sombrita suave */
+  transition: transform 0.3s ease;
+}
 
-        @keyframes floatAnim {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
+.icon-box:hover {
+  transform: translateY(-5px);
+}
 
-        /* --- FOOTER --- */
-        .footer-wrapper {
-            background-color: white; /* Footer blanco sólido */
-            padding: 60px;
-            text-align: center;
-            margin-top: 50px;
-            border-top: 1px solid rgba(0,0,0,0.05);
-        }
+.icon-box img {
+  width: 50px;
+  height: 50px;
+  box-shadow: none; /* Quitar sombra de la imagen dentro de la caja */
+}
 
-        .copyright-box {
-            font-weight: 600;
-            color: var(--cake-dark);
-            letter-spacing: 1px;
-        }
+/* --- FOOTER (MEJORADO) --- */
+.footer-wrapper {
+  position: relative;
+  margin-top: 50px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    </style>
+.footer-image {
+  position: absolute;
+  inset: 0;
+  background: url("footer-dolcevitta.png") center/cover no-repeat;
+  filter: brightness(0.5); /* Oscurecer imagen de fondo */
+  z-index: 1;
+}
+
+.footer-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+}
+
+.copyright-box {
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(5px);
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+</style>
 </head>
 
 <body>
 
-    <svg style="display: none;">
-        <symbol id="cherry-icon-svg" viewBox="0 0 119 161">
-            <path d="M72.3,61.9c0,0-5-18.3-24.5-16c-19.4,2.3-23.8,17.2-24.5,23.3c-0.7,6.1,1.9,19.3,7.9,24.1c6,4.7,18.7,3.5,24.8,0C62,109.8,70.5,91.3,72.3,61.9z" fill="#FF0015"/>
-            <path d="M52.3,69.9c0,0,6.5-14.7,21.6-13.4c15,1.2,18.5,13.6,19.1,18.7c0.6,5-1.5,15.7-6.5,19.7c-5,3.9-15.6,2.9-20.6,0C60.9,109.5,53.8,94.2,52.3,69.9z" fill="#FF0015"/>
-            <path d="M47.8,61.9c0,0,13.3-39.2-2.1-48.3C30.3,4.5,20.2,7.3,13.2,12.7c-7,5.5-11.8,16.5-9.7,23c2.1,6.5,10.6,11.8,16,11.3C24.9,56.5,33.1,60.8,47.8,61.9z" fill="#FF0015"/>
-            <path d="M36.8,15.8c0,0,8.8,1.4,14.7,11.3c5.8,9.9,6.5,23.3,6.5,23.3l5.5-1c0,0-0.7-14.7-7.2-25.9C49.9,12.3,41,8.9,41,8.9L36.8,15.8z" fill="#000000"/>
-        </symbol>
-    </svg>
+<div id="canvas-container"></div>
 
-    <div id="custom-cursor">
-        <svg><use href="#cherry-icon-svg"/></svg>
+<a class="back-home" href="index.html">← VOLVER</a>
+
+<header class="hero"></header>
+
+<section>
+  <div class="description-box">
+    <p><strong>Dolce Vitta:</strong> Creación integral de identidad visual, aplicaciones de marca, packaging premium y estrategia de contenido para redes sociales.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Aplicaciones del logotipo</h2>
+  <div class="img-container">
+    <img src="aplicaciones-dolcevitta.png" class="merch-img" alt="Branding Applications">
+  </div>
+</section>
+
+<section>
+  <h2>Packaging</h2>
+  <div class="grid-2">
+    <div class="img-container">
+      <img src="cuadrada-dolcevitta-izq.png" class="square-img" alt="Packaging Box 1">
     </div>
-    <div id="cursor-trail"></div>
-
-    <div id="background-cherries">
-        <svg class="bg-cherry-icon"><use href="#cherry-icon-svg"/></svg>
-        <svg class="bg-cherry-icon"><use href="#cherry-icon-svg"/></svg>
-        <svg class="bg-cherry-icon"><use href="#cherry-icon-svg"/></svg>
-        <svg class="bg-cherry-icon"><use href="#cherry-icon-svg"/></svg>
+    <div class="img-container">
+      <img src="cuadrada-dolcevitta-der.png" class="square-img" alt="Packaging Bag 1">
     </div>
+  </div>
+  <div class="img-container" style="margin-top: 25px;">
+    <img src="grande-dolcevitta.png" class="billboard" alt="Premium Packaging Banner">
+  </div>
+</section>
 
-    <div id="canvas-container"></div>
+<section>
+  <h2>Contenido RRSS</h2>
+  <div class="img-container">
+    <img src="imagen-rrss-dolcevitta.png" class="rrss-img" alt="Social Media Content Feed">
+  </div>
+</section>
 
-    <a class="back-home" href="index.html">← VOLVER</a>
+<section>
+  <h2 class="left-align-title">Herramientas utilizadas</h2>
+  <div class="icon-row">
+    <div class="icon-box">
+      <img src="aftereffects.png" alt="After Effects">
+    </div>
+    <div class="icon-box">
+      <img src="premier.png" alt="Premiere">
+    </div>
+    <div class="icon-box">
+      <img src="photoshop.png" alt="Photoshop">
+    </div>
+    <div class="icon-box">
+      <img src="ilustrador.png" alt="Illustrator">
+    </div>
+  </div>
+</section>
 
-    <header class="hero"></header>
+<div class="footer-wrapper">
+  <div class="footer-image"></div>
+  <div class="footer-content">
+    <div class="copyright-box">© 2026 Neergraphs</div>
+  </div>
+</div>
 
-    <section id="intro">
-        <div class="description-box">
-            <p><strong>Dolce Vitta</strong><br>Creación integral de identidad visual, aplicaciones de marca, packaging premium y estrategia de contenido para redes sociales para una pastelería artesanal donde la delicadeza y el sabor se encuentran en cada detalle.</p>
-        </div>
-    </section>
+<script>
+  // CONFIGURACIÓN THREE.JS
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-    <section>
-        <h2>Identidad Visual</h2>
-        <img src="aplicaciones-dolcevitta.png" class="img-project" alt="Branding">
-    </section>
+  // Luz
+  const light = new THREE.DirectionalLight(0xffffff, 1);
+  light.position.set(5, 5, 5);
+  scene.add(light, new THREE.AmbientLight(0xffffff, 0.6));
 
-    <section>
-        <h2>Packaging premium</h2>
-        <div class="grid-2">
-            <img src="cuadrada-dolcevitta-izq.png" class="img-project" alt="Packaging 1">
-            <img src="cuadrada-dolcevitta-der.png" class="img-project" alt="Packaging 2">
-        </div>
-        <img src="grande-dolcevitta.png" class="img-project" alt="Banner Dolce Vitta">
-    </section>
+  // --- ELEMENTOS 3D TEMÁTICOS ---
 
-    <section>
-        <h2>Social Media Content</h2>
-        <img src="imagen-rrss-dolcevitta.png" class="img-project" alt="Instagram Feed">
-    </section>
+  // 1. CEREZA (DERECHA)
+  const cherryGroup = new THREE.Group();
+  // Cuerpo de la cereza
+  const cherryBody = new THREE.Mesh(new THREE.SphereGeometry(0.5, 32, 32), new THREE.MeshPhongMaterial({ color: 0xdc1e23 }));
+  // Tallo
+  const cherryStem = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 1.2), new THREE.MeshBasicMaterial({ color: 0x493026 }));
+  cherryStem.position.y = 0.7;
+  cherryStem.rotation.z = 0.2;
+  cherryGroup.add(cherryBody, cherryStem);
+  cherryGroup.position.set(4, 1, 0); // Lado derecho
+  scene.add(cherryGroup);
 
-    <section>
-        <h2>Herramientas utilizadas</h2>
-        <div class="icon-row">
-            <img src="photoshop.png" class="icon-floating" alt="Photoshop">
-            <img src="ilustrador.png" class="icon-floating" alt="Illustrator" style="animation-delay: 0.5s;">
-        </div>
-    </section>
+  // 2. CROISSANT (IZQUIERDA) - Forma simplificada
+  const croissant = new THREE.Group();
+  for(let i=0; i<3; i++) {
+    const ring = new THREE.Mesh(
+      new THREE.TorusGeometry(0.4 - (i*0.1), 0.15, 8, 16, Math.PI),
+      new THREE.MeshPhongMaterial({ color: 0xe3a857 })
+    );
+    ring.rotation.y = Math.PI / 2;
+    ring.position.x = i * 0.2;
+    croissant.add(ring);
+  }
+  croissant.position.set(-4, 2, 0);
+  scene.add(croissant);
 
-    <footer class="footer-wrapper">
-        <div class="copyright-box">© 2026 NEERGRAPHS • DOLCE VITTA</div>
-    </footer>
+  // 3. BOLLO / MUFFIN (IZQUIERDA ABAJO)
+  const muffin = new THREE.Group();
+  const base = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.2, 0.4, 16), new THREE.MeshPhongMaterial({ color: 0x8d5524 }));
+  const top = new THREE.Mesh(new THREE.SphereGeometry(0.35, 16, 16), new THREE.MeshPhongMaterial({ color: 0xf6dede }));
+  top.position.y = 0.3;
+  muffin.add(base, top);
+  muffin.position.set(-4.5, -2, 0);
+  scene.add(muffin);
 
-    <script>
-        // --- CURSOR Y TRAIL JS ---
-        const cursor = document.getElementById('custom-cursor');
-        const trailContainer = document.getElementById('cursor-trail');
-        let currentX = 0, currentY = 0;
-        let lastTrailX = 0, lastTrailY = 0;
+  // Partículas
+  const geometry = new THREE.BufferGeometry();
+  const vertices = [];
+  for (let i = 0; i < 300; i++) {
+    vertices.push(Math.random() * 20 - 10, Math.random() * 20 - 10, Math.random() * 20 - 10);
+  }
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+  const points = new THREE.Points(geometry, new THREE.PointsMaterial({ color: 0xffffff, size: 0.04 }));
+  scene.add(points);
 
-        window.addEventListener('mousemove', (e) => {
-            currentX = e.clientX;
-            currentY = e.clientY;
-            
-            // Mover el cursor principal
-            cursor.style.left = currentX + 'px';
-            cursor.style.top = currentY + 'px';
+  camera.position.z = 5;
 
-            // Crear rastro si la distancia es suficiente
-            const dist = Math.hypot(currentX - lastTrailX, currentY - lastTrailY);
-            if (dist > 15) {
-                createParticle(currentX, currentY);
-                lastTrailX = currentX;
-                lastTrailY = currentY;
-            }
-        });
+  function animate() {
+    requestAnimationFrame(animate);
+    points.rotation.y += 0.0005;
+    
+    // Animación de flotación individual
+    cherryGroup.rotation.y += 0.01;
+    cherryGroup.position.y = 1 + Math.sin(Date.now() * 0.0015) * 0.3;
 
-        function createParticle(x, y) {
-            const particle = document.createElement('div');
-            particle.className = 'trail-particle';
-            particle.style.left = x + 'px';
-            particle.style.top = y + 'px';
-            
-            // Tamaño aleatorio sutil para el rastro
-            const size = Math.random() * 5 + 4;
-            particle.style.width = size + 'px';
-            particle.style.height = size + 'px';
-            
-            trailContainer.appendChild(particle);
-            
-            // Eliminar partícula después de la animación
-            setTimeout(() => {
-                particle.remove();
-            }, 1000);
-        }
+    croissant.rotation.z += 0.005;
+    croissant.position.y = 2 + Math.cos(Date.now() * 0.001) * 0.2;
 
-        // --- THREE.JS (FONDO SOLO PARTÍCULAS) ---
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('canvas-container').appendChild(renderer.domElement);
+    muffin.rotation.y += 0.01;
+    muffin.position.y = -2 + Math.sin(Date.now() * 0.0012) * 0.2;
 
-        // Partículas (como harina/azúcar flotando)
-        const geometry = new THREE.BufferGeometry();
-        const vertices = [];
-        for (let i = 0; i < 400; i++) {
-            vertices.push(Math.random() * 20 - 10, Math.random() * 20 - 10, Math.random() * 20 - 10);
-        }
-        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-        
-        const material = new THREE.PointsMaterial({ 
-            color: 0xffffff, 
-            size: 0.04, 
-            transparent: true, 
-            opacity: 0.6 
-        });
-        const points = new THREE.Points(geometry, material);
-        scene.add(points);
+    renderer.render(scene, camera);
+  }
+  animate();
 
-        // Cuadrado random súper pequeño y transparente
-        const randomBoxMat = new THREE.MeshBasicMaterial({ 
-            color: 0x493026, 
-            transparent: true, 
-            opacity: 0.1 // Muy sutil
-        });
-        const randomBox = new THREE.Mesh(
-            new THREE.BoxGeometry(0.15, 0.15, 0.15), // Mucho más pequeño
-            randomBoxMat
-        );
-        randomBox.position.set(-2, -3, -1);
-        scene.add(randomBox);
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+</script>
 
-        camera.position.z = 5;
-
-        const animateThree = () => {
-            requestAnimationFrame(animateThree);
-            points.rotation.y += 0.0005;
-            points.rotation.x += 0.0002;
-
-            randomBox.rotation.x += 0.01;
-            randomBox.rotation.y += 0.01;
-            randomBox.position.y += Math.sin(Date.now() * 0.001) * 0.001;
-
-            renderer.render(scene, camera);
-        };
-        animateThree();
-
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-    </script>
 </body>
 </html>
