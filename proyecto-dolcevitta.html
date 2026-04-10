@@ -11,10 +11,8 @@
         :root {
             --cake-pink: #f6dede;
             --cake-dark: #493026;
-            --cake-soft: #fff5f5;
-            --accent: linear-gradient(270deg, #ff4ecd, #6c63ff);
+            --cherry-red: #dc1e23;
             --glass: rgba(255, 255, 255, 0.6);
-            --border: rgba(73, 48, 38, 0.1);
         }
 
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
@@ -58,7 +56,7 @@
 
         .back-home:hover {
             transform: scale(1.05);
-            background: #000;
+            background: var(--cherry-red);
         }
 
         /* --- HERO --- */
@@ -72,7 +70,7 @@
 
         /* --- SECCIONES --- */
         section {
-            padding: 80px 20px;
+            padding: 60px 20px;
             max-width: 1000px;
             margin: auto;
             opacity: 0;
@@ -86,9 +84,9 @@
         }
 
         h2 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 800;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
             color: var(--cake-dark);
         }
@@ -100,8 +98,41 @@
             border-radius: 30px;
             backdrop-filter: blur(10px);
             text-align: center;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        }
+
+        /* --- HERRAMIENTAS --- */
+        .icon-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .icon-box {
+            background: white;
+            padding: 15px;
+            border-radius: 18px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08); /* Sombrita suave */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(220, 30, 35, 0.2);
+        }
+
+        .icon-box img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
         }
 
         /* --- GRID IMÁGENES --- */
@@ -120,17 +151,16 @@
             background: white;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             border: 5px solid white;
-            transition: transform 0.4s ease;
         }
 
-        .img-container:hover {
-            transform: translateY(-10px);
-        }
-
-        img {
+        .img-container img {
             width: 100%;
             display: block;
             transition: transform 0.6s ease;
+        }
+
+        .img-container:hover img {
+            transform: scale(1.03);
         }
 
         .full-img {
@@ -168,7 +198,25 @@
 
 <section id="intro">
     <div class="description-box">
-        <p><strong>Dolce Vitta</strong><br>Diseño de identidad visual para una pastelería artesanal donde la delicadeza y el sabor se encuentran en cada detalle.</p>
+        <p><strong>Dolce Vitta</strong><br>Creación integral de identidad visual, aplicaciones de marca, packaging premium y estrategia de contenido para redes sociales.</p>
+    </div>
+</section>
+
+<section>
+    <h2>Herramientas utilizadas</h2>
+    <div class="icon-row">
+        <div class="icon-box">
+            <img src="aftereffects.png" alt="After Effects">
+        </div>
+        <div class="icon-box">
+            <img src="premier.png" alt="Premiere">
+        </div>
+        <div class="icon-box">
+            <img src="photoshop.png" alt="Photoshop">
+        </div>
+        <div class="icon-box">
+            <img src="ilustrador.png" alt="Illustrator">
+        </div>
     </div>
 </section>
 
@@ -193,7 +241,7 @@
 </section>
 
 <section>
-    <h2>Social Media</h2>
+    <h2>Social Media Content</h2>
     <div class="img-container">
         <img src="imagen-rrss-dolcevitta.png" alt="Instagram Feed">
     </div>
@@ -204,37 +252,71 @@
 </footer>
 
 <script>
-    // --- THREE.JS EFFECT (SWEET DUST) ---
+    // --- THREE.JS EFFECT (CHERRY & TOPPINGS) ---
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-    // Partículas (como azúcar glass flotando)
+    // Partículas (Mezcla de blanco y rojo cereza)
     const geometry = new THREE.BufferGeometry();
     const vertices = [];
-    for (let i = 0; i < 500; i++) {
+    const colors = [];
+    const colorWhite = new THREE.Color(0xffffff);
+    const colorCherry = new THREE.Color(0xdc1e23);
+
+    for (let i = 0; i < 600; i++) {
         vertices.push(Math.random() * 20 - 10, Math.random() * 20 - 10, Math.random() * 20 - 10);
+        const chosenColor = Math.random() > 0.8 ? colorCherry : colorWhite;
+        colors.push(chosenColor.r, chosenColor.g, chosenColor.b);
     }
     geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-    const material = new THREE.PointsMaterial({ color: 0xffffff, size: 0.05, transparent: true, opacity: 0.8 });
+    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+    const material = new THREE.PointsMaterial({ size: 0.06, vertexColors: true, transparent: true, opacity: 0.7 });
     const points = new THREE.Points(geometry, material);
     scene.add(points);
 
-    // Un par de esferas suaves flotando de fondo
-    const sphereGeom = new THREE.SphereGeometry(1, 32, 32);
-    const sphereMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.1, wireframe: true });
-    const sphere = new THREE.Mesh(sphereGeom, sphereMat);
-    scene.add(sphere);
+    // --- LA CEREZA (Isotipo 3D) ---
+    const cherryGroup = new THREE.Group();
+    
+    // Cuerpo de la cereza (dos esferas rojas)
+    const cherryGeo = new THREE.SphereGeometry(0.6, 32, 32);
+    const cherryMat = new THREE.MeshPhongMaterial({ color: 0xdc1e23, shininess: 100 });
+    
+    const c1 = new THREE.Mesh(cherryGeo, cherryMat);
+    const c2 = new THREE.Mesh(cherryGeo, cherryMat);
+    c1.position.set(-0.4, 0, 0);
+    c2.position.set(0.4, -0.2, 0.2);
+    
+    // Tallo (curva)
+    const stemCurve = new THREE.QuadraticBezierCurve3(
+        new THREE.Vector3(-0.2, 0.5, 0),
+        new THREE.Vector3(0.5, 1.5, 0),
+        new THREE.Vector3(1, 2, 0)
+    );
+    const stemGeo = new THREE.TubeGeometry(stemCurve, 20, 0.05, 8, false);
+    const stemMat = new THREE.MeshBasicMaterial({ color: 0x493026 });
+    const stem = new THREE.Mesh(stemGeo, stemMat);
+
+    cherryGroup.add(c1, c2, stem);
+    cherryGroup.position.set(2, 0, -2); // Posicionada un poco al lateral
+    scene.add(cherryGroup);
+
+    // Luz para que brille la cereza
+    const light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.set(5, 5, 5);
+    scene.add(light);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
 
     camera.position.z = 5;
 
     function animate() {
         requestAnimationFrame(animate);
-        points.rotation.y += 0.001;
-        points.rotation.x += 0.0005;
-        sphere.rotation.y += 0.002;
+        points.rotation.y += 0.0008;
+        cherryGroup.rotation.y += 0.01;
+        cherryGroup.position.y = Math.sin(Date.now() * 0.001) * 0.2;
         renderer.render(scene, camera);
     }
     animate();
