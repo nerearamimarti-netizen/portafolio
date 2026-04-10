@@ -93,20 +93,21 @@
 
         .description-box {
             background: var(--glass);
-            padding: 50px;
-            border-radius: 40px;
+            border: 2px solid white;
+            padding: 40px;
+            border-radius: 30px;
             backdrop-filter: blur(10px);
             text-align: center;
-            font-size: 1.2rem;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
+            font-size: 1.1rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
         }
 
-        /* --- IMÁGENES (SIN TRAZADO + REDONDEO + SOMBRA) --- */
+        /* --- IMÁGENES --- */
         .img-project {
             width: 100%;
             display: block;
-            border-radius: 40px; /* Borde redondeado pronunciado */
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1); /* Sombra elegante */
+            border-radius: 40px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1); 
             transition: transform 0.5s ease;
             margin-bottom: 50px;
         }
@@ -140,7 +141,7 @@
         .icon-floating {
             width: 75px;
             height: auto;
-            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.15)); /* Sombra de flotación */
+            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.15)); 
             animation: floatAnim 4s ease-in-out infinite;
         }
 
@@ -153,7 +154,7 @@
         /* --- FOOTER --- */
         .footer-wrapper {
             background: white;
-            padding: 60px;
+            padding: 40px;
             text-align: center;
         }
 
@@ -191,7 +192,7 @@
         <img src="cuadrada-dolcevitta-izq.png" class="img-project" alt="Packaging 1">
         <img src="cuadrada-dolcevitta-der.png" class="img-project" alt="Packaging 2">
     </div>
-    <img src="grande-dolcevitta.png" class="img-project" alt="Banner Dolce Vitta">
+    <img src="grande-dolcevitta.png" class="full-img" alt="Banner Dolce Vitta">
 </section>
 
 <section>
@@ -238,26 +239,39 @@
     const points = new THREE.Points(geometry, material);
     scene.add(points);
 
-    // --- LA CEREZA 3D ---
+    // --- LA CEREZA 3D (MEJORADA CON DOS TALLOS) ---
     const cherryGroup = new THREE.Group();
     const cherryGeo = new THREE.SphereGeometry(0.6, 32, 32);
     const cherryMat = new THREE.MeshPhongMaterial({ color: 0xdc1e23, shininess: 100 });
     
+    // Frutos
     const c1 = new THREE.Mesh(cherryGeo, cherryMat);
     const c2 = new THREE.Mesh(cherryGeo, cherryMat);
     c1.position.set(-0.4, 0, 0);
     c2.position.set(0.4, -0.2, 0.2);
     
-    const stemCurve = new THREE.QuadraticBezierCurve3(
+    // Tallo 1 (original)
+    const stemCurve1 = new THREE.QuadraticBezierCurve3(
         new THREE.Vector3(-0.2, 0.5, 0),
         new THREE.Vector3(0.5, 1.5, 0),
         new THREE.Vector3(1, 2, 0)
     );
-    const stemGeo = new THREE.TubeGeometry(stemCurve, 20, 0.05, 8, false);
+    
+    // Tallo 2 (añadido para pareja)
+    const stemCurve2 = new THREE.QuadraticBezierCurve3(
+        new THREE.Vector3(0.2, 0.5, 0),
+        new THREE.Vector3(0.5, 1.5, 0),
+        new THREE.Vector3(1, 2, 0)
+    );
+    
     const stemMat = new THREE.MeshBasicMaterial({ color: 0x493026 });
-    const stem = new THREE.Mesh(stemGeo, stemMat);
+    const stemGeo1 = new THREE.TubeGeometry(stemCurve1, 20, 0.05, 8, false);
+    const stemGeo2 = new THREE.TubeGeometry(stemCurve2, 20, 0.05, 8, false);
+    
+    const stem1 = new THREE.Mesh(stemGeo1, stemMat);
+    const stem2 = new THREE.Mesh(stemGeo2, stemMat);
 
-    cherryGroup.add(c1, c2, stem);
+    cherryGroup.add(c1, c2, stem1, stem2);
     cherryGroup.position.set(2, 0, -2);
     scene.add(cherryGroup);
 
