@@ -84,99 +84,77 @@
         }
 
         h2 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 800;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             text-align: center;
             color: var(--cake-dark);
         }
 
         .description-box {
             background: var(--glass);
-            border: 2px solid white;
-            padding: 40px;
-            border-radius: 30px;
+            padding: 50px;
+            border-radius: 40px;
             backdrop-filter: blur(10px);
             text-align: center;
-            font-size: 1.1rem;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            font-size: 1.2rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
         }
 
-        /* --- HERRAMIENTAS --- */
-        .icon-row {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 20px;
+        /* --- IMÁGENES (SIN TRAZADO + REDONDEO + SOMBRA) --- */
+        .img-project {
+            width: 100%;
+            display: block;
+            border-radius: 40px; /* Borde redondeado pronunciado */
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1); /* Sombra elegante */
+            transition: transform 0.5s ease;
+            margin-bottom: 50px;
         }
 
-        .icon-box {
-            background: white;
-            padding: 15px;
-            border-radius: 18px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.08); /* Sombrita suave */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .img-project:hover {
+            transform: scale(1.02);
         }
 
-        .icon-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(220, 30, 35, 0.2);
-        }
-
-        .icon-box img {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-        }
-
-        /* --- GRID IMÁGENES --- */
         .grid-2 {
             display: grid;
-            gap: 30px;
+            gap: 40px;
+            margin-bottom: 50px;
         }
 
         @media(min-width:768px){
             .grid-2 { grid-template-columns: 1fr 1fr; }
         }
 
-        .img-container {
-            overflow: hidden;
-            border-radius: 25px;
-            background: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            border: 5px solid white;
+        /* --- HERRAMIENTAS AL FINAL (FLOTANTES) --- */
+        .tools-section {
+            margin-bottom: 100px;
         }
 
-        .img-container img {
-            width: 100%;
-            display: block;
-            transition: transform 0.6s ease;
+        .icon-row {
+            display: flex;
+            justify-content: center;
+            gap: 70px;
+            padding: 50px 0;
         }
 
-        .img-container:hover img {
-            transform: scale(1.03);
+        .icon-floating {
+            width: 75px;
+            height: auto;
+            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.15)); /* Sombra de flotación */
+            animation: floatAnim 4s ease-in-out infinite;
         }
 
-        .full-img {
-            width: 100%;
-            border-radius: 25px;
-            margin-top: 30px;
-            border: 5px solid white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        @keyframes floatAnim {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
         }
 
         /* --- FOOTER --- */
         .footer-wrapper {
             background: white;
-            padding: 40px;
+            padding: 60px;
             text-align: center;
-            margin-top: 50px;
         }
 
         .copyright-box {
@@ -203,47 +181,29 @@
 </section>
 
 <section>
-    <h2>Herramientas utilizadas</h2>
-    <div class="icon-row">
-        <div class="icon-box">
-            <img src="aftereffects.png" alt="After Effects">
-        </div>
-        <div class="icon-box">
-            <img src="premier.png" alt="Premiere">
-        </div>
-        <div class="icon-box">
-            <img src="photoshop.png" alt="Photoshop">
-        </div>
-        <div class="icon-box">
-            <img src="ilustrador.png" alt="Illustrator">
-        </div>
-    </div>
-</section>
-
-<section>
     <h2>Identidad Visual</h2>
-    <div class="img-container">
-        <img src="aplicaciones-dolcevitta.png" alt="Branding">
-    </div>
+    <img src="aplicaciones-dolcevitta.png" class="img-project" alt="Branding">
 </section>
 
 <section>
     <h2>Packaging & Experiencia</h2>
     <div class="grid-2">
-        <div class="img-container">
-            <img src="cuadrada-dolcevitta-izq.png" alt="Packaging 1">
-        </div>
-        <div class="img-container">
-            <img src="cuadrada-dolcevitta-der.png" alt="Packaging 2">
-        </div>
+        <img src="cuadrada-dolcevitta-izq.png" class="img-project" alt="Packaging 1">
+        <img src="cuadrada-dolcevitta-der.png" class="img-project" alt="Packaging 2">
     </div>
-    <img src="grande-dolcevitta.png" class="full-img" alt="Banner Dolce Vitta">
+    <img src="grande-dolcevitta.png" class="img-project" alt="Banner Dolce Vitta">
 </section>
 
 <section>
     <h2>Social Media Content</h2>
-    <div class="img-container">
-        <img src="imagen-rrss-dolcevitta.png" alt="Instagram Feed">
+    <img src="imagen-rrss-dolcevitta.png" class="img-project" alt="Instagram Feed">
+</section>
+
+<section class="tools-section">
+    <h2>Herramientas utilizadas</h2>
+    <div class="icon-row">
+        <img src="photoshop.png" alt="Photoshop" class="icon-floating">
+        <img src="ilustrador.png" alt="Illustrator" class="icon-floating" style="animation-delay: 0.5s;">
     </div>
 </section>
 
@@ -278,10 +238,8 @@
     const points = new THREE.Points(geometry, material);
     scene.add(points);
 
-    // --- LA CEREZA (Isotipo 3D) ---
+    // --- LA CEREZA 3D ---
     const cherryGroup = new THREE.Group();
-    
-    // Cuerpo de la cereza (dos esferas rojas)
     const cherryGeo = new THREE.SphereGeometry(0.6, 32, 32);
     const cherryMat = new THREE.MeshPhongMaterial({ color: 0xdc1e23, shininess: 100 });
     
@@ -290,7 +248,6 @@
     c1.position.set(-0.4, 0, 0);
     c2.position.set(0.4, -0.2, 0.2);
     
-    // Tallo (curva)
     const stemCurve = new THREE.QuadraticBezierCurve3(
         new THREE.Vector3(-0.2, 0.5, 0),
         new THREE.Vector3(0.5, 1.5, 0),
@@ -301,10 +258,9 @@
     const stem = new THREE.Mesh(stemGeo, stemMat);
 
     cherryGroup.add(c1, c2, stem);
-    cherryGroup.position.set(2, 0, -2); // Posicionada un poco al lateral
+    cherryGroup.position.set(2, 0, -2);
     scene.add(cherryGroup);
 
-    // Luz para que brille la cereza
     const light = new THREE.DirectionalLight(0xffffff, 1);
     light.position.set(5, 5, 5);
     scene.add(light);
