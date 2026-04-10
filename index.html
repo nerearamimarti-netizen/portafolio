@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Fredoka:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
   <title>Neeergraphs</title>
   <style>
     :root {
@@ -21,7 +21,6 @@
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{background:var(--bg);color:var(--ink);font-family:'Poppins',sans-serif;font-weight:300;overflow-x:hidden}
-
     #bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 
     /* ── NAV ── */
@@ -34,89 +33,96 @@
 
     /* ── CURSOR ── */
     @media(hover:hover) and (pointer:fine){body{cursor:none}#cur{display:block!important}}
-    #cur{display:none;position:fixed;width:10px;height:10px;border-radius:50%;background:var(--blue);box-shadow:0 0 12px var(--blue),0 0 28px rgba(79,140,255,.4);pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
-    .ctrail{position:fixed;border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);animation:tfade .5s ease forwards}
-    @keyframes tfade{0%{opacity:.55;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(.1)}}
+    #cur{display:none;position:fixed;width:14px;height:14px;border-radius:50%;background:var(--blue);box-shadow:0 0 16px var(--blue),0 0 32px rgba(79,140,255,.6),0 0 60px rgba(192,132,252,.3);pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+    .ctrail{position:fixed;border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);animation:tfade .7s ease forwards}
+    @keyframes tfade{0%{opacity:.9;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(.05)}}
 
-    /* ── BACK TO TOP ── */
+    /* ── BACK TO TOP — flotante y brillante ── */
     #back-top{
-      position:fixed;bottom:32px;right:32px;z-index:900;
-      width:46px;height:46px;border-radius:50%;
-      background:rgba(79,140,255,0.12);
-      border:1px solid var(--bdr);
+      position:fixed;bottom:36px;right:36px;z-index:900;
+      width:50px;height:50px;border-radius:50%;
+      background:linear-gradient(135deg,rgba(79,140,255,.18),rgba(192,132,252,.18));
+      border:1.5px solid rgba(79,140,255,.5);
       display:flex;align-items:center;justify-content:center;
       cursor:pointer;
       opacity:0;pointer-events:none;
-      transition:opacity .3s,transform .3s,background .25s;
-      box-shadow:0 0 18px rgba(79,140,255,.18);
+      transition:opacity .4s,background .25s;
+      box-shadow:0 0 20px rgba(79,140,255,.35),0 0 40px rgba(192,132,252,.2);
+      animation:floatBtn 3s ease-in-out infinite;
     }
     #back-top.show{opacity:1;pointer-events:auto}
-    #back-top:hover{background:rgba(79,140,255,.22);transform:translateY(-3px)}
-    #back-top svg{width:18px;height:18px}
+    #back-top:hover{background:linear-gradient(135deg,rgba(79,140,255,.35),rgba(192,132,252,.35));box-shadow:0 0 32px rgba(79,140,255,.6),0 0 60px rgba(192,132,252,.4)}
+    #back-top svg{width:20px;height:20px}
+    @keyframes floatBtn{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 
     /* ── HERO ── */
     .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:72px;text-align:center;z-index:1;overflow:hidden}
     .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.1;z-index:1;pointer-events:none}
     .hero-overlay{position:absolute;inset:0;z-index:2;background:radial-gradient(ellipse 90% 90% at 50% 50%,rgba(6,6,15,.4) 0%,rgba(6,6,15,.88) 100%)}
-    .hero-body{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;gap:24px;padding:40px 20px}
+    .hero-body{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;gap:22px;padding:40px 20px}
 
-    /* Foto grande con efecto de clip + glow lateral */
+    /* Foto limpia, sin filtros */
     .hero-photo-wrap{
-      position:relative;
-      width:140px;height:140px;
+      position:relative;width:120px;height:120px;
     }
     .hero-photo-wrap::before{
-      content:'';
-      position:absolute;inset:-3px;
-      border-radius:50%;
+      content:'';position:absolute;inset:-3px;border-radius:50%;
       background:linear-gradient(135deg,var(--blue),var(--pink));
-      z-index:0;
-      animation:spin 6s linear infinite;
+      z-index:0;animation:spinRing 8s linear infinite;
     }
-    .hero-photo-wrap::after{
-      content:'';
-      position:absolute;inset:0;
-      border-radius:50%;
-      background:radial-gradient(circle,rgba(79,140,255,.35) 0%,transparent 70%);
-      z-index:0;
-      animation:orbf 4s ease-in-out infinite;
-    }
-    @keyframes spin{to{transform:rotate(360deg)}}
-    @keyframes orbf{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
-
+    @keyframes spinRing{to{transform:rotate(360deg)}}
     .hero-avatar{
       position:relative;z-index:1;
-      width:136px;height:136px;
-      border-radius:50%;
-      object-fit:cover;object-position:top center;
-      border:3px solid var(--bg);
-      display:block;
-      mix-blend-mode:lighten;
-      filter:brightness(1.1) contrast(1.05);
+      width:120px;height:120px;border-radius:50%;
+      object-fit:cover;object-position:center top;
+      border:3px solid var(--bg);display:block;
     }
 
-    /* Título — NEEER normal, GRAPHS con efecto glitch+outline */
+    /* ── TÍTULO HERO ── */
     .hero-title{font-family:'Fredoka',sans-serif;font-size:clamp(58px,13vw,155px);font-weight:700;line-height:.9;letter-spacing:-2px}
     .hero-title .l1{display:block;color:var(--ink);animation:slideUp .9s cubic-bezier(.16,1,.3,1) both}
 
-    /* GRAPHS — letras separadas con gradiente y sombra neón */
-    .hero-title .l2{
-      display:block;
-      background:linear-gradient(90deg,var(--blue) 0%,var(--pink) 60%,var(--blue2) 100%);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      filter:drop-shadow(0 0 18px rgba(79,140,255,.5)) drop-shadow(0 0 40px rgba(192,132,252,.3));
-      animation:slideUp .9s cubic-bezier(.16,1,.3,1) .12s both, neonPulse 3s ease-in-out infinite .9s;
+    /* GRAPHS — Playfair italic + trazo SVG animado */
+    .hero-title .l2-wrap{display:block;position:relative;margin-top:4px}
+    .graphs-svg{
+      display:block;margin:0 auto;
+      width:min(90vw,860px);
+      overflow:visible;
     }
-    @keyframes neonPulse{
-      0%,100%{filter:drop-shadow(0 0 14px rgba(79,140,255,.45)) drop-shadow(0 0 32px rgba(192,132,252,.25))}
-      50%    {filter:drop-shadow(0 0 28px rgba(79,140,255,.8))  drop-shadow(0 0 60px rgba(192,132,252,.55))}
+    /* Trazo que se "dibuja" */
+    .graphs-path{
+      fill:none;
+      stroke:url(#gGrad);
+      stroke-width:3;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+      stroke-dasharray:3000;
+      stroke-dashoffset:3000;
+      animation:drawGraphs 2.4s cubic-bezier(.4,0,.2,1) 0.5s forwards;
+      filter:drop-shadow(0 0 8px rgba(79,140,255,.5)) drop-shadow(0 0 24px rgba(192,132,252,.3));
     }
+    @keyframes drawGraphs{to{stroke-dashoffset:0}}
+    /* Rielleno que aparece al final del trazo */
+    .graphs-fill{
+      fill:url(#gFill);
+      opacity:0;
+      animation:fillAppear .5s ease 2.6s forwards;
+      filter:drop-shadow(0 0 6px rgba(79,140,255,.4));
+    }
+    @keyframes fillAppear{to{opacity:1}}
 
     @keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
     .hero-desc{font-size:clamp(13px,1.6vw,16px);color:var(--muted);max-width:460px;line-height:1.7;animation:slideUp .9s cubic-bezier(.16,1,.3,1) .25s both}
-    .btn-primary{font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;padding:14px 36px;border-radius:999px;background:linear-gradient(135deg,var(--blue),var(--pink));color:#fff;border:none;cursor:pointer;box-shadow:0 4px 28px rgba(79,140,255,.35);transition:transform .2s,box-shadow .2s;animation:slideUp .9s cubic-bezier(.16,1,.3,1) .38s both;display:inline-block}
-    .btn-primary:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 8px 40px rgba(79,140,255,.55)}
+
+    .btn-primary{
+      font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;letter-spacing:1.5px;
+      text-transform:uppercase;text-decoration:none;padding:14px 36px;border-radius:999px;
+      background:linear-gradient(135deg,var(--blue),var(--pink));color:#fff;border:none;cursor:pointer;
+      box-shadow:0 4px 28px rgba(79,140,255,.35);
+      transition:transform .2s,box-shadow .2s;
+      animation:slideUp .9s cubic-bezier(.16,1,.3,1) .38s both;display:inline-block;
+    }
+    .btn-primary:hover{transform:scale(1.07);box-shadow:0 8px 40px rgba(79,140,255,.55)}
 
     .scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:6px;animation:fadeInUp 1s 1s both}
     .scroll-hint span{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
@@ -137,7 +143,6 @@
     .s-eyebrow{display:flex;align-items:center;gap:12px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
     .s-eyebrow::after{content:'';flex:1;height:1px;background:var(--bdr)}
     .s-title{font-family:'Fredoka',sans-serif;font-size:clamp(28px,4.5vw,52px);font-weight:700;color:var(--ink);margin-bottom:40px;line-height:1.1}
-
     .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
     .reveal.visible{opacity:1;transform:none}
 
@@ -146,6 +151,26 @@
     .aq-chip{font-size:11px;padding:5px 14px;border-radius:999px;border:1px solid var(--bdr);background:rgba(79,140,255,.06);color:var(--blue2);transition:border-color .25s,background .25s}
     .aq-chip:hover{border-color:var(--blue2);background:rgba(79,140,255,.13)}
     .aq-chip.alt{border-color:rgba(192,132,252,.3);background:rgba(192,132,252,.06);color:var(--pink)}
+
+    /* Foto dentro del sobre mí — horizontal con texto */
+    .about-profile{display:flex;align-items:flex-start;gap:28px;margin-bottom:32px;flex-wrap:wrap}
+    .about-profile-img-wrap{position:relative;flex-shrink:0}
+    .about-profile-img{
+      width:130px;height:160px;
+      border-radius:16px;
+      object-fit:cover;object-position:center top;
+      border:1px solid var(--bdr);
+      box-shadow:0 0 24px rgba(79,140,255,.18);
+      display:block;
+    }
+    .about-profile-img-wrap::after{
+      content:'';position:absolute;inset:0;border-radius:16px;
+      background:linear-gradient(180deg,transparent 55%,rgba(6,6,15,.6) 100%);
+      pointer-events:none;
+    }
+    .about-profile-text{flex:1;min-width:200px}
+    .about-profile-text h3{font-family:'Fredoka',sans-serif;font-size:22px;font-weight:600;color:var(--ink);margin-bottom:8px}
+    .about-profile-text p{font-size:13px;color:var(--muted);line-height:1.8}
 
     .about-tabs{display:flex;border:1px solid var(--bdrW);border-radius:16px;overflow:hidden}
     .at-btn{flex:1;padding:13px 8px;background:transparent;border:none;font-family:'Poppins',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-right:1px solid var(--bdrW);transition:background .25s,color .25s}
@@ -162,6 +187,10 @@
     .p-tag{font-size:11px;padding:4px 11px;border-radius:999px;border:1px solid var(--bdrW);color:var(--muted)}
     .p-tag.lit{border-color:rgba(79,140,255,.35);color:var(--blue2);background:rgba(79,140,255,.06)}
     .p-tag.pink{border-color:rgba(192,132,252,.35);color:var(--pink);background:rgba(192,132,252,.06)}
+
+    /* Párrafo de pasión dentro del panel */
+    .p-passion{font-size:13px;color:var(--muted);line-height:1.9;padding:4px 0}
+    .p-passion strong{color:var(--blue2);font-weight:500}
 
     .p-exp{padding:10px 0;border-bottom:1px solid var(--bdrW)}
     .p-exp:last-child{border-bottom:none}
@@ -185,18 +214,18 @@
     .p-cert-n{font-size:12px;color:var(--ink);margin-bottom:2px}
     .p-cert-e{font-size:11px;color:var(--muted)}
 
-    /* ── SERVICIOS — 6 cards, 3 cols ── */
+    /* ── SERVICIOS ── */
     .services{display:grid;gap:14px}
     @media(min-width:600px){.services{grid-template-columns:repeat(2,1fr)}}
     @media(min-width:900px){.services{grid-template-columns:repeat(3,1fr)}}
-
     .service{background:var(--bg2);border:1px solid var(--bdrW);border-radius:20px;padding:36px 28px 30px;position:relative;overflow:hidden;transition:border-color .35s,transform .35s}
     .service:hover{border-color:var(--bdr);transform:translateY(-6px)}
     .service::before{content:'';position:absolute;width:180px;height:180px;border-radius:50%;top:-55px;left:50%;transform:translateX(-50%) scale(.4);opacity:0;pointer-events:none;background:radial-gradient(circle,var(--glow) 0%,transparent 70%);transition:opacity .45s,transform .55s}
     .service:hover::before{opacity:1;transform:translateX(-50%) scale(1.5)}
     .service::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.04) 50%,transparent 70%);transform:translateX(-100%);transition:transform .5s ease}
     .service:hover::after{transform:translateX(100%)}
-    .service-num{position:absolute;top:14px;right:18px;font-family:'Fredoka',sans-serif;font-size:80px;font-weight:700;color:var(--blue);opacity:.05;line-height:1;pointer-events:none}
+    /* Número en morado oscuro, casi invisible */
+    .service-num{position:absolute;top:14px;right:18px;font-family:'Fredoka',sans-serif;font-size:80px;font-weight:700;color:#6a22c8;opacity:.09;line-height:1;pointer-events:none}
     .service-icon-wrap{width:52px;height:52px;border-radius:14px;border:1px solid var(--bdrW);background:rgba(79,140,255,.05);display:flex;align-items:center;justify-content:center;margin-bottom:20px;transition:border-color .3s,background .3s}
     .service:hover .service-icon-wrap{border-color:var(--bdr);background:rgba(79,140,255,.1)}
     .service-icon-wrap img{width:28px}
@@ -256,14 +285,14 @@
 
 <!-- BACK TO TOP -->
 <button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Volver arriba">
-  <svg viewBox="0 0 24 24" fill="none" stroke="url(#bArrow)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
     <defs>
       <linearGradient id="bArrow" x1="0" y1="24" x2="24" y2="0" gradientUnits="userSpaceOnUse">
         <stop stop-color="#4f8cff"/>
         <stop offset="1" stop-color="#c084fc"/>
       </linearGradient>
     </defs>
-    <polyline points="18 15 12 9 6 15"/>
+    <polyline points="18 15 12 9 6 15" stroke="url(#bArrow)"/>
   </svg>
 </button>
 
@@ -283,13 +312,36 @@
   <video autoplay muted loop playsinline><source src="background-nerea.mp4"></video>
   <div class="hero-overlay"></div>
   <div class="hero-body">
+
     <div class="hero-photo-wrap">
       <img src="nerea.ramirez.png" class="hero-avatar" alt="Nerea Ramírez">
     </div>
+
     <h1 class="hero-title">
       <span class="l1">NEEER</span>
-      <span class="l2">GRAPHS</span>
+      <span class="l2-wrap">
+        <!-- GRAPHS dibujado con trazos SVG animados — Playfair Display italic -->
+        <svg class="graphs-svg" viewBox="0 0 860 140" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stop-color="#4f8cff"/>
+              <stop offset="50%"  stop-color="#c084fc"/>
+              <stop offset="100%" stop-color="#7eb3ff"/>
+            </linearGradient>
+            <linearGradient id="gFill" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stop-color="#4f8cff" stop-opacity="0.85"/>
+              <stop offset="50%"  stop-color="#c084fc" stop-opacity="0.85"/>
+              <stop offset="100%" stop-color="#7eb3ff" stop-opacity="0.85"/>
+            </linearGradient>
+          </defs>
+          <!-- Texto real de Playfair que se dibuja y luego rellena -->
+          <text class="graphs-fill" x="430" y="122" font-family="'Playfair Display', Georgia, serif" font-size="130" font-style="italic" font-weight="700" text-anchor="middle">GRAPHS</text>
+          <text class="graphs-path" x="430" y="122" font-family="'Playfair Display', Georgia, serif" font-size="130" font-style="italic" font-weight="700" text-anchor="middle"
+            style="fill:none;stroke:url(#gGrad);stroke-width:2.5;paint-order:stroke fill;">GRAPHS</text>
+        </svg>
+      </span>
     </h1>
+
     <p class="hero-desc">Edición de vídeo · Diseño gráfico · Contenido creativo para RRSS</p>
     <a href="#proyectos" class="btn-primary">Ver proyectos</a>
   </div>
@@ -327,6 +379,18 @@
 <div class="sw reveal" id="sobre">
   <div class="s-eyebrow">Sobre mí</div>
   <h2 class="s-title">Nerea Ramírez</h2>
+
+  <!-- Foto + texto descriptivo -->
+  <div class="about-profile">
+    <div class="about-profile-img-wrap">
+      <img src="nerea.ramirez.png" class="about-profile-img" alt="Nerea Ramírez">
+    </div>
+    <div class="about-profile-text">
+      <h3>Diseñadora gráfica &amp; Editora de vídeo</h3>
+      <p>Soy creadora visual especializada en contenido digital. Me apasiona transformar ideas en piezas visuales con identidad propia — desde el concepto hasta la publicación. Domino toda la cadena de producción, combinando diseño, postproducción, motion graphics e IA generativa.</p>
+    </div>
+  </div>
+
   <div class="about-quick">
     <span class="aq-chip">Photoshop</span>
     <span class="aq-chip">Illustrator</span>
@@ -336,12 +400,15 @@
     <span class="aq-chip alt">ChatGPT · Sora · Gemini</span>
     <span class="aq-chip alt">Wordpress · Shopify</span>
   </div>
+
   <div class="about-tabs">
     <button class="at-btn active" onclick="showAt('exp',this)">Experiencia</button>
     <button class="at-btn" onclick="showAt('edu',this)">Formación</button>
     <button class="at-btn" onclick="showAt('cert',this)">Certificaciones</button>
     <button class="at-btn" onclick="showAt('int',this)">Intereses</button>
+    <button class="at-btn" onclick="showAt('yo',this)">Sobre mí</button>
   </div>
+
   <div class="about-panel active" id="at-exp">
     <div class="p-exp">
       <div class="p-exp-top"><span class="p-exp-co">Ádraba</span><span class="p-exp-date">Jun 2024 — Actual</span></div>
@@ -359,20 +426,13 @@
       <div class="p-exp-desc">Diseño web · SEO Wordpress · Postproducción audiovisual · Copywriting</div>
     </div>
   </div>
+
   <div class="about-panel" id="at-edu">
-    <div class="p-edu">
-      <div class="p-edu-y">2025</div>
-      <div><div class="p-edu-t">Máster Motion Graphics, VFX, Diseño 3D, 4D y Dirección de arte</div><div class="p-edu-p">CEI</div></div>
-    </div>
-    <div class="p-edu">
-      <div class="p-edu-y">2023</div>
-      <div><div class="p-edu-t">Máster Diseño Gráfico, Diseño web y Marketing Digital</div><div class="p-edu-p">CEI</div></div>
-    </div>
-    <div class="p-edu">
-      <div class="p-edu-y">2021</div>
-      <div><div class="p-edu-t">Grado Superior en Marketing y Publicidad</div><div class="p-edu-p">IES Clara del Rey</div></div>
-    </div>
+    <div class="p-edu"><div class="p-edu-y">2025</div><div><div class="p-edu-t">Máster Motion Graphics, VFX, Diseño 3D, 4D y Dirección de arte</div><div class="p-edu-p">CEI</div></div></div>
+    <div class="p-edu"><div class="p-edu-y">2023</div><div><div class="p-edu-t">Máster Diseño Gráfico, Diseño web y Marketing Digital</div><div class="p-edu-p">CEI</div></div></div>
+    <div class="p-edu"><div class="p-edu-y">2021</div><div><div class="p-edu-t">Grado Superior en Marketing y Publicidad</div><div class="p-edu-p">IES Clara del Rey</div></div></div>
   </div>
+
   <div class="about-panel" id="at-cert">
     <div class="p-certs">
       <div class="p-cert"><div class="p-cert-y">2025</div><div class="p-cert-n">Elements of AI</div><div class="p-cert-e">University of Helsinki</div></div>
@@ -381,6 +441,7 @@
       <div class="p-cert"><div class="p-cert-y">2024</div><div class="p-cert-n">Marketing Digital</div><div class="p-cert-e">Google Actívate</div></div>
     </div>
   </div>
+
   <div class="about-panel" id="at-int">
     <div class="p-tags">
       <span class="p-tag lit">Diseño gráfico</span>
@@ -394,13 +455,25 @@
       <span class="p-tag lit">Vídeo corporativo</span>
       <span class="p-tag lit">Edición de vídeo</span>
       <span class="p-tag lit">Diseño 3D</span>
-      <span class="p-tag pink">Fotografía</span>
+      <span class="p-tag lit">Fotografía</span>
       <span class="p-tag pink">Identidad de marca</span>
       <span class="p-tag pink">Storytelling visual</span>
       <span class="p-tag pink">Social media strategy</span>
       <span class="p-tag pink">Campañas digitales</span>
       <span class="p-tag pink">Retoque fotográfico</span>
+      <span class="p-tag pink">Content creation</span>
+      <span class="p-tag pink">Spots publicitarios</span>
     </div>
+  </div>
+
+  <!-- NUEVO tab: Sobre mí / Pasión -->
+  <div class="about-panel" id="at-yo">
+    <p class="p-passion">
+      El diseño no es solo mi trabajo — es la forma en que veo el mundo. Desde pequeña siempre tuve la necesidad de <strong>crear</strong>, de expresar ideas a través de imágenes, movimiento y color. Con los años convertí esa necesidad en una profesión.<br><br>
+      Me apasiona especialmente el <strong>vídeo y el motion graphics</strong>: ese momento en que una pieza cobra vida, cuando el ritmo del corte encaja con la música y el mensaje llega de verdad. También el diseño gráfico, porque hay algo casi mágico en encontrar la tipografía, el color o la composición perfecta que lo dice todo sin palabras.<br><br>
+      Trabajo con <strong>IA generativa</strong> no para sustituir la creatividad, sino para ampliarla — para explorar más rápido, iterar más y llegar a resultados que antes no eran posibles. Me gusta estar en la frontera de lo que la tecnología permite hacer en diseño.<br><br>
+      Si algo me define es la energía que le pongo a cada proyecto, grande o pequeño. Creo que el <strong>detalle importa</strong>, que la estética tiene que servir a un propósito y que el mejor diseño es el que emociona y funciona al mismo tiempo.
+    </p>
   </div>
 </div>
 
@@ -409,7 +482,6 @@
   <div class="s-eyebrow">Servicios</div>
   <h2 class="s-title">Qué puedo hacer</h2>
   <div class="services">
-
     <div class="service reveal">
       <span class="service-num">01</span>
       <div class="service-icon-wrap"><img src="video.png"></div>
@@ -417,7 +489,6 @@
       <p>Narrativa visual, ritmo y emoción en cada corte. Premiere, After Effects, Cap Cut.</p>
       <div class="service-line"></div>
     </div>
-
     <div class="service reveal" style="transition-delay:.1s">
       <span class="service-num">02</span>
       <div class="service-icon-wrap"><img src="vector.png"></div>
@@ -425,7 +496,6 @@
       <p>Identidad visual que comunica sin palabras. Photoshop, Illustrator, InDesign.</p>
       <div class="service-line"></div>
     </div>
-
     <div class="service reveal" style="transition-delay:.2s">
       <span class="service-num">03</span>
       <div class="service-icon-wrap"><img src="rrss.png"></div>
@@ -433,7 +503,6 @@
       <p>Piezas pensadas para enganchar, retener y crecer. Estrategia, diseño y publicación.</p>
       <div class="service-line"></div>
     </div>
-
     <div class="service reveal" style="transition-delay:.3s">
       <span class="service-num">04</span>
       <div class="service-icon-wrap"><img src="grabacion.png"></div>
@@ -441,7 +510,6 @@
       <p>Presencia in situ para capturar el momento real. Eventos, corporativo, producto y contenido auténtico.</p>
       <div class="service-line"></div>
     </div>
-
     <div class="service reveal" style="transition-delay:.4s">
       <span class="service-num">05</span>
       <div class="service-icon-wrap"><img src="motion-graphics.png"></div>
@@ -449,7 +517,6 @@
       <p>Animaciones 2D, intros, transitions y efectos visuales que dan vida a cualquier pieza audiovisual.</p>
       <div class="service-line"></div>
     </div>
-
     <div class="service reveal" style="transition-delay:.5s">
       <span class="service-num">06</span>
       <div class="service-icon-wrap"><img src="3d.png"></div>
@@ -458,7 +525,6 @@
       <span class="service-badge">En aprendizaje</span>
       <div class="service-line"></div>
     </div>
-
   </div>
 </div>
 
@@ -550,330 +616,224 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 /* ================================================================
-   THREE.JS — Fondo 3D con herramientas de diseño wireframe
+   THREE.JS — fondo 3D con herramientas de diseño + iconos vídeo/rrss
 ================================================================ */
 (function(){
   const canvas = document.getElementById('bg-canvas');
-  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  const renderer = new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
   renderer.setClearColor(0x000000,0);
-
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(60, innerWidth/innerHeight, 0.1, 200);
+  const camera = new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,200);
   camera.position.z = 28;
+  function resize(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix()}
+  resize(); window.addEventListener('resize',resize);
 
-  function resize(){
-    renderer.setSize(innerWidth,innerHeight);
-    camera.aspect = innerWidth/innerHeight;
-    camera.updateProjectionMatrix();
-  }
-  resize();
-  window.addEventListener('resize',resize);
+  const C_BLUE=new THREE.Color(0x4f8cff), C_PINK=new THREE.Color(0xc084fc), C_WHITE=new THREE.Color(0xaabbff);
 
-  const C_BLUE  = new THREE.Color(0x4f8cff);
-  const C_PINK  = new THREE.Color(0xc084fc);
-  const C_WHITE = new THREE.Color(0xaabbff);
-
-  /* ── Partículas ── */
-  const pCount = 1800;
-  const pGeo  = new THREE.BufferGeometry();
-  const pPos  = new Float32Array(pCount*3);
-  const pCol  = new Float32Array(pCount*3);
-  const pSpd  = new Float32Array(pCount);
+  /* partículas */
+  const pCount=1800,pGeo=new THREE.BufferGeometry(),pPos=new Float32Array(pCount*3),pCol=new Float32Array(pCount*3),pSpd=new Float32Array(pCount);
   for(let i=0;i<pCount;i++){
-    pPos[i*3]   = (Math.random()-.5)*120;
-    pPos[i*3+1] = (Math.random()-.5)*80;
-    pPos[i*3+2] = (Math.random()-.5)*60;
-    const t = Math.random();
-    const c = t<.5 ? C_BLUE.clone().lerp(C_PINK,t*2) : C_PINK.clone().lerp(C_WHITE,(t-.5)*2);
-    pCol[i*3]=c.r; pCol[i*3+1]=c.g; pCol[i*3+2]=c.b;
-    pSpd[i] = .02+Math.random()*.06;
+    pPos[i*3]=(Math.random()-.5)*120; pPos[i*3+1]=(Math.random()-.5)*80; pPos[i*3+2]=(Math.random()-.5)*60;
+    const t=Math.random(),c=t<.5?C_BLUE.clone().lerp(C_PINK,t*2):C_PINK.clone().lerp(C_WHITE,(t-.5)*2);
+    pCol[i*3]=c.r;pCol[i*3+1]=c.g;pCol[i*3+2]=c.b; pSpd[i]=.02+Math.random()*.06;
   }
   pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
-  pGeo.setAttribute('color',   new THREE.BufferAttribute(pCol,3));
-  const pMat = new THREE.PointsMaterial({size:.18,vertexColors:true,transparent:true,opacity:.7,sizeAttenuation:true});
-  const particles = new THREE.Points(pGeo,pMat);
+  pGeo.setAttribute('color',new THREE.BufferAttribute(pCol,3));
+  const particles=new THREE.Points(pGeo,new THREE.PointsMaterial({size:.18,vertexColors:true,transparent:true,opacity:.7,sizeAttenuation:true}));
   scene.add(particles);
 
-  /* ── Helper: material wireframe ── */
-  function wMat(col, opacity=0.28){
-    return new THREE.MeshBasicMaterial({color:col, wireframe:true, transparent:true, opacity});
-  }
-  function lMat(col, opacity=0.55){
-    return new THREE.LineBasicMaterial({color:col, transparent:true, opacity});
-  }
+  function wMat(col,op=.28){return new THREE.MeshBasicMaterial({color:col,wireframe:true,transparent:true,opacity:op})}
+  function lMat(col,op=.55){return new THREE.LineBasicMaterial({color:col,transparent:true,opacity:op})}
 
-  /* ── Helper: puntos de una curva Bézier ── */
-  function bezierCurveObj(col){
-    const g = new THREE.Group();
-    const curve = new THREE.CubicBezierCurve3(
-      new THREE.Vector3(-2,0,0),
-      new THREE.Vector3(-1,2,0.5),
-      new THREE.Vector3(1,-2,-0.5),
-      new THREE.Vector3(2,0,0)
-    );
-    const pts = curve.getPoints(30);
-    const cGeo = new THREE.BufferGeometry().setFromPoints(pts);
-    g.add(new THREE.Line(cGeo, lMat(col)));
-    // Manejadores
-    const handles = [
-      [new THREE.Vector3(-2,0,0), new THREE.Vector3(-1,2,0.5)],
-      [new THREE.Vector3(2,0,0),  new THREE.Vector3(1,-2,-0.5)]
-    ];
-    handles.forEach(([a,b])=>{
-      const hGeo = new THREE.BufferGeometry().setFromPoints([a,b]);
-      g.add(new THREE.Line(hGeo, lMat(col, 0.3)));
-      // bolita en cada extremo
-      [a,b].forEach(p=>{
-        const s = new THREE.Mesh(new THREE.SphereGeometry(.12,6,6), wMat(col,0.6));
-        s.position.copy(p); g.add(s);
-      });
+  /* herramientas diseño */
+  function bezierObj(col){
+    const g=new THREE.Group();
+    const pts=new THREE.CubicBezierCurve3(new THREE.Vector3(-2,0,0),new THREE.Vector3(-1,2,.5),new THREE.Vector3(1,-2,-.5),new THREE.Vector3(2,0,0)).getPoints(30);
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col)));
+    [[new THREE.Vector3(-2,0,0),new THREE.Vector3(-1,2,.5)],[new THREE.Vector3(2,0,0),new THREE.Vector3(1,-2,-.5)]].forEach(([a,b])=>{
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([a,b]),lMat(col,.3)));
+      [a,b].forEach(p=>{const s=new THREE.Mesh(new THREE.SphereGeometry(.12,6,6),wMat(col,.6));s.position.copy(p);g.add(s)});
     });
     return g;
   }
-
-  /* ── Helper: keyframe rombo (After Effects) ── */
-  function keyframeObj(col, scale=1){
-    const g = new THREE.Group();
-    const s = scale;
-    const verts = new Float32Array([
-       0, s,0,  s,0,0,  0,-s,0, -s,0,0,  0,s,0,
-       0, s,0,  0,0,s,  0,-s,0,  0,0,-s, 0,s,0,
-       s, 0,0,  0,0,s, -s,0,0,   0,0,-s, s,0,0
-    ]);
-    const dGeo = new THREE.BufferGeometry();
-    dGeo.setAttribute('position', new THREE.BufferAttribute(verts,3));
-    g.add(new THREE.Line(dGeo, lMat(col, 0.7)));
-    return g;
+  function keyframeObj(col,sc=1){
+    const g=new THREE.Group(),s=sc;
+    const v=new Float32Array([0,s,0,s,0,0,0,-s,0,-s,0,0,0,s,0,0,s,0,0,0,s,0,-s,0,0,0,-s,0,s,0,s,0,0,0,0,s,-s,0,0,0,0,-s,s,0,0]);
+    const kg=new THREE.BufferGeometry();kg.setAttribute('position',new THREE.BufferAttribute(v,3));
+    g.add(new THREE.Line(kg,lMat(col,.7)));return g;
   }
-
-  /* ── Helper: marcador de timeline (triángulo apuntando abajo) ── */
-  function timelineMarker(col){
-    const g = new THREE.Group();
-    const shape = new THREE.Shape();
-    shape.moveTo(-0.6,0); shape.lineTo(0.6,0); shape.lineTo(0,-1.1); shape.closePath();
-    const sGeo = new THREE.ShapeGeometry(shape);
-    g.add(new THREE.Mesh(sGeo, wMat(col,0.55)));
-    // Línea vertical
-    const lGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),new THREE.Vector3(0,1.6,0)]);
-    g.add(new THREE.Line(lGeo, lMat(col,0.4)));
-    return g;
-  }
-
-  /* ── Helper: punto de ancla (cuadrado) ── */
-  function anchorPoint(col){
-    const g = new THREE.Group();
-    const pts3d = [
-      new THREE.Vector3(-.5,.5,0), new THREE.Vector3(.5,.5,0),
-      new THREE.Vector3(.5,-.5,0), new THREE.Vector3(-.5,-.5,0),
-      new THREE.Vector3(-.5,.5,0)
-    ];
-    const aGeo = new THREE.BufferGeometry().setFromPoints(pts3d);
-    g.add(new THREE.Line(aGeo, lMat(col, 0.7)));
-    // Cruz central
-    const cPts = [new THREE.Vector3(-.3,0,0),new THREE.Vector3(.3,0,0)];
-    const cPts2 = [new THREE.Vector3(0,-.3,0),new THREE.Vector3(0,.3,0)];
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(cPts), lMat(col,.5)));
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(cPts2), lMat(col,.5)));
-    return g;
-  }
-
-  /* ── Helper: cursor pluma (Pen Tool) simplificado ── */
   function penCursor(col){
-    const g = new THREE.Group();
-    // Cuerpo de la pluma
-    const body = [
-      new THREE.Vector3(0,2,0),
-      new THREE.Vector3(-.6,.6,0),
-      new THREE.Vector3(0,0,0),
-      new THREE.Vector3(.6,.6,0),
-      new THREE.Vector3(0,2,0)
-    ];
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(body), lMat(col,.75)));
-    // Punta
-    const tip = [new THREE.Vector3(0,0,0), new THREE.Vector3(0,-1.2,0)];
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(tip), lMat(col,.9)));
-    // Punto en la punta
-    const dot = new THREE.Mesh(new THREE.SphereGeometry(.15,6,6), wMat(col,.8));
-    dot.position.set(0,-1.2,0); g.add(dot);
+    const g=new THREE.Group();
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,2,0),new THREE.Vector3(-.6,.6,0),new THREE.Vector3(0,0,0),new THREE.Vector3(.6,.6,0),new THREE.Vector3(0,2,0)]),lMat(col,.75)));
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),new THREE.Vector3(0,-1.2,0)]),lMat(col,.9)));
+    const d=new THREE.Mesh(new THREE.SphereGeometry(.15,6,6),wMat(col,.8));d.position.set(0,-1.2,0);g.add(d);
     return g;
   }
-
-  /* ── Helper: onda de audio 3D ── */
   function audioWave(col){
-    const g = new THREE.Group();
-    const rows = 3;
-    for(let r=0;r<rows;r++){
+    const g=new THREE.Group();
+    for(let r=0;r<3;r++){
       const pts=[];
-      const samples=24;
-      for(let i=0;i<=samples;i++){
-        const x = (i/samples)*4-2;
-        const amp = 0.6 * Math.exp(-Math.abs(x)*0.5);
-        const y = amp*Math.sin(i*0.8+r*1.2);
-        const z = (r-1)*0.5;
-        pts.push(new THREE.Vector3(x,y,z));
-      }
-      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), lMat(col, .45+r*.12)));
+      for(let i=0;i<=24;i++){const x=(i/24)*4-2,amp=.6*Math.exp(-Math.abs(x)*.5),y=amp*Math.sin(i*.8+r*1.2),z=(r-1)*.5;pts.push(new THREE.Vector3(x,y,z))}
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.45+r*.12)));
     }
     return g;
   }
-
-  /* ── Helper: icono composición (rectángulo con triángulo play) ── */
-  function compositionIcon(col){
-    const g = new THREE.Group();
-    const frame = [
-      new THREE.Vector3(-1.5,-1,0), new THREE.Vector3(1.5,-1,0),
-      new THREE.Vector3(1.5,1,0),   new THREE.Vector3(-1.5,1,0),
-      new THREE.Vector3(-1.5,-1,0)
-    ];
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(frame), lMat(col,.6)));
-    // Triángulo play dentro
-    const play = [
-      new THREE.Vector3(-.4,-.5,0), new THREE.Vector3(.8,0,0),
-      new THREE.Vector3(-.4,.5,0),  new THREE.Vector3(-.4,-.5,0)
-    ];
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(play), lMat(col,.8)));
-    // Líneas de film
-    [[-1.2,-1],[-1.2,1],[1.2,-1],[1.2,1]].forEach(([x,y])=>{
-      const s = new THREE.Mesh(new THREE.BoxGeometry(.18,.18,.05), wMat(col,.5));
-      s.position.set(x,y,0); g.add(s);
-    });
+  function timelineMarker(col){
+    const g=new THREE.Group(),sh=new THREE.Shape();
+    sh.moveTo(-.6,0);sh.lineTo(.6,0);sh.lineTo(0,-1.1);sh.closePath();
+    g.add(new THREE.Mesh(new THREE.ShapeGeometry(sh),wMat(col,.55)));
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),new THREE.Vector3(0,1.6,0)]),lMat(col,.4)));
+    return g;
+  }
+  function anchorPoint(col){
+    const g=new THREE.Group();
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-.5,.5,0),new THREE.Vector3(.5,.5,0),new THREE.Vector3(.5,-.5,0),new THREE.Vector3(-.5,-.5,0),new THREE.Vector3(-.5,.5,0)]),lMat(col,.7)));
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-.3,0,0),new THREE.Vector3(.3,0,0)]),lMat(col,.5)));
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,-.3,0),new THREE.Vector3(0,.3,0)]),lMat(col,.5)));
     return g;
   }
 
-  /* ── Helper: letra 'g' tipografía 3D minimalista ── */
-  function letterG(col){
-    const g = new THREE.Group();
-    // Círculo exterior
-    const circ = new THREE.EllipseCurve(0,0,1,1,Math.PI*0.2,Math.PI*2.0,false,0);
-    const circPts = circ.getPoints(40).map(p=>new THREE.Vector3(p.x,p.y,0));
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(circPts), lMat(col,.7)));
-    // Serif horizontal (barra de la g)
-    const bar = [new THREE.Vector3(0,0,0), new THREE.Vector3(1,0,0), new THREE.Vector3(1,-.8,0)];
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(bar), lMat(col,.6)));
-    // Pequeño círculo inferior (cola)
-    const tail = new THREE.EllipseCurve(0,-.8,.55,.55,Math.PI*0.5,Math.PI*2.5,false,0);
-    const tailPts = tail.getPoints(20).map(p=>new THREE.Vector3(p.x,p.y,0));
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(tailPts), lMat(col,.5)));
+  /* ICONO VÍDEO — triángulo play dentro de un rectángulo redondeado */
+  function videoIcon(col){
+    const g=new THREE.Group();
+    const frame=[new THREE.Vector3(-1.8,-1.1,0),new THREE.Vector3(1.8,-1.1,0),new THREE.Vector3(1.8,1.1,0),new THREE.Vector3(-1.8,1.1,0),new THREE.Vector3(-1.8,-1.1,0)];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(frame),lMat(col,.65)));
+    const play=[new THREE.Vector3(-.5,-.65,0),new THREE.Vector3(.95,0,0),new THREE.Vector3(-.5,.65,0),new THREE.Vector3(-.5,-.65,0)];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(play),lMat(col,.85)));
     return g;
   }
 
-  /* ── Colocar todos los objetos en escena ── */
-  const floaters = [];
-
-  function addGroup(group, x, y, z){
-    group.position.set(x,y,z);
-    group.userData = {
-      rx:(Math.random()-.5)*.009,
-      ry:(Math.random()-.5)*.013,
-      rz:(Math.random()-.5)*.007,
-      floatAmp:.35+Math.random()*.7,
-      floatSpd:.35+Math.random()*.55,
-      floatOff:Math.random()*Math.PI*2,
-      baseY:y,
-    };
-    scene.add(group);
-    floaters.push(group);
+  /* ICONO RRSS — silueta de "like" (corazón geométrico) */
+  function heartIcon(col){
+    const g=new THREE.Group();
+    const pts=[];const n=40;
+    for(let i=0;i<=n;i++){
+      const t=(i/n)*Math.PI*2;
+      const x=1.1*(16*Math.pow(Math.sin(t),3))/16;
+      const y=1.1*(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))/16;
+      pts.push(new THREE.Vector3(x,y,0));
+    }
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.65)));
+    return g;
   }
 
-  addGroup(bezierCurveObj(0x4f8cff),  -18,  6,  -8);
-  addGroup(bezierCurveObj(0xc084fc),   12, -4,  -6);
-  addGroup(keyframeObj(0x7eb3ff, 1.1), 16,  7, -10);
-  addGroup(keyframeObj(0xc084fc, 0.8),-10, -8,  -5);
-  addGroup(timelineMarker(0x4f8cff),    4,  9, -12);
-  addGroup(timelineMarker(0xaabbff),  -22,  3,  -7);
-  addGroup(anchorPoint(0x7eb3ff),      20, -7,  -9);
-  addGroup(anchorPoint(0xc084fc),       0, 12, -14);
-  addGroup(penCursor(0x4f8cff),        -6, -10,  -5);
-  addGroup(audioWave(0xc084fc),        18,  4,  -7);
-  addGroup(compositionIcon(0x7eb3ff),  -16, -3, -10);
-  addGroup(letterG(0x4f8cff),           8,  8,  -8);
+  /* ICONO RRSS — burbuja de mensaje */
+  function bubbleIcon(col){
+    const g=new THREE.Group();
+    const pts=[];const n=32;
+    for(let i=0;i<=n;i++){const a=(i/n)*Math.PI*2;pts.push(new THREE.Vector3(1.4*Math.cos(a),1.1*Math.sin(a)-.1,0))}
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.6)));
+    // Cola de la burbuja
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-.6,-1,0),new THREE.Vector3(-.3,-1.6,0),new THREE.Vector3(.2,-1,0)]),lMat(col,.55)));
+    return g;
+  }
 
-  /* ── Líneas de conexión ── */
-  const maxLines = floaters.length*(floaters.length-1)/2;
-  const lineGeo  = new THREE.BufferGeometry();
-  const lineArr  = new Float32Array(maxLines*6);
-  lineGeo.setAttribute('position', new THREE.BufferAttribute(lineArr,3));
-  const lineSeg = new THREE.LineSegments(lineGeo, new THREE.LineBasicMaterial({color:0x4f8cff,transparent:true,opacity:.07}));
-  scene.add(lineSeg);
+  /* ICONO CÁMARA */
+  function cameraIcon(col){
+    const g=new THREE.Group();
+    const body=[new THREE.Vector3(-2,-.9,0),new THREE.Vector3(2,-.9,0),new THREE.Vector3(2,.9,0),new THREE.Vector3(.9,.9,0),new THREE.Vector3(.6,1.4,0),new THREE.Vector3(-.6,1.4,0),new THREE.Vector3(-.9,.9,0),new THREE.Vector3(-2,.9,0),new THREE.Vector3(-2,-.9,0)];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(body),lMat(col,.65)));
+    // Lente
+    const lens=[];for(let i=0;i<=20;i++){const a=(i/20)*Math.PI*2;lens.push(new THREE.Vector3(.65*Math.cos(a),.65*Math.sin(a),0))}
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(lens),lMat(col,.75)));
+    return g;
+  }
 
-  /* ── Anillos ── */
-  const ring  = new THREE.Mesh(new THREE.TorusGeometry(20,.06,4,120), new THREE.MeshBasicMaterial({color:0x4f8cff,transparent:true,opacity:.08}));
-  ring.rotation.x = Math.PI/2.8; scene.add(ring);
-  const ring2 = new THREE.Mesh(new THREE.TorusGeometry(26,.04,4,120), new THREE.MeshBasicMaterial({color:0xc084fc,transparent:true,opacity:.05}));
-  ring2.rotation.x = Math.PI/3.5; ring2.rotation.z = Math.PI/5; scene.add(ring2);
+  /* colocar objetos */
+  const floaters=[];
+  function addGroup(grp,x,y,z){
+    grp.position.set(x,y,z);
+    grp.userData={rx:(Math.random()-.5)*.009,ry:(Math.random()-.5)*.013,rz:(Math.random()-.5)*.007,floatAmp:.35+Math.random()*.7,floatSpd:.35+Math.random()*.55,floatOff:Math.random()*Math.PI*2,baseY:y};
+    scene.add(grp);floaters.push(grp);
+  }
 
-  /* ── Parallax ── */
+  addGroup(bezierObj(0x4f8cff),   -18,  6, -8);
+  addGroup(bezierObj(0xc084fc),    12, -4, -6);
+  addGroup(keyframeObj(0x7eb3ff,1.1),16, 7,-10);
+  addGroup(keyframeObj(0xc084fc,.8),-10,-8, -5);
+  addGroup(timelineMarker(0x4f8cff),  4,  9,-12);
+  addGroup(anchorPoint(0x7eb3ff),    20, -7, -9);
+  addGroup(penCursor(0x4f8cff),      -6,-10, -5);
+  addGroup(audioWave(0xc084fc),      18,  4, -7);
+  // vídeo
+  addGroup(videoIcon(0x7eb3ff),     -14, -3,-10);
+  addGroup(videoIcon(0xc084fc),       6, 10, -8);
+  addGroup(cameraIcon(0x4f8cff),     22, -9,-11);
+  // rrss
+  addGroup(heartIcon(0xc084fc),      -4,  8,-14);
+  addGroup(bubbleIcon(0x7eb3ff),     -22,  2, -9);
+  addGroup(heartIcon(0x4f8cff),      10, -9, -6);
+
+  /* líneas de conexión */
+  const maxL=floaters.length*(floaters.length-1)/2;
+  const lineGeo=new THREE.BufferGeometry();
+  const lineArr=new Float32Array(maxL*6);
+  lineGeo.setAttribute('position',new THREE.BufferAttribute(lineArr,3));
+  scene.add(new THREE.LineSegments(lineGeo,new THREE.LineBasicMaterial({color:0x4f8cff,transparent:true,opacity:.07})));
+
+  /* anillos */
+  const ring=new THREE.Mesh(new THREE.TorusGeometry(20,.06,4,120),new THREE.MeshBasicMaterial({color:0x4f8cff,transparent:true,opacity:.08}));
+  ring.rotation.x=Math.PI/2.8;scene.add(ring);
+  const ring2=new THREE.Mesh(new THREE.TorusGeometry(26,.04,4,120),new THREE.MeshBasicMaterial({color:0xc084fc,transparent:true,opacity:.05}));
+  ring2.rotation.x=Math.PI/3.5;ring2.rotation.z=Math.PI/5;scene.add(ring2);
+
   let mx=0,my=0,tmx=0,tmy=0;
-  document.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=(e.clientY/innerHeight-.5)*2;});
-  let scrollY=0;
-  window.addEventListener('scroll',()=>scrollY=window.scrollY);
+  document.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=(e.clientY/innerHeight-.5)*2});
+  let scrollY=0;window.addEventListener('scroll',()=>scrollY=window.scrollY);
 
-  /* ── Loop ── */
   let tc=0;
-  function animate(){
-    requestAnimationFrame(animate);
-    tc+=.007;
-
-    tmx+=(mx*1.5-tmx)*.04;
-    tmy+=(my*.8-tmy)*.04;
-    camera.position.x=tmx;
-    camera.position.y=-tmy+scrollY*.003;
-    camera.lookAt(0,scrollY*.003,0);
-
-    particles.rotation.y=tc*.04;
-    particles.rotation.x=tc*.015;
+  (function animate(){
+    requestAnimationFrame(animate);tc+=.007;
+    tmx+=(mx*1.5-tmx)*.04;tmy+=(my*.8-tmy)*.04;
+    camera.position.x=tmx;camera.position.y=-tmy+scrollY*.003;camera.lookAt(0,scrollY*.003,0);
+    particles.rotation.y=tc*.04;particles.rotation.x=tc*.015;
     const pos=pGeo.attributes.position.array;
     for(let i=0;i<pCount;i++) pos[i*3+1]+=Math.sin(tc*pSpd[i]+i)*.003;
     pGeo.attributes.position.needsUpdate=true;
-
     floaters.forEach(m=>{
-      m.rotation.x+=m.userData.rx;
-      m.rotation.y+=m.userData.ry;
-      m.rotation.z+=m.userData.rz;
+      m.rotation.x+=m.userData.rx;m.rotation.y+=m.userData.ry;m.rotation.z+=m.userData.rz;
       m.position.y=m.userData.baseY+Math.sin(tc*m.userData.floatSpd+m.userData.floatOff)*m.userData.floatAmp;
     });
-
-    // Líneas dinámicas entre floaters
-    let li=0;
-    const lp=lineGeo.attributes.position.array;
-    for(let a=0;a<floaters.length;a++){
-      for(let b=a+1;b<floaters.length;b++){
-        if(floaters[a].position.distanceTo(floaters[b].position)<22){
-          lp[li++]=floaters[a].position.x; lp[li++]=floaters[a].position.y; lp[li++]=floaters[a].position.z;
-          lp[li++]=floaters[b].position.x; lp[li++]=floaters[b].position.y; lp[li++]=floaters[b].position.z;
-        }
-      }
+    let li=0;const lp=lineGeo.attributes.position.array;
+    for(let a=0;a<floaters.length;a++) for(let b=a+1;b<floaters.length;b++) if(floaters[a].position.distanceTo(floaters[b].position)<22){
+      lp[li++]=floaters[a].position.x;lp[li++]=floaters[a].position.y;lp[li++]=floaters[a].position.z;
+      lp[li++]=floaters[b].position.x;lp[li++]=floaters[b].position.y;lp[li++]=floaters[b].position.z;
     }
-    for(;li<lp.length;li++) lp[li]=0;
-    lineGeo.attributes.position.needsUpdate=true;
-    lineGeo.setDrawRange(0,li/3);
-
-    ring.rotation.z=tc*.05;
-    ring2.rotation.z=-tc*.03; ring2.rotation.y=tc*.02;
-
+    for(;li<lp.length;li++)lp[li]=0;
+    lineGeo.attributes.position.needsUpdate=true;lineGeo.setDrawRange(0,li/3);
+    ring.rotation.z=tc*.05;ring2.rotation.z=-tc*.03;ring2.rotation.y=tc*.02;
     renderer.render(scene,camera);
-  }
-  animate();
+  })();
 })();
 
-/* ── CURSOR ── */
+/* ── CURSOR — rastro más notorio ── */
 if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){
   const dot=document.getElementById('cur');
-  const cols=['#4f8cff','#7eb3ff','#c084fc'];
-  let ti=0;
+  const cols=['#4f8cff','#7eb3ff','#c084fc','#a78bfa'];
+  let ti=0,lastX=0,lastY=0;
   document.addEventListener('mousemove',e=>{
-    dot.style.left=e.clientX+'px'; dot.style.top=e.clientY+'px';
-    const t=document.createElement('div');
-    t.className='ctrail';
-    const sz=Math.random()*5+3;
-    t.style.cssText=`width:${sz}px;height:${sz}px;left:${e.clientX}px;top:${e.clientY}px;background:${cols[ti%cols.length]};box-shadow:0 0 ${sz*2}px ${cols[ti%cols.length]};`;
-    document.body.appendChild(t); ti++;
-    setTimeout(()=>t.remove(),520);
+    dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';
+    // Solo crear trail si el ratón se ha movido suficiente
+    const dist=Math.hypot(e.clientX-lastX,e.clientY-lastY);
+    if(dist>4){
+      lastX=e.clientX;lastY=e.clientY;
+      // Crear varias partículas por movimiento para rastro más denso
+      for(let k=0;k<3;k++){
+        const t=document.createElement('div');
+        t.className='ctrail';
+        const sz=Math.random()*9+5;
+        const col=cols[(ti+k)%cols.length];
+        const ox=(Math.random()-.5)*6, oy=(Math.random()-.5)*6;
+        t.style.cssText=`width:${sz}px;height:${sz}px;left:${e.clientX+ox}px;top:${e.clientY+oy}px;background:${col};box-shadow:0 0 ${sz*2.5}px ${col},0 0 ${sz*4}px ${col}55;`;
+        document.body.appendChild(t);ti++;
+        setTimeout(()=>t.remove(),700);
+      }
+    }
   });
 }
 
-/* ── TABS SOBRE MÍ ── */
+/* ── TABS ── */
 function showAt(id,btn){
   document.querySelectorAll('.about-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.at-btn').forEach(b=>b.classList.remove('active'));
@@ -884,24 +844,18 @@ function showAt(id,btn){
 /* ── CONTACTO 3D ── */
 const card=document.getElementById('contactCard');
 card.addEventListener('mousemove',e=>{
-  const r=card.getBoundingClientRect();
-  const dx=(e.clientX-r.left-r.width/2)/(r.width/2);
-  const dy=(e.clientY-r.top-r.height/2)/(r.height/2);
+  const r=card.getBoundingClientRect(),dx=(e.clientX-r.left-r.width/2)/(r.width/2),dy=(e.clientY-r.top-r.height/2)/(r.height/2);
   card.style.transform=`rotateX(${-dy*8}deg) rotateY(${dx*8}deg) scale(1.01)`;
 });
-card.addEventListener('mouseleave',()=>{card.style.transform='rotateX(0) rotateY(0) scale(1)';});
+card.addEventListener('mouseleave',()=>{card.style.transform='rotateX(0) rotateY(0) scale(1)'});
 
 /* ── SCROLL REVEAL ── */
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
-},{threshold:.1});
+const obs=new IntersectionObserver(e=>e.forEach(e2=>{if(e2.isIntersecting)e2.target.classList.add('visible')}),{threshold:.1});
 document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
 
 /* ── BACK TO TOP ── */
-const backTop=document.getElementById('back-top');
-window.addEventListener('scroll',()=>{
-  backTop.classList.toggle('show', window.scrollY>400);
-});
+const bTop=document.getElementById('back-top');
+window.addEventListener('scroll',()=>bTop.classList.toggle('show',window.scrollY>400));
 </script>
 </body>
 </html>
