@@ -12,7 +12,6 @@
             --cake-pink: #f6dede;
             --cake-dark: #493026;
             --cherry-red: #dc1e23;
-            --glass: rgba(255, 255, 255, 0.6);
         }
 
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
@@ -51,26 +50,18 @@
             font-weight: 600;
             z-index: 1000;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-
-        .back-home:hover {
-            transform: scale(1.05);
-            background: var(--cherry-red);
         }
 
         /* --- HERO --- */
         .hero {
-            height: 70vh;
+            height: 75vh;
             width: 100%;
             background: url("hero-dolcevitta.png") center/cover no-repeat;
-            position: relative;
-            border-bottom: 8px solid white;
         }
 
         /* --- SECCIONES --- */
         section {
-            padding: 60px 20px;
+            padding: 50px 20px;
             max-width: 1000px;
             margin: auto;
             opacity: 0;
@@ -84,105 +75,80 @@
         }
 
         h2 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 800;
             margin-bottom: 30px;
             text-align: center;
-            color: var(--cake-dark);
         }
 
         .description-box {
-            background: var(--glass);
-            border: 2px solid white;
+            background: rgba(255, 255, 255, 0.4);
             padding: 40px;
             border-radius: 30px;
             backdrop-filter: blur(10px);
             text-align: center;
             font-size: 1.1rem;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
         }
 
-        /* --- HERRAMIENTAS --- */
-        .icon-row {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 20px;
+        /* --- IMÁGENES (SIN TRAZADO) --- */
+        .img-no-border {
+            width: 100%;
+            display: block;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.1); /* Solo sombra */
         }
 
-        .icon-box {
-            background: white;
-            padding: 15px;
-            border-radius: 18px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.08); /* Sombrita suave */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* Específico para RRSS que no viene redondeada */
+        .rrss-img {
+            border-radius: 25px;
+            width: 100%;
+            display: block;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.1);
         }
 
-        .icon-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(220, 30, 35, 0.2);
-        }
-
-        .icon-box img {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-        }
-
-        /* --- GRID IMÁGENES --- */
         .grid-2 {
             display: grid;
-            gap: 30px;
+            gap: 40px;
         }
 
         @media(min-width:768px){
             .grid-2 { grid-template-columns: 1fr 1fr; }
         }
 
-        .img-container {
-            overflow: hidden;
-            border-radius: 25px;
-            background: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            border: 5px solid white;
+        /* --- HERRAMIENTAS FLOTANTES --- */
+        .tools-section {
+            padding-bottom: 100px;
         }
 
-        .img-container img {
-            width: 100%;
-            display: block;
-            transition: transform 0.6s ease;
-        }
-
-        .img-container:hover img {
-            transform: scale(1.03);
-        }
-
-        .full-img {
-            width: 100%;
-            border-radius: 25px;
+        .icon-row {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
             margin-top: 30px;
-            border: 5px solid white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .icon-floating {
+            width: 70px;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2)); /* Sombra abajo */
+            animation: softFloat 4s ease-in-out infinite;
+        }
+
+        .icon-floating:nth-child(2) {
+            animation-delay: 1s;
+        }
+
+        @keyframes softFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
 
         /* --- FOOTER --- */
-        .footer-wrapper {
-            background: white;
-            padding: 40px;
+        footer {
             text-align: center;
-            margin-top: 50px;
-        }
-
-        .copyright-box {
+            padding: 40px;
+            font-size: 0.9rem;
             font-weight: 600;
-            color: var(--cake-dark);
-            letter-spacing: 1px;
+            opacity: 0.6;
         }
 
     </style>
@@ -203,138 +169,124 @@
 </section>
 
 <section>
-    <h2>Herramientas utilizadas</h2>
-    <div class="icon-row">
-        <div class="icon-box">
-            <img src="aftereffects.png" alt="After Effects">
-        </div>
-        <div class="icon-box">
-            <img src="premier.png" alt="Premiere">
-        </div>
-        <div class="icon-box">
-            <img src="photoshop.png" alt="Photoshop">
-        </div>
-        <div class="icon-box">
-            <img src="ilustrador.png" alt="Illustrator">
-        </div>
-    </div>
-</section>
-
-<section>
     <h2>Identidad Visual</h2>
-    <div class="img-container">
-        <img src="aplicaciones-dolcevitta.png" alt="Branding">
-    </div>
+    <img src="aplicaciones-dolcevitta.png" class="img-no-border" alt="Branding">
 </section>
 
 <section>
     <h2>Packaging & Experiencia</h2>
     <div class="grid-2">
-        <div class="img-container">
-            <img src="cuadrada-dolcevitta-izq.png" alt="Packaging 1">
-        </div>
-        <div class="img-container">
-            <img src="cuadrada-dolcevitta-der.png" alt="Packaging 2">
-        </div>
+        <img src="cuadrada-dolcevitta-izq.png" class="img-no-border" alt="Packaging 1">
+        <img src="cuadrada-dolcevitta-der.png" class="img-no-border" alt="Packaging 2">
     </div>
-    <img src="grande-dolcevitta.png" class="full-img" alt="Banner Dolce Vitta">
+    <img src="grande-dolcevitta.png" class="img-no-border" style="margin-top: 40px;" alt="Banner Dolce Vitta">
 </section>
 
 <section>
     <h2>Social Media Content</h2>
-    <div class="img-container">
-        <img src="imagen-rrss-dolcevitta.png" alt="Instagram Feed">
+    <img src="imagen-rrss-dolcevitta.png" class="rrss-img" alt="Instagram Feed">
+</section>
+
+<section class="tools-section">
+    <h2>Herramientas utilizadas</h2>
+    <div class="icon-row">
+        <img src="photoshop.png" class="icon-floating" alt="Photoshop">
+        <img src="ilustrador.png" class="icon-floating" alt="Illustrator">
     </div>
 </section>
 
-<footer class="footer-wrapper">
-    <div class="copyright-box">© 2026 NEERGRAPHS • DOLCE VITTA</div>
-</footer>
+<footer>© 2026 NEERGRAPHS • DOLCE VITTA</footer>
 
 <script>
-    // --- THREE.JS EFFECT (CHERRY & TOPPINGS) ---
+    // --- THREE.JS (PASTRY WORLD) ---
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-    // Partículas (Mezcla de blanco y rojo cereza)
+    // Partículas
     const geometry = new THREE.BufferGeometry();
     const vertices = [];
-    const colors = [];
-    const colorWhite = new THREE.Color(0xffffff);
-    const colorCherry = new THREE.Color(0xdc1e23);
-
-    for (let i = 0; i < 600; i++) {
+    for (let i = 0; i < 400; i++) {
         vertices.push(Math.random() * 20 - 10, Math.random() * 20 - 10, Math.random() * 20 - 10);
-        const chosenColor = Math.random() > 0.8 ? colorCherry : colorWhite;
-        colors.push(chosenColor.r, chosenColor.g, chosenColor.b);
     }
     geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-
-    const material = new THREE.PointsMaterial({ size: 0.06, vertexColors: true, transparent: true, opacity: 0.7 });
-    const points = new THREE.Points(geometry, material);
+    const points = new THREE.Points(geometry, new THREE.PointsMaterial({ color: 0xffffff, size: 0.04 }));
     scene.add(points);
 
-    // --- LA CEREZA (Isotipo 3D) ---
-    const cherryGroup = new THREE.Group();
-    
-    // Cuerpo de la cereza (dos esferas rojas)
-    const cherryGeo = new THREE.SphereGeometry(0.6, 32, 32);
-    const cherryMat = new THREE.MeshPhongMaterial({ color: 0xdc1e23, shininess: 100 });
-    
-    const c1 = new THREE.Mesh(cherryGeo, cherryMat);
-    const c2 = new THREE.Mesh(cherryGeo, cherryMat);
-    c1.position.set(-0.4, 0, 0);
-    c2.position.set(0.4, -0.2, 0.2);
-    
-    // Tallo (curva)
-    const stemCurve = new THREE.QuadraticBezierCurve3(
-        new THREE.Vector3(-0.2, 0.5, 0),
-        new THREE.Vector3(0.5, 1.5, 0),
-        new THREE.Vector3(1, 2, 0)
-    );
-    const stemGeo = new THREE.TubeGeometry(stemCurve, 20, 0.05, 8, false);
-    const stemMat = new THREE.MeshBasicMaterial({ color: 0x493026 });
-    const stem = new THREE.Mesh(stemGeo, stemMat);
+    // --- ELEMENTOS 3D ---
 
-    cherryGroup.add(c1, c2, stem);
-    cherryGroup.position.set(2, 0, -2); // Posicionada un poco al lateral
+    // 1. CEREZA (DERECHA)
+    const cherryGroup = new THREE.Group();
+    const cBody = new THREE.Mesh(new THREE.SphereGeometry(0.5, 32, 32), new THREE.MeshPhongMaterial({ color: 0xdc1e23 }));
+    const cStem = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 1.2), new THREE.MeshBasicMaterial({ color: 0x493026 }));
+    cStem.position.y = 0.7;
+    cStem.rotation.z = 0.2;
+    cherryGroup.add(cBody, cStem);
+    cherryGroup.position.set(4, 1, 0); // Lado derecho
     scene.add(cherryGroup);
 
-    // Luz para que brille la cereza
+    // 2. CROISSANT (IZQUIERDA - Estilizado con Toroides)
+    const croissant = new THREE.Group();
+    for(let i=0; i<3; i++) {
+        const ring = new THREE.Mesh(
+            new THREE.TorusGeometry(0.4 - (i*0.1), 0.15, 8, 16, Math.PI),
+            new THREE.MeshPhongMaterial({ color: 0xe3a857 })
+        );
+        ring.rotation.y = Math.PI / 2;
+        ring.position.x = i * 0.2;
+        croissant.add(ring);
+    }
+    croissant.position.set(-4, 2, 0);
+    scene.add(croissant);
+
+    // 3. BOLLO / MUFFIN (IZQUIERDA ABAJO)
+    const muffin = new THREE.Group();
+    const base = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.2, 0.4, 16), new THREE.MeshPhongMaterial({ color: 0x8d5524 }));
+    const top = new THREE.Mesh(new THREE.SphereGeometry(0.35, 16, 16), new THREE.MeshPhongMaterial({ color: 0xf6dede }));
+    top.position.y = 0.3;
+    muffin.add(base, top);
+    muffin.position.set(-4.5, -2, 0);
+    scene.add(muffin);
+
+    // Luces
     const light = new THREE.DirectionalLight(0xffffff, 1);
     light.position.set(5, 5, 5);
-    scene.add(light);
-    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+    scene.add(light, new THREE.AmbientLight(0xffffff, 0.6));
 
     camera.position.z = 5;
 
     function animate() {
         requestAnimationFrame(animate);
-        points.rotation.y += 0.0008;
+        points.rotation.y += 0.0005;
+        
+        // Animación de flotación individual
         cherryGroup.rotation.y += 0.01;
-        cherryGroup.position.y = Math.sin(Date.now() * 0.001) * 0.2;
+        cherryGroup.position.y = 1 + Math.sin(Date.now() * 0.0015) * 0.3;
+
+        croissant.rotation.z += 0.005;
+        croissant.position.y = 2 + Math.cos(Date.now() * 0.001) * 0.2;
+
+        muffin.rotation.y += 0.01;
+        muffin.position.y = -2 + Math.sin(Date.now() * 0.0012) * 0.2;
+
         renderer.render(scene, camera);
     }
     animate();
 
+    // Resize
     window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // --- SCROLL REVEAL ---
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add('visible');
-        });
+    // Intersection Observer
+    const obs = new IntersectionObserver((es) => {
+        es.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.1 });
-
-    document.querySelectorAll('section').forEach(s => observer.observe(s));
+    document.querySelectorAll('section').forEach(s => obs.observe(s));
 </script>
 
 </body>
