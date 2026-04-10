@@ -11,14 +11,13 @@
         :root {
             --cake-pink: #f6dede;
             --cake-dark: #493026;
-            --cherry-red: #dc1e23;
+            --cherry-red: #ff0015; /* Rojo vibrante como la imagen */
         }
 
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             font-family: 'Poppins', sans-serif;
             background-color: var(--cake-pink);
             color: var(--cake-dark);
@@ -32,134 +31,104 @@
             #custom-cursor, #cursor-trail { display: none !important; }
         }
 
-        /* --- CURSOR CEREZA ORGÁNICA --- */
+        /* --- CURSOR CEREZA SEGÚN IMAGEN --- */
         #custom-cursor {
             position: fixed;
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 50px;
             pointer-events: none;
             z-index: 10000;
             transform: translate(-50%, -50%);
         }
 
-        /* Fruto de la cereza (Achatado y con volumen) */
+        /* Cuerpo de la cereza (Acorazonado/Achatado) */
         #custom-cursor::before {
             content: '';
             position: absolute;
-            bottom: 5px;
-            left: 5px;
-            width: 22px;
-            height: 19px;
-            background: radial-gradient(circle at 30% 30%, #ff4d4d, var(--cherry-red) 70%, #8b0000);
-            border-radius: 50% 50% 48% 48%;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            bottom: 0; left: 50%;
+            width: 28px; height: 24px;
+            background: var(--cherry-red);
+            transform: translateX(-50%);
+            border-radius: 50% 50% 45% 45%;
+            clip-path: polygon(0% 20%, 20% 5%, 40% 10%, 50% 20%, 60% 10%, 80% 5%, 100% 20%, 100% 80%, 50% 100%, 0% 80%);
+            box-shadow: inset -2px -2px 5px rgba(0,0,0,0.2);
         }
 
-        /* Tallo Curvado (Usando un borde para crear la curva) */
+        /* Tallo Negro Largo y Curvo */
         #custom-cursor::after {
             content: '';
             position: absolute;
-            top: 2px;
-            left: 18px;
-            width: 15px;
-            height: 20px;
-            border-left: 3px solid #2d4a1e; /* Verde oscuro orgánico */
-            border-top: 3px solid transparent;
-            border-radius: 60% 0 0 0;
-            transform: rotate(-10deg);
+            top: 0; left: 8px;
+            width: 25px; height: 35px;
+            border-left: 2.5px solid #000;
+            border-top: 2.5px solid transparent;
+            border-radius: 100% 0 0 0;
+            transform: rotate(-15deg);
         }
 
         #cursor-trail {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 9999;
         }
 
         .trail-particle {
-            position: absolute;
-            width: 5px; height: 5px;
-            background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            pointer-events: none;
-            animation: particleFade 0.8s ease-out forwards;
+            position: absolute; width: 4px; height: 4px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 50%; pointer-events: none;
+            animation: particleFade 0.7s ease-out forwards;
         }
 
         @keyframes particleFade {
-            0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-            100% { opacity: 0; transform: translate(-50%, -50%) scale(2) translateY(-15px); }
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(2) translateY(-10px); }
         }
 
         #canvas-container {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1; pointer-events: none;
         }
 
+        /* --- BOTÓN VOLVER --- */
         .back-home {
-            position: fixed;
-            top: 25px; right: 25px;
+            position: fixed; top: 25px; right: 25px;
             background: var(--cake-dark);
-            padding: 12px 24px;
-            border-radius: 50px;
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            z-index: 1000;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 12px 24px; border-radius: 50px;
+            color: white; text-decoration: none;
+            font-size: 14px; font-weight: 600; z-index: 1000;
         }
 
+        /* --- CONTENIDO --- */
         .hero {
-            height: 65vh;
-            width: 100%;
+            height: 60vh; width: 100%;
             background: url("hero-dolcevitta.png") center/cover no-repeat;
         }
 
         section {
-            position: relative;
-            padding: 60px 20px;
-            max-width: 1000px;
-            margin: auto;
-            z-index: 2;
+            position: relative; padding: 60px 20px;
+            max-width: 1000px; margin: auto; z-index: 2;
         }
 
         .description-box {
             background: rgba(255, 255, 255, 0.4);
-            padding: 50px;
-            border-radius: 40px;
-            backdrop-filter: blur(10px);
-            text-align: center;
+            padding: 40px; border-radius: 40px;
+            backdrop-filter: blur(10px); text-align: center;
         }
 
-        /* --- IMÁGENES REDONDEADAS --- */
         .img-project {
-            width: 100%;
-            display: block;
-            border-radius: 50px; /* Muy redondeadas */
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            margin-bottom: 50px;
+            width: 100%; display: block; border-radius: 50px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            transition: transform 0.5s ease;
+            margin-bottom: 40px;
         }
 
-        .img-project:hover {
-            transform: scale(1.03);
-        }
+        .img-project:hover { transform: scale(1.02); }
 
-        .grid-2 {
-            display: grid; gap: 40px; margin-bottom: 50px;
-        }
+        .grid-2 { display: grid; gap: 30px; margin-bottom: 40px; }
+        @media(min-width:768px){ .grid-2 { grid-template-columns: 1fr 1fr; } }
 
-        @media(min-width:768px){
-            .grid-2 { grid-template-columns: 1fr 1fr; }
-        }
-
-        .icon-row {
-            display: flex; justify-content: center; gap: 60px; padding: 40px 0;
-        }
-
+        /* --- HERRAMIENTAS --- */
+        .icon-row { display: flex; justify-content: center; gap: 50px; padding: 40px 0; }
         .icon-floating {
-            width: 75px;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.15));
+            width: 70px; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.2));
             animation: floatAnim 4s ease-in-out infinite;
         }
 
@@ -169,11 +138,8 @@
         }
 
         footer {
-            background-color: white;
-            color: var(--cake-dark);
-            text-align: center;
-            padding: 50px;
-            font-weight: 600;
+            background: white; color: var(--cake-dark);
+            text-align: center; padding: 40px; font-weight: 600;
         }
 
     </style>
@@ -191,7 +157,7 @@
 
     <section>
         <div class="description-box">
-            <p><strong>Dolce Vitta</strong><br>Diseño de identidad visual premium para pastelería creativa.</p>
+            <p><strong>Dolce Vitta</strong><br>Creación integral de branding para pastelería artesanal.</p>
         </div>
     </section>
 
@@ -210,12 +176,12 @@
     </section>
 
     <section>
-        <h2>Social Media Content</h2>
+        <h2>Social Media</h2>
         <img src="imagen-rrss-dolcevitta.png" class="img-project">
     </section>
 
     <section>
-        <h2>Herramientas utilizadas</h2>
+        <h2>Herramientas</h2>
         <div class="icon-row">
             <img src="photoshop.png" class="icon-floating">
             <img src="ilustrador.png" class="icon-floating" style="animation-delay: 0.5s;">
@@ -231,18 +197,16 @@
         window.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
-            if (Math.random() > 0.7) createParticle(e.clientX, e.clientY);
+            if (Math.random() > 0.6) {
+                const p = document.createElement('div');
+                p.className = 'trail-particle';
+                p.style.left = e.clientX + 'px'; p.style.top = e.clientY + 'px';
+                trailContainer.appendChild(p);
+                setTimeout(() => p.remove(), 700);
+            }
         });
 
-        function createParticle(x, y) {
-            const p = document.createElement('div');
-            p.className = 'trail-particle';
-            p.style.left = x + 'px'; p.style.top = y + 'px';
-            trailContainer.appendChild(p);
-            setTimeout(() => p.remove(), 800);
-        }
-
-        // --- THREE.JS (CEREZAS REALISTAS) ---
+        // --- THREE.JS (CEREZAS COMO LA IMAGEN) ---
         let scene, camera, renderer, cherries = [];
 
         function init() {
@@ -252,45 +216,47 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-            const light = new THREE.PointLight(0xffffff, 1.5);
+            scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+            const light = new THREE.DirectionalLight(0xffffff, 0.5);
             light.position.set(5, 5, 5);
-            scene.add(light, new THREE.AmbientLight(0xffffff, 0.6));
+            scene.add(light);
 
-            function createRealCherry(size, x, y, z) {
+            function createCherry(size, x, y, z) {
                 const group = new THREE.Group();
                 
-                // Cuerpo achatado con "pocito" superior (LatheGeometry)
-                const points = [];
-                for (let i = 0; i <= 10; i++) {
-                    points.push(new THREE.Vector2(Math.sin(i * 0.3) * size, (i - 5) * (size/5)));
-                }
-                const bodyGeo = new THREE.LatheGeometry(points, 32);
-                const bodyMat = new THREE.MeshPhongMaterial({ color: 0xdc1e23, shininess: 100 });
-                const body = new THREE.Mesh(bodyGeo, bodyMat);
-                body.scale.set(1.1, 0.9, 1.1); // Achatar
+                // Cuerpo con forma de la imagen (Achatado con hendidura)
+                const shape = new THREE.Shape();
+                shape.moveTo(0, 0);
+                shape.bezierCurveTo(size, size, size*1.5, -size, 0, -size*1.2);
+                shape.bezierCurveTo(-size*1.5, -size, -size, size, 0, 0);
                 
-                // Tallo Curvado (Torus truncado o Curve)
+                const extrudeSettings = { depth: size, bevelEnabled: true, bevelThickness: size*0.5, bevelSize: size*0.5, bevelSegments: 20 };
+                const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+                const material = new THREE.MeshPhongMaterial({ color: 0xff0015 });
+                const mesh = new THREE.Mesh(geometry, material);
+                mesh.rotation.x = Math.PI; // Invertir para que la hendidura quede arriba
+                
+                // Tallo Largo Negro Curvo
                 const curve = new THREE.QuadraticBezierCurve3(
-                    new THREE.Vector3(0, size*0.8, 0),
-                    new THREE.Vector3(size*0.5, size*1.5, 0),
-                    new THREE.Vector3(size*1.2, size*2.2, 0)
+                    new THREE.Vector3(0, 0, size/2),
+                    new THREE.Vector3(-size*0.5, size*2, size/2),
+                    new THREE.Vector3(-size*1.5, size*3, size/2)
                 );
-                const stemGeo = new THREE.TubeGeometry(curve, 20, size*0.05, 8, false);
-                const stemMat = new THREE.MeshBasicMaterial({ color: 0x2d4a1e });
+                const stemGeo = new THREE.TubeGeometry(curve, 20, size*0.08, 8, false);
+                const stemMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
                 const stem = new THREE.Mesh(stemGeo, stemMat);
 
-                group.add(body, stem);
+                group.add(mesh, stem);
                 group.position.set(x, y, z);
-                group.userData = { rot: Math.random() * 0.01 };
                 scene.add(group);
                 cherries.push(group);
             }
 
-            // Distribución
-            createRealCherry(0.6, 5, 2, -2);
-            createRealCherry(0.4, -5, 1, -3);
-            createRealCherry(0.5, 6, -3, -2);
-            createRealCherry(0.3, -6, -2, -1);
+            // Varias cerezas distribuidas
+            createCherry(0.4, 4, 2, -2);
+            createCherry(0.3, -5, 0, -3);
+            createCherry(0.5, 6, -3, -4);
+            createCherry(0.2, -3, -4, -1);
 
             camera.position.z = 8;
             animate();
@@ -299,7 +265,7 @@
         function animate() {
             requestAnimationFrame(animate);
             cherries.forEach(c => {
-                c.rotation.y += c.userData.rot;
+                c.rotation.y += 0.01;
                 c.position.y += Math.sin(Date.now() * 0.001) * 0.002;
             });
             renderer.render(scene, camera);
