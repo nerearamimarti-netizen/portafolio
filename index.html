@@ -19,7 +19,7 @@ body {
   cursor: none;
 }
 
-/* ================= CURSOR GLOW ================= */
+/* CURSOR GLOW */
 .cursor {
   width: 18px;
   height: 18px;
@@ -32,7 +32,7 @@ body {
   transform: translate(-50%,-50%);
 }
 
-/* ================= HEADER ================= */
+/* HEADER */
 header {
   padding: 120px 20px;
   text-align: center;
@@ -46,8 +46,6 @@ header video {
   height: 100%;
   object-fit: cover;
   opacity: 0.25;
-  top: 0;
-  left: 0;
 }
 
 header .content {
@@ -55,12 +53,10 @@ header .content {
   z-index: 2;
 }
 
-/* ================= TITULO NEEERGRAPHS ================= */
 header h1 {
   font-family: 'Fredoka', sans-serif;
   font-size: clamp(45px,6vw,90px);
   font-weight: 600;
-  letter-spacing: 2px;
 
   background: linear-gradient(90deg,#ff4ecd,#6c63ff,#00d4ff,#6c63ff);
   background-size: 300% 300%;
@@ -80,14 +76,14 @@ header h1 {
   50%{transform:translateY(-8px)}
 }
 
-/* ================= SECTIONS ================= */
+/* SECCIONES */
 section {
   padding: 80px 20px;
   max-width: 1000px;
   margin: auto;
 }
 
-/* ================= ABOUT ================= */
+/* ABOUT */
 .about-container {
   display: flex;
   gap: 40px;
@@ -102,7 +98,7 @@ section {
   object-fit: cover;
 }
 
-/* ================= TABS ================= */
+/* TABS */
 .tabs {
   margin-top: 25px;
 }
@@ -135,44 +131,35 @@ section {
   display: block;
 }
 
-/* ================= SERVICIOS (NUEVO DISEÑO) ================= */
+/* =========================
+   QUE PUEDO HACER (RESTORED ICONS)
+========================= */
 .services {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
   gap: 20px;
-  flex-wrap: wrap;
 }
 
 .service {
-  flex: 1;
-  min-width: 200px;
-  padding: 30px;
-  border-radius: 20px;
-
-  background: linear-gradient(145deg,#111,#1c1c1c);
-  position: relative;
-  overflow: hidden;
-
-  transition: 0.4s;
+  background: #1c1c1c;
+  padding: 25px;
+  border-radius: 18px;
+  text-align: center;
+  transition: 0.3s;
 }
 
 .service:hover {
-  transform: translateY(-10px);
+  transform: translateY(-6px);
 }
 
-.service::after {
-  content:"";
-  position:absolute;
-  inset:0;
-  background: radial-gradient(circle at top,#6c63ff33,#ff4ecd11,transparent);
-  opacity:0;
-  transition:0.4s;
+.service img {
+  width: 50px;
+  margin-bottom: 10px;
 }
 
-.service:hover::after {
-  opacity:1;
-}
-
-/* ================= PROYECTOS (RESTORED HORIZONTAL LOOK) ================= */
+/* =========================
+   PROYECTOS (RESTORED CARDS)
+========================= */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
@@ -199,7 +186,7 @@ section {
   background-position: center;
 }
 
-/* ================= BOTONES ================= */
+/* BUTTON */
 button {
   margin-top: 10px;
   padding: 10px 18px;
@@ -208,50 +195,24 @@ button {
   background: linear-gradient(90deg,#ff4ecd,#6c63ff);
   color: white;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-button:hover {
-  transform: scale(1.08);
-}
-
-/* ================= CONTACT ================= */
+/* CONTACT */
 .contact-item {
   display: flex;
   gap: 10px;
   margin: 10px 0;
 }
 
-/* ================= FOOTER CREATIVO ================= */
+.contact-item img {
+  width: 20px;
+}
+
+/* FOOTER */
 footer {
-  padding: 80px 20px;
   text-align: center;
-  background: radial-gradient(circle at top,#1c1c1c,#0f0f0f);
-  position: relative;
-  overflow: hidden;
-}
-
-footer::before {
-  content:"";
-  position:absolute;
-  width:300px;
-  height:300px;
-  background:#6c63ff;
-  filter:blur(120px);
-  top:-100px;
-  left:50%;
-  transform:translateX(-50%);
-  opacity:0.4;
-}
-
-footer h3 {
-  font-size: 22px;
-  letter-spacing: 2px;
-}
-
-footer p {
-  color:#888;
-  font-size:14px;
+  padding: 50px;
+  color: #777;
 }
 
 </style>
@@ -272,6 +233,7 @@ footer p {
 </div>
 </header>
 
+<!-- ABOUT -->
 <section>
 
 <div class="about-container">
@@ -306,18 +268,31 @@ footer p {
 
 </section>
 
+<!-- QUE PUEDO HACER (ICONOS RESTAURADOS) -->
 <section>
 <h2>Qué puedo hacer</h2>
 
 <div class="services">
 
-<div class="service">Dirección creativa</div>
-<div class="service">Motion design</div>
-<div class="service">Branding visual</div>
+<div class="service">
+<img src="video.png">
+<p>Edición de vídeo</p>
+</div>
+
+<div class="service">
+<img src="vector.png">
+<p>Diseño gráfico</p>
+</div>
+
+<div class="service">
+<img src="rrss.png">
+<p>Contenido RRSS</p>
+</div>
 
 </div>
 </section>
 
+<!-- PROYECTOS (HOME + DOLCE RESTORED) -->
 <section>
 <h2>Proyectos</h2>
 
@@ -331,6 +306,20 @@ footer p {
 </div>
 
 <div class="card">
+<div class="project-img" style="background-image:url('destacadas-home.png')"></div>
+<h3>Home 3D</h3>
+<p>Motion design</p>
+<button>Ver proyecto</button>
+</div>
+
+<div class="card">
+<div class="project-img" style="background-image:url('destacadas-dolcevita.png')"></div>
+<h3>Dolce Vita</h3>
+<p>Branding y redes</p>
+<button>Ver proyecto</button>
+</div>
+
+<div class="card">
 <div class="project-img" style="background-image:url('destacadas-superboy.png')"></div>
 <h3>Superboy</h3>
 <p>VFX + AE</p>
@@ -340,22 +329,40 @@ footer p {
 </div>
 </section>
 
+<!-- CONTACTO RESTORED -->
+<section>
+<h2>Contacto</h2>
+
+<div class="card">
+
+<div class="contact-item">
+<img src="llamar.png"> 653607909
+</div>
+
+<div class="contact-item">
+<img src="correo.png"> email
+</div>
+
+<div class="contact-item">
+<img src="mapa.png"> Madrid
+</div>
+
+</div>
+
+</section>
+
 <footer>
-<h3>NEEERGRAPHS STUDIO</h3>
-<p>Diseño visual · Motion · Experiencias digitales</p>
+© 2026 Neeergraphs
 </footer>
 
 <script>
 
-/* cursor glow */
 const cursor = document.querySelector('.cursor');
-
 document.addEventListener('mousemove', e=>{
   cursor.style.left = e.clientX + 'px';
   cursor.style.top = e.clientY + 'px';
 });
 
-/* tabs */
 function showTab(id){
   document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));
   document.querySelectorAll('.tab-buttons button').forEach(b=>b.classList.remove('active'));
