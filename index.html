@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
 
 <title>Neeergraphs</title>
 
@@ -16,11 +16,23 @@ body {
   background: #0f0f0f;
   color: white;
   overflow-x: hidden;
+  cursor: none;
 }
 
-/* ======================
-   HEADER HERO
-====================== */
+/* ================= CURSOR GLOW ================= */
+.cursor {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  background: radial-gradient(circle,#ff4ecd,#6c63ff,#00d4ff);
+  box-shadow: 0 0 20px #6c63ff;
+  transform: translate(-50%,-50%);
+}
+
+/* ================= HEADER ================= */
 header {
   padding: 120px 20px;
   text-align: center;
@@ -43,54 +55,39 @@ header .content {
   z-index: 2;
 }
 
-/* TITULO ULTRA CREATIVO */
+/* ================= TITULO NEEERGRAPHS ================= */
 header h1 {
-  font-size: clamp(42px, 6vw, 90px);
-  font-weight: 800;
+  font-family: 'Fredoka', sans-serif;
+  font-size: clamp(45px,6vw,90px);
+  font-weight: 600;
   letter-spacing: 2px;
 
-  background: linear-gradient(90deg,#ff4ecd,#6c63ff,#00d4ff,#ff4ecd);
+  background: linear-gradient(90deg,#ff4ecd,#6c63ff,#00d4ff,#6c63ff);
   background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 
-  animation: shine 4s ease infinite, floatTitle 5s ease-in-out infinite;
-  transform-origin: center;
+  animation: shine 5s ease infinite, float 6s ease-in-out infinite;
 }
 
-/* brillo */
 @keyframes shine {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
+  0% {background-position:0%}
+  100% {background-position:200%}
 }
 
-/* flotación letras */
-@keyframes floatTitle {
-  0%,100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+@keyframes float {
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
 }
 
-/* ======================
-   SECCIONES
-====================== */
+/* ================= SECTIONS ================= */
 section {
   padding: 80px 20px;
   max-width: 1000px;
   margin: auto;
-
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.8s ease;
 }
 
-section.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ======================
-   ABOUT
-====================== */
+/* ================= ABOUT ================= */
 .about-container {
   display: flex;
   gap: 40px;
@@ -103,21 +100,9 @@ section.visible {
   height: 180px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-  transition: transform 0.4s ease;
 }
 
-.profile:hover {
-  transform: scale(1.05);
-}
-
-.about-text {
-  max-width: 500px;
-}
-
-/* ======================
-   TABS
-====================== */
+/* ================= TABS ================= */
 .tabs {
   margin-top: 25px;
 }
@@ -131,11 +116,10 @@ section.visible {
 .tab-buttons button {
   background: #2a2a2a;
   border: none;
-  padding: 10px 16px;
+  padding: 10px 14px;
   border-radius: 999px;
-  cursor: pointer;
   color: white;
-  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .tab-buttons button.active {
@@ -143,60 +127,52 @@ section.visible {
 }
 
 .tab-content {
-  margin-top: 15px;
   display: none;
+  margin-top: 15px;
 }
 
 .tab-content.active {
   display: block;
 }
 
-/* ======================
-   WHAT I DO (REDISEÑO PRO)
-====================== */
+/* ================= SERVICIOS (NUEVO DISEÑO) ================= */
 .services {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  display: flex;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 .service {
-  background: linear-gradient(145deg,#1c1c1c,#111);
-  padding: 25px;
+  flex: 1;
+  min-width: 200px;
+  padding: 30px;
   border-radius: 20px;
-  text-align: center;
 
+  background: linear-gradient(145deg,#111,#1c1c1c);
   position: relative;
   overflow: hidden;
 
-  transition: all 0.4s ease;
-}
-
-.service::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at top,#6c63ff33,#ff4ecd11,transparent);
-  opacity: 0;
   transition: 0.4s;
 }
 
 .service:hover {
-  transform: translateY(-10px) scale(1.02);
+  transform: translateY(-10px);
 }
 
-.service:hover::before {
-  opacity: 1;
+.service::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at top,#6c63ff33,#ff4ecd11,transparent);
+  opacity:0;
+  transition:0.4s;
 }
 
-.service img {
-  width: 45px;
-  margin-bottom: 10px;
+.service:hover::after {
+  opacity:1;
 }
 
-/* ======================
-   PROYECTOS
-====================== */
+/* ================= PROYECTOS (RESTORED HORIZONTAL LOOK) ================= */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
@@ -207,11 +183,11 @@ section.visible {
   background: #1c1c1c;
   padding: 20px;
   border-radius: 16px;
-  transition: all 0.4s ease;
+  transition: 0.4s;
 }
 
 .card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-6px);
 }
 
 .project-img {
@@ -223,62 +199,67 @@ section.visible {
   background-position: center;
 }
 
-.project-title {
-  font-weight: 700;
-}
-
-.project-subtitle {
-  font-size: 14px;
-  color: #aaa;
-}
-
-/* BOTONES ARREGLADOS */
+/* ================= BOTONES ================= */
 button {
   margin-top: 10px;
   padding: 10px 18px;
-  border: none;
   border-radius: 999px;
+  border: none;
   background: linear-gradient(90deg,#ff4ecd,#6c63ff);
   color: white;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: 0.3s;
 }
 
 button:hover {
   transform: scale(1.08);
 }
 
-/* ======================
-   CONTACTO
-====================== */
+/* ================= CONTACT ================= */
 .contact-item {
   display: flex;
-  align-items: center;
   gap: 10px;
   margin: 10px 0;
 }
 
-.contact-item img {
-  width: 20px;
-}
-
-/* ======================
-   FOOTER
-====================== */
+/* ================= FOOTER CREATIVO ================= */
 footer {
+  padding: 80px 20px;
   text-align: center;
-  padding: 50px;
-  color: #777;
+  background: radial-gradient(circle at top,#1c1c1c,#0f0f0f);
+  position: relative;
+  overflow: hidden;
 }
 
-/* ======================
-   SCROLL REVEAL
-====================== */
+footer::before {
+  content:"";
+  position:absolute;
+  width:300px;
+  height:300px;
+  background:#6c63ff;
+  filter:blur(120px);
+  top:-100px;
+  left:50%;
+  transform:translateX(-50%);
+  opacity:0.4;
+}
+
+footer h3 {
+  font-size: 22px;
+  letter-spacing: 2px;
+}
+
+footer p {
+  color:#888;
+  font-size:14px;
+}
 
 </style>
 </head>
 
 <body>
+
+<div class="cursor"></div>
 
 <header>
 <video autoplay muted loop playsinline>
@@ -287,7 +268,7 @@ footer {
 
 <div class="content">
 <h1>NEEERGRAPHS</h1>
-<p>Diseño gráfico • Motion • Creatividad digital</p>
+<p>Diseño • Motion • Creatividad digital</p>
 </div>
 </header>
 
@@ -301,9 +282,10 @@ footer {
 
 <h2>Sobre mí</h2>
 
-<p>Creativa visual enfocada en branding, vídeo y diseño digital con enfoque emocional.</p>
+<p>Creativa visual enfocada en branding, vídeo y diseño emocional.</p>
 
 <div class="tabs">
+
 <div class="tab-buttons">
 <button class="active" onclick="showTab('skills')">Skills</button>
 <button onclick="showTab('exp')">Experiencia</button>
@@ -319,6 +301,7 @@ footer {
 </div>
 
 </div>
+
 </div>
 
 </section>
@@ -328,20 +311,9 @@ footer {
 
 <div class="services">
 
-<div class="service">
-<img src="video.png">
-<p>Edición de vídeo</p>
-</div>
-
-<div class="service">
-<img src="vector.png">
-<p>Diseño gráfico</p>
-</div>
-
-<div class="service">
-<img src="rrss.png">
-<p>Contenido RRSS</p>
-</div>
+<div class="service">Dirección creativa</div>
+<div class="service">Motion design</div>
+<div class="service">Branding visual</div>
 
 </div>
 </section>
@@ -353,81 +325,43 @@ footer {
 
 <div class="card">
 <div class="project-img" style="background-image:url('destacada-magnum-final.png')"></div>
-<div class="project-title">Magnum</div>
-<div class="project-subtitle">Campaña conceptual</div>
+<h3>Magnum</h3>
+<p>Campaña conceptual</p>
 <a href="proyecto-magnum.html"><button>Ver proyecto</button></a>
 </div>
 
 <div class="card">
-<div class="project-img"></div>
-<div class="project-title">Dolce Vita</div>
-<div class="project-subtitle">Branding</div>
-<button>Ver proyecto</button>
-</div>
-
-<div class="card">
-<div class="project-img"></div>
-<div class="project-title">Home 3D</div>
-<div class="project-subtitle">Motion design</div>
-<button>Ver proyecto</button>
-</div>
-
-<div class="card">
 <div class="project-img" style="background-image:url('destacadas-superboy.png')"></div>
-<div class="project-title">Superboy</div>
-<div class="project-subtitle">VFX + After Effects</div>
+<h3>Superboy</h3>
+<p>VFX + AE</p>
 <a href="proyecto-superboy.html"><button>Ver proyecto</button></a>
 </div>
 
 </div>
 </section>
 
-<section>
-<h2>Contacto</h2>
-
-<div class="card">
-
-<div class="contact-item">
-<img src="llamar.png"> 653607909
-</div>
-
-<div class="contact-item">
-<img src="correo.png"> email
-</div>
-
-<div class="contact-item">
-<img src="mapa.png"> Madrid
-</div>
-
-</div>
-</section>
-
 <footer>
-© 2026 Neeergraphs
+<h3>NEEERGRAPHS STUDIO</h3>
+<p>Diseño visual · Motion · Experiencias digitales</p>
 </footer>
 
 <script>
 
-// TABS
+/* cursor glow */
+const cursor = document.querySelector('.cursor');
+
+document.addEventListener('mousemove', e=>{
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
+
+/* tabs */
 function showTab(id){
   document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));
   document.querySelectorAll('.tab-buttons button').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   event.target.classList.add('active');
 }
-
-// SCROLL REVEAL (APPLE STYLE)
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add('visible');
-    }
-  });
-});
-
-document.querySelectorAll('section').forEach(s=>{
-  s.classList.add('visible');
-});
 
 </script>
 
