@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Fredoka:wght@500;600&family=Luckiest+Guy&display=swap" rel="stylesheet">
 
 <title>Neeergraphs</title>
 
@@ -17,20 +17,14 @@ body {
   color: white;
 }
 
-h1, h2 {
-  font-family: 'Fredoka', sans-serif;
-  background: linear-gradient(270deg,#ff4ecd,#6c63ff,#00d4ff,#ff4ecd);
-  background-size: 800% 800%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientMove 8s ease infinite;
-}
-
-/* HEADER */
+/* ===== NUEVO HEADER PRO ===== */
 header {
-  padding: 100px 20px;
-  text-align: center;
+  height: 80vh;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 header video {
@@ -43,37 +37,99 @@ header video {
   left: 0;
 }
 
-header .content {
-  position: relative;
+header::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(to bottom, transparent 60%, #0f0f0f);
 }
 
-/* SECCIONES */
+header .content {
+  position: relative;
+  text-align: center;
+}
+
+/* TITULO LETRAS ANIMADAS */
+.hero-title {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 70px;
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+
+.hero-title span {
+  display: inline-block;
+  animation: floatLetter 3s ease-in-out infinite;
+}
+
+.hero-title span:nth-child(2){animation-delay:0.2s;}
+.hero-title span:nth-child(3){animation-delay:0.4s;}
+.hero-title span:nth-child(4){animation-delay:0.6s;}
+.hero-title span:nth-child(5){animation-delay:0.8s;}
+.hero-title span:nth-child(6){animation-delay:1s;}
+.hero-title span:nth-child(7){animation-delay:1.2s;}
+.hero-title span:nth-child(8){animation-delay:1.4s;}
+.hero-title span:nth-child(9){animation-delay:1.6s;}
+.hero-title span:nth-child(10){animation-delay:1.8s;}
+.hero-title span:nth-child(11){animation-delay:2s;}
+
+@keyframes floatLetter {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+/* SUBTEXTO */
+.hero-sub {
+  margin-top: 15px;
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+/* ===== SECCIONES ===== */
 section {
   padding: 80px 20px;
   max-width: 1000px;
   margin: auto;
 }
 
-/* ABOUT */
+/* ===== ABOUT NUEVO ===== */
 .about-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 40px;
-  flex-wrap: wrap;
-  align-items: center;
+}
+
+@media(min-width:768px){
+  .about-container {
+    grid-template-columns: 200px 1fr;
+    align-items: center;
+  }
 }
 
 .profile {
   width: 180px;
   height: 180px;
-  border-radius: 50%;
+  border-radius: 20px;
   object-fit: cover;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .about-text {
-  max-width: 500px;
+  width: 100%;
 }
 
-/* TABS */
+.about-text h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.about-text p {
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+/* TABS MÁS PRO */
 .tabs {
   margin-top: 25px;
 }
@@ -81,16 +137,17 @@ section {
 .tab-buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
 }
 
 .tab-buttons button {
-  background: #2a2a2a;
+  background: #1c1c1c;
   border: none;
-  padding: 8px 14px;
+  padding: 10px 16px;
   border-radius: 999px;
   cursor: pointer;
   color: white;
+  transition: 0.3s;
 }
 
 .tab-buttons button.active {
@@ -98,15 +155,19 @@ section {
 }
 
 .tab-content {
-  margin-top: 15px;
+  margin-top: 20px;
   display: none;
+  background: #1a1a1a;
+  padding: 15px;
+  border-radius: 12px;
 }
 
 .tab-content.active {
   display: block;
 }
 
-/* SERVICIOS */
+/* ===== RESTO IGUAL ===== */
+
 .services {
   display: grid;
   gap: 20px;
@@ -135,7 +196,6 @@ section {
   margin-bottom: 10px;
 }
 
-/* PROYECTOS */
 .grid {
   display: grid;
   gap: 20px;
@@ -178,7 +238,6 @@ section {
   margin-bottom: 10px;
 }
 
-/* BOTONES */
 button {
   padding: 10px 18px;
   border: none;
@@ -192,7 +251,6 @@ button:hover {
   transform: scale(1.05);
 }
 
-/* CONTACTO */
 .contact-item {
   display: flex;
   align-items: center;
@@ -204,18 +262,10 @@ button:hover {
   width: 20px;
 }
 
-/* FOOTER */
 footer {
   text-align: center;
   padding: 40px;
   color: #888;
-}
-
-/* ANIMACIÓN */
-@keyframes gradientMove {
-  0% {background-position:0% 50%;}
-  50% {background-position:100% 50%;}
-  100% {background-position:0% 50%;}
 }
 
 </style>
@@ -223,6 +273,7 @@ footer {
 
 <body>
 
+<!-- HEADER NUEVO -->
 <header>
 
 <video autoplay muted loop playsinline>
@@ -230,13 +281,20 @@ footer {
 </video>
 
 <div class="content">
-<h1>NEEERGRAPHS</h1>
-<p>Edición de vídeo • Diseño gráfico</p>
-<p>Contenido creativo para RRSS</p>
+
+<div class="hero-title">
+<span>N</span><span>E</span><span>E</span><span>E</span><span>R</span><span>G</span><span>R</span><span>A</span><span>P</span><span>H</span><span>S</span>
+</div>
+
+<div class="hero-sub">
+Edición de vídeo • Diseño gráfico • Contenido creativo para RRSS
+</div>
+
 </div>
 
 </header>
 
+<!-- ABOUT NUEVO -->
 <section>
 
 <div class="about-container">
@@ -248,10 +306,12 @@ footer {
 <h2>Sobre mí</h2>
 
 <p>
-Soy creadora visual enfocada en contenido digital y redes sociales.
+Soy creadora visual enfocada en contenido digital, edición de vídeo y diseño gráfico. 
+Me especializo en construir piezas visuales con identidad, coherencia estética y enfoque estratégico para marcas.
 </p>
 
 <div class="tabs">
+
 <div class="tab-buttons">
 <button class="active" onclick="showTab('skills')">Skills</button>
 <button onclick="showTab('experiencia')">Experiencia</button>
@@ -259,10 +319,29 @@ Soy creadora visual enfocada en contenido digital y redes sociales.
 <button onclick="showTab('certificaciones')">Certificaciones</button>
 </div>
 
-<div id="skills" class="tab-content active">Herramientas Adobe, IA, RRSS</div>
-<div id="experiencia" class="tab-content">Ádraba, Lunaro, Jastag</div>
-<div id="estudios" class="tab-content">CEI + Marketing</div>
-<div id="certificaciones" class="tab-content">Google, Hubspot, AI</div>
+<div id="skills" class="tab-content active">
+Adobe Photoshop, Illustrator, InDesign, Premiere, After Effects<br><br>
+IA Tools: ChatGPT, Sora, Gemini<br><br>
+RRSS & CMS: Meta Business, Metricool, Wordpress, Shopify
+</div>
+
+<div id="experiencia" class="tab-content">
+Diseñadora gráfica y Community Manager - Ádraba<br><br>
+Community Manager - Lunaro Solutions<br><br>
+Diseño y comunicación digital - Jastag
+</div>
+
+<div id="estudios" class="tab-content">
+CEI - Motion Graphics, VFX y Dirección de arte<br><br>
+CEI - Diseño gráfico y marketing digital<br><br>
+IES Clara del Rey - Marketing y Publicidad
+</div>
+
+<div id="certificaciones" class="tab-content">
+Elements of AI - University of Helsinki<br><br>
+Hubspot Academy - Inbound Marketing<br><br>
+Google Actívate - Marketing Digital
+</div>
 
 </div>
 
@@ -271,6 +350,8 @@ Soy creadora visual enfocada en contenido digital y redes sociales.
 </div>
 
 </section>
+
+<!-- TODO LO DEMÁS EXACTAMENTE IGUAL -->
 
 <!-- SERVICIOS -->
 <section>
@@ -365,7 +446,6 @@ Soy creadora visual enfocada en contenido digital y redes sociales.
 </footer>
 
 <script>
-
 function showTab(tabId){
   document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
   document.querySelectorAll('.tab-buttons button').forEach(btn=>btn.classList.remove('active'));
@@ -373,7 +453,6 @@ function showTab(tabId){
   document.getElementById(tabId).classList.add('active');
   event.target.classList.add('active');
 }
-
 </script>
 
 </body>
