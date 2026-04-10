@@ -22,22 +22,11 @@
     html{scroll-behavior:smooth}
     body{background:var(--bg);color:var(--ink);font-family:'Poppins',sans-serif;font-weight:300;overflow-x:hidden}
 
-    /* ── CANVAS 3D fijo de fondo ── */
     #bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 
     /* ── NAV ── */
-    .nav{
-      position:fixed;top:0;left:0;right:0;z-index:1000;
-      display:flex;justify-content:space-between;align-items:center;
-      padding:18px 48px;
-      background:rgba(6,6,15,0.65);backdrop-filter:blur(20px);
-      border-bottom:1px solid var(--bdrW);
-    }
-    .nav-logo{
-      font-family:'Fredoka',sans-serif;font-size:20px;font-weight:700;
-      background:linear-gradient(90deg,var(--blue),var(--pink));
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;
-    }
+    .nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:18px 48px;background:rgba(6,6,15,0.65);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdrW)}
+    .nav-logo{font-family:'Fredoka',sans-serif;font-size:20px;font-weight:700;background:linear-gradient(90deg,var(--blue),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;cursor:pointer;text-decoration:none}
     .nav-links{display:flex;gap:28px;list-style:none}
     .nav-links a{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
     .nav-links a:hover{color:var(--blue2)}
@@ -49,42 +38,86 @@
     .ctrail{position:fixed;border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);animation:tfade .5s ease forwards}
     @keyframes tfade{0%{opacity:.55;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(.1)}}
 
-    /* ── HERO ── */
-    .hero{
-      position:relative;min-height:100svh;
-      display:flex;flex-direction:column;align-items:center;justify-content:center;
-      padding-top:72px;text-align:center;z-index:1;overflow:hidden;
+    /* ── BACK TO TOP ── */
+    #back-top{
+      position:fixed;bottom:32px;right:32px;z-index:900;
+      width:46px;height:46px;border-radius:50%;
+      background:rgba(79,140,255,0.12);
+      border:1px solid var(--bdr);
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;
+      opacity:0;pointer-events:none;
+      transition:opacity .3s,transform .3s,background .25s;
+      box-shadow:0 0 18px rgba(79,140,255,.18);
     }
+    #back-top.show{opacity:1;pointer-events:auto}
+    #back-top:hover{background:rgba(79,140,255,.22);transform:translateY(-3px)}
+    #back-top svg{width:18px;height:18px}
+
+    /* ── HERO ── */
+    .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:72px;text-align:center;z-index:1;overflow:hidden}
     .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.1;z-index:1;pointer-events:none}
     .hero-overlay{position:absolute;inset:0;z-index:2;background:radial-gradient(ellipse 90% 90% at 50% 50%,rgba(6,6,15,.4) 0%,rgba(6,6,15,.88) 100%)}
-    .hero-body{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;gap:22px;padding:40px 20px}
+    .hero-body{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;gap:24px;padding:40px 20px}
 
-    /* Avatar con anillo giratorio */
-    .avatar-ring{position:relative;width:110px;height:110px;flex-shrink:0}
-    .avatar-ring svg{position:absolute;inset:-8px;width:calc(100%+16px);height:calc(100%+16px);animation:spin 8s linear infinite}
+    /* Foto grande con efecto de clip + glow lateral */
+    .hero-photo-wrap{
+      position:relative;
+      width:140px;height:140px;
+    }
+    .hero-photo-wrap::before{
+      content:'';
+      position:absolute;inset:-3px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--blue),var(--pink));
+      z-index:0;
+      animation:spin 6s linear infinite;
+    }
+    .hero-photo-wrap::after{
+      content:'';
+      position:absolute;inset:0;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(79,140,255,.35) 0%,transparent 70%);
+      z-index:0;
+      animation:orbf 4s ease-in-out infinite;
+    }
     @keyframes spin{to{transform:rotate(360deg)}}
-    .hero-avatar{width:110px;height:110px;border-radius:50%;object-fit:cover;border:2px solid rgba(79,140,255,.35);box-shadow:0 0 0 6px rgba(79,140,255,.07),0 0 40px rgba(79,140,255,.25);display:block}
+    @keyframes orbf{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
 
+    .hero-avatar{
+      position:relative;z-index:1;
+      width:136px;height:136px;
+      border-radius:50%;
+      object-fit:cover;object-position:top center;
+      border:3px solid var(--bg);
+      display:block;
+      mix-blend-mode:lighten;
+      filter:brightness(1.1) contrast(1.05);
+    }
+
+    /* Título — NEEER normal, GRAPHS con efecto glitch+outline */
     .hero-title{font-family:'Fredoka',sans-serif;font-size:clamp(58px,13vw,155px);font-weight:700;line-height:.9;letter-spacing:-2px}
     .hero-title .l1{display:block;color:var(--ink);animation:slideUp .9s cubic-bezier(.16,1,.3,1) both}
-    .hero-title .l2{display:block;-webkit-text-stroke:2.5px var(--blue);color:transparent;animation:slideUp .9s cubic-bezier(.16,1,.3,1) .12s both}
-    @keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
 
-    .hero-desc{font-size:clamp(13px,1.6vw,16px);color:var(--muted);max-width:460px;line-height:1.7;animation:slideUp .9s cubic-bezier(.16,1,.3,1) .25s both}
-
-    .btn-primary{
-      font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;
-      padding:14px 36px;border-radius:999px;
-      background:linear-gradient(135deg,var(--blue),var(--pink));
-      color:#fff;border:none;cursor:pointer;
-      box-shadow:0 4px 28px rgba(79,140,255,.35);
-      transition:transform .2s,box-shadow .2s;
-      animation:slideUp .9s cubic-bezier(.16,1,.3,1) .38s both;
-      display:inline-block;
+    /* GRAPHS — letras separadas con gradiente y sombra neón */
+    .hero-title .l2{
+      display:block;
+      background:linear-gradient(90deg,var(--blue) 0%,var(--pink) 60%,var(--blue2) 100%);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      filter:drop-shadow(0 0 18px rgba(79,140,255,.5)) drop-shadow(0 0 40px rgba(192,132,252,.3));
+      animation:slideUp .9s cubic-bezier(.16,1,.3,1) .12s both, neonPulse 3s ease-in-out infinite .9s;
     }
+    @keyframes neonPulse{
+      0%,100%{filter:drop-shadow(0 0 14px rgba(79,140,255,.45)) drop-shadow(0 0 32px rgba(192,132,252,.25))}
+      50%    {filter:drop-shadow(0 0 28px rgba(79,140,255,.8))  drop-shadow(0 0 60px rgba(192,132,252,.55))}
+    }
+
+    @keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+    .hero-desc{font-size:clamp(13px,1.6vw,16px);color:var(--muted);max-width:460px;line-height:1.7;animation:slideUp .9s cubic-bezier(.16,1,.3,1) .25s both}
+    .btn-primary{font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;padding:14px 36px;border-radius:999px;background:linear-gradient(135deg,var(--blue),var(--pink));color:#fff;border:none;cursor:pointer;box-shadow:0 4px 28px rgba(79,140,255,.35);transition:transform .2s,box-shadow .2s;animation:slideUp .9s cubic-bezier(.16,1,.3,1) .38s both;display:inline-block}
     .btn-primary:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 8px 40px rgba(79,140,255,.55)}
 
-    /* Indicador de scroll */
     .scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:6px;animation:fadeInUp 1s 1s both}
     .scroll-hint span{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
     .scroll-line{width:1px;height:40px;background:linear-gradient(180deg,var(--blue),transparent);animation:scrollPulse 2s ease-in-out infinite}
@@ -101,12 +134,10 @@
     /* ── SECCIONES ── */
     .sw{max-width:1080px;margin:0 auto;padding:90px 40px;position:relative;z-index:1}
     @media(max-width:640px){.sw{padding:60px 20px}}
-
     .s-eyebrow{display:flex;align-items:center;gap:12px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
     .s-eyebrow::after{content:'';flex:1;height:1px;background:var(--bdr)}
     .s-title{font-family:'Fredoka',sans-serif;font-size:clamp(28px,4.5vw,52px);font-weight:700;color:var(--ink);margin-bottom:40px;line-height:1.1}
 
-    /* Reveal on scroll */
     .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
     .reveal.visible{opacity:1;transform:none}
 
@@ -130,6 +161,8 @@
     .p-tags{display:flex;flex-wrap:wrap;gap:7px}
     .p-tag{font-size:11px;padding:4px 11px;border-radius:999px;border:1px solid var(--bdrW);color:var(--muted)}
     .p-tag.lit{border-color:rgba(79,140,255,.35);color:var(--blue2);background:rgba(79,140,255,.06)}
+    .p-tag.pink{border-color:rgba(192,132,252,.35);color:var(--pink);background:rgba(192,132,252,.06)}
+
     .p-exp{padding:10px 0;border-bottom:1px solid var(--bdrW)}
     .p-exp:last-child{border-bottom:none}
     .p-exp-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:2px}
@@ -137,11 +170,13 @@
     .p-exp-date{font-size:10px;color:var(--muted);background:var(--bdrW);padding:2px 8px;border-radius:999px;white-space:nowrap}
     .p-exp-role{font-size:11px;color:var(--blue2);font-style:italic;margin-bottom:3px}
     .p-exp-desc{font-size:11px;color:var(--muted);line-height:1.6}
+
     .p-edu{display:flex;gap:14px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--bdrW)}
     .p-edu:last-child{border-bottom:none}
-    .p-edu-y{font-family:'Fredoka',sans-serif;font-size:22px;font-weight:700;color:var(--blue);min-width:42px;line-height:1}
+    .p-edu-y{font-family:'Fredoka',sans-serif;font-size:20px;font-weight:700;color:var(--blue);min-width:46px;line-height:1.1;white-space:nowrap}
     .p-edu-t{font-size:12px;color:var(--ink);margin-bottom:2px;line-height:1.4}
     .p-edu-p{font-size:11px;color:var(--muted)}
+
     .p-certs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     @media(max-width:500px){.p-certs{grid-template-columns:1fr}}
     .p-cert{padding:12px 14px;border:1px solid var(--bdrW);border-radius:10px;background:rgba(79,140,255,.03);transition:border-color .2s}
@@ -150,29 +185,16 @@
     .p-cert-n{font-size:12px;color:var(--ink);margin-bottom:2px}
     .p-cert-e{font-size:11px;color:var(--muted)}
 
-    /* ── SERVICIOS ── */
+    /* ── SERVICIOS — 6 cards, 3 cols ── */
     .services{display:grid;gap:14px}
-    @media(min-width:768px){.services{grid-template-columns:repeat(3,1fr)}}
-    .service{
-      background:var(--bg2);border:1px solid var(--bdrW);border-radius:20px;
-      padding:36px 28px 30px;position:relative;overflow:hidden;
-      transition:border-color .35s,transform .35s;
-    }
+    @media(min-width:600px){.services{grid-template-columns:repeat(2,1fr)}}
+    @media(min-width:900px){.services{grid-template-columns:repeat(3,1fr)}}
+
+    .service{background:var(--bg2);border:1px solid var(--bdrW);border-radius:20px;padding:36px 28px 30px;position:relative;overflow:hidden;transition:border-color .35s,transform .35s}
     .service:hover{border-color:var(--bdr);transform:translateY(-6px)}
-    .service::before{
-      content:'';position:absolute;width:180px;height:180px;border-radius:50%;
-      top:-55px;left:50%;transform:translateX(-50%) scale(.4);
-      opacity:0;pointer-events:none;
-      background:radial-gradient(circle,var(--glow) 0%,transparent 70%);
-      transition:opacity .45s,transform .55s;
-    }
+    .service::before{content:'';position:absolute;width:180px;height:180px;border-radius:50%;top:-55px;left:50%;transform:translateX(-50%) scale(.4);opacity:0;pointer-events:none;background:radial-gradient(circle,var(--glow) 0%,transparent 70%);transition:opacity .45s,transform .55s}
     .service:hover::before{opacity:1;transform:translateX(-50%) scale(1.5)}
-    /* Shimmer sweep on hover */
-    .service::after{
-      content:'';position:absolute;inset:0;
-      background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.04) 50%,transparent 70%);
-      transform:translateX(-100%);transition:transform .5s ease;
-    }
+    .service::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.04) 50%,transparent 70%);transform:translateX(-100%);transition:transform .5s ease}
     .service:hover::after{transform:translateX(100%)}
     .service-num{position:absolute;top:14px;right:18px;font-family:'Fredoka',sans-serif;font-size:80px;font-weight:700;color:var(--blue);opacity:.05;line-height:1;pointer-events:none}
     .service-icon-wrap{width:52px;height:52px;border-radius:14px;border:1px solid var(--bdrW);background:rgba(79,140,255,.05);display:flex;align-items:center;justify-content:center;margin-bottom:20px;transition:border-color .3s,background .3s}
@@ -180,6 +202,7 @@
     .service-icon-wrap img{width:28px}
     .service h3{font-family:'Fredoka',sans-serif;font-size:22px;font-weight:600;color:var(--ink);margin-bottom:10px}
     .service p{font-size:12px;color:var(--muted);line-height:1.7}
+    .service-badge{display:inline-block;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border-radius:999px;border:1px solid rgba(192,132,252,.3);color:var(--pink);background:rgba(192,132,252,.06);margin-top:10px}
     .service-line{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:0;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--blue),var(--pink));transition:width .4s}
     .service:hover .service-line{width:75%}
 
@@ -231,9 +254,22 @@
 <canvas id="bg-canvas"></canvas>
 <div id="cur"></div>
 
+<!-- BACK TO TOP -->
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Volver arriba">
+  <svg viewBox="0 0 24 24" fill="none" stroke="url(#bArrow)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <defs>
+      <linearGradient id="bArrow" x1="0" y1="24" x2="24" y2="0" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#4f8cff"/>
+        <stop offset="1" stop-color="#c084fc"/>
+      </linearGradient>
+    </defs>
+    <polyline points="18 15 12 9 6 15"/>
+  </svg>
+</button>
+
 <!-- NAV -->
 <nav class="nav">
-  <span class="nav-logo">NEEERGRAPHS</span>
+  <a class="nav-logo" href="#hero">NEEERGRAPHS</a>
   <ul class="nav-links">
     <li><a href="#sobre">Sobre mí</a></li>
     <li><a href="#servicios">Servicios</a></li>
@@ -243,21 +279,12 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="hero">
   <video autoplay muted loop playsinline><source src="background-nerea.mp4"></video>
   <div class="hero-overlay"></div>
   <div class="hero-body">
-    <div class="avatar-ring">
+    <div class="hero-photo-wrap">
       <img src="nerea.ramirez.png" class="hero-avatar" alt="Nerea Ramírez">
-      <svg viewBox="0 0 126 126" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="63" cy="63" r="60" stroke="url(#rg)" stroke-width="1.5" stroke-dasharray="8 6"/>
-        <defs>
-          <linearGradient id="rg" x1="0" y1="0" x2="126" y2="126" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#4f8cff"/>
-            <stop offset="1" stop-color="#c084fc"/>
-          </linearGradient>
-        </defs>
-      </svg>
     </div>
     <h1 class="hero-title">
       <span class="l1">NEEER</span>
@@ -282,6 +309,8 @@
     <span>DIRECCIÓN DE ARTE</span><span class="dot">◆</span>
     <span>IA GENERATIVA</span><span class="dot">◆</span>
     <span>POSTPRODUCCIÓN</span><span class="dot">◆</span>
+    <span>GRABACIÓN IN SITU</span><span class="dot">◆</span>
+    <span>DISEÑO 3D</span><span class="dot">◆</span>
     <span>EDICIÓN DE VÍDEO</span><span class="dot">◆</span>
     <span>DISEÑO GRÁFICO</span><span class="dot">◆</span>
     <span>MOTION GRAPHICS</span><span class="dot">◆</span>
@@ -289,6 +318,8 @@
     <span>DIRECCIÓN DE ARTE</span><span class="dot">◆</span>
     <span>IA GENERATIVA</span><span class="dot">◆</span>
     <span>POSTPRODUCCIÓN</span><span class="dot">◆</span>
+    <span>GRABACIÓN IN SITU</span><span class="dot">◆</span>
+    <span>DISEÑO 3D</span><span class="dot">◆</span>
   </div>
 </div>
 
@@ -304,8 +335,6 @@
     <span class="aq-chip">InDesign</span>
     <span class="aq-chip alt">ChatGPT · Sora · Gemini</span>
     <span class="aq-chip alt">Wordpress · Shopify</span>
-    <span class="aq-chip">Español nativo · Inglés B1</span>
-    <span class="aq-chip">Madrid · Vehículo propio</span>
   </div>
   <div class="about-tabs">
     <button class="at-btn active" onclick="showAt('exp',this)">Experiencia</button>
@@ -331,9 +360,18 @@
     </div>
   </div>
   <div class="about-panel" id="at-edu">
-    <div class="p-edu"><div class="p-edu-y">25</div><div><div class="p-edu-t">Máster Motion Graphics, VFX, Diseño 3D, 4D y Dirección de arte</div><div class="p-edu-p">CEI</div></div></div>
-    <div class="p-edu"><div class="p-edu-y">23</div><div><div class="p-edu-t">Máster Diseño Gráfico, Diseño web y Marketing Digital</div><div class="p-edu-p">CEI</div></div></div>
-    <div class="p-edu"><div class="p-edu-y">21</div><div><div class="p-edu-t">Grado Superior en Marketing y Publicidad</div><div class="p-edu-p">IES Clara del Rey</div></div></div>
+    <div class="p-edu">
+      <div class="p-edu-y">2025</div>
+      <div><div class="p-edu-t">Máster Motion Graphics, VFX, Diseño 3D, 4D y Dirección de arte</div><div class="p-edu-p">CEI</div></div>
+    </div>
+    <div class="p-edu">
+      <div class="p-edu-y">2023</div>
+      <div><div class="p-edu-t">Máster Diseño Gráfico, Diseño web y Marketing Digital</div><div class="p-edu-p">CEI</div></div>
+    </div>
+    <div class="p-edu">
+      <div class="p-edu-y">2021</div>
+      <div><div class="p-edu-t">Grado Superior en Marketing y Publicidad</div><div class="p-edu-p">IES Clara del Rey</div></div>
+    </div>
   </div>
   <div class="about-panel" id="at-cert">
     <div class="p-certs">
@@ -347,10 +385,21 @@
     <div class="p-tags">
       <span class="p-tag lit">Diseño gráfico</span>
       <span class="p-tag lit">Dirección de arte</span>
-      <span class="p-tag lit">Producción visual e IA</span>
-      <span class="p-tag lit">Postproducción</span>
       <span class="p-tag lit">Motion graphics</span>
+      <span class="p-tag lit">Postproducción</span>
+      <span class="p-tag lit">Producción visual</span>
+      <span class="p-tag lit">IA generativa</span>
       <span class="p-tag lit">Gestión RRSS</span>
+      <span class="p-tag lit">Grabación in situ</span>
+      <span class="p-tag lit">Vídeo corporativo</span>
+      <span class="p-tag lit">Edición de vídeo</span>
+      <span class="p-tag lit">Diseño 3D</span>
+      <span class="p-tag pink">Fotografía</span>
+      <span class="p-tag pink">Identidad de marca</span>
+      <span class="p-tag pink">Storytelling visual</span>
+      <span class="p-tag pink">Social media strategy</span>
+      <span class="p-tag pink">Campañas digitales</span>
+      <span class="p-tag pink">Retoque fotográfico</span>
     </div>
   </div>
 </div>
@@ -360,6 +409,7 @@
   <div class="s-eyebrow">Servicios</div>
   <h2 class="s-title">Qué puedo hacer</h2>
   <div class="services">
+
     <div class="service reveal">
       <span class="service-num">01</span>
       <div class="service-icon-wrap"><img src="video.png"></div>
@@ -367,27 +417,55 @@
       <p>Narrativa visual, ritmo y emoción en cada corte. Premiere, After Effects, Cap Cut.</p>
       <div class="service-line"></div>
     </div>
-    <div class="service reveal" style="transition-delay:.12s">
+
+    <div class="service reveal" style="transition-delay:.1s">
       <span class="service-num">02</span>
       <div class="service-icon-wrap"><img src="vector.png"></div>
       <h3>Diseño gráfico</h3>
       <p>Identidad visual que comunica sin palabras. Photoshop, Illustrator, InDesign.</p>
       <div class="service-line"></div>
     </div>
-    <div class="service reveal" style="transition-delay:.24s">
+
+    <div class="service reveal" style="transition-delay:.2s">
       <span class="service-num">03</span>
       <div class="service-icon-wrap"><img src="rrss.png"></div>
       <h3>Contenido RRSS</h3>
       <p>Piezas pensadas para enganchar, retener y crecer. Estrategia, diseño y publicación.</p>
       <div class="service-line"></div>
     </div>
+
+    <div class="service reveal" style="transition-delay:.3s">
+      <span class="service-num">04</span>
+      <div class="service-icon-wrap"><img src="grabacion.png"></div>
+      <h3>Grabación</h3>
+      <p>Presencia in situ para capturar el momento real. Eventos, corporativo, producto y contenido auténtico.</p>
+      <div class="service-line"></div>
+    </div>
+
+    <div class="service reveal" style="transition-delay:.4s">
+      <span class="service-num">05</span>
+      <div class="service-icon-wrap"><img src="motion-graphics.png"></div>
+      <h3>Motion Graphics</h3>
+      <p>Animaciones 2D, intros, transitions y efectos visuales que dan vida a cualquier pieza audiovisual.</p>
+      <div class="service-line"></div>
+    </div>
+
+    <div class="service reveal" style="transition-delay:.5s">
+      <span class="service-num">06</span>
+      <div class="service-icon-wrap"><img src="3d.png"></div>
+      <h3>Diseño 3D</h3>
+      <p>Modelado, render y animación 3D. Actualmente en proceso de aprendizaje y evolución continua.</p>
+      <span class="service-badge">En aprendizaje</span>
+      <div class="service-line"></div>
+    </div>
+
   </div>
 </div>
 
 <!-- PROYECTOS -->
 <div class="sw reveal" id="proyectos" style="padding-top:0">
   <div class="s-eyebrow">Proyectos</div>
-  <h2 class="s-title">Proyectos seleccionados</h2>
+  <h2 class="s-title">Trabajos recientes</h2>
   <div class="grid">
     <div class="card reveal">
       <div class="project-img" style="background-image:url('destacada-magnum-final.png')"></div>
@@ -472,209 +550,330 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 /* ================================================================
-   THREE.JS — Fondo 3D con partículas, geometrías orbitando y líneas
+   THREE.JS — Fondo 3D con herramientas de diseño wireframe
 ================================================================ */
 (function(){
   const canvas = document.getElementById('bg-canvas');
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setClearColor(0x000000, 0);
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setClearColor(0x000000,0);
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(60, innerWidth/innerHeight, 0.1, 200);
   camera.position.z = 28;
 
   function resize(){
-    renderer.setSize(innerWidth, innerHeight);
+    renderer.setSize(innerWidth,innerHeight);
     camera.aspect = innerWidth/innerHeight;
     camera.updateProjectionMatrix();
   }
   resize();
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize',resize);
 
-  /* ── Paleta ── */
-  const C_BLUE = new THREE.Color(0x4f8cff);
-  const C_PINK = new THREE.Color(0xc084fc);
+  const C_BLUE  = new THREE.Color(0x4f8cff);
+  const C_PINK  = new THREE.Color(0xc084fc);
   const C_WHITE = new THREE.Color(0xaabbff);
 
-  /* ── Campo de partículas ── */
+  /* ── Partículas ── */
   const pCount = 1800;
-  const pGeo = new THREE.BufferGeometry();
-  const pPos = new Float32Array(pCount * 3);
-  const pCol = new Float32Array(pCount * 3);
-  const pSpd = new Float32Array(pCount); // velocidad individual
+  const pGeo  = new THREE.BufferGeometry();
+  const pPos  = new Float32Array(pCount*3);
+  const pCol  = new Float32Array(pCount*3);
+  const pSpd  = new Float32Array(pCount);
   for(let i=0;i<pCount;i++){
-    pPos[i*3]   = (Math.random()-0.5)*120;
-    pPos[i*3+1] = (Math.random()-0.5)*80;
-    pPos[i*3+2] = (Math.random()-0.5)*60;
+    pPos[i*3]   = (Math.random()-.5)*120;
+    pPos[i*3+1] = (Math.random()-.5)*80;
+    pPos[i*3+2] = (Math.random()-.5)*60;
     const t = Math.random();
-    const c = t < 0.5 ? C_BLUE.clone().lerp(C_PINK, t*2) : C_PINK.clone().lerp(C_WHITE, (t-.5)*2);
+    const c = t<.5 ? C_BLUE.clone().lerp(C_PINK,t*2) : C_PINK.clone().lerp(C_WHITE,(t-.5)*2);
     pCol[i*3]=c.r; pCol[i*3+1]=c.g; pCol[i*3+2]=c.b;
-    pSpd[i] = 0.02 + Math.random()*0.06;
+    pSpd[i] = .02+Math.random()*.06;
   }
-  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos,3));
-  pGeo.setAttribute('color',    new THREE.BufferAttribute(pCol,3));
-  const pMat = new THREE.PointsMaterial({ size:0.18, vertexColors:true, transparent:true, opacity:0.7, sizeAttenuation:true });
-  const particles = new THREE.Points(pGeo, pMat);
+  pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  pGeo.setAttribute('color',   new THREE.BufferAttribute(pCol,3));
+  const pMat = new THREE.PointsMaterial({size:.18,vertexColors:true,transparent:true,opacity:.7,sizeAttenuation:true});
+  const particles = new THREE.Points(pGeo,pMat);
   scene.add(particles);
 
-  /* ── Geometrías flotantes ── */
-  const floaters = [];
-
-  function addFloater(geo, color, x, y, z, scale=1){
-    const mat = new THREE.MeshBasicMaterial({ color, wireframe:true, transparent:true, opacity:0.25 });
-    const mesh = new THREE.Mesh(geo, mat);
-    mesh.position.set(x,y,z);
-    mesh.scale.setScalar(scale);
-    mesh.userData = {
-      rx: (Math.random()-.5)*0.008,
-      ry: (Math.random()-.5)*0.012,
-      rz: (Math.random()-.5)*0.006,
-      floatAmp: 0.4 + Math.random()*0.8,
-      floatSpd: 0.4 + Math.random()*0.6,
-      floatOff: Math.random()*Math.PI*2,
-      baseY: y,
-    };
-    scene.add(mesh);
-    floaters.push(mesh);
-    return mesh;
+  /* ── Helper: material wireframe ── */
+  function wMat(col, opacity=0.28){
+    return new THREE.MeshBasicMaterial({color:col, wireframe:true, transparent:true, opacity});
+  }
+  function lMat(col, opacity=0.55){
+    return new THREE.LineBasicMaterial({color:col, transparent:true, opacity});
   }
 
-  // Icosaedros (gemas)
-  addFloater(new THREE.IcosahedronGeometry(2.4,0), 0x4f8cff, -18, 6, -8, 1);
-  addFloater(new THREE.IcosahedronGeometry(1.4,0), 0xc084fc,  16, -5, -6, 1);
-  addFloater(new THREE.IcosahedronGeometry(1,0),   0x7eb3ff,  -8, -9, -4, 1);
-  // Toroide
-  addFloater(new THREE.TorusGeometry(3, 0.5, 8, 32), 0x4f8cff, 14, 8, -12, 1);
-  addFloater(new THREE.TorusGeometry(1.6, 0.3, 6, 20), 0xc084fc, -14, -7, -5, 1);
-  // Octaedros
-  addFloater(new THREE.OctahedronGeometry(1.8,0), 0xaabbff, 6, 10, -10, 1);
-  addFloater(new THREE.OctahedronGeometry(1.1,0), 0xc084fc, -22, 3, -7, 1);
-  // Tetraedros
-  addFloater(new THREE.TetrahedronGeometry(2,0), 0x4f8cff, 22, -8, -9, 1);
-  addFloater(new THREE.TetrahedronGeometry(1.2,0), 0x7eb3ff, 0, 12, -15, 1);
+  /* ── Helper: puntos de una curva Bézier ── */
+  function bezierCurveObj(col){
+    const g = new THREE.Group();
+    const curve = new THREE.CubicBezierCurve3(
+      new THREE.Vector3(-2,0,0),
+      new THREE.Vector3(-1,2,0.5),
+      new THREE.Vector3(1,-2,-0.5),
+      new THREE.Vector3(2,0,0)
+    );
+    const pts = curve.getPoints(30);
+    const cGeo = new THREE.BufferGeometry().setFromPoints(pts);
+    g.add(new THREE.Line(cGeo, lMat(col)));
+    // Manejadores
+    const handles = [
+      [new THREE.Vector3(-2,0,0), new THREE.Vector3(-1,2,0.5)],
+      [new THREE.Vector3(2,0,0),  new THREE.Vector3(1,-2,-0.5)]
+    ];
+    handles.forEach(([a,b])=>{
+      const hGeo = new THREE.BufferGeometry().setFromPoints([a,b]);
+      g.add(new THREE.Line(hGeo, lMat(col, 0.3)));
+      // bolita en cada extremo
+      [a,b].forEach(p=>{
+        const s = new THREE.Mesh(new THREE.SphereGeometry(.12,6,6), wMat(col,0.6));
+        s.position.copy(p); g.add(s);
+      });
+    });
+    return g;
+  }
 
-  /* ── Líneas de conexión dinámicas ── */
-  const lineGeo = new THREE.BufferGeometry();
-  const linePositions = new Float32Array(floaters.length * floaters.length * 6);
-  lineGeo.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
-  const lineMat = new THREE.LineSegments(
-    lineGeo,
-    new THREE.LineBasicMaterial({ color:0x4f8cff, transparent:true, opacity:0.08 })
-  );
-  scene.add(lineMat);
+  /* ── Helper: keyframe rombo (After Effects) ── */
+  function keyframeObj(col, scale=1){
+    const g = new THREE.Group();
+    const s = scale;
+    const verts = new Float32Array([
+       0, s,0,  s,0,0,  0,-s,0, -s,0,0,  0,s,0,
+       0, s,0,  0,0,s,  0,-s,0,  0,0,-s, 0,s,0,
+       s, 0,0,  0,0,s, -s,0,0,   0,0,-s, s,0,0
+    ]);
+    const dGeo = new THREE.BufferGeometry();
+    dGeo.setAttribute('position', new THREE.BufferAttribute(verts,3));
+    g.add(new THREE.Line(dGeo, lMat(col, 0.7)));
+    return g;
+  }
 
-  /* ── Gran anillo central ── */
-  const ringGeo = new THREE.TorusGeometry(18, 0.06, 4, 120);
-  const ringMat = new THREE.MeshBasicMaterial({ color:0x4f8cff, transparent:true, opacity:0.08 });
-  const ring = new THREE.Mesh(ringGeo, ringMat);
-  ring.rotation.x = Math.PI/2.8;
-  scene.add(ring);
+  /* ── Helper: marcador de timeline (triángulo apuntando abajo) ── */
+  function timelineMarker(col){
+    const g = new THREE.Group();
+    const shape = new THREE.Shape();
+    shape.moveTo(-0.6,0); shape.lineTo(0.6,0); shape.lineTo(0,-1.1); shape.closePath();
+    const sGeo = new THREE.ShapeGeometry(shape);
+    g.add(new THREE.Mesh(sGeo, wMat(col,0.55)));
+    // Línea vertical
+    const lGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),new THREE.Vector3(0,1.6,0)]);
+    g.add(new THREE.Line(lGeo, lMat(col,0.4)));
+    return g;
+  }
 
-  const ring2Geo = new THREE.TorusGeometry(24, 0.04, 4, 120);
-  const ring2Mat = new THREE.MeshBasicMaterial({ color:0xc084fc, transparent:true, opacity:0.05 });
-  const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
-  ring2.rotation.x = Math.PI/3.5;
-  ring2.rotation.z = Math.PI/5;
-  scene.add(ring2);
+  /* ── Helper: punto de ancla (cuadrado) ── */
+  function anchorPoint(col){
+    const g = new THREE.Group();
+    const pts3d = [
+      new THREE.Vector3(-.5,.5,0), new THREE.Vector3(.5,.5,0),
+      new THREE.Vector3(.5,-.5,0), new THREE.Vector3(-.5,-.5,0),
+      new THREE.Vector3(-.5,.5,0)
+    ];
+    const aGeo = new THREE.BufferGeometry().setFromPoints(pts3d);
+    g.add(new THREE.Line(aGeo, lMat(col, 0.7)));
+    // Cruz central
+    const cPts = [new THREE.Vector3(-.3,0,0),new THREE.Vector3(.3,0,0)];
+    const cPts2 = [new THREE.Vector3(0,-.3,0),new THREE.Vector3(0,.3,0)];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(cPts), lMat(col,.5)));
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(cPts2), lMat(col,.5)));
+    return g;
+  }
 
-  /* ── Mouse parallax ── */
-  let mx=0, my=0, tmx=0, tmy=0;
-  document.addEventListener('mousemove', e=>{
-    mx = (e.clientX/innerWidth - 0.5)*2;
-    my = (e.clientY/innerHeight - 0.5)*2;
-  });
+  /* ── Helper: cursor pluma (Pen Tool) simplificado ── */
+  function penCursor(col){
+    const g = new THREE.Group();
+    // Cuerpo de la pluma
+    const body = [
+      new THREE.Vector3(0,2,0),
+      new THREE.Vector3(-.6,.6,0),
+      new THREE.Vector3(0,0,0),
+      new THREE.Vector3(.6,.6,0),
+      new THREE.Vector3(0,2,0)
+    ];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(body), lMat(col,.75)));
+    // Punta
+    const tip = [new THREE.Vector3(0,0,0), new THREE.Vector3(0,-1.2,0)];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(tip), lMat(col,.9)));
+    // Punto en la punta
+    const dot = new THREE.Mesh(new THREE.SphereGeometry(.15,6,6), wMat(col,.8));
+    dot.position.set(0,-1.2,0); g.add(dot);
+    return g;
+  }
 
-  /* ── Scroll para mover la cámara suavemente ── */
-  let scrollY = 0;
-  window.addEventListener('scroll', ()=>{ scrollY = window.scrollY; });
+  /* ── Helper: onda de audio 3D ── */
+  function audioWave(col){
+    const g = new THREE.Group();
+    const rows = 3;
+    for(let r=0;r<rows;r++){
+      const pts=[];
+      const samples=24;
+      for(let i=0;i<=samples;i++){
+        const x = (i/samples)*4-2;
+        const amp = 0.6 * Math.exp(-Math.abs(x)*0.5);
+        const y = amp*Math.sin(i*0.8+r*1.2);
+        const z = (r-1)*0.5;
+        pts.push(new THREE.Vector3(x,y,z));
+      }
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), lMat(col, .45+r*.12)));
+    }
+    return g;
+  }
+
+  /* ── Helper: icono composición (rectángulo con triángulo play) ── */
+  function compositionIcon(col){
+    const g = new THREE.Group();
+    const frame = [
+      new THREE.Vector3(-1.5,-1,0), new THREE.Vector3(1.5,-1,0),
+      new THREE.Vector3(1.5,1,0),   new THREE.Vector3(-1.5,1,0),
+      new THREE.Vector3(-1.5,-1,0)
+    ];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(frame), lMat(col,.6)));
+    // Triángulo play dentro
+    const play = [
+      new THREE.Vector3(-.4,-.5,0), new THREE.Vector3(.8,0,0),
+      new THREE.Vector3(-.4,.5,0),  new THREE.Vector3(-.4,-.5,0)
+    ];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(play), lMat(col,.8)));
+    // Líneas de film
+    [[-1.2,-1],[-1.2,1],[1.2,-1],[1.2,1]].forEach(([x,y])=>{
+      const s = new THREE.Mesh(new THREE.BoxGeometry(.18,.18,.05), wMat(col,.5));
+      s.position.set(x,y,0); g.add(s);
+    });
+    return g;
+  }
+
+  /* ── Helper: letra 'g' tipografía 3D minimalista ── */
+  function letterG(col){
+    const g = new THREE.Group();
+    // Círculo exterior
+    const circ = new THREE.EllipseCurve(0,0,1,1,Math.PI*0.2,Math.PI*2.0,false,0);
+    const circPts = circ.getPoints(40).map(p=>new THREE.Vector3(p.x,p.y,0));
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(circPts), lMat(col,.7)));
+    // Serif horizontal (barra de la g)
+    const bar = [new THREE.Vector3(0,0,0), new THREE.Vector3(1,0,0), new THREE.Vector3(1,-.8,0)];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(bar), lMat(col,.6)));
+    // Pequeño círculo inferior (cola)
+    const tail = new THREE.EllipseCurve(0,-.8,.55,.55,Math.PI*0.5,Math.PI*2.5,false,0);
+    const tailPts = tail.getPoints(20).map(p=>new THREE.Vector3(p.x,p.y,0));
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(tailPts), lMat(col,.5)));
+    return g;
+  }
+
+  /* ── Colocar todos los objetos en escena ── */
+  const floaters = [];
+
+  function addGroup(group, x, y, z){
+    group.position.set(x,y,z);
+    group.userData = {
+      rx:(Math.random()-.5)*.009,
+      ry:(Math.random()-.5)*.013,
+      rz:(Math.random()-.5)*.007,
+      floatAmp:.35+Math.random()*.7,
+      floatSpd:.35+Math.random()*.55,
+      floatOff:Math.random()*Math.PI*2,
+      baseY:y,
+    };
+    scene.add(group);
+    floaters.push(group);
+  }
+
+  addGroup(bezierCurveObj(0x4f8cff),  -18,  6,  -8);
+  addGroup(bezierCurveObj(0xc084fc),   12, -4,  -6);
+  addGroup(keyframeObj(0x7eb3ff, 1.1), 16,  7, -10);
+  addGroup(keyframeObj(0xc084fc, 0.8),-10, -8,  -5);
+  addGroup(timelineMarker(0x4f8cff),    4,  9, -12);
+  addGroup(timelineMarker(0xaabbff),  -22,  3,  -7);
+  addGroup(anchorPoint(0x7eb3ff),      20, -7,  -9);
+  addGroup(anchorPoint(0xc084fc),       0, 12, -14);
+  addGroup(penCursor(0x4f8cff),        -6, -10,  -5);
+  addGroup(audioWave(0xc084fc),        18,  4,  -7);
+  addGroup(compositionIcon(0x7eb3ff),  -16, -3, -10);
+  addGroup(letterG(0x4f8cff),           8,  8,  -8);
+
+  /* ── Líneas de conexión ── */
+  const maxLines = floaters.length*(floaters.length-1)/2;
+  const lineGeo  = new THREE.BufferGeometry();
+  const lineArr  = new Float32Array(maxLines*6);
+  lineGeo.setAttribute('position', new THREE.BufferAttribute(lineArr,3));
+  const lineSeg = new THREE.LineSegments(lineGeo, new THREE.LineBasicMaterial({color:0x4f8cff,transparent:true,opacity:.07}));
+  scene.add(lineSeg);
+
+  /* ── Anillos ── */
+  const ring  = new THREE.Mesh(new THREE.TorusGeometry(20,.06,4,120), new THREE.MeshBasicMaterial({color:0x4f8cff,transparent:true,opacity:.08}));
+  ring.rotation.x = Math.PI/2.8; scene.add(ring);
+  const ring2 = new THREE.Mesh(new THREE.TorusGeometry(26,.04,4,120), new THREE.MeshBasicMaterial({color:0xc084fc,transparent:true,opacity:.05}));
+  ring2.rotation.x = Math.PI/3.5; ring2.rotation.z = Math.PI/5; scene.add(ring2);
+
+  /* ── Parallax ── */
+  let mx=0,my=0,tmx=0,tmy=0;
+  document.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=(e.clientY/innerHeight-.5)*2;});
+  let scrollY=0;
+  window.addEventListener('scroll',()=>scrollY=window.scrollY);
 
   /* ── Loop ── */
-  let t = 0;
+  let tc=0;
   function animate(){
     requestAnimationFrame(animate);
-    t += 0.008;
+    tc+=.007;
 
-    // Parallax cámara
-    tmx += (mx*1.5 - tmx)*0.04;
-    tmy += (my*0.8 - tmy)*0.04;
-    camera.position.x = tmx;
-    camera.position.y = -tmy + scrollY*0.003;
-    camera.lookAt(0, scrollY*0.003, 0);
+    tmx+=(mx*1.5-tmx)*.04;
+    tmy+=(my*.8-tmy)*.04;
+    camera.position.x=tmx;
+    camera.position.y=-tmy+scrollY*.003;
+    camera.lookAt(0,scrollY*.003,0);
 
-    // Rotar campo de partículas lentamente
-    particles.rotation.y = t*0.04;
-    particles.rotation.x = t*0.015;
+    particles.rotation.y=tc*.04;
+    particles.rotation.x=tc*.015;
+    const pos=pGeo.attributes.position.array;
+    for(let i=0;i<pCount;i++) pos[i*3+1]+=Math.sin(tc*pSpd[i]+i)*.003;
+    pGeo.attributes.position.needsUpdate=true;
 
-    // Animar partículas ondulando (modificar posición en y con sine)
-    const pos = pGeo.attributes.position.array;
-    for(let i=0;i<pCount;i++){
-      pos[i*3+1] += Math.sin(t*pSpd[i] + i) * 0.003;
-    }
-    pGeo.attributes.position.needsUpdate = true;
-
-    // Floaters
-    floaters.forEach((m,i)=>{
-      m.rotation.x += m.userData.rx;
-      m.rotation.y += m.userData.ry;
-      m.rotation.z += m.userData.rz;
-      m.position.y = m.userData.baseY + Math.sin(t*m.userData.floatSpd + m.userData.floatOff)*m.userData.floatAmp;
+    floaters.forEach(m=>{
+      m.rotation.x+=m.userData.rx;
+      m.rotation.y+=m.userData.ry;
+      m.rotation.z+=m.userData.rz;
+      m.position.y=m.userData.baseY+Math.sin(tc*m.userData.floatSpd+m.userData.floatOff)*m.userData.floatAmp;
     });
 
-    // Actualizar líneas entre floaters cercanos
-    let li = 0;
-    const lp = lineGeo.attributes.position.array;
+    // Líneas dinámicas entre floaters
+    let li=0;
+    const lp=lineGeo.attributes.position.array;
     for(let a=0;a<floaters.length;a++){
       for(let b=a+1;b<floaters.length;b++){
-        const d = floaters[a].position.distanceTo(floaters[b].position);
-        if(d < 22){
-          lp[li++] = floaters[a].position.x;
-          lp[li++] = floaters[a].position.y;
-          lp[li++] = floaters[a].position.z;
-          lp[li++] = floaters[b].position.x;
-          lp[li++] = floaters[b].position.y;
-          lp[li++] = floaters[b].position.z;
+        if(floaters[a].position.distanceTo(floaters[b].position)<22){
+          lp[li++]=floaters[a].position.x; lp[li++]=floaters[a].position.y; lp[li++]=floaters[a].position.z;
+          lp[li++]=floaters[b].position.x; lp[li++]=floaters[b].position.y; lp[li++]=floaters[b].position.z;
         }
       }
     }
-    // borrar el resto
     for(;li<lp.length;li++) lp[li]=0;
-    lineGeo.attributes.position.needsUpdate = true;
-    lineGeo.setDrawRange(0, li/3);
+    lineGeo.attributes.position.needsUpdate=true;
+    lineGeo.setDrawRange(0,li/3);
 
-    // Anillos
-    ring.rotation.z  = t*0.05;
-    ring2.rotation.z = -t*0.03;
-    ring2.rotation.y = t*0.02;
+    ring.rotation.z=tc*.05;
+    ring2.rotation.z=-tc*.03; ring2.rotation.y=tc*.02;
 
-    renderer.render(scene, camera);
+    renderer.render(scene,camera);
   }
   animate();
 })();
 
-/* ================================================================
-   CURSOR
-================================================================ */
+/* ── CURSOR ── */
 if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){
-  const dot = document.getElementById('cur');
-  const cols = ['#4f8cff','#7eb3ff','#c084fc'];
+  const dot=document.getElementById('cur');
+  const cols=['#4f8cff','#7eb3ff','#c084fc'];
   let ti=0;
   document.addEventListener('mousemove',e=>{
-    dot.style.left=e.clientX+'px';
-    dot.style.top=e.clientY+'px';
+    dot.style.left=e.clientX+'px'; dot.style.top=e.clientY+'px';
     const t=document.createElement('div');
     t.className='ctrail';
     const sz=Math.random()*5+3;
     t.style.cssText=`width:${sz}px;height:${sz}px;left:${e.clientX}px;top:${e.clientY}px;background:${cols[ti%cols.length]};box-shadow:0 0 ${sz*2}px ${cols[ti%cols.length]};`;
-    document.body.appendChild(t);
-    ti++;
+    document.body.appendChild(t); ti++;
     setTimeout(()=>t.remove(),520);
   });
 }
 
-/* ================================================================
-   TABS SOBRE MÍ
-================================================================ */
+/* ── TABS SOBRE MÍ ── */
 function showAt(id,btn){
   document.querySelectorAll('.about-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.at-btn').forEach(b=>b.classList.remove('active'));
@@ -682,9 +881,7 @@ function showAt(id,btn){
   btn.classList.add('active');
 }
 
-/* ================================================================
-   CONTACTO 3D
-================================================================ */
+/* ── CONTACTO 3D ── */
 const card=document.getElementById('contactCard');
 card.addEventListener('mousemove',e=>{
   const r=card.getBoundingClientRect();
@@ -694,14 +891,17 @@ card.addEventListener('mousemove',e=>{
 });
 card.addEventListener('mouseleave',()=>{card.style.transform='rotateX(0) rotateY(0) scale(1)';});
 
-/* ================================================================
-   SCROLL REVEAL
-================================================================ */
-const reveals=document.querySelectorAll('.reveal');
+/* ── SCROLL REVEAL ── */
 const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
-},{threshold:0.12});
-reveals.forEach(r=>obs.observe(r));
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+
+/* ── BACK TO TOP ── */
+const backTop=document.getElementById('back-top');
+window.addEventListener('scroll',()=>{
+  backTop.classList.toggle('show', window.scrollY>400);
+});
 </script>
 </body>
 </html>
