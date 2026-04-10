@@ -4,39 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <title>Magnum | Dolce Vitta</title>
 
     <style>
         :root {
-            --brown-dark: #2b1b14;
-            --brown-medium: #493026;
+            --cake-pink: #f6dede;
+            --cake-dark: #493026;
+            --cake-soft: #fff5f5;
             --accent: linear-gradient(270deg, #ff4ecd, #6c63ff);
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.1);
+            --glass: rgba(255, 255, 255, 0.6);
+            --border: rgba(73, 48, 38, 0.1);
         }
 
-        * {
-            box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
-        }
+        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
-            background: var(--brown-medium);
-            /* Sutil textura de ruido para que no sea un color plano aburrido */
-            background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
-            color: white;
+            background-color: var(--cake-pink);
+            color: var(--cake-dark);
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* --- BOTÓN VOLVER (MEJORADO) --- */
+        /* --- CANVAS THREE.JS --- */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- BOTÓN VOLVER --- */
         .back-home {
             position: fixed;
             top: 25px;
             right: 25px;
-            background: var(--accent);
+            background: var(--cake-dark);
             padding: 12px 24px;
             border-radius: 50px;
             color: white;
@@ -44,43 +52,31 @@
             font-size: 14px;
             font-weight: 600;
             z-index: 1000;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
 
         .back-home:hover {
-            transform: scale(1.1) translateY(-3px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            transform: scale(1.05);
+            background: #000;
         }
 
         /* --- HERO --- */
         .hero {
-            height: 85vh;
+            height: 70vh;
             width: 100%;
             background: url("hero-dolcevitta.png") center/cover no-repeat;
             position: relative;
-            display: flex;
-            align-items: flex-end;
-            padding: 60px;
+            border-bottom: 8px solid white;
         }
 
-        .hero::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.2), var(--brown-medium));
-        }
-
-        /* --- CONTENEDOR SECCIONES --- */
+        /* --- SECCIONES --- */
         section {
-            padding: 60px 20px;
+            padding: 80px 20px;
             max-width: 1000px;
             margin: auto;
-            opacity: 0; /* Para el efecto de revelación con JS */
-            transform: translateY(30px);
+            opacity: 0;
+            transform: translateY(20px);
             transition: all 0.8s ease-out;
         }
 
@@ -90,95 +86,73 @@
         }
 
         h2 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 800;
-            margin-bottom: 30px;
-            background: linear-gradient(to right, #fff, #b9a39a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
+            margin-bottom: 40px;
+            text-align: center;
+            color: var(--cake-dark);
         }
 
         .description-box {
             background: var(--glass);
-            border: 1px solid var(--border);
-            padding: 30px;
-            border-radius: 20px;
+            border: 2px solid white;
+            padding: 40px;
+            border-radius: 30px;
             backdrop-filter: blur(10px);
             text-align: center;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
         }
 
-        /* --- GRIDS --- */
+        /* --- GRID IMÁGENES --- */
         .grid-2 {
             display: grid;
-            gap: 25px;
+            gap: 30px;
         }
 
         @media(min-width:768px){
             .grid-2 { grid-template-columns: 1fr 1fr; }
         }
 
-        /* --- IMÁGENES ESTILIZADAS --- */
         .img-container {
             overflow: hidden;
-            border-radius: 15px;
-            background: var(--brown-dark);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            border: 1px solid var(--border);
+            border-radius: 25px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 5px solid white;
+            transition: transform 0.4s ease;
+        }
+
+        .img-container:hover {
+            transform: translateY(-10px);
         }
 
         img {
             width: 100%;
             display: block;
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: transform 0.6s ease;
         }
 
-        .img-container:hover img {
-            transform: scale(1.05);
-        }
-
-        .billboard {
+        .full-img {
             width: 100%;
-            border-radius: 20px;
+            border-radius: 25px;
             margin-top: 30px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+            border: 5px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
 
-        /* --- FOOTER (MÁS ELEGANTE) --- */
+        /* --- FOOTER --- */
         .footer-wrapper {
-            position: relative;
-            margin-top: 80px;
-            height: 250px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .footer-image {
-            position: absolute;
-            inset: 0;
-            background: url("footer-dolcevitta.png") center/cover no-repeat;
-            filter: brightness(0.4);
-            z-index: 1;
-        }
-
-        .footer-content {
-            position: relative;
-            z-index: 3;
+            background: white;
+            padding: 40px;
             text-align: center;
+            margin-top: 50px;
         }
 
         .copyright-box {
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(5px);
-            padding: 10px 25px;
-            border-radius: 50px;
-            border: 1px solid var(--border);
-            font-size: 13px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--cake-dark);
+            letter-spacing: 1px;
         }
 
     </style>
@@ -186,76 +160,99 @@
 
 <body>
 
-<a class="back-home" href="index.html">
-    <span>←</span> VOLVER
-</a>
+<div id="canvas-container"></div>
+
+<a class="back-home" href="index.html">← VOLVER</a>
 
 <header class="hero"></header>
 
 <section id="intro">
     <div class="description-box">
-        <p><strong>Dolce Vitta:</strong> Creación integral de identidad visual, aplicaciones de marca, packaging premium y estrategia de contenido para redes sociales.</p>
+        <p><strong>Dolce Vitta</strong><br>Diseño de identidad visual para una pastelería artesanal donde la delicadeza y el sabor se encuentran en cada detalle.</p>
     </div>
 </section>
 
 <section>
-    <h2>Aplicaciones de Marca</h2>
+    <h2>Identidad Visual</h2>
     <div class="img-container">
-        <img src="aplicaciones-dolcevitta.png" alt="Aplicaciones Logotipo">
+        <img src="aplicaciones-dolcevitta.png" alt="Branding">
     </div>
 </section>
 
 <section>
-    <h2>Premium Packaging</h2>
+    <h2>Packaging & Experiencia</h2>
     <div class="grid-2">
         <div class="img-container">
-            <img src="cuadrada-dolcevitta-izq.png" alt="Packaging detalle 1">
+            <img src="cuadrada-dolcevitta-izq.png" alt="Packaging 1">
         </div>
         <div class="img-container">
-            <img src="cuadrada-dolcevitta-der.png" alt="Packaging detalle 2">
+            <img src="cuadrada-dolcevitta-der.png" alt="Packaging 2">
         </div>
     </div>
-    <div class="img-container" style="margin-top: 25px;">
-        <img src="grande-dolcevitta.png" class="billboard" alt="Packaging Completo">
-    </div>
+    <img src="grande-dolcevitta.png" class="full-img" alt="Banner Dolce Vitta">
 </section>
 
 <section>
-    <h2>Social Media Content</h2>
+    <h2>Social Media</h2>
     <div class="img-container">
-        <img src="imagen-rrss-dolcevitta.png" alt="Contenido Instagram">
+        <img src="imagen-rrss-dolcevitta.png" alt="Instagram Feed">
     </div>
 </section>
 
-<div class="footer-wrapper">
-    <div class="footer-image"></div>
-    <div class="footer-content">
-        <div class="copyright-box">© 2026 Neergraphs</div>
-    </div>
-</div>
+<footer class="footer-wrapper">
+    <div class="copyright-box">© 2026 NEERGRAPHS • DOLCE VITTA</div>
+</footer>
 
 <script>
-    // EFECTO REVELACIÓN (Scroll Reveal)
-    const observerOptions = {
-        threshold: 0.1
-    };
+    // --- THREE.JS EFFECT (SWEET DUST) ---
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('canvas-container').appendChild(renderer.domElement);
 
+    // Partículas (como azúcar glass flotando)
+    const geometry = new THREE.BufferGeometry();
+    const vertices = [];
+    for (let i = 0; i < 500; i++) {
+        vertices.push(Math.random() * 20 - 10, Math.random() * 20 - 10, Math.random() * 20 - 10);
+    }
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+    const material = new THREE.PointsMaterial({ color: 0xffffff, size: 0.05, transparent: true, opacity: 0.8 });
+    const points = new THREE.Points(geometry, material);
+    scene.add(points);
+
+    // Un par de esferas suaves flotando de fondo
+    const sphereGeom = new THREE.SphereGeometry(1, 32, 32);
+    const sphereMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.1, wireframe: true });
+    const sphere = new THREE.Mesh(sphereGeom, sphereMat);
+    scene.add(sphere);
+
+    camera.position.z = 5;
+
+    function animate() {
+        requestAnimationFrame(animate);
+        points.rotation.y += 0.001;
+        points.rotation.x += 0.0005;
+        sphere.rotation.y += 0.002;
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // --- SCROLL REVEAL ---
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
+            if (entry.isIntersecting) entry.target.classList.add('visible');
         });
-    }, observerOptions);
+    }, { threshold: 0.1 });
 
-    document.querySelectorAll('section').forEach(section => {
-        observer.observe(section);
-    });
-
-    // Pequeño ajuste para que la descripción aparezca rápido
-    window.addEventListener('load', () => {
-        document.getElementById('intro').classList.add('visible');
-    });
+    document.querySelectorAll('section').forEach(s => observer.observe(s));
 </script>
 
 </body>
