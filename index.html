@@ -6,8 +6,6 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
 
-<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-
 <title>Neeergraphs</title>
 
 <style>
@@ -17,29 +15,13 @@ body {
   font-family: 'Poppins', sans-serif;
   background: #0f0f0f;
   color: white;
-  cursor: none;
-}
-
-/* CURSOR */
-.cursor {
-  position: fixed;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #ff4ecd, #6c63ff);
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 9999;
-  box-shadow: 0 0 20px #ff4ecd, 0 0 40px #6c63ff;
 }
 
 /* HEADER */
 header {
-  height: 80vh;
+  padding: 100px 20px;
+  text-align: center;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
 }
 
@@ -49,108 +31,33 @@ header video {
   height: 100%;
   object-fit: cover;
   opacity: 0.25;
-}
-
-header::after {
-  content:"";
-  position:absolute;
-  inset:0;
-  background: linear-gradient(to bottom, transparent 60%, #0f0f0f);
+  top: 0;
+  left: 0;
 }
 
 header .content {
   position: relative;
-  text-align: center;
-  z-index: 2;
 }
 
-/* TITULO PRO */
-.hero-title {
+/* TITULO NEERGRAPHS */
+header h1 {
   font-family: 'Fredoka', sans-serif;
-  font-size: 80px;
-  font-weight: 600;
+  font-size: 64px;
   letter-spacing: 2px;
-  position: relative;
+  font-weight: 600;
 
-  background: linear-gradient(120deg,#ff4ecd,#6c63ff,#00d4ff,#ff4ecd);
+  background: linear-gradient(90deg,#ff4ecd,#6c63ff,#00d4ff,#ff4ecd);
   background-size: 300% 300%;
-
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 
-  animation: gradientFlow 8s ease infinite;
+  animation: gradientMove 4s ease infinite, floatTitle 3s ease-in-out infinite;
 }
 
-.hero-title::after {
-  content: "NEEERGRAPHS";
-  position: absolute;
-  left: 0;
-  top: 0;
-
-  background: linear-gradient(
-    120deg,
-    transparent 40%,
-    rgba(255,255,255,0.8) 50%,
-    transparent 60%
-  );
-
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  animation: shine 3s infinite;
-}
-
-.hero-title::before {
-  content: "NEEERGRAPHS";
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: -1;
-
-  color: #ff4ecd;
-  filter: blur(20px);
-  opacity: 0.6;
-}
-
-@keyframes gradientFlow {
-  0% {background-position:0% 50%;}
-  50% {background-position:100% 50%;}
-  100% {background-position:0% 50%;}
-}
-
-@keyframes shine {
-  0% {background-position:-200% 0;}
-  100% {background-position:200% 0;}
-}
-
-.hero-sub {
-  margin-top: 15px;
-  opacity: 0.8;
-}
-
-/* 3D MODEL */
-.model-3d {
-  position: absolute;
-  right: 5%;
-  top: 20%;
-  width: 260px;
-  height: 260px;
-  pointer-events: none;
-  opacity: 0.9;
-  filter: drop-shadow(0 0 20px rgba(255,255,255,0.2));
-}
-
-/* SCROLL */
-.fade-up {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.8s ease;
-}
-
-.fade-up.show {
-  opacity: 1;
-  transform: translateY(0);
+/* animación flotante suave letras */
+@keyframes floatTitle {
+  0%,100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
 }
 
 /* SECCIONES */
@@ -162,21 +69,55 @@ section {
 
 /* ABOUT */
 .about-container {
-  display: grid;
+  display: flex;
   gap: 40px;
-}
-
-@media(min-width:768px){
-  .about-container {
-    grid-template-columns: 200px 1fr;
-  }
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .profile {
   width: 180px;
   height: 180px;
-  border-radius: 20px;
+  border-radius: 50%;
   object-fit: cover;
+}
+
+/* TEXTO */
+.about-text {
+  max-width: 500px;
+}
+
+/* TABS */
+.tabs {
+  margin-top: 25px;
+}
+
+.tab-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tab-buttons button {
+  background: #2a2a2a;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  color: white;
+}
+
+.tab-buttons button.active {
+  background: linear-gradient(270deg,#ff4ecd,#6c63ff);
+}
+
+.tab-content {
+  margin-top: 15px;
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
 }
 
 /* SERVICIOS */
@@ -196,6 +137,16 @@ section {
   padding: 20px;
   border-radius: 16px;
   text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.service:hover {
+  transform: translateY(-5px);
+}
+
+.service img {
+  width: 40px;
+  margin-bottom: 10px;
 }
 
 /* PROYECTOS */
@@ -214,6 +165,11 @@ section {
   background: #1c1c1c;
   padding: 20px;
   border-radius: 16px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
 }
 
 .project-img {
@@ -223,19 +179,7 @@ section {
   margin-bottom: 15px;
   background-size: cover;
   background-position: center;
-}
-
-/* BOTONES */
-button {
-  padding: 10px 18px;
-  border-radius: 999px;
-  background: linear-gradient(270deg,#ff4ecd,#6c63ff);
-  color: white;
-  border: none;
-}
-
-button:hover {
-  transform: scale(1.05);
+  background-color: #333;
 }
 
 /* CONTACTO */
@@ -257,62 +201,111 @@ footer {
   color: #888;
 }
 
+/* ANIMACIONES */
+@keyframes gradientMove {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="cursor"></div>
-
-<!-- HEADER -->
-<header class="fade-up">
+<header>
 
 <video autoplay muted loop playsinline>
 <source src="background-nerea.mp4">
 </video>
 
-<!-- ⭐ MODELO 3D -->
-<model-viewer 
-class="model-3d"
-src="estrella.glb"  <!-- CAMBIA POR TU MODELO -->
-auto-rotate
-disable-zoom
-camera-controls>
-</model-viewer>
-
 <div class="content">
-<div class="hero-title">NEEERGRAPHS</div>
-<div class="hero-sub">
-Edición de vídeo • Diseño gráfico • Contenido creativo para RRSS
-</div>
+<h1>NEEERGRAPHS</h1>
+<p>Edición de vídeo • Diseño gráfico</p>
+<p>Contenido creativo para RRSS</p>
 </div>
 
 </header>
 
 <!-- ABOUT -->
-<section class="fade-up">
+<section>
+
 <div class="about-container">
+
 <img src="nerea.ramirez.png" class="profile">
-<div>
+
+<div class="about-text">
+
 <h2>Sobre mí</h2>
-<p>Soy creadora visual enfocada en contenido digital, edición de vídeo y diseño gráfico.</p>
+
+<p>
+Soy creadora visual enfocada en contenido digital y redes sociales.
+</p>
+
+<div class="tabs">
+
+<div class="tab-buttons">
+<button class="active" onclick="showTab('skills')">Skills</button>
+<button onclick="showTab('experiencia')">Experiencia</button>
+<button onclick="showTab('estudios')">Estudios</button>
+<button onclick="showTab('certificaciones')">Certificaciones</button>
 </div>
+
+<div id="skills" class="tab-content active">
+Herramientas Adobe, IA, RRSS
 </div>
+
+<div id="experiencia" class="tab-content">
+Ádraba, Lunaro, Jastag
+</div>
+
+<div id="estudios" class="tab-content">
+CEI + Marketing
+</div>
+
+<div id="certificaciones" class="tab-content">
+Google, Hubspot, AI
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </section>
 
 <!-- SERVICIOS -->
-<section class="fade-up">
+<section>
+
 <h2>Qué puedo hacer</h2>
+
 <div class="services">
-<div class="service"><img src="video.png"><p>Edición de vídeo</p></div>
-<div class="service"><img src="vector.png"><p>Diseño gráfico</p></div>
-<div class="service"><img src="rrss.png"><p>Contenido RRSS</p></div>
+
+<div class="service">
+<img src="video.png">
+<p>Edición de vídeo</p>
 </div>
+
+<div class="service">
+<img src="vector.png">
+<p>Diseño gráfico</p>
+</div>
+
+<div class="service">
+<img src="rrss.png">
+<p>Contenido RRSS</p>
+</div>
+
+</div>
+
 </section>
 
 <!-- PROYECTOS -->
-<section class="fade-up">
+<section>
+
 <h2>Proyectos</h2>
+
 <div class="grid">
 
 <div class="card">
@@ -344,42 +337,44 @@ Edición de vídeo • Diseño gráfico • Contenido creativo para RRSS
 </div>
 
 </div>
+
 </section>
 
 <!-- CONTACTO -->
-<section class="fade-up">
+<section>
+
 <h2>¿Hablamos? :)</h2>
+
 <div class="card">
-<div class="contact-item"><img src="llamar.png"> 653607909</div>
-<div class="contact-item"><img src="correo.png"> nerearamimarti@gmail.com</div>
-<div class="contact-item"><img src="mapa.png"> Madrid</div>
+
+<div class="contact-item">
+<img src="llamar.png"> 653607909
 </div>
+
+<div class="contact-item">
+<img src="correo.png"> nerearamimarti@gmail.com
+</div>
+
+<div class="contact-item">
+<img src="mapa.png"> Madrid
+</div>
+
+</div>
+
 </section>
 
-<footer class="fade-up">
+<footer>
 © 2026 Neeergraphs
 </footer>
 
 <script>
+function showTab(tabId){
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.tab-buttons button').forEach(btn=>btn.classList.remove('active'));
 
-/* CURSOR */
-const cursor = document.querySelector('.cursor');
-document.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-});
-
-/* SCROLL */
-const elements = document.querySelectorAll('.fade-up');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){
-      entry.target.classList.add('show');
-    }
-  });
-});
-elements.forEach(el => observer.observe(el));
-
+  document.getElementById(tabId).classList.add('active');
+  event.target.classList.add('active');
+}
 </script>
 
 </body>
