@@ -11,154 +11,250 @@
         :root {
             --cake-pink: #f6dede;
             --cake-dark: #493026;
-            --cherry-red: #ff0015;
+            --cherry-red: #FF0015; /* Color exacto de la imagen */
+            --border-round: 40px; /* Redondeado extremo */
         }
 
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
         body {
-            margin: 0; padding: 0;
+            margin: 0;
+            padding: 0;
             font-family: 'Poppins', sans-serif;
             background-color: var(--cake-pink);
             color: var(--cake-dark);
             overflow-x: hidden;
             line-height: 1.6;
-            cursor: none; 
+            cursor: none; /* Ocultar cursor por defecto */
         }
 
+        /* Ocultar cursor personalizado en móviles */
         @media (max-width: 1024px) {
             body { cursor: auto; }
             #custom-cursor, #cursor-trail { display: none !important; }
         }
 
-        /* --- CURSOR CEREZA --- */
+        /* --- CURSOR PERSONALIZADO (CEREZA SVG EXACTA) --- */
         #custom-cursor {
             position: fixed;
-            width: 40px; height: 50px;
+            width: 35px; /* Tamaño del icono */
+            height: 48px;
             pointer-events: none;
             z-index: 10000;
-            transform: translate(-50%, -50%);
+            /* Ajuste del punto de click al centro del fruto rojo */
+            transform: translate(-30%, -75%); 
         }
 
-        #custom-cursor::before {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 50%;
-            width: 28px; height: 24px;
-            background: var(--cherry-red);
-            transform: translateX(-50%);
-            border-radius: 50% 50% 45% 45%;
-            clip-path: polygon(0% 20%, 20% 5%, 45% 15%, 50% 25%, 55% 15%, 80% 5%, 100% 20%, 100% 80%, 50% 100%, 0% 80%);
-        }
-
-        #custom-cursor::after {
-            content: '';
-            position: absolute;
-            top: 2px; left: 50%;
-            width: 20px; height: 35px;
-            border-left: 2.5px solid #000;
-            border-radius: 100% 0 0 0;
-            transform: translateX(-2px) rotate(-10deg);
-        }
-
+        /* --- RASTRO DEL RATÓN --- */
         #cursor-trail {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 9999;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
         }
 
         .trail-particle {
-            position: absolute; width: 4px; height: 4px;
-            background-color: white;
-            border-radius: 50%; pointer-events: none;
-            animation: particleFade 0.6s ease-out forwards;
+            position: absolute;
+            width: 6px; height: 6px;
+            background-color: var(--cherry-red); /* Rastro rojo */
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleFade 1s ease-out forwards;
         }
 
         @keyframes particleFade {
             0% { opacity: 0.8; transform: scale(1); }
-            100% { opacity: 0; transform: scale(2) translateY(-10px); }
+            100% { opacity: 0; transform: scale(2) translateY(-15px); }
         }
 
+        /* --- CANVAS THREE.JS (FONDO CON PARTÍCULAS) --- */
         #canvas-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2; /* Al fondo del todo */
+            pointer-events: none;
         }
 
+        /* --- CEREZAS DE FONDO (SVG EXACTO FLOTANDO) --- */
+        #background-cherries {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; /* Detrás del contenido, sobre las partículas */
+            pointer-events: none;
+        }
+
+        .bg-cherry-icon {
+            position: absolute;
+            width: 30px; /* Tamaño flotante */
+            opacity: 0.15; /* Sutil en el fondo */
+            animation: cherryFloat infinite ease-in-out;
+        }
+
+        /* Distribución y animaciones variadas para el fondo */
+        .bg-cherry-icon:nth-child(1) { top: 15%; left: 10%; animation-duration: 8s; }
+        .bg-cherry-icon:nth-child(2) { top: 70%; left: 80%; animation-duration: 10s; animation-delay: 2s; }
+        .bg-cherry-icon:nth-child(3) { top: 40%; left: 90%; animation-duration: 9s; animation-delay: 1s; width: 25px; }
+        .bg-cherry-icon:nth-child(4) { top: 85%; left: 15%; animation-duration: 11s; animation-delay: 3s; width: 35px; }
+
+        @keyframes cherryFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(15deg); }
+        }
+
+        /* --- BOTÓN VOLVER --- */
         .back-home {
-            position: fixed; top: 25px; right: 25px;
+            position: fixed;
+            top: 25px;
+            right: 25px;
             background: var(--cake-dark);
-            padding: 12px 24px; border-radius: 50px;
-            color: white; text-decoration: none;
-            font-size: 14px; font-weight: 600; z-index: 1000;
+            padding: 12px 24px;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .back-home:hover { 
+            background: var(--cherry-red); 
+            transform: scale(1.05) translateY(-3px);
         }
 
-        .hero { height: 60vh; width: 100%; background: url("hero-dolcevitta.png") center/cover no-repeat; }
-
-        section { position: relative; padding: 60px 20px; max-width: 1000px; margin: auto; z-index: 2; }
-
-        .description-box {
-            background: rgba(255, 255, 255, 0.4);
-            padding: 50px; border-radius: 40px;
-            backdrop-filter: blur(10px); text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        /* --- HERO --- */
+        .hero {
+            height: 70vh;
+            width: 100%;
+            background: url("hero-dolcevitta.png") center/cover no-repeat;
+            border-bottom: 8px solid white;
         }
 
-        .description-box p { font-size: 1.1rem; margin: 0; }
+        /* --- SECCIONES PRINCIPALES --- */
+        section {
+            position: relative;
+            padding: 80px 20px;
+            max-width: 1000px;
+            margin: auto;
+            z-index: 2; /* Por encima de los fondos */
+        }
 
         h2 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 800;
             margin-bottom: 40px;
             text-align: center;
         }
 
-        .left-align-title { text-align: left; }
+        .description-box {
+            background: rgba(255, 255, 255, 0.4);
+            padding: 50px;
+            border-radius: 40px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
+            margin-bottom: 40px;
+        }
 
+        .description-box p { font-size: 1.2rem; margin: 0; }
+
+        /* --- IMÁGENES ESTILIZADAS --- */
         .img-project {
-            width: 100%; display: block; border-radius: 50px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-            transition: transform 0.5s ease; margin-bottom: 40px;
+            width: 100%;
+            display: block;
+            border-radius: var(--border-round); /* Puntas muy redondeadas */
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            margin-bottom: 50px;
         }
-        .img-project:hover { transform: scale(1.02); }
 
-        .grid-2 { display: grid; gap: 30px; margin-bottom: 40px; }
-        @media(min-width:768px){ .grid-2 { grid-template-columns: 1fr 1fr; } }
+        /* Efecto Hover Delicado (Ampliación y sombra más profunda) */
+        .img-project:hover {
+            transform: scale(1.03);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.15);
+        }
 
-        .tools-container {
+        .grid-2 {
+            display: grid;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        @media(min-width:768px){
+            .grid-2 { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* --- HERRAMIENTAS --- */
+        .icon-row {
             display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .icon-row { 
-            display: flex; 
-            justify-content: flex-start; 
-            gap: 40px; 
-            padding: 20px 0; 
+            justify-content: center;
+            gap: 70px;
+            padding: 50px 0;
         }
 
         .icon-floating {
-            width: 70px; 
-            filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15));
+            width: 75px;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.15));
             animation: floatAnim 4s ease-in-out infinite;
         }
-        @keyframes floatAnim { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-        footer { background: white; color: var(--cake-dark); text-align: center; padding: 40px; font-weight: 600; }
+        @keyframes floatAnim {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* --- FOOTER --- */
+        .footer-wrapper {
+            background-color: white; /* Footer blanco sólido */
+            padding: 60px;
+            text-align: center;
+            margin-top: 50px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .copyright-box {
+            font-weight: 600;
+            color: var(--cake-dark);
+            letter-spacing: 1px;
+        }
 
     </style>
 </head>
 
 <body>
 
-    <div id="custom-cursor"></div>
+    <svg style="display: none;">
+        <symbol id="cherry-icon-svg" viewBox="0 0 119 161">
+            <path d="M72.3,61.9c0,0-5-18.3-24.5-16c-19.4,2.3-23.8,17.2-24.5,23.3c-0.7,6.1,1.9,19.3,7.9,24.1c6,4.7,18.7,3.5,24.8,0C62,109.8,70.5,91.3,72.3,61.9z" fill="#FF0015"/>
+            <path d="M52.3,69.9c0,0,6.5-14.7,21.6-13.4c15,1.2,18.5,13.6,19.1,18.7c0.6,5-1.5,15.7-6.5,19.7c-5,3.9-15.6,2.9-20.6,0C60.9,109.5,53.8,94.2,52.3,69.9z" fill="#FF0015"/>
+            <path d="M47.8,61.9c0,0,13.3-39.2-2.1-48.3C30.3,4.5,20.2,7.3,13.2,12.7c-7,5.5-11.8,16.5-9.7,23c2.1,6.5,10.6,11.8,16,11.3C24.9,56.5,33.1,60.8,47.8,61.9z" fill="#FF0015"/>
+            <path d="M36.8,15.8c0,0,8.8,1.4,14.7,11.3c5.8,9.9,6.5,23.3,6.5,23.3l5.5-1c0,0-0.7-14.7-7.2-25.9C49.9,12.3,41,8.9,41,8.9L36.8,15.8z" fill="#000000"/>
+        </symbol>
+    </svg>
+
+    <div id="custom-cursor">
+        <svg><use href="#cherry-icon-svg"/></svg>
+    </div>
     <div id="cursor-trail"></div>
+
+    <div id="background-cherries">
+        <svg class="bg-cherry-icon"><use href="#cherry-icon-svg"/></svg>
+        <svg class="bg-cherry-icon"><use href="#cherry-icon-svg"/></svg>
+        <svg class="bg-cherry-icon"><use href="#cherry-icon-svg"/></svg>
+        <svg class="bg-cherry-icon"><use href="#cherry-icon-svg"/></svg>
+    </div>
+
     <div id="canvas-container"></div>
 
     <a class="back-home" href="index.html">← VOLVER</a>
 
     <header class="hero"></header>
 
-    <section>
+    <section id="intro">
         <div class="description-box">
             <p><strong>Dolce Vitta</strong><br>Creación integral de identidad visual, aplicaciones de marca, packaging premium y estrategia de contenido para redes sociales para una pastelería artesanal donde la delicadeza y el sabor se encuentran en cada detalle.</p>
         </div>
@@ -166,145 +262,129 @@
 
     <section>
         <h2>Identidad Visual</h2>
-        <img src="aplicaciones-dolcevitta.png" class="img-project">
+        <img src="aplicaciones-dolcevitta.png" class="img-project" alt="Branding">
     </section>
 
     <section>
         <h2>Packaging premium</h2>
         <div class="grid-2">
-            <img src="cuadrada-dolcevitta-izq.png" class="img-project">
-            <img src="cuadrada-dolcevitta-der.png" class="img-project">
+            <img src="cuadrada-dolcevitta-izq.png" class="img-project" alt="Packaging 1">
+            <img src="cuadrada-dolcevitta-der.png" class="img-project" alt="Packaging 2">
         </div>
-        <img src="grande-dolcevitta.png" class="img-project">
+        <img src="grande-dolcevitta.png" class="img-project" alt="Banner Dolce Vitta">
     </section>
 
     <section>
         <h2>Social Media Content</h2>
-        <img src="imagen-rrss-dolcevitta.png" class="img-project">
+        <img src="imagen-rrss-dolcevitta.png" class="img-project" alt="Instagram Feed">
     </section>
 
-    <section class="tools-container">
-        <h2 class="left-align-title">Herramientas utilizadas</h2>
+    <section>
+        <h2>Herramientas utilizadas</h2>
         <div class="icon-row">
-            <img src="photoshop.png" class="icon-floating">
-            <img src="ilustrador.png" class="icon-floating" style="animation-delay: 0.5s;">
+            <img src="photoshop.png" class="icon-floating" alt="Photoshop">
+            <img src="ilustrador.png" class="icon-floating" alt="Illustrator" style="animation-delay: 0.5s;">
         </div>
     </section>
 
-    <footer>© 2026 NEERGRAPHS • DOLCE VITTA</footer>
+    <footer class="footer-wrapper">
+        <div class="copyright-box">© 2026 NEERGRAPHS • DOLCE VITTA</div>
+    </footer>
 
     <script>
-        // --- MOUSE TRAIL ---
+        // --- CURSOR Y TRAIL JS ---
         const cursor = document.getElementById('custom-cursor');
         const trailContainer = document.getElementById('cursor-trail');
+        let currentX = 0, currentY = 0;
+        let lastTrailX = 0, lastTrailY = 0;
+
         window.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            if (Math.random() > 0.6) {
-                const p = document.createElement('div');
-                p.className = 'trail-particle';
-                p.style.left = e.clientX + 'px'; p.style.top = e.clientY + 'px';
-                trailContainer.appendChild(p);
-                setTimeout(() => p.remove(), 600);
+            currentX = e.clientX;
+            currentY = e.clientY;
+            
+            // Mover el cursor principal
+            cursor.style.left = currentX + 'px';
+            cursor.style.top = currentY + 'px';
+
+            // Crear rastro si la distancia es suficiente
+            const dist = Math.hypot(currentX - lastTrailX, currentY - lastTrailY);
+            if (dist > 15) {
+                createParticle(currentX, currentY);
+                lastTrailX = currentX;
+                lastTrailY = currentY;
             }
         });
 
-        // --- THREE.JS (CORREGIDO CON CEREZAS 3D Y FORMA EXACTA) ---
-        let scene, camera, renderer, cherries = [], points, randomBox;
-
-        function init() {
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            document.getElementById('canvas-container').appendChild(renderer.domElement);
-
-            scene.add(new THREE.AmbientLight(0xffffff, 0.9));
+        function createParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.className = 'trail-particle';
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
             
-            // PUNTITOS BLANCOS (AZÚCAR GLASS)
-            const pGeo = new THREE.BufferGeometry();
-            const pPos = [];
-            for (let i = 0; i < 400; i++) pPos.push(Math.random()*20-10, Math.random()*20-10, Math.random()*20-10);
-            pGeo.setAttribute('position', new THREE.Float32BufferAttribute(pPos, 3));
-            points = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.05 }));
-            scene.add(points);
-
-            function createReal3DCherry(size, x, y, z) {
-                const group = new THREE.Group();
-                
-                // --- GEOMETRÍA DEL CUERPO (CORAZÓN INVERTIDO CON BASE REDONDA) ---
-                const shape = new THREE.Shape();
-                shape.moveTo(0, 0); // Pocito central superior
-                shape.bezierCurveTo(size, size*0.8, size*1.3, -size*0.2, 0, -size*1.3); // Curva derecha con base redonda (sin pico)
-                shape.bezierCurveTo(-size*1.3, -size*0.2, -size, size*0.8, 0, 0); // Curva izquierda
-                
-                // Extruir la forma para darle volumen 3D real
-                const extrudeSettings = { 
-                    depth: size*0.7, 
-                    bevelEnabled: true, 
-                    bevelThickness: size*0.3, 
-                    bevelSize: size*0.3, 
-                    bevelSegments: 20 
-                };
-                const geo = new THREE.ExtrudeGeometry(shape, extrudeSettings);
-                const mesh = new THREE.Mesh(geo, new THREE.MeshPhongMaterial({ color: 0xff0015, shininess: 80 }));
-                
-                // Invertir para que la hendidura central quede arriba
-                mesh.rotation.x = Math.PI; 
-                
-                // --- TALLO NEGRO CURVO ---
-                const curve = new THREE.QuadraticBezierCurve3(
-                    new THREE.Vector3(0, 0, size*0.35), // Sale del pocito central (0,0)
-                    new THREE.Vector3(-size*0.4, size*2, size*0.35),
-                    new THREE.Vector3(-size*1.1, size*3, size*0.35)
-                );
-                const stemGeo = new THREE.TubeGeometry(curve, 20, size*0.06, 8, false);
-                const stemMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
-                const stemMesh = new THREE.Mesh(stemGeo, stemMat);
-
-                group.add(mesh, stemMesh);
-                group.position.set(x, y, z);
-                group.userData = { offset: Math.random() * 100 };
-                scene.add(group);
-                cherries.push(group);
-            }
-
-            // Varias cerezas distribuidas por el fondo
-            createReal3DCherry(0.4, 5, 2, -2);    // Derecha Arriba
-            createReal3DCherry(0.3, -5.5, 3, -1); // Izquierda Arriba
-            createReal3DCherry(0.5, 6, -3, -4);   // Derecha Abajo
-            createReal3DCherry(0.2, -4.5, -4, -3); // Izquierda Abajo
-            createReal3DCherry(0.35, 0, -5, -2.5); // Centro Abajo
-
-            // --- CUADRADO RANDOM AHORA MÁS PEQUEÑO ---
-            const boxMat = new THREE.MeshBasicMaterial({ color: 0x493026, transparent: true, opacity: 0.1 });
-            randomBox = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.15, 0.15), boxMat); // Mucho más pequeño
-            randomBox.position.set(-2, -2, -1);
-            scene.add(randomBox);
-
-            camera.position.z = 8;
-            animate();
+            // Tamaño aleatorio sutil para el rastro
+            const size = Math.random() * 5 + 4;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            
+            trailContainer.appendChild(particle);
+            
+            // Eliminar partícula después de la animación
+            setTimeout(() => {
+                particle.remove();
+            }, 1000);
         }
 
-        function animate() {
-            requestAnimationFrame(animate);
-            const time = Date.now() * 0.001;
-            
-            points.rotation.y += 0.0005;
-            
-            // Balanceo suave de las cerezas 3D
-            cherries.forEach(c => {
-                c.rotation.z = Math.sin(time + c.userData.offset) * 0.1; // Balanceo lateral
-                c.position.y += Math.sin(time + c.userData.offset) * 0.002; // Flotación vertical
-            });
+        // --- THREE.JS (FONDO SOLO PARTÍCULAS) ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-            // Animación del cuadrado random pequeño
+        // Partículas (como harina/azúcar flotando)
+        const geometry = new THREE.BufferGeometry();
+        const vertices = [];
+        for (let i = 0; i < 400; i++) {
+            vertices.push(Math.random() * 20 - 10, Math.random() * 20 - 10, Math.random() * 20 - 10);
+        }
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        
+        const material = new THREE.PointsMaterial({ 
+            color: 0xffffff, 
+            size: 0.04, 
+            transparent: true, 
+            opacity: 0.6 
+        });
+        const points = new THREE.Points(geometry, material);
+        scene.add(points);
+
+        // Cuadrado random súper pequeño y transparente
+        const randomBoxMat = new THREE.MeshBasicMaterial({ 
+            color: 0x493026, 
+            transparent: true, 
+            opacity: 0.1 // Muy sutil
+        });
+        const randomBox = new THREE.Mesh(
+            new THREE.BoxGeometry(0.15, 0.15, 0.15), // Mucho más pequeño
+            randomBoxMat
+        );
+        randomBox.position.set(-2, -3, -1);
+        scene.add(randomBox);
+
+        camera.position.z = 5;
+
+        const animateThree = () => {
+            requestAnimationFrame(animateThree);
+            points.rotation.y += 0.0005;
+            points.rotation.x += 0.0002;
+
             randomBox.rotation.x += 0.01;
             randomBox.rotation.y += 0.01;
-            randomBox.position.y += Math.sin(time * 0.5) * 0.001;
+            randomBox.position.y += Math.sin(Date.now() * 0.001) * 0.001;
 
             renderer.render(scene, camera);
-        }
+        };
+        animateThree();
 
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
@@ -312,7 +392,6 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        init();
     </script>
 </body>
 </html>
