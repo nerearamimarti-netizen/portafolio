@@ -95,7 +95,6 @@
 
         section { position: relative; padding: 60px 20px; max-width: 1000px; margin: auto; z-index: 2; }
 
-        /* --- DESCRIPCIÓN --- */
         .description-box {
             background: rgba(255, 255, 255, 0.4);
             padding: 50px; border-radius: 40px;
@@ -109,10 +108,9 @@
             font-size: 2rem;
             font-weight: 800;
             margin-bottom: 40px;
-            text-align: center; /* Títulos de secciones centrados para equilibrio visual */
+            text-align: center;
         }
 
-        /* Alineación izquierda para Herramientas */
         .left-align-title { text-align: left; }
 
         .img-project {
@@ -125,7 +123,6 @@
         .grid-2 { display: grid; gap: 30px; margin-bottom: 40px; }
         @media(min-width:768px){ .grid-2 { grid-template-columns: 1fr 1fr; } }
 
-        /* --- HERRAMIENTAS ALINEADAS A LA IZQUIERDA --- */
         .tools-container {
             display: flex;
             flex-direction: column;
@@ -212,8 +209,8 @@
             }
         });
 
-        // --- THREE.JS ---
-        let scene, camera, renderer, cherries = [], points;
+        // --- THREE.JS (CORREGIDO CON CEREZAS 3D Y FORMA EXACTA) ---
+        let scene, camera, renderer, cherries = [], points, randomBox;
 
         function init() {
             scene = new THREE.Scene();
@@ -232,47 +229,58 @@
             points = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.05 }));
             scene.add(points);
 
-            function createCherry(size, x, y, z) {
+            function createReal3DCherry(size, x, y, z) {
                 const group = new THREE.Group();
                 
-                // Fruto con pocito central (según imagen)
+                // --- GEOMETRÍA DEL CUERPO (CORAZÓN INVERTIDO CON BASE REDONDA) ---
                 const shape = new THREE.Shape();
-                shape.moveTo(0, 0); 
-                shape.bezierCurveTo(size, size*0.8, size*1.2, -size*0.5, 0, -size*1.2);
-                shape.bezierCurveTo(-size*1.2, -size*0.5, -size, size*0.8, 0, 0);
+                shape.moveTo(0, 0); // Pocito central superior
+                shape.bezierCurveTo(size, size*0.8, size*1.3, -size*0.2, 0, -size*1.3); // Curva derecha con base redonda (sin pico)
+                shape.bezierCurveTo(-size*1.3, -size*0.2, -size, size*0.8, 0, 0); // Curva izquierda
                 
-                const geo = new THREE.ExtrudeGeometry(shape, { 
-                    depth: size*0.8, 
+                // Extruir la forma para darle volumen 3D real
+                const extrudeSettings = { 
+                    depth: size*0.7, 
                     bevelEnabled: true, 
-                    bevelThickness: size*0.4, 
-                    bevelSize: size*0.4, 
-                    bevelSegments: 15 
-                });
-                const mesh = new THREE.Mesh(geo, new THREE.MeshPhongMaterial({ color: 0xff0015 }));
+                    bevelThickness: size*0.3, 
+                    bevelSize: size*0.3, 
+                    bevelSegments: 20 
+                };
+                const geo = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+                const mesh = new THREE.Mesh(geo, new THREE.MeshPhongMaterial({ color: 0xff0015, shininess: 80 }));
+                
+                // Invertir para que la hendidura central quede arriba
                 mesh.rotation.x = Math.PI; 
                 
-                // Tallo negro curvo saliendo del centro
+                // --- TALLO NEGRO CURVO ---
                 const curve = new THREE.QuadraticBezierCurve3(
-                    new THREE.Vector3(0, 0, size*0.4),
-                    new THREE.Vector3(-size*0.4, size*2, size*0.4),
-                    new THREE.Vector3(-size*1.2, size*3, size*0.4)
+                    new THREE.Vector3(0, 0, size*0.35), // Sale del pocito central (0,0)
+                    new THREE.Vector3(-size*0.4, size*2, size*0.35),
+                    new THREE.Vector3(-size*1.1, size*3, size*0.35)
                 );
-                const stem = new THREE.Mesh(
-                    new THREE.TubeGeometry(curve, 20, size*0.07, 8, false), 
-                    new THREE.MeshBasicMaterial({ color: 0x000000 })
-                );
+                const stemGeo = new THREE.TubeGeometry(curve, 20, size*0.06, 8, false);
+                const stemMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
+                const stemMesh = new THREE.Mesh(stemGeo, stemMat);
 
-                group.add(mesh, stem);
+                group.add(mesh, stemMesh);
                 group.position.set(x, y, z);
                 group.userData = { offset: Math.random() * 100 };
                 scene.add(group);
                 cherries.push(group);
             }
 
-            createCherry(0.4, 4, 2, -2);
-            createCherry(0.3, -5, 1, -3);
-            createCherry(0.5, 6, -3, -4);
-            createCherry(0.2, -4, -4, -2);
+            // Varias cerezas distribuidas por el fondo
+            createReal3DCherry(0.4, 5, 2, -2);    // Derecha Arriba
+            createReal3DCherry(0.3, -5.5, 3, -1); // Izquierda Arriba
+            createReal3DCherry(0.5, 6, -3, -4);   // Derecha Abajo
+            createReal3DCherry(0.2, -4.5, -4, -3); // Izquierda Abajo
+            createReal3DCherry(0.35, 0, -5, -2.5); // Centro Abajo
+
+            // --- CUADRADO RANDOM AHORA MÁS PEQUEÑO ---
+            const boxMat = new THREE.MeshBasicMaterial({ color: 0x493026, transparent: true, opacity: 0.1 });
+            randomBox = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.15, 0.15), boxMat); // Mucho más pequeño
+            randomBox.position.set(-2, -2, -1);
+            scene.add(randomBox);
 
             camera.position.z = 8;
             animate();
@@ -284,10 +292,17 @@
             
             points.rotation.y += 0.0005;
             
+            // Balanceo suave de las cerezas 3D
             cherries.forEach(c => {
-                c.rotation.z = Math.sin(time + c.userData.offset) * 0.15;
-                c.position.y += Math.sin(time + c.userData.offset) * 0.003;
+                c.rotation.z = Math.sin(time + c.userData.offset) * 0.1; // Balanceo lateral
+                c.position.y += Math.sin(time + c.userData.offset) * 0.002; // Flotación vertical
             });
+
+            // Animación del cuadrado random pequeño
+            randomBox.rotation.x += 0.01;
+            randomBox.rotation.y += 0.01;
+            randomBox.position.y += Math.sin(time * 0.5) * 0.001;
+
             renderer.render(scene, camera);
         }
 
