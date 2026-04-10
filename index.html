@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <title>Neeergraphs</title>
 
@@ -15,11 +15,14 @@ body {
   font-family: 'Poppins', sans-serif;
   background: #0f0f0f;
   color: white;
+  overflow-x: hidden;
 }
 
-/* HEADER */
+/* ======================
+   HEADER HERO
+====================== */
 header {
-  padding: 100px 20px;
+  padding: 120px 20px;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -37,37 +40,57 @@ header video {
 
 header .content {
   position: relative;
+  z-index: 2;
 }
 
-/* TITULO NEERGRAPHS */
+/* TITULO ULTRA CREATIVO */
 header h1 {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 64px;
+  font-size: clamp(42px, 6vw, 90px);
+  font-weight: 800;
   letter-spacing: 2px;
-  font-weight: 600;
 
   background: linear-gradient(90deg,#ff4ecd,#6c63ff,#00d4ff,#ff4ecd);
   background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 
-  animation: gradientMove 4s ease infinite, floatTitle 3s ease-in-out infinite;
+  animation: shine 4s ease infinite, floatTitle 5s ease-in-out infinite;
+  transform-origin: center;
 }
 
-/* animación flotante suave letras */
+/* brillo */
+@keyframes shine {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* flotación letras */
 @keyframes floatTitle {
   0%,100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+  50% { transform: translateY(-10px); }
 }
 
-/* SECCIONES */
+/* ======================
+   SECCIONES
+====================== */
 section {
   padding: 80px 20px;
   max-width: 1000px;
   margin: auto;
+
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
 }
 
-/* ABOUT */
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ======================
+   ABOUT
+====================== */
 .about-container {
   display: flex;
   gap: 40px;
@@ -80,14 +103,21 @@ section {
   height: 180px;
   border-radius: 50%;
   object-fit: cover;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  transition: transform 0.4s ease;
 }
 
-/* TEXTO */
+.profile:hover {
+  transform: scale(1.05);
+}
+
 .about-text {
   max-width: 500px;
 }
 
-/* TABS */
+/* ======================
+   TABS
+====================== */
 .tabs {
   margin-top: 25px;
 }
@@ -101,14 +131,15 @@ section {
 .tab-buttons button {
   background: #2a2a2a;
   border: none;
-  padding: 8px 14px;
+  padding: 10px 16px;
   border-radius: 999px;
   cursor: pointer;
   color: white;
+  transition: all 0.3s ease;
 }
 
 .tab-buttons button.active {
-  background: linear-gradient(270deg,#ff4ecd,#6c63ff);
+  background: linear-gradient(90deg,#ff4ecd,#6c63ff);
 }
 
 .tab-content {
@@ -120,56 +151,67 @@ section {
   display: block;
 }
 
-/* SERVICIOS */
+/* ======================
+   WHAT I DO (REDISEÑO PRO)
+====================== */
 .services {
   display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
   gap: 20px;
-}
-
-@media(min-width:768px){
-  .services {
-    grid-template-columns: repeat(3,1fr);
-  }
 }
 
 .service {
-  background: #1c1c1c;
-  padding: 20px;
-  border-radius: 16px;
+  background: linear-gradient(145deg,#1c1c1c,#111);
+  padding: 25px;
+  border-radius: 20px;
   text-align: center;
-  transition: transform 0.3s ease;
+
+  position: relative;
+  overflow: hidden;
+
+  transition: all 0.4s ease;
+}
+
+.service::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top,#6c63ff33,#ff4ecd11,transparent);
+  opacity: 0;
+  transition: 0.4s;
 }
 
 .service:hover {
-  transform: translateY(-5px);
+  transform: translateY(-10px) scale(1.02);
+}
+
+.service:hover::before {
+  opacity: 1;
 }
 
 .service img {
-  width: 40px;
+  width: 45px;
   margin-bottom: 10px;
 }
 
-/* PROYECTOS */
+/* ======================
+   PROYECTOS
+====================== */
 .grid {
   display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
   gap: 20px;
-}
-
-@media(min-width:768px){
-  .grid {
-    grid-template-columns: repeat(2,1fr);
-  }
 }
 
 .card {
   background: #1c1c1c;
   padding: 20px;
   border-radius: 16px;
-  transition: transform 0.3s ease;
+  transition: all 0.4s ease;
 }
 
 .card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-8px);
 }
 
 .project-img {
@@ -179,10 +221,36 @@ section {
   margin-bottom: 15px;
   background-size: cover;
   background-position: center;
-  background-color: #333;
 }
 
-/* CONTACTO */
+.project-title {
+  font-weight: 700;
+}
+
+.project-subtitle {
+  font-size: 14px;
+  color: #aaa;
+}
+
+/* BOTONES ARREGLADOS */
+button {
+  margin-top: 10px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(90deg,#ff4ecd,#6c63ff);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.08);
+}
+
+/* ======================
+   CONTACTO
+====================== */
 .contact-item {
   display: flex;
   align-items: center;
@@ -194,19 +262,18 @@ section {
   width: 20px;
 }
 
-/* FOOTER */
+/* ======================
+   FOOTER
+====================== */
 footer {
   text-align: center;
-  padding: 40px;
-  color: #888;
+  padding: 50px;
+  color: #777;
 }
 
-/* ANIMACIONES */
-@keyframes gradientMove {
-  0% {background-position:0% 50%;}
-  50% {background-position:100% 50%;}
-  100% {background-position:0% 50%;}
-}
+/* ======================
+   SCROLL REVEAL
+====================== */
 
 </style>
 </head>
@@ -214,20 +281,16 @@ footer {
 <body>
 
 <header>
-
 <video autoplay muted loop playsinline>
 <source src="background-nerea.mp4">
 </video>
 
 <div class="content">
 <h1>NEEERGRAPHS</h1>
-<p>Edición de vídeo • Diseño gráfico</p>
-<p>Contenido creativo para RRSS</p>
+<p>Diseño gráfico • Motion • Creatividad digital</p>
 </div>
-
 </header>
 
-<!-- ABOUT -->
 <section>
 
 <div class="about-container">
@@ -238,46 +301,29 @@ footer {
 
 <h2>Sobre mí</h2>
 
-<p>
-Soy creadora visual enfocada en contenido digital y redes sociales.
-</p>
+<p>Creativa visual enfocada en branding, vídeo y diseño digital con enfoque emocional.</p>
 
 <div class="tabs">
-
 <div class="tab-buttons">
 <button class="active" onclick="showTab('skills')">Skills</button>
-<button onclick="showTab('experiencia')">Experiencia</button>
-<button onclick="showTab('estudios')">Estudios</button>
-<button onclick="showTab('certificaciones')">Certificaciones</button>
+<button onclick="showTab('exp')">Experiencia</button>
+<button onclick="showTab('studies')">Estudios</button>
+<button onclick="showTab('cert')">Certificaciones</button>
 </div>
 
-<div id="skills" class="tab-content active">
-Herramientas Adobe, IA, RRSS
-</div>
-
-<div id="experiencia" class="tab-content">
-Ádraba, Lunaro, Jastag
-</div>
-
-<div id="estudios" class="tab-content">
-CEI + Marketing
-</div>
-
-<div id="certificaciones" class="tab-content">
-Google, Hubspot, AI
-</div>
+<div id="skills" class="tab-content active">Adobe Suite, IA, RRSS</div>
+<div id="exp" class="tab-content">Ádraba, Lunaro, Jastag</div>
+<div id="studies" class="tab-content">CEI + Marketing</div>
+<div id="cert" class="tab-content">Google, Hubspot</div>
 
 </div>
 
 </div>
-
 </div>
 
 </section>
 
-<!-- SERVICIOS -->
 <section>
-
 <h2>Qué puedo hacer</h2>
 
 <div class="services">
@@ -298,52 +344,46 @@ Google, Hubspot, AI
 </div>
 
 </div>
-
 </section>
 
-<!-- PROYECTOS -->
 <section>
-
 <h2>Proyectos</h2>
 
 <div class="grid">
 
 <div class="card">
 <div class="project-img" style="background-image:url('destacada-magnum-final.png')"></div>
-<div class="project-title">Campaña 360 Magnum</div>
-<div class="project-subtitle">Algunos placeres no entienden de estaciones</div>
+<div class="project-title">Magnum</div>
+<div class="project-subtitle">Campaña conceptual</div>
 <a href="proyecto-magnum.html"><button>Ver proyecto</button></a>
 </div>
 
 <div class="card">
 <div class="project-img"></div>
-<div class="project-title">Dolce Vitta</div>
-<div class="project-subtitle">Branding y RRSS</div>
+<div class="project-title">Dolce Vita</div>
+<div class="project-subtitle">Branding</div>
 <button>Ver proyecto</button>
 </div>
 
 <div class="card">
-<div class="project-img" style="background-image:url('destacadas-HOME.png')"></div>
-<div class="project-title">Vídeo inmersivo Home</div>
-<div class="project-subtitle">After Effects y Premiere</div>
+<div class="project-img"></div>
+<div class="project-title">Home 3D</div>
+<div class="project-subtitle">Motion design</div>
 <button>Ver proyecto</button>
 </div>
 
 <div class="card">
 <div class="project-img" style="background-image:url('destacadas-superboy.png')"></div>
-<div class="project-title">Vídeo simulación Superboy</div>
-<div class="project-subtitle">After Effects y Premiere</div>
+<div class="project-title">Superboy</div>
+<div class="project-subtitle">VFX + After Effects</div>
 <a href="proyecto-superboy.html"><button>Ver proyecto</button></a>
 </div>
 
 </div>
-
 </section>
 
-<!-- CONTACTO -->
 <section>
-
-<h2>¿Hablamos? :)</h2>
+<h2>Contacto</h2>
 
 <div class="card">
 
@@ -352,7 +392,7 @@ Google, Hubspot, AI
 </div>
 
 <div class="contact-item">
-<img src="correo.png"> nerearamimarti@gmail.com
+<img src="correo.png"> email
 </div>
 
 <div class="contact-item">
@@ -360,7 +400,6 @@ Google, Hubspot, AI
 </div>
 
 </div>
-
 </section>
 
 <footer>
@@ -368,13 +407,28 @@ Google, Hubspot, AI
 </footer>
 
 <script>
-function showTab(tabId){
-  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
-  document.querySelectorAll('.tab-buttons button').forEach(btn=>btn.classList.remove('active'));
 
-  document.getElementById(tabId).classList.add('active');
+// TABS
+function showTab(id){
+  document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.tab-buttons button').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
   event.target.classList.add('active');
 }
+
+// SCROLL REVEAL (APPLE STYLE)
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+    }
+  });
+});
+
+document.querySelectorAll('section').forEach(s=>{
+  s.classList.add('visible');
+});
+
 </script>
 
 </body>
