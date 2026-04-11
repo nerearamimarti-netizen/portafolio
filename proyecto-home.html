@@ -16,7 +16,6 @@
   --yellow: #f5c842;
   --muted:  #3a5c3a;
   --bdr:    rgba(45,138,62,0.18);
-  --bdrW:   rgba(45,138,62,0.08);
 }
 
 *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
@@ -65,63 +64,62 @@ body {
   50%      { transform:translateY(-5px); }
 }
 
-/* ══ HERO — no full height, contenido centrado ══ */
+/* ══ HERO — ancho completo ══ */
 .hero {
   position:relative;
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  padding:80px 20px 60px;
-  overflow:hidden; text-align:center; z-index:1;
-  min-height:0;
+  width:100%;
+  height:56vh;
+  min-height:400px;
+  overflow:hidden;
+  z-index:1;
 }
 
-/* imagen de fondo limitada */
-.hero-img-wrap {
-  position:relative;
-  width:min(780px, 90vw);
-  border-radius:24px;
-  overflow:hidden;
-  box-shadow:0 30px 80px rgba(0,0,0,.22), 0 0 0 1px rgba(255,255,255,.4);
-  margin-bottom:0;
-}
-.hero-img-wrap img {
-  width:100%; display:block;
-  aspect-ratio:16/7; object-fit:cover;
-  filter:saturate(1.2) brightness(1.05);
+.hero-img {
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  filter:saturate(1.2) brightness(1.04);
+  transform:scale(1.04);
   animation:heroBreath 9s ease-in-out infinite;
 }
 @keyframes heroBreath {
-  0%,100% { transform:scale(1.03); }
-  50%      { transform:scale(1.06); }
+  0%,100% { transform:scale(1.04); }
+  50%      { transform:scale(1.07); }
 }
 
-/* overlay dentro de la imagen */
-.hero-img-wrap::after {
-  content:''; position:absolute; inset:0;
-  background:linear-gradient(160deg,rgba(180,219,253,.08) 0%,rgba(180,219,253,.55) 100%);
+/* overlay degradado hacia abajo */
+.hero-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(
+    170deg,
+    rgba(14,31,14,.15) 0%,
+    rgba(14,31,14,.25) 40%,
+    rgba(180,219,253,.92) 100%
+  );
 }
 
-/* título encima de la imagen */
+/* bloque de título dentro del hero */
 .hero-title-block {
   position:absolute; bottom:0; left:0; right:0;
-  z-index:2; padding:32px 40px;
+  z-index:2; padding:40px 60px;
   display:flex; flex-direction:column; align-items:flex-start;
 }
+@media(max-width:640px){ .hero-title-block{ padding:28px 24px; } }
 
 .hero-eyebrow {
   display:inline-flex; align-items:center; gap:10px;
   font-family:'Poppins',sans-serif;
   font-size:10px; font-weight:500; letter-spacing:5px;
-  text-transform:uppercase; color:rgba(255,255,255,.8);
+  text-transform:uppercase; color:rgba(255,255,255,.85);
   margin-bottom:10px;
   opacity:0; animation:fadeUp .8s ease .2s forwards;
 }
 .hero-eyebrow span { display:inline-block; width:22px; height:1px; background:rgba(255,255,255,.7); }
 
-/* TÍTULO CON EFECTO TRAZO → RELLENO (como el portafolio) */
+/* SVG título con efecto trazo → relleno */
 .hero-title-svg-wrap {
+  width:min(700px, 88vw);
   opacity:0; animation:fadeUp .9s ease .4s forwards;
-  width:min(640px, 85vw);
 }
 
 .title-path {
@@ -133,23 +131,22 @@ body {
   stroke-dasharray:4000;
   stroke-dashoffset:4000;
   animation:drawTitle 2.2s cubic-bezier(.4,0,.2,1) .8s forwards;
-  filter:drop-shadow(0 0 8px rgba(200,255,200,.5)) drop-shadow(0 0 20px rgba(45,138,62,.4));
+  filter:drop-shadow(0 0 10px rgba(150,255,160,.55)) drop-shadow(0 0 24px rgba(45,138,62,.45));
 }
 .title-fill {
   fill:url(#titleFill);
   opacity:0;
-  animation:fillAppear .5s ease 2.8s forwards;
+  animation:fillAppear .5s ease 2.9s forwards;
 }
-
 @keyframes drawTitle { to { stroke-dashoffset:0; } }
 @keyframes fillAppear { to { opacity:1; } }
 
 .hero-sub {
-  font-family:'Poppins',sans-serif; font-size:12px; font-weight:300;
-  letter-spacing:3px; text-transform:uppercase;
-  color:rgba(255,255,255,.75);
-  margin-top:12px;
-  opacity:0; animation:fadeUp .8s ease 3.1s forwards;
+  font-family:'Poppins',sans-serif; font-size:11px; font-weight:300;
+  letter-spacing:4px; text-transform:uppercase;
+  color:rgba(255,255,255,.72);
+  margin-top:14px;
+  opacity:0; animation:fadeUp .8s ease 3.2s forwards;
 }
 
 @keyframes fadeUp {
@@ -181,6 +178,7 @@ body {
   padding:60px 40px 0;
   max-width:1060px; margin:0 auto;
 }
+@media(max-width:640px){ .video-section{ padding:40px 20px 0; } }
 .video-frame { position:relative; }
 .video-frame::before {
   content:''; position:absolute; inset:-10px -14px; border-radius:30px;
@@ -204,7 +202,6 @@ body {
 }
 @media(max-width:640px){ .sw{ padding:60px 20px; } }
 
-/* título con Fredoka */
 .info-title {
   font-family:'Fredoka',sans-serif;
   font-size:clamp(32px,5vw,58px); font-weight:700;
@@ -216,8 +213,6 @@ body {
   color:var(--muted); margin-bottom:16px;
   max-width:680px;
 }
-
-/* chips */
 .tech-chips { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
 .chip {
   font-size:11px; font-weight:500; letter-spacing:2px;
@@ -244,12 +239,10 @@ body {
 }
 .tool-item:nth-child(2) { animation-delay:.6s; }
 .tool-item:nth-child(3) { animation-delay:1.2s; }
-
 @keyframes toolFloat {
   0%,100% { transform:translateY(0); }
   50%      { transform:translateY(-10px); }
 }
-
 .tool-item img {
   width:72px; height:72px; object-fit:contain;
   filter:drop-shadow(0 14px 20px rgba(0,0,0,.2)) drop-shadow(0 4px 8px rgba(45,138,62,.15));
@@ -259,18 +252,12 @@ body {
   filter:drop-shadow(0 20px 30px rgba(0,0,0,.25)) drop-shadow(0 6px 12px rgba(45,138,62,.25));
   transform:scale(1.1);
 }
-
-/* sombra elíptica bajo el logo */
 .tool-shadow {
   width:50px; height:8px; border-radius:50%;
-  background:rgba(45,138,62,.18);
-  filter:blur(4px);
+  background:rgba(45,138,62,.18); filter:blur(4px);
   transition:all .3s;
 }
-.tool-item:hover .tool-shadow {
-  width:40px; opacity:.5;
-}
-
+.tool-item:hover .tool-shadow { width:40px; opacity:.5; }
 .tool-name {
   font-family:'Poppins',sans-serif;
   font-size:11px; letter-spacing:3px;
@@ -291,7 +278,6 @@ footer {
   background:var(--dark);
   padding:90px 40px 70px; overflow:hidden;
 }
-
 .footer-ghost {
   position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
   pointer-events:none; overflow:hidden;
@@ -302,18 +288,13 @@ footer {
   -webkit-text-stroke:1px rgba(255,255,255,.04);
   white-space:nowrap; user-select:none;
 }
-
 .footer-daisy { position:absolute; pointer-events:none; opacity:.1; }
 .footer-daisy.fd1 { width:180px; height:180px; top:-50px; left:-50px; transform:rotate(25deg); }
 .footer-daisy.fd2 { width:110px; height:110px; bottom:30px; right:80px; transform:rotate(-20deg); }
 .footer-daisy.fd3 { width:75px;  height:75px;  bottom:20px; left:140px; transform:rotate(55deg); }
 
-.footer-inner {
-  position:relative; z-index:2;
-  max-width:900px; margin:0 auto;
-}
+.footer-inner { position:relative; z-index:2; max-width:900px; margin:0 auto; }
 
-/* Título footer */
 .footer-heading {
   display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;
   margin-bottom:28px;
@@ -326,15 +307,11 @@ footer {
   font-family:'Playfair Display',serif; font-style:italic; font-weight:900;
   font-size:clamp(48px,8vw,96px); color:white; line-height:.9;
 }
-
 .footer-meta {
   font-family:'Poppins',sans-serif; font-size:13px; font-weight:300;
   letter-spacing:3px; text-transform:uppercase;
-  color:rgba(255,255,255,.38); line-height:2;
-  margin-bottom:48px;
+  color:rgba(255,255,255,.38); line-height:2; margin-bottom:48px;
 }
-
-/* botón ver más proyectos */
 .footer-cta {
   display:inline-flex; align-items:center; gap:10px;
   font-family:'Fredoka',sans-serif; font-size:16px; font-weight:600;
@@ -347,9 +324,7 @@ footer {
   background:white; transform:translateY(-3px);
   box-shadow:0 14px 36px rgba(0,0,0,.28);
 }
-.footer-cta-arrow {
-  display:inline-block; transition:transform .25s;
-}
+.footer-cta-arrow { display:inline-block; transition:transform .25s; }
 .footer-cta:hover .footer-cta-arrow { transform:translateX(4px); }
 
 .footer-divider {
@@ -380,10 +355,7 @@ footer {
   animation:floatBtn 3s ease-in-out infinite;
 }
 #back-top.show { opacity:1; pointer-events:auto; }
-#back-top:hover {
-  background:linear-gradient(135deg,rgba(45,138,62,.4),rgba(58,181,74,.4));
-  box-shadow:0 0 32px rgba(45,138,62,.55);
-}
+#back-top:hover { background:linear-gradient(135deg,rgba(45,138,62,.4),rgba(58,181,74,.4)); box-shadow:0 0 32px rgba(45,138,62,.55); }
 #back-top svg { width:20px; height:20px; }
 
 </style>
@@ -406,49 +378,48 @@ footer {
 
 <a class="back-home" href="index.html#proyectos">← Volver</a>
 
-<!-- ══ HERO ══ -->
+<!-- ══ HERO — ancho completo ══ -->
 <section class="hero">
-  <div class="hero-img-wrap">
-    <img src="hero-proyecto-home.png" alt="Home project hero">
+  <img class="hero-img" src="hero-proyecto-home.png" alt="Home project hero">
+  <div class="hero-overlay"></div>
 
-    <div class="hero-title-block">
-      <div class="hero-eyebrow">
-        <span></span>Motion Graphics · After Effects<span></span>
-      </div>
-
-      <!-- SVG con efecto trazo → relleno, tipografía Fredoka -->
-      <div class="hero-title-svg-wrap">
-        <svg viewBox="0 0 640 110" xmlns="http://www.w3.org/2000/svg" style="width:100%;overflow:visible;">
-          <defs>
-            <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stop-color="#c2f0c8"/>
-              <stop offset="40%"  stop-color="#7dcf6e"/>
-              <stop offset="100%" stop-color="#ffffff"/>
-            </linearGradient>
-            <linearGradient id="titleFill" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stop-color="#e8fff0" stop-opacity=".95"/>
-              <stop offset="40%"  stop-color="#b8f0c8" stop-opacity=".92"/>
-              <stop offset="100%" stop-color="#ffffff"  stop-opacity=".95"/>
-            </linearGradient>
-          </defs>
-          <!-- Relleno que aparece al final -->
-          <text class="title-fill"
-            x="16" y="90"
-            font-family="'Fredoka', sans-serif"
-            font-size="105" font-weight="700"
-            letter-spacing="-2">Home</text>
-          <!-- Trazo animado que se dibuja primero -->
-          <text class="title-path"
-            x="16" y="90"
-            font-family="'Fredoka', sans-serif"
-            font-size="105" font-weight="700"
-            letter-spacing="-2"
-            style="fill:none;stroke:url(#titleGrad);stroke-width:2.2;paint-order:stroke fill;">Home</text>
-        </svg>
-      </div>
-
-      <p class="hero-sub">Ilustraciones · Profundidad 3D · Espacio Z</p>
+  <div class="hero-title-block">
+    <div class="hero-eyebrow">
+      <span></span>Motion Graphics · After Effects<span></span>
     </div>
+
+    <div class="hero-title-svg-wrap">
+      <svg viewBox="0 0 700 115" xmlns="http://www.w3.org/2000/svg" style="width:100%;overflow:visible;">
+        <defs>
+          <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#a8ffb8"/>
+            <stop offset="50%"  stop-color="#5dd675"/>
+            <stop offset="100%" stop-color="#d4ffe0"/>
+          </linearGradient>
+          <!-- relleno oscuro, verde bosque profundo -->
+          <linearGradient id="titleFill" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stop-color="#0a2e12"/>
+            <stop offset="50%"  stop-color="#0d3d18"/>
+            <stop offset="100%" stop-color="#071a0b"/>
+          </linearGradient>
+        </defs>
+        <!-- Relleno oscuro que aparece al final del trazo -->
+        <text class="title-fill"
+          x="12" y="96"
+          font-family="'Fredoka', sans-serif"
+          font-size="108" font-weight="700"
+          letter-spacing="-1">Home</text>
+        <!-- Trazo animado brillante -->
+        <text class="title-path"
+          x="12" y="96"
+          font-family="'Fredoka', sans-serif"
+          font-size="108" font-weight="700"
+          letter-spacing="-1"
+          style="fill:none;stroke:url(#titleGrad);stroke-width:2.2;paint-order:stroke fill;">Home</text>
+      </svg>
+    </div>
+
+    <p class="hero-sub">Ilustraciones · Profundidad 3D · Espacio Z</p>
   </div>
 </section>
 
@@ -474,7 +445,7 @@ footer {
   </div>
 </div>
 
-<!-- ══ VÍDEO — directo bajo el marquee ══ -->
+<!-- ══ VÍDEO ══ -->
 <div class="video-section reveal">
   <div class="video-frame">
     <div class="video-wrapper">
@@ -510,34 +481,29 @@ footer {
   </div>
 </div>
 
-<!-- ══ HERRAMIENTAS — logos flotantes ══ -->
+<!-- ══ HERRAMIENTAS ══ -->
 <div class="tools-section reveal">
   <div class="tools-grid">
-
     <div class="tool-item">
       <img src="aftereffects.png" alt="After Effects">
       <div class="tool-shadow"></div>
       <span class="tool-name">After Effects</span>
     </div>
-
     <div class="tool-item">
       <img src="premier.png" alt="Premiere">
       <div class="tool-shadow"></div>
       <span class="tool-name">Premiere</span>
     </div>
-
     <div class="tool-item">
       <img src="ilustrador.png" alt="Illustrator">
       <div class="tool-shadow"></div>
       <span class="tool-name">Illustrator</span>
     </div>
-
   </div>
 </div>
 
 <!-- ══ FOOTER ══ -->
 <footer>
-
   <div class="footer-ghost"><span>Home</span></div>
 
   <div class="footer-daisy fd1">
@@ -582,60 +548,56 @@ footer {
       <span class="footer-label">Proyecto:</span>
       <span class="footer-project-name">Home</span>
     </div>
-
     <p class="footer-meta">
       Motion · Ilustración · 3D Space<br>
       After Effects · Premiere · Illustrator
     </p>
-
     <a class="footer-cta" href="index.html#proyectos">
       Ver más proyectos <span class="footer-cta-arrow">→</span>
     </a>
   </div>
 
   <div class="footer-divider"></div>
-
   <div class="footer-bottom">
     <span>Home — Motion Graphics</span>
     <span>After Effects · 3D Space</span>
   </div>
-
 </footer>
 
 <!-- Three.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (function(){
-  const canvas = document.getElementById('bg-canvas');
-  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  const canvas=document.getElementById('bg-canvas');
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
   renderer.setClearColor(0x000000,0);
-  const scene  = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(60, innerWidth/innerHeight, .1, 200);
-  camera.position.z = 28;
-  function resize(){ renderer.setSize(innerWidth,innerHeight); camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); }
-  resize(); window.addEventListener('resize',resize);
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,200);
+  camera.position.z=28;
+  function resize(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}
+  resize();window.addEventListener('resize',resize);
 
-  const C_GREEN=0x3ab54a, C_BLUE=0x5ba8d4, C_BARK=0x8b5e3c, C_YELLOW=0xf5c842, C_CREAM=0xe8f4d4;
-  function lMat(col,op=.55){ return new THREE.LineBasicMaterial({color:col,transparent:true,opacity:op}); }
-  function wMat(col,op=.3){  return new THREE.MeshBasicMaterial({color:col,wireframe:true,transparent:true,opacity:op}); }
+  const C_GREEN=0x3ab54a,C_BLUE=0x5ba8d4,C_BARK=0x8b5e3c,C_YELLOW=0xf5c842,C_CREAM=0xe8f4d4;
+  function lMat(col,op=.55){return new THREE.LineBasicMaterial({color:col,transparent:true,opacity:op});}
+  function wMat(col,op=.3){return new THREE.MeshBasicMaterial({color:col,wireframe:true,transparent:true,opacity:op});}
 
   function makeDaisy(col,nc=6){
     const g=new THREE.Group();
     for(let i=0;i<nc;i++){
-      const angle=(i/nc)*Math.PI*2, pts=[];
+      const angle=(i/nc)*Math.PI*2,pts=[];
       for(let j=0;j<=12;j++){const t=(j/12)*Math.PI*2;pts.push(new THREE.Vector3(Math.cos(angle)*1.4+Math.cos(t)*.45,Math.sin(angle)*1.4+Math.sin(t)*.18,0));}
       g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.6)));
     }
-    const cPts=[]; for(let i=0;i<=20;i++){const a=(i/20)*Math.PI*2;cPts.push(new THREE.Vector3(Math.cos(a)*.55,Math.sin(a)*.55,0));}
+    const cPts=[];for(let i=0;i<=20;i++){const a=(i/20)*Math.PI*2;cPts.push(new THREE.Vector3(Math.cos(a)*.55,Math.sin(a)*.55,0));}
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(cPts),lMat(C_YELLOW,.9)));
-    const iPts=[]; for(let i=0;i<=12;i++){const a=(i/12)*Math.PI*2;iPts.push(new THREE.Vector3(Math.cos(a)*.25,Math.sin(a)*.25,0));}
+    const iPts=[];for(let i=0;i<=12;i++){const a=(i/12)*Math.PI*2;iPts.push(new THREE.Vector3(Math.cos(a)*.25,Math.sin(a)*.25,0));}
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(iPts),lMat(C_YELLOW,.6)));
     return g;
   }
   function makeSun(col){
     const g=new THREE.Group();
-    const cp=[]; for(let i=0;i<=32;i++){const a=(i/32)*Math.PI*2;cp.push(new THREE.Vector3(Math.cos(a)*1.2,Math.sin(a)*1.2,0));}
+    const cp=[];for(let i=0;i<=32;i++){const a=(i/32)*Math.PI*2;cp.push(new THREE.Vector3(Math.cos(a)*1.2,Math.sin(a)*1.2,0));}
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(cp),lMat(col,.75)));
     for(let i=0;i<12;i++){const a=(i/12)*Math.PI*2,len=i%3===0?.7:.45;g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(Math.cos(a)*1.35,Math.sin(a)*1.35,0),new THREE.Vector3(Math.cos(a)*(1.35+len),Math.sin(a)*(1.35+len),0)]),lMat(col,.6)));}
     return g;
@@ -643,7 +605,7 @@ footer {
   function makeCloud(col){
     const g=new THREE.Group();
     [[0,0,1],[1.1,.3,.75],[-1,.25,.7],[.5,-.15,.55],[-.4,-.1,.5],[1.7,-.1,.6]].forEach(([cx,cy,r])=>{
-      const pts=[]; for(let i=0;i<=18;i++){const a=(i/18)*Math.PI*2;pts.push(new THREE.Vector3(cx+Math.cos(a)*r,cy+Math.sin(a)*r,0));}
+      const pts=[];for(let i=0;i<=18;i++){const a=(i/18)*Math.PI*2;pts.push(new THREE.Vector3(cx+Math.cos(a)*r,cy+Math.sin(a)*r,0));}
       g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.5)));
     });
     return g;
@@ -651,16 +613,16 @@ footer {
   function makeSpider(col){
     const g=new THREE.Group();
     for(let i=0;i<8;i++){const a=(i/8)*Math.PI*2;g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),new THREE.Vector3(Math.cos(a)*2.2,Math.sin(a)*2.2,0)]),lMat(col,.25)));}
-    [.7,1.3,1.9].forEach(r=>{const pts=[]; for(let i=0;i<=24;i++){const a=(i/24)*Math.PI*2;pts.push(new THREE.Vector3(Math.cos(a)*r,Math.sin(a)*r,0));} g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.2)));});
-    const body=new THREE.Mesh(new THREE.SphereGeometry(.18,8,6),wMat(col,.7)); body.position.set(.3,-2.4,0); g.add(body);
-    const head=new THREE.Mesh(new THREE.SphereGeometry(.12,6,4),wMat(col,.6)); head.position.set(.3,-2.12,0); g.add(head);
+    [.7,1.3,1.9].forEach(r=>{const pts=[];for(let i=0;i<=24;i++){const a=(i/24)*Math.PI*2;pts.push(new THREE.Vector3(Math.cos(a)*r,Math.sin(a)*r,0));}g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.2)));});
+    const body=new THREE.Mesh(new THREE.SphereGeometry(.18,8,6),wMat(col,.7));body.position.set(.3,-2.4,0);g.add(body);
+    const head=new THREE.Mesh(new THREE.SphereGeometry(.12,6,4),wMat(col,.6));head.position.set(.3,-2.12,0);g.add(head);
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),new THREE.Vector3(.3,-2,0)]),lMat(col,.5)));
     return g;
   }
   function makeLeaf(col){
     const g=new THREE.Group();
     const shape=new THREE.Shape();
-    shape.moveTo(0,0); shape.bezierCurveTo(-1,1,-1,3,0,4); shape.bezierCurveTo(1,3,1,1,0,0);
+    shape.moveTo(0,0);shape.bezierCurveTo(-1,1,-1,3,0,4);shape.bezierCurveTo(1,3,1,1,0,0);
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(shape.getPoints(20)),lMat(col,.65)));
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),new THREE.Vector3(0,4,0)]),lMat(col,.4)));
     return g;
@@ -689,41 +651,41 @@ footer {
 
   const floaters=[];
   function place(obj,x,y,z,sc=1){
-    obj.scale.setScalar(sc); obj.position.set(x,y,z);
+    obj.scale.setScalar(sc);obj.position.set(x,y,z);
     obj.userData={rx:(Math.random()-.5)*.008,ry:(Math.random()-.5)*.011,rz:(Math.random()-.5)*.006,floatAmp:.3+Math.random()*.6,floatSpd:.3+Math.random()*.5,floatOff:Math.random()*Math.PI*2,baseY:y};
-    scene.add(obj); floaters.push(obj);
+    scene.add(obj);floaters.push(obj);
   }
 
-  place(makeDaisy(C_CREAM,6),  -18, 7,-9, 1.8);
-  place(makeDaisy(C_CREAM,5),   14,-5,-8, 1.2);
-  place(makeDaisy(C_GREEN,6),   -6,-9,-12,1.5);
-  place(makeDaisy(C_BLUE,5),    20, 8,-10,1.0);
-  place(makeDaisy(C_CREAM,7),   -2, 5,-14,2.0);
-  place(makeDaisy(C_YELLOW,5),   8,-2,-7, 0.9);
-  place(makeSun(C_YELLOW),      16, 9,-11,1.6);
-  place(makeSun(C_CREAM),      -14,-6,-9, 1.0);
-  place(makeCloud(C_BLUE),     -20, 4,-10,1.4);
-  place(makeCloud(C_CREAM),     10, 8,-12,1.8);
-  place(makeCloud(C_BLUE),       4,-8,-14,1.1);
-  place(makeSpider(C_BARK),    -12, 9,-8, 1.3);
-  place(makeSpider(C_GREEN),    18,-8,-11,1.0);
-  place(makeLeaf(C_GREEN),     -16,-4,-7, 1.4);
-  place(makeLeaf(C_GREEN),      12, 5,-8, 1.0);
-  place(makeLeaf(C_CREAM),      -4,10,-13,1.6);
-  place(makeButterfly(C_BLUE),   6,10,-9, 1.2);
+  place(makeDaisy(C_CREAM,6), -18, 7,-9,1.8);
+  place(makeDaisy(C_CREAM,5),  14,-5,-8,1.2);
+  place(makeDaisy(C_GREEN,6),  -6,-9,-12,1.5);
+  place(makeDaisy(C_BLUE,5),   20, 8,-10,1.0);
+  place(makeDaisy(C_CREAM,7),  -2, 5,-14,2.0);
+  place(makeDaisy(C_YELLOW,5),  8,-2,-7,0.9);
+  place(makeSun(C_YELLOW),     16, 9,-11,1.6);
+  place(makeSun(C_CREAM),     -14,-6,-9,1.0);
+  place(makeCloud(C_BLUE),    -20, 4,-10,1.4);
+  place(makeCloud(C_CREAM),    10, 8,-12,1.8);
+  place(makeCloud(C_BLUE),      4,-8,-14,1.1);
+  place(makeSpider(C_BARK),   -12, 9,-8,1.3);
+  place(makeSpider(C_GREEN),   18,-8,-11,1.0);
+  place(makeLeaf(C_GREEN),    -16,-4,-7,1.4);
+  place(makeLeaf(C_GREEN),     12, 5,-8,1.0);
+  place(makeLeaf(C_CREAM),     -4,10,-13,1.6);
+  place(makeButterfly(C_BLUE),  6,10,-9,1.2);
   place(makeButterfly(C_YELLOW),-8,-7,-10,0.9);
   place(makeButterfly(C_CREAM), 22, 2,-12,1.5);
-  place(makeGrass(C_GREEN),    -22,-9,-8, 1.6);
-  place(makeGrass(C_GREEN),     16,-10,-9,1.2);
+  place(makeGrass(C_GREEN),   -22,-9,-8,1.6);
+  place(makeGrass(C_GREEN),    16,-10,-9,1.2);
 
   const pCount=1400;
   const pGeo=new THREE.BufferGeometry();
   const pPos=new Float32Array(pCount*3),pCol=new Float32Array(pCount*3),pSpd=new Float32Array(pCount);
   const CA=new THREE.Color(0x3ab54a),CB=new THREE.Color(0x5ba8d4),CC=new THREE.Color(0xf5c842);
   for(let i=0;i<pCount;i++){
-    pPos[i*3]=(Math.random()-.5)*120; pPos[i*3+1]=(Math.random()-.5)*80; pPos[i*3+2]=(Math.random()-.5)*60;
+    pPos[i*3]=(Math.random()-.5)*120;pPos[i*3+1]=(Math.random()-.5)*80;pPos[i*3+2]=(Math.random()-.5)*60;
     const t=Math.random(),c=t<.33?CA:t<.66?CB:CC;
-    pCol[i*3]=c.r; pCol[i*3+1]=c.g; pCol[i*3+2]=c.b; pSpd[i]=.02+Math.random()*.06;
+    pCol[i*3]=c.r;pCol[i*3+1]=c.g;pCol[i*3+2]=c.b;pSpd[i]=.02+Math.random()*.06;
   }
   pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
   pGeo.setAttribute('color',new THREE.BufferAttribute(pCol,3));
@@ -737,28 +699,28 @@ footer {
   scene.add(new THREE.LineSegments(lineGeo,new THREE.LineBasicMaterial({color:0x3ab54a,transparent:true,opacity:.05})));
 
   const ring=new THREE.Mesh(new THREE.TorusGeometry(22,.05,4,120),new THREE.MeshBasicMaterial({color:0x3ab54a,transparent:true,opacity:.07}));
-  ring.rotation.x=Math.PI/2.5; scene.add(ring);
+  ring.rotation.x=Math.PI/2.5;scene.add(ring);
 
   let mx=0,my=0,tmx=0,tmy=0;
-  document.addEventListener('mousemove',e=>{ mx=(e.clientX/innerWidth-.5)*2; my=(e.clientY/innerHeight-.5)*2; });
-  let scrollY=0; window.addEventListener('scroll',()=>scrollY=window.scrollY);
+  document.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=(e.clientY/innerHeight-.5)*2;});
+  let scrollY=0;window.addEventListener('scroll',()=>scrollY=window.scrollY);
   let tc=0;
   (function animate(){
-    requestAnimationFrame(animate); tc+=.007;
-    tmx+=(mx*1.4-tmx)*.04; tmy+=(my*.7-tmy)*.04;
-    camera.position.x=tmx; camera.position.y=-tmy+scrollY*.003; camera.lookAt(0,scrollY*.003,0);
-    particles.rotation.y=tc*.035; particles.rotation.x=tc*.012;
+    requestAnimationFrame(animate);tc+=.007;
+    tmx+=(mx*1.4-tmx)*.04;tmy+=(my*.7-tmy)*.04;
+    camera.position.x=tmx;camera.position.y=-tmy+scrollY*.003;camera.lookAt(0,scrollY*.003,0);
+    particles.rotation.y=tc*.035;particles.rotation.x=tc*.012;
     const pos=pGeo.attributes.position.array;
     for(let i=0;i<pCount;i++) pos[i*3+1]+=Math.sin(tc*pSpd[i]+i)*.003;
     pGeo.attributes.position.needsUpdate=true;
     floaters.forEach(m=>{
-      m.rotation.x+=m.userData.rx; m.rotation.y+=m.userData.ry; m.rotation.z+=m.userData.rz;
+      m.rotation.x+=m.userData.rx;m.rotation.y+=m.userData.ry;m.rotation.z+=m.userData.rz;
       m.position.y=m.userData.baseY+Math.sin(tc*m.userData.floatSpd+m.userData.floatOff)*m.userData.floatAmp;
     });
-    let li=0; const lp=lineGeo.attributes.position.array;
+    let li=0;const lp=lineGeo.attributes.position.array;
     for(let a=0;a<floaters.length;a++) for(let b=a+1;b<floaters.length;b++) if(floaters[a].position.distanceTo(floaters[b].position)<18){lp[li++]=floaters[a].position.x;lp[li++]=floaters[a].position.y;lp[li++]=floaters[a].position.z;lp[li++]=floaters[b].position.x;lp[li++]=floaters[b].position.y;lp[li++]=floaters[b].position.z;}
     for(;li<lp.length;li++) lp[li]=0;
-    lineGeo.attributes.position.needsUpdate=true; lineGeo.setDrawRange(0,li/3);
+    lineGeo.attributes.position.needsUpdate=true;lineGeo.setDrawRange(0,li/3);
     ring.rotation.z=tc*.04;
     renderer.render(scene,camera);
   })();
@@ -770,27 +732,27 @@ if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){
   const tc=['#3ab54a','#7dcf6e','#5ba8d4','#f5c842','#2d8a3e'];
   let ti=0,lx=0,ly=0;
   document.addEventListener('mousemove',e=>{
-    dot.style.left=e.clientX+'px'; dot.style.top=e.clientY+'px';
+    dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';
     const d=Math.hypot(e.clientX-lx,e.clientY-ly);
-    if(d>5){ lx=e.clientX; ly=e.clientY;
+    if(d>5){lx=e.clientX;ly=e.clientY;
       for(let k=0;k<3;k++){
-        const t=document.createElement('div'); t.className='ctrail';
+        const t=document.createElement('div');t.className='ctrail';
         const sz=Math.random()*8+5,col=tc[(ti+k)%tc.length];
         const ox=(Math.random()-.5)*6,oy=(Math.random()-.5)*6;
         t.style.cssText=`width:${sz}px;height:${sz}px;left:${e.clientX+ox}px;top:${e.clientY+oy}px;background:${col};box-shadow:0 0 ${sz*2}px ${col};`;
-        document.body.appendChild(t); ti++;
+        document.body.appendChild(t);ti++;
         setTimeout(()=>t.remove(),650);
       }
     }
   });
   document.querySelectorAll('a,.chip,.tool-item,.footer-cta').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{ dot.style.transform='translate(-50%,-50%) scale(2.5)'; dot.style.background='#f5c842'; dot.style.boxShadow='0 0 16px #f5c842,0 0 32px rgba(245,200,66,.5)'; });
-    el.addEventListener('mouseleave',()=>{ dot.style.transform='translate(-50%,-50%) scale(1)'; dot.style.background='var(--green)'; dot.style.boxShadow='0 0 16px var(--green)'; });
+    el.addEventListener('mouseenter',()=>{dot.style.transform='translate(-50%,-50%) scale(2.5)';dot.style.background='#f5c842';dot.style.boxShadow='0 0 16px #f5c842,0 0 32px rgba(245,200,66,.5)';});
+    el.addEventListener('mouseleave',()=>{dot.style.transform='translate(-50%,-50%) scale(1)';dot.style.background='var(--green)';dot.style.boxShadow='0 0 16px var(--green)';});
   });
 }
 
 /* ── SCROLL REVEAL ── */
-const obs=new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); }); },{threshold:.12});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.12});
 document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
 
 /* ── BACK TO TOP ── */
