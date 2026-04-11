@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@300;400;500&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
-<title>Magnum — Motion Graphics</title>
+<title>Magnum — Campaña Conceptual</title>
 <style>
 
 :root {
@@ -31,7 +31,6 @@ body {
 
 #bg-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
 
-/* ══ CURSOR ══ */
 @media(hover:hover) and (pointer:fine){ body{cursor:none} #cur{display:block!important} }
 #cur {
   display:none; position:fixed; width:14px; height:14px; border-radius:50%;
@@ -48,7 +47,6 @@ body {
   100% { opacity:0;   transform:translate(-50%,-50%) scale(.05); }
 }
 
-/* ══ BOTÓN VOLVER ══ */
 .back-home {
   position:fixed; top:22px; right:22px; z-index:900;
   background:linear-gradient(270deg,#c8922a,#8b5e3c); color:white; text-decoration:none;
@@ -64,129 +62,64 @@ body {
   50%      { transform:translateY(-5px); }
 }
 
-/* ══ HERO ══ */
+/* HERO */
 .hero {
-  position:relative;
-  width:100%;
-  height:56vh;
-  min-height:420px;
-  overflow:hidden;
-  z-index:1;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  position:relative; width:100%; height:56vh; min-height:420px;
+  overflow:hidden; z-index:1;
+  display:flex; align-items:center; justify-content:center;
 }
-
 .hero-img {
-  position:absolute; inset:0;
-  width:100%; height:100%;
-  object-fit:cover;
-  filter:saturate(1.2) brightness(1.04);
-  transform:scale(1.04);
-  animation:heroBreath 9s ease-in-out infinite;
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; filter:saturate(1.2) brightness(1.04);
+  transform:scale(1.04); animation:heroBreath 9s ease-in-out infinite;
 }
-@keyframes heroBreath {
-  0%,100% { transform:scale(1.04); }
-  50%      { transform:scale(1.07); }
-}
-
+@keyframes heroBreath { 0%,100%{transform:scale(1.04);} 50%{transform:scale(1.07);} }
 .hero-overlay {
   position:absolute; inset:0;
-  background:linear-gradient(
-    180deg,
-    rgba(26,13,5,.15) 0%,
-    rgba(61,31,13,.4) 50%,
-    rgba(245,230,200,.9) 100%
-  );
+  background:linear-gradient(180deg,rgba(26,13,5,.15) 0%,rgba(61,31,13,.4) 50%,rgba(245,230,200,.9) 100%);
 }
-
 .hero-title-block {
-  position:relative;
-  z-index:2;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:0 30px;
+  position:relative; z-index:2;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:0 30px;
 }
-
 .hero-eyebrow {
   display:inline-flex; align-items:center; gap:10px;
-  font-family:'Poppins',sans-serif;
-  font-size:10px; font-weight:500; letter-spacing:5px;
-  text-transform:uppercase; color:rgba(255,255,255,.88);
-  margin-bottom:16px;
-  opacity:0; animation:fadeUp .8s ease .2s forwards;
+  font-family:'Poppins',sans-serif; font-size:10px; font-weight:500;
+  letter-spacing:5px; text-transform:uppercase; color:rgba(255,255,255,.88);
+  margin-bottom:16px; opacity:0; animation:fadeUp .8s ease .2s forwards;
 }
 .hero-eyebrow span { display:inline-block; width:22px; height:1px; background:rgba(255,255,255,.7); }
-
-.hero-title-svg-wrap {
-  width:min(800px, 90vw);
-  opacity:0; animation:fadeUp .9s ease .4s forwards;
-}
-
+.hero-title-svg-wrap { width:min(800px,90vw); opacity:0; animation:fadeUp .9s ease .4s forwards; }
 .title-path {
-  fill:none;
-  stroke:url(#titleGrad);
-  stroke-width:2.5;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-  stroke-dasharray:5000;
-  stroke-dashoffset:5000;
+  fill:none; stroke:url(#titleGrad); stroke-width:2.5;
+  stroke-linecap:round; stroke-linejoin:round;
+  stroke-dasharray:5000; stroke-dashoffset:5000;
   animation:drawTitle 1.6s cubic-bezier(.4,0,.2,1) .3s forwards;
   filter:drop-shadow(0 0 12px rgba(255,220,120,.7)) drop-shadow(0 0 28px rgba(200,146,42,.6));
 }
-.title-fill {
-  fill:url(#titleFill);
-  opacity:0;
-  animation:fillAppear 1.2s ease 1.7s forwards;
-}
+.title-fill { fill:url(#titleFill); opacity:0; animation:fillAppear 1.2s ease 1.7s forwards; }
 @keyframes drawTitle { to { stroke-dashoffset:0; } }
-@keyframes fillAppear {
-  0%   { opacity:0; }
-  30%  { opacity:0.3; }
-  70%  { opacity:0.7; }
-  100% { opacity:1; }
-}
-
+@keyframes fillAppear { 0%{opacity:0;} 30%{opacity:.3;} 70%{opacity:.7;} 100%{opacity:1;} }
 .hero-sub {
   font-family:'Poppins',sans-serif; font-size:11px; font-weight:300;
-  letter-spacing:4px; text-transform:uppercase;
-  color:rgba(255,255,255,.75);
-  margin-top:18px;
-  opacity:0; animation:fadeUp .8s ease 2.8s forwards;
+  letter-spacing:4px; text-transform:uppercase; color:rgba(255,255,255,.75);
+  margin-top:18px; opacity:0; animation:fadeUp .8s ease 2.8s forwards;
 }
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
 
-@keyframes fadeUp {
-  from { opacity:0; transform:translateY(20px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-
-/* ══ MARQUEE ══ */
+/* MARQUEE */
 .marquee-wrap {
   overflow:hidden; border-top:1px solid var(--bdr); border-bottom:1px solid var(--bdr);
-  padding:13px 0;
-  background:linear-gradient(90deg,rgba(107,61,46,.04),rgba(245,230,200,.04));
-  position:relative; z-index:2;
+  padding:13px 0; position:relative; z-index:2;
 }
-.marquee-track {
-  display:flex; gap:48px; white-space:nowrap;
-  animation:marquee 24s linear infinite;
-}
-.marquee-track span {
-  font-size:10px; letter-spacing:3px; text-transform:uppercase;
-  color:var(--choco2); opacity:.75; flex-shrink:0;
-}
+.marquee-track { display:flex; gap:48px; white-space:nowrap; animation:marquee 24s linear infinite; }
+.marquee-track span { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--choco2); opacity:.75; flex-shrink:0; }
 .marquee-track .dot { color:var(--gold); font-size:8px; }
 @keyframes marquee { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
 
-/* ══ VÍDEO ══ */
-.video-section {
-  position:relative; z-index:2;
-  padding:60px 40px 0;
-  max-width:1060px; margin:0 auto;
-}
+/* VIDEO */
+.video-section { position:relative; z-index:2; padding:60px 40px 0; max-width:1060px; margin:0 auto; }
 @media(max-width:640px){ .video-section{ padding:40px 20px 0; } }
 .video-frame { position:relative; }
 .video-frame::before {
@@ -197,229 +130,118 @@ body {
   content:''; position:absolute; inset:-20px -28px; border-radius:38px;
   background:rgba(255,255,255,.28); z-index:-2;
 }
-.video-wrapper {
-  width:100%; aspect-ratio:16/9;
-  border-radius:20px; overflow:hidden;
-  box-shadow:0 40px 100px rgba(0,0,0,.22);
-}
+.video-wrapper { width:100%; aspect-ratio:16/9; border-radius:20px; overflow:hidden; box-shadow:0 40px 100px rgba(0,0,0,.22); }
 .video-wrapper iframe { width:100%; height:100%; border:0; display:block; }
 
-/* ══ ACORDEÓN ══ */
-.accordion-section {
-  max-width:1080px; margin:0 auto;
-  padding:60px 40px 0; position:relative; z-index:1;
-}
+/* ACORDEÓN */
+.accordion-section { max-width:1080px; margin:0 auto; padding:60px 40px 0; position:relative; z-index:1; }
 @media(max-width:640px){ .accordion-section{ padding:40px 20px 0; } }
-
-.accordion-grid {
-  display:grid;
-  gap:12px;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-}
-
-.accordion-item {}
+.accordion-grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); }
 .accordion-item button {
   width:100%; padding:16px 20px;
   border:1.5px solid var(--bdr); border-radius:16px;
   background:rgba(255,255,255,.45); backdrop-filter:blur(10px);
   color:var(--dark); cursor:none;
   display:flex; justify-content:space-between; align-items:center;
-  font-family:'Poppins',sans-serif; font-weight:500; font-size:14px;
-  letter-spacing:.5px;
+  font-family:'Poppins',sans-serif; font-weight:500; font-size:14px; letter-spacing:.5px;
   transition:background .25s, border-color .25s, border-radius .35s;
 }
 .accordion-item button:hover { background:rgba(255,255,255,.7); border-color:var(--gold); }
 .accordion-item button.open { border-radius:16px 16px 0 0; background:rgba(255,255,255,.6); border-color:var(--gold); }
-
-.accordion-arrow {
-  width:18px; height:18px; display:flex; align-items:center; justify-content:center;
-  transition:transform .35s;
-  flex-shrink:0;
-}
-.accordion-arrow svg { width:14px; height:14px; }
-.accordion-item button.open .accordion-arrow { transform:rotate(180deg); }
-
+.accordion-arrow { width:22px; height:22px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.accordion-arrow img { width:22px; height:22px; object-fit:contain; }
 .accordion-content {
   max-height:0; overflow:hidden;
   transition:max-height .4s ease, padding .3s ease;
   background:rgba(255,255,255,.35); backdrop-filter:blur(8px);
-  border:1.5px solid var(--gold); border-top:none;
+  border-left:1.5px solid var(--gold);
+  border-right:1.5px solid var(--gold);
+  border-bottom:1.5px solid var(--gold);
+  border-top:none;
   border-radius:0 0 16px 16px;
   padding:0 20px;
-  font-family:'Poppins',sans-serif; font-size:13px; font-weight:300;
-  line-height:1.7; color:var(--muted);
+  font-family:'Poppins',sans-serif; font-size:13px; font-weight:300; line-height:1.7; color:var(--muted);
 }
 .accordion-content.open { max-height:200px; padding:16px 20px; }
 .accordion-content strong { color:var(--choco2); font-weight:500; }
 
-/* ══ SECCIÓN INFO ══ */
-.sw {
-  max-width:1080px; margin:0 auto;
-  padding:80px 40px; position:relative; z-index:1;
-}
+/* INFO */
+.sw { max-width:1080px; margin:0 auto; padding:80px 40px; position:relative; z-index:1; }
 @media(max-width:640px){ .sw{ padding:60px 20px; } }
-
-.info-title {
-  font-family:'Fredoka',sans-serif;
-  font-size:clamp(32px,5vw,58px); font-weight:700;
-  color:var(--dark); margin-bottom:26px; line-height:1.1;
-}
-.info-text {
-  font-family:'Poppins',sans-serif;
-  font-size:15px; font-weight:300; line-height:1.85;
-  color:var(--muted); margin-bottom:16px;
-  max-width:680px;
-}
+.info-title { font-family:'Fredoka',sans-serif; font-size:clamp(32px,5vw,58px); font-weight:700; color:var(--dark); margin-bottom:26px; line-height:1.1; }
+.info-text { font-family:'Poppins',sans-serif; font-size:15px; font-weight:300; line-height:1.85; color:var(--muted); margin-bottom:16px; max-width:680px; }
+.info-text strong { font-weight:500; color:var(--choco2); }
 .tech-chips { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
 .chip {
-  font-size:11px; font-weight:500; letter-spacing:2px;
-  text-transform:uppercase; padding:8px 18px; border-radius:999px;
-  border:1px solid var(--bdr); color:var(--choco2);
+  font-size:11px; font-weight:500; letter-spacing:2px; text-transform:uppercase;
+  padding:8px 18px; border-radius:999px; border:1px solid var(--bdr); color:var(--choco2);
   background:rgba(255,255,255,.5); backdrop-filter:blur(8px);
   transition:all .25s; cursor:default; font-family:'Poppins',sans-serif;
 }
 .chip:hover { background:var(--choco2); color:white; border-color:var(--choco2); transform:translateY(-2px); }
 
-/* ══ GALERÍA MERCH ══ */
-.gallery-section {
-  position:relative; z-index:2;
-  padding:0 40px 20px;
-  max-width:1080px; margin:0 auto;
-}
+/* GALERÍAS */
+.gallery-section { position:relative; z-index:2; padding:0 40px 20px; max-width:1080px; margin:0 auto; }
 @media(max-width:640px){ .gallery-section{ padding:0 20px 20px; } }
-.gallery-title {
-  font-family:'Fredoka',sans-serif; font-size:clamp(22px,3vw,34px);
-  font-weight:700; color:var(--dark); margin-bottom:24px;
-}
-.gallery-grid-2 {
-  display:grid; grid-template-columns:1fr 1fr; gap:16px;
-}
+.gallery-title { font-family:'Fredoka',sans-serif; font-size:clamp(22px,3vw,34px); font-weight:700; color:var(--dark); margin-bottom:24px; }
+.gallery-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
 @media(max-width:640px){ .gallery-grid-2{ grid-template-columns:1fr; } }
-.gallery-grid-2 img, .gallery-full img {
-  width:100%; border-radius:16px;
-  box-shadow:0 20px 50px rgba(61,31,13,.18);
-  transition:transform .35s; display:block;
-}
-.gallery-grid-2 img:hover, .gallery-full img:hover { transform:scale(1.025); }
-.gallery-full { margin-top:16px; }
-.gallery-full img { border-radius:18px; box-shadow:0 24px 60px rgba(61,31,13,.22); }
 
-/* ══ HERRAMIENTAS ══ */
-.tools-section {
-  position:relative; z-index:2;
-  padding:0 40px 100px; text-align:center;
-  max-width:1080px; margin:0 auto;
-}
-.tools-grid {
-  display:flex; justify-content:center; gap:70px; flex-wrap:wrap;
-  padding-top:20px;
-}
-.tool-item {
-  display:flex; flex-direction:column; align-items:center; gap:16px;
-  animation:toolFloat 3.5s ease-in-out infinite;
-}
+/* Merch: con sombra */
+.merch-img { width:100%; border-radius:16px; box-shadow:0 20px 50px rgba(61,31,13,.18); transition:transform .35s; display:block; }
+.merch-img:hover { transform:scale(1.025); }
+
+/* Cartelería cuadradas: PNG puro, sin caja, sin sombra */
+.poster-img { width:100%; display:block; transition:transform .35s; }
+.poster-img:hover { transform:scale(1.025); }
+
+/* Billboard */
+.billboard-img { width:100%; display:block; border-radius:16px; box-shadow:0 24px 60px rgba(61,31,13,.22); transition:transform .35s; margin-top:16px; }
+.billboard-img:hover { transform:scale(1.015); }
+
+/* RRSS: PNG puro total */
+.rrss-img { width:100%; display:block; transition:transform .35s; }
+.rrss-img:hover { transform:scale(1.015); }
+
+/* HERRAMIENTAS */
+.tools-section { position:relative; z-index:2; padding:0 40px 100px; text-align:center; max-width:1080px; margin:0 auto; }
+.tools-grid { display:flex; justify-content:center; gap:70px; flex-wrap:wrap; padding-top:20px; }
+.tool-item { display:flex; flex-direction:column; align-items:center; gap:16px; animation:toolFloat 3.5s ease-in-out infinite; }
 .tool-item:nth-child(2) { animation-delay:.6s; }
 .tool-item:nth-child(3) { animation-delay:1.2s; }
-@keyframes toolFloat {
-  0%,100% { transform:translateY(0); }
-  50%      { transform:translateY(-10px); }
-}
-.tool-item img {
-  width:72px; height:72px; object-fit:contain;
-  filter:drop-shadow(0 14px 20px rgba(0,0,0,.2)) drop-shadow(0 4px 8px rgba(107,61,46,.15));
-  transition:filter .3s, transform .3s;
-}
-.tool-item:hover img {
-  filter:drop-shadow(0 20px 30px rgba(0,0,0,.25)) drop-shadow(0 6px 12px rgba(200,146,42,.3));
-  transform:scale(1.1);
-}
-.tool-shadow {
-  width:50px; height:8px; border-radius:50%;
-  background:rgba(107,61,46,.18); filter:blur(4px);
-  transition:all .3s;
-}
+@keyframes toolFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+.tool-item img { width:72px; height:72px; object-fit:contain; filter:drop-shadow(0 14px 20px rgba(0,0,0,.2)); transition:filter .3s, transform .3s; }
+.tool-item:hover img { filter:drop-shadow(0 20px 30px rgba(0,0,0,.25)) drop-shadow(0 6px 12px rgba(200,146,42,.3)); transform:scale(1.1); }
+.tool-shadow { width:50px; height:8px; border-radius:50%; background:rgba(107,61,46,.18); filter:blur(4px); transition:all .3s; }
 .tool-item:hover .tool-shadow { width:40px; opacity:.5; }
-.tool-name {
-  font-family:'Poppins',sans-serif;
-  font-size:11px; letter-spacing:3px;
-  text-transform:uppercase; color:var(--muted); font-weight:500;
-  margin-top:-8px;
-}
+.tool-name { font-family:'Poppins',sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); font-weight:500; margin-top:-8px; }
 
-/* ══ REVEAL ══ */
-.reveal {
-  opacity:0; transform:translateY(32px);
-  transition:opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1);
-}
+/* REVEAL */
+.reveal { opacity:0; transform:translateY(32px); transition:opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1); }
 .reveal.visible { opacity:1; transform:none; }
 
-/* ══ FOOTER ══ */
-footer {
-  position:relative; z-index:2;
-  background:var(--dark);
-  padding:90px 40px 70px; overflow:hidden;
-}
-.footer-ghost {
-  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-  pointer-events:none; overflow:hidden;
-}
-.footer-ghost span {
-  font-family:'Fredoka',sans-serif; font-weight:700;
-  font-size:28vw; color:transparent;
-  -webkit-text-stroke:1px rgba(255,255,255,.04);
-  white-space:nowrap; user-select:none;
-}
-.footer-daisy { position:absolute; pointer-events:none; opacity:.08; }
-.footer-daisy.fd1 { width:180px; height:180px; top:-50px; left:-50px; transform:rotate(25deg); }
-.footer-daisy.fd2 { width:110px; height:110px; bottom:30px; right:80px; transform:rotate(-20deg); }
-.footer-daisy.fd3 { width:75px;  height:75px;  bottom:20px; left:140px; transform:rotate(55deg); }
-
+/* FOOTER */
+footer { position:relative; z-index:2; background:var(--dark); padding:90px 40px 70px; overflow:hidden; }
+.footer-ghost { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; overflow:hidden; }
+.footer-ghost span { font-family:'Fredoka',sans-serif; font-weight:700; font-size:28vw; color:transparent; -webkit-text-stroke:1px rgba(255,255,255,.04); white-space:nowrap; user-select:none; }
+.footer-deco { position:absolute; pointer-events:none; opacity:.08; }
+.footer-deco.fd1 { width:180px; height:180px; top:-50px; left:-50px; transform:rotate(25deg); }
+.footer-deco.fd2 { width:110px; height:110px; bottom:30px; right:80px; transform:rotate(-20deg); }
+.footer-deco.fd3 { width:75px; height:75px; bottom:20px; left:140px; transform:rotate(55deg); }
 .footer-inner { position:relative; z-index:2; max-width:900px; margin:0 auto; }
-
-.footer-heading {
-  display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;
-  margin-bottom:28px;
-}
-.footer-label {
-  font-family:'Fredoka',sans-serif; font-size:clamp(28px,4vw,44px);
-  font-weight:700; color:rgba(255,255,255,.4); letter-spacing:1px;
-}
-.footer-project-name {
-  font-family:'Playfair Display',serif; font-style:italic; font-weight:900;
-  font-size:clamp(48px,8vw,96px); color:white; line-height:.9;
-}
-.footer-meta {
-  font-family:'Poppins',sans-serif; font-size:13px; font-weight:300;
-  letter-spacing:3px; text-transform:uppercase;
-  color:rgba(255,255,255,.38); line-height:2; margin-bottom:48px;
-}
-.footer-cta {
-  display:inline-flex; align-items:center; gap:10px;
-  font-family:'Fredoka',sans-serif; font-size:16px; font-weight:600;
-  text-decoration:none; color:var(--dark);
-  background:rgba(245,230,200,.9); padding:14px 30px; border-radius:999px;
-  transition:background .25s, transform .25s, box-shadow .25s;
-  box-shadow:0 8px 24px rgba(0,0,0,.2);
-}
+.footer-heading { display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:28px; }
+.footer-label { font-family:'Fredoka',sans-serif; font-size:clamp(28px,4vw,44px); font-weight:700; color:rgba(255,255,255,.4); letter-spacing:1px; }
+.footer-project-name { font-family:'Playfair Display',serif; font-style:italic; font-weight:900; font-size:clamp(48px,8vw,96px); color:white; line-height:.9; }
+.footer-meta { font-family:'Poppins',sans-serif; font-size:13px; font-weight:300; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,.38); line-height:2; margin-bottom:48px; }
+.footer-cta { display:inline-flex; align-items:center; gap:10px; font-family:'Fredoka',sans-serif; font-size:16px; font-weight:600; text-decoration:none; color:var(--dark); background:rgba(245,230,200,.9); padding:14px 30px; border-radius:999px; transition:background .25s, transform .25s, box-shadow .25s; box-shadow:0 8px 24px rgba(0,0,0,.2); }
 .footer-cta:hover { background:white; transform:translateY(-3px); box-shadow:0 14px 36px rgba(0,0,0,.28); }
 .footer-cta-arrow { display:inline-block; transition:transform .25s; }
 .footer-cta:hover .footer-cta-arrow { transform:translateX(4px); }
+.footer-divider { position:relative; z-index:2; max-width:900px; margin:48px auto 24px; height:1px; background:rgba(255,255,255,.07); }
+.footer-bottom { position:relative; z-index:2; max-width:900px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }
+.footer-bottom span { font-family:'Poppins',sans-serif; font-size:11px; color:rgba(255,255,255,.18); letter-spacing:2px; }
 
-.footer-divider {
-  position:relative; z-index:2;
-  max-width:900px; margin:48px auto 24px;
-  height:1px; background:rgba(255,255,255,.07);
-}
-.footer-bottom {
-  position:relative; z-index:2; max-width:900px; margin:0 auto;
-  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;
-}
-.footer-bottom span {
-  font-family:'Poppins',sans-serif;
-  font-size:11px; color:rgba(255,255,255,.18); letter-spacing:2px;
-}
-
-/* ══ BACK TO TOP ══ */
+/* BACK TO TOP */
 #back-top {
   position:fixed; bottom:36px; right:36px; z-index:900;
   width:50px; height:50px; border-radius:50%;
@@ -432,7 +254,7 @@ footer {
   animation:floatBtn 3s ease-in-out infinite;
 }
 #back-top.show { opacity:1; pointer-events:auto; }
-#back-top:hover { background:linear-gradient(135deg,rgba(107,61,46,.4),rgba(200,146,42,.4)); box-shadow:0 0 32px rgba(200,146,42,.55); }
+#back-top:hover { background:linear-gradient(135deg,rgba(107,61,46,.4),rgba(200,146,42,.4)); }
 #back-top svg { width:20px; height:20px; }
 
 </style>
@@ -444,27 +266,19 @@ footer {
 
 <button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Volver arriba">
   <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <defs>
-      <linearGradient id="bArrow" x1="0" y1="24" x2="24" y2="0" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#c8922a"/><stop offset="1" stop-color="#e8b84b"/>
-      </linearGradient>
-    </defs>
+    <defs><linearGradient id="bArrow" x1="0" y1="24" x2="24" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#c8922a"/><stop offset="1" stop-color="#e8b84b"/></linearGradient></defs>
     <polyline points="18 15 12 9 6 15" stroke="url(#bArrow)"/>
   </svg>
 </button>
 
 <a class="back-home" href="index.html#proyectos">← Volver</a>
 
-<!-- ══ HERO ══ -->
+<!-- HERO -->
 <section class="hero">
-  <img class="hero-img" src="Magnum-hero.png" alt="Magnum project hero">
+  <img class="hero-img" src="magnum-hero-n.png" alt="Magnum project hero">
   <div class="hero-overlay"></div>
-
   <div class="hero-title-block">
-    <div class="hero-eyebrow">
-      <span></span>Campaña Conceptual · Diseño Gráfico<span></span>
-    </div>
-
+    <div class="hero-eyebrow"><span></span>Campaña Conceptual · Diseño Gráfico<span></span></div>
     <div class="hero-title-svg-wrap">
       <svg viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;overflow:visible;">
         <defs>
@@ -482,29 +296,15 @@ footer {
             <stop offset="100%" stop-color="#2a1208"/>
           </linearGradient>
         </defs>
-
-        <text class="title-fill"
-          x="400" y="100"
-          text-anchor="middle"
-          font-family="'Fredoka', sans-serif"
-          font-size="108" font-weight="700"
-          letter-spacing="-1">Magnum</text>
-
-        <text class="title-path"
-          x="400" y="100"
-          text-anchor="middle"
-          font-family="'Fredoka', sans-serif"
-          font-size="108" font-weight="700"
-          letter-spacing="-1"
-          style="fill:none;stroke:url(#titleGrad);stroke-width:2.2;paint-order:stroke fill;">Magnum</text>
+        <text class="title-fill" x="400" y="100" text-anchor="middle" font-family="'Fredoka', sans-serif" font-size="108" font-weight="700" letter-spacing="-1">Magnum</text>
+        <text class="title-path" x="400" y="100" text-anchor="middle" font-family="'Fredoka', sans-serif" font-size="108" font-weight="700" letter-spacing="-1" style="fill:none;stroke:url(#titleGrad);stroke-width:2.2;paint-order:stroke fill;">Magnum</text>
       </svg>
     </div>
-
     <p class="hero-sub">Campaña · Invierno · Sensorial</p>
   </div>
 </section>
 
-<!-- ══ MARQUEE ══ -->
+<!-- MARQUEE -->
 <div class="marquee-wrap">
   <div class="marquee-track">
     <span>CAMPAÑA CONCEPTUAL</span><span class="dot">✦</span>
@@ -526,16 +326,14 @@ footer {
   </div>
 </div>
 
-<!-- ══ ACORDEÓN ══ -->
+<!-- ACORDEÓN -->
 <div class="accordion-section reveal">
   <div class="accordion-grid">
 
     <div class="accordion-item">
       <button onclick="toggleAcc(this)">
         Descripción
-        <span class="accordion-arrow">
-          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 4 7 10 12 4"/></svg>
-        </span>
+        <span class="accordion-arrow"><img src="flecha-magnum-cerrado.png" alt="flecha"></span>
       </button>
       <div class="accordion-content">
         <strong>Campaña conceptual que reinterpreta el consumo de helado en invierno</strong>, transformándolo en una experiencia cálida y sensorial. Un proyecto ficticio con identidad visual completa.
@@ -545,9 +343,7 @@ footer {
     <div class="accordion-item">
       <button onclick="toggleAcc(this)">
         Tensión
-        <span class="accordion-arrow">
-          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 4 7 10 12 4"/></svg>
-        </span>
+        <span class="accordion-arrow"><img src="flecha-magnum-cerrado.png" alt="flecha"></span>
       </button>
       <div class="accordion-content">
         <strong>El helado en invierno parece prohibido.</strong> Existe una barrera cultural y estacional que hace que el consumidor no lo asocie a los meses fríos del año.
@@ -557,9 +353,7 @@ footer {
     <div class="accordion-item">
       <button onclick="toggleAcc(this)">
         Insight
-        <span class="accordion-arrow">
-          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 4 7 10 12 4"/></svg>
-        </span>
+        <span class="accordion-arrow"><img src="flecha-magnum-cerrado.png" alt="flecha"></span>
       </button>
       <div class="accordion-content">
         <strong>Asociar Magnum con momentos cálidos.</strong> El placer no tiene temperatura: si conseguimos conectar el producto con sensaciones de calidez, la barrera estacional desaparece.
@@ -569,9 +363,7 @@ footer {
     <div class="accordion-item">
       <button onclick="toggleAcc(this)">
         Idea
-        <span class="accordion-arrow">
-          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 4 7 10 12 4"/></svg>
-        </span>
+        <span class="accordion-arrow"><img src="flecha-magnum-cerrado.png" alt="flecha"></span>
       </button>
       <div class="accordion-content">
         <strong>Magnum acompaña el invierno.</strong> La campaña convierte el frío en excusa perfecta para el placer: cobijarse, disfrutar, romper las reglas.
@@ -581,32 +373,28 @@ footer {
   </div>
 </div>
 
-<!-- ══ VÍDEO ══ -->
+<!-- VÍDEO -->
 <div class="video-section reveal">
   <div class="video-frame">
     <div class="video-wrapper">
-      <iframe
-        src="https://www.youtube.com/embed/dPMp22JkiI0"
-        title="Magnum — Campaña conceptual"
+      <iframe src="https://www.youtube.com/embed/dPMp22JkiI0" title="Magnum — Campaña conceptual"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen>
-      </iframe>
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
   </div>
 </div>
 
-<!-- ══ INFO ══ -->
+<!-- INFO -->
 <div class="sw reveal">
   <h2 class="info-title">Cuando el frío se convierte en placer</h2>
   <p class="info-text">
-    Proyecto conceptual ficticio construido alrededor de una paradoja: disfrutar un Magnum en pleno invierno no es una contradicción, es un acto de rebeldía deliciosa.
+    <strong>Proyecto conceptual ficticio</strong> construido alrededor de una paradoja: disfrutar un Magnum en pleno invierno no es una contradicción, <strong>es un acto de rebeldía deliciosa.</strong>
   </p>
   <p class="info-text">
-    La campaña abraza la estética del invierno — calor de hogar, luz cálida, texturas de chocolate — para hacer del frío exterior un aliado. Si afuera hace frío, aquí dentro el placer manda.
+    La campaña abraza la estética del invierno — <strong>calor de hogar, luz cálida, texturas de chocolate</strong> — para hacer del frío exterior un aliado. Si afuera hace frío, <strong>aquí dentro el placer manda.</strong>
   </p>
   <p class="info-text">
-    Identidad visual completa: merchandising, cartelería exterior, contenido para redes y pieza audiovisual. Todo bajo el mismo concepto sensorial.
+    <strong>Identidad visual completa:</strong> merchandising, cartelería exterior, contenido para redes y pieza audiovisual. Todo bajo el mismo concepto sensorial.
   </p>
   <div class="tech-chips">
     <span class="chip">Campaña conceptual</span>
@@ -618,36 +406,32 @@ footer {
   </div>
 </div>
 
-<!-- ══ MERCH ══ -->
+<!-- MERCH -->
 <div class="gallery-section reveal">
   <h3 class="gallery-title">Merchandising</h3>
   <div class="gallery-grid-2">
-    <img src="merchandising-magnum-izquierda.png" alt="Merchandising Magnum izquierda">
-    <img src="merchandising-magnum-derecha.png" alt="Merchandising Magnum derecha">
+    <img src="merchandising-magnum-izquierda.png" alt="Merchandising Magnum izquierda" class="merch-img">
+    <img src="merchandising-magnum-derecha.png" alt="Merchandising Magnum derecha" class="merch-img">
   </div>
 </div>
 
-<!-- ══ CARTELERÍA ══ -->
+<!-- CARTELERÍA -->
 <div class="gallery-section reveal" style="padding-top:60px">
   <h3 class="gallery-title">Cartelería exterior</h3>
   <div class="gallery-grid-2">
-    <img src="magnum-cuadrada-izquierda.png" alt="Cartel cuadrado izquierda">
-    <img src="magnum-cuadrada-derecha.png" alt="Cartel cuadrado derecha">
+    <img src="magnum-cuadrada-izquierda.png" alt="Cartel cuadrado izquierda" class="poster-img">
+    <img src="magnum-cuadrada-derecha.png" alt="Cartel cuadrado derecha" class="poster-img">
   </div>
-  <div class="gallery-full">
-    <img src="billboard-magnum.png" alt="Billboard Magnum">
-  </div>
+  <img src="billboard-magnum.png" alt="Billboard Magnum" class="billboard-img">
 </div>
 
-<!-- ══ RRSS ══ -->
+<!-- RRSS -->
 <div class="gallery-section reveal" style="padding-top:60px;padding-bottom:40px">
   <h3 class="gallery-title">Contenido RRSS</h3>
-  <div class="gallery-full">
-    <img src="rrss_magnum.png" alt="Redes sociales Magnum">
-  </div>
+  <img src="rrss_magnum.png" alt="Redes sociales Magnum" class="rrss-img">
 </div>
 
-<!-- ══ HERRAMIENTAS ══ -->
+<!-- HERRAMIENTAS -->
 <div class="tools-section reveal">
   <div class="tools-grid">
     <div class="tool-item">
@@ -668,32 +452,29 @@ footer {
   </div>
 </div>
 
-<!-- ══ FOOTER ══ -->
+<!-- FOOTER -->
 <footer>
   <div class="footer-ghost"><span>Magnum</span></div>
 
-  <!-- Decoraciones: helados SVG en lugar de margaritas -->
-  <div class="footer-daisy fd1">
-    <svg viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
-      <!-- Helado simplificado -->
-      <rect x="40" y="60" width="20" height="50" rx="3" fill="white"/>
-      <rect x="35" y="40" width="30" height="30" rx="4" fill="white"/>
-      <ellipse cx="50" cy="40" rx="18" ry="22" fill="white"/>
-      <ellipse cx="50" cy="22" rx="14" ry="14" fill="white"/>
+  <div class="footer-deco fd1">
+    <svg viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
+      <rect x="44" y="95" width="12" height="38" rx="3" fill="white"/>
+      <rect x="28" y="38" width="44" height="62" rx="10" fill="white"/>
+      <ellipse cx="50" cy="38" rx="22" ry="10" fill="white"/>
     </svg>
   </div>
-  <div class="footer-daisy fd2">
-    <svg viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
-      <rect x="40" y="60" width="20" height="50" rx="3" fill="white"/>
-      <rect x="35" y="40" width="30" height="30" rx="4" fill="white"/>
-      <ellipse cx="50" cy="40" rx="18" ry="22" fill="white"/>
-      <ellipse cx="50" cy="22" rx="14" ry="14" fill="white"/>
+  <div class="footer-deco fd2">
+    <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="50" cy="40" rx="20" ry="32" fill="white" opacity=".7"/>
     </svg>
   </div>
-  <div class="footer-daisy fd3">
+  <div class="footer-deco fd3">
     <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-      <!-- Almendra -->
-      <ellipse cx="30" cy="30" rx="12" ry="22" transform="rotate(20,30,30)" fill="white"/>
+      <rect x="8" y="8" width="44" height="44" rx="4" fill="white"/>
+      <line x1="8" y1="27" x2="52" y2="27" stroke="#1a0d05" stroke-width="2" opacity=".3"/>
+      <line x1="8" y1="41" x2="52" y2="41" stroke="#1a0d05" stroke-width="2" opacity=".3"/>
+      <line x1="27" y1="8" x2="27" y2="52" stroke="#1a0d05" stroke-width="2" opacity=".3"/>
+      <line x1="41" y1="8" x2="41" y2="52" stroke="#1a0d05" stroke-width="2" opacity=".3"/>
     </svg>
   </div>
 
@@ -727,186 +508,266 @@ footer {
   renderer.setClearColor(0x000000,0);
   const scene=new THREE.Scene();
   const camera=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,200);
-  camera.position.z=28;
+  camera.position.z=32;
   function resize(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}
   resize();window.addEventListener('resize',resize);
 
-  /* Colores temáticos Magnum */
   const C_CHOCO=0x6b3d2e, C_GOLD=0xc8922a, C_CREAM=0xf5e6c8, C_DARK=0x3d1f0d, C_LIGHT=0xe8b84b;
 
-  function lMat(col,op=.55){return new THREE.LineBasicMaterial({color:col,transparent:true,opacity:op});}
-  function wMat(col,op=.35){return new THREE.MeshBasicMaterial({color:col,wireframe:true,transparent:true,opacity:op});}
+  function lMat(col,op){return new THREE.LineBasicMaterial({color:col,transparent:true,opacity:op});}
 
-  /* ── Helado tipo Magnum (palo + cuerpo + capa exterior) ── */
-  function makeMagnum(col){
+  /* ══ MAGNUM ══
+     Cuerpo: prisma redondeado (4 esquinas fileteadas con radio grande ~35% del ancho)
+     perfil ligeramente más ancho en el centro que en los extremos (ovoide longitudinal).
+     Capa exterior de chocolate, más gruesa y con un offset uniforme.
+     Palo: rectángulo fino. */
+  function makeMagnum(colIce, colChoco){
     const g=new THREE.Group();
-    /* palo */
-    const paloPts=[new THREE.Vector3(0,-3.2,0),new THREE.Vector3(0,-1.2,0)];
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(paloPts),lMat(C_CREAM,.8)));
-    /* cuerpo: rectángulo con borde suavizado */
-    const body=[];
-    const w=1,h=2,r=.2;
-    for(let i=0;i<=8;i++){const a=(i/8)*Math.PI*.5;body.push(new THREE.Vector3(-w+r+Math.cos(a+Math.PI)*r,-h/2+r+Math.sin(a+Math.PI)*r,0));}
-    for(let i=0;i<=8;i++){const a=(i/8)*Math.PI*.5;body.push(new THREE.Vector3( w-r+Math.cos(a+Math.PI*1.5)*r,-h/2+r+Math.sin(a+Math.PI*1.5)*r,0));}
-    for(let i=0;i<=8;i++){const a=(i/8)*Math.PI*.5;body.push(new THREE.Vector3( w-r+Math.cos(a)*r, h/2-r+Math.sin(a)*r,0));}
-    for(let i=0;i<=8;i++){const a=(i/8)*Math.PI*.5;body.push(new THREE.Vector3(-w+r+Math.cos(a+Math.PI*.5)*r, h/2-r+Math.sin(a+Math.PI*.5)*r,0));}
-    body.push(body[0]);
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(body),lMat(col,.7)));
-    /* chocolatina exterior (ligeramente más grande) */
-    const outer=body.map(v=>new THREE.Vector3(v.x*1.12,v.y*1.1,0));
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(outer),lMat(C_DARK,.4)));
-    /* líneas de textura interior */
-    for(let k=-3;k<=3;k++){
-      const x=k*.28;
-      const pts=[new THREE.Vector3(x,-h/2+.1,0),new THREE.Vector3(x,h/2-.1,0)];
-      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.12)));
+
+    /* Función que genera el contorno de un rectángulo con esquinas muy redondeadas */
+    function rrPts(W, H, R, seg){
+      const p=[];
+      const cx=[W-R, -(W-R), -(W-R),  W-R];
+      const cy=[H-R,   H-R,  -(H-R), -(H-R)];
+      const a0=[0, Math.PI*.5, Math.PI, Math.PI*1.5];
+      for(let c=0;c<4;c++){
+        for(let i=0;i<=seg;i++){
+          const a=a0[c]+(i/seg)*Math.PI*.5;
+          p.push(new THREE.Vector3(cx[c]+Math.cos(a)*R, cy[c]+Math.sin(a)*R, 0));
+        }
+      }
+      p.push(p[0]);
+      return p;
     }
+
+    /* Palo rectangular fino */
+    const PW=0.13, PH=1.5;
+    const paloPts=[
+      new THREE.Vector3(-PW, -PH*2.0, 0),
+      new THREE.Vector3( PW, -PH*2.0, 0),
+      new THREE.Vector3( PW, -PH,     0),
+      new THREE.Vector3(-PW, -PH,     0),
+      new THREE.Vector3(-PW, -PH*2.0, 0)
+    ];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(paloPts), lMat(C_CREAM,.8)));
+
+    /* Cuerpo interior (helado) — proporciones ~1.8:1 (alto:ancho), radio de esquina grande */
+    const W=0.85, H=1.52, R=0.30, SEG=12;
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(rrPts(W,H,R,SEG)), lMat(colIce,.75)));
+
+    /* Capa exterior de chocolate — offset uniforme */
+    const OFS=0.14;
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(rrPts(W+OFS,H+OFS*0.8,R+OFS*.6,SEG)), lMat(colChoco,.42)));
+
+    /* Líneas horizontales de textura interior (crema/nata) */
+    for(let k=-3;k<=3;k++){
+      const y=k*(H*1.5/7);
+      if(Math.abs(y)<H*0.9){
+        const xw=Math.min(W*0.8, W*0.8*(1-Math.pow(Math.abs(y/H),3)));
+        g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([
+          new THREE.Vector3(-xw, y, 0),
+          new THREE.Vector3( xw, y, 0)
+        ]), lMat(colIce,.09)));
+      }
+    }
+
     return g;
   }
 
-  /* ── Almendra ── */
+  /* ══ ALMENDRA ══
+     Forma lanceolada asimétrica:
+     - Extremo inferior: arco de círculo suave (redondeado)
+     - Extremo superior: termina en punta (ápice agudo)
+     - Perfil biconvexo: más ancha en el tercio inferior que en el superior
+     - Ligera asimetría lateral (lado derecho levemente más ancho) */
   function makeAlmond(col){
     const g=new THREE.Group();
+    const N=64;
     const pts=[];
-    for(let i=0;i<=24;i++){
-      const t=(i/24)*Math.PI*2;
-      const r=.6+Math.cos(t*2)*.15;
-      pts.push(new THREE.Vector3(Math.cos(t)*r*.7,Math.sin(t)*r,0));
+    for(let i=0;i<=N;i++){
+      const t=i/N;          // 0 = punta superior, 0.5 = base inferior, 1 = punta de nuevo
+      const angle=t*Math.PI*2 - Math.PI/2; // empieza en la punta superior (-π/2)
+      const sinA=Math.sin(angle);
+      const cosA=Math.cos(angle);
+
+      /* Anchura base: elipse */
+      let rx=0.52, ry=1.08;
+
+      /* La base redondeada está en la parte inferior (sinA=-1) y la punta arriba (sinA=1) */
+      /* Punta aguda: reducir rx cuanto más arriba */
+      const upness=Math.max(0, sinA);           // 0 abajo, 1 en la punta
+      const taper=1 - upness*upness*0.75;       // aplasta la anchura en la cima
+      /* Barriga: más ancha un poco por debajo del centro */
+      const belly=1 + Math.max(0,-sinA)*0.18;  // más ancha en la mitad inferior
+      /* Asimetría: lado derecho (cosA>0) ligeramente más "panzón" */
+      const asym=cosA>0 ? 1.06 : 0.95;
+
+      pts.push(new THREE.Vector3(
+        cosA * rx * asym * taper * belly,
+        sinA * ry * taper,
+        0
+      ));
     }
     pts.push(pts[0]);
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.65)));
-    /* venas */
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,-.55,0),new THREE.Vector3(0,.55,0)]),lMat(col,.3)));
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-.25,.1,0),new THREE.Vector3(.25,.1,0)]),lMat(col,.2)));
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), lMat(col,.72)));
+
+    /* Vena central */
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3( 0.02, -0.95, 0),
+      new THREE.Vector3( 0.01,  0.95, 0)
+    ]), lMat(col,.28)));
+
+    /* Venas laterales */
+    [[-0.5,-0.18],[−0.15,0.1],[0.22,0.38],[0.58,0.62]].forEach(([y1base,y2base])=>{
+      const ym=(y1base+y2base)*.5;
+      const hw=0.28+Math.abs(ym)*0.1;
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(0.02, ym, 0), new THREE.Vector3(hw*0.7, ym+0.14, 0)
+      ]), lMat(col,.17)));
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(0.02, ym, 0), new THREE.Vector3(-hw*0.6, ym+0.11, 0)
+      ]), lMat(col,.14)));
+    });
+
     return g;
   }
 
-  /* ── Trozo de chocolate ── */
-  function makeChocolateChunk(col){
+  /* ══ TABLETA DE CHOCOLATE ══
+     Rectángulo con grid de cuadraditos y línea de rotura diagonal */
+  function makeChocolate(col){
     const g=new THREE.Group();
-    /* cuadrado base con grid de tableta */
-    const sq=[new THREE.Vector3(-1,-1,0),new THREE.Vector3(1,-1,0),new THREE.Vector3(1,1,0),new THREE.Vector3(-1,1,0),new THREE.Vector3(-1,-1,0)];
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(sq),lMat(col,.7)));
-    /* líneas de tableta */
-    for(let k=-1;k<=1;k+=.5){
-      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(k,-1,0),new THREE.Vector3(k,1,0)]),lMat(col,.2)));
-      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-1,k,0),new THREE.Vector3(1,k,0)]),lMat(col,.2)));
+    const W=1.35, H=0.95;
+    const COLS=4, ROWS=3;
+
+    /* Marco */
+    const frame=[
+      new THREE.Vector3(-W,-H,0), new THREE.Vector3(W,-H,0),
+      new THREE.Vector3(W,H,0),   new THREE.Vector3(-W,H,0),
+      new THREE.Vector3(-W,-H,0)
+    ];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(frame), lMat(col,.72)));
+
+    /* Grid */
+    for(let c=1;c<COLS;c++){
+      const x=-W+c*(2*W/COLS);
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(x,-H,0), new THREE.Vector3(x,H,0)
+      ]), lMat(col,.22)));
     }
-    /* borde diagonal de rotura */
-    const break1=[new THREE.Vector3(-.2,-1,0),new THREE.Vector3(.3,-.5,0),new THREE.Vector3(.2,.2,0),new THREE.Vector3(.8,.5,0),new THREE.Vector3(1,.5,0)];
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(break1),lMat(C_CREAM,.5)));
+    for(let r=1;r<ROWS;r++){
+      const y=-H+r*(2*H/ROWS);
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(-W,y,0), new THREE.Vector3(W,y,0)
+      ]), lMat(col,.22)));
+    }
+
+    /* Línea de rotura */
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(0.05,-H,0),
+      new THREE.Vector3(0.35,-H*0.3,0),
+      new THREE.Vector3(0.18, H*0.12,0),
+      new THREE.Vector3(W,    H*0.35,0)
+    ]), lMat(C_CREAM,.48)));
+
     return g;
   }
 
-  /* ── Estrella (decorativa, como las del packaging) ── */
-  function makeStar(col,n=5){
-    const g=new THREE.Group();
-    const pts=[];
-    for(let i=0;i<n*2;i++){
-      const r=i%2===0?1:.42;
-      const a=(i/(n*2))*Math.PI*2-Math.PI/2;
-      pts.push(new THREE.Vector3(Math.cos(a)*r,Math.sin(a)*r,0));
-    }
-    pts.push(pts[0]);
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.7)));
-    return g;
-  }
-
-  /* ── Espiral de chocolate (cobertura derramada) ── */
-  function makeChocolateSwirl(col){
-    const g=new THREE.Group();
-    const pts=[];
-    for(let i=0;i<=80;i++){
-      const t=i/80;
-      const r=t*2.2;
-      const a=t*Math.PI*5;
-      pts.push(new THREE.Vector3(Math.cos(a)*r,Math.sin(a)*r,0));
-    }
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.5)));
-    return g;
-  }
-
-  /* ── Copo de nieve ── */
-  function makeSnowflake(col){
-    const g=new THREE.Group();
-    for(let i=0;i<6;i++){
-      const a=(i/6)*Math.PI*2;
-      const x2=Math.cos(a)*1.5, y2=Math.sin(a)*1.5;
-      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),new THREE.Vector3(x2,y2,0)]),lMat(col,.5)));
-      const mx=x2*.6,my=y2*.6,perp=a+Math.PI/2;
-      const b1pts=[new THREE.Vector3(mx+Math.cos(perp)*.3,my+Math.sin(perp)*.3,0),new THREE.Vector3(mx,my,0),new THREE.Vector3(mx-Math.cos(perp)*.3,my-Math.sin(perp)*.3,0)];
-      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(b1pts),lMat(col,.35)));
-    }
-    return g;
-  }
-
+  /* ── Posicionado bien separado en el espacio 3D ── */
   const floaters=[];
-  function place(obj,x,y,z,sc=1){
-    obj.scale.setScalar(sc);obj.position.set(x,y,z);
-    obj.userData={rx:(Math.random()-.5)*.008,ry:(Math.random()-.5)*.011,rz:(Math.random()-.5)*.006,floatAmp:.3+Math.random()*.6,floatSpd:.3+Math.random()*.5,floatOff:Math.random()*Math.PI*2,baseY:y};
-    scene.add(obj);floaters.push(obj);
+  function place(obj,x,y,z,sc){
+    obj.scale.setScalar(sc);
+    obj.position.set(x,y,z);
+    obj.userData={
+      rx:(Math.random()-.5)*.007,
+      ry:(Math.random()-.5)*.01,
+      rz:(Math.random()-.5)*.005,
+      floatAmp:.35+Math.random()*.55,
+      floatSpd:.28+Math.random()*.42,
+      floatOff:Math.random()*Math.PI*2,
+      baseY:y
+    };
+    scene.add(obj); floaters.push(obj);
   }
 
-  /* Poblar la escena con objetos Magnum */
-  place(makeMagnum(C_CREAM),-18,7,-9,1.8);   place(makeMagnum(C_GOLD),14,-5,-8,1.2);
-  place(makeMagnum(C_CREAM),-6,-9,-12,1.5);  place(makeMagnum(C_LIGHT),20,8,-10,1.0);
-  place(makeMagnum(C_CREAM),-2,5,-14,2.0);   place(makeMagnum(C_GOLD),8,-2,-7,0.9);
-  place(makeAlmond(C_GOLD),16,9,-11,1.8);    place(makeAlmond(C_CREAM),-14,-6,-9,1.2);
-  place(makeAlmond(C_LIGHT),5,10,-10,1.4);   place(makeAlmond(C_GOLD),-20,2,-8,1.0);
-  place(makeChocolateChunk(C_CHOCO),-12,9,-8,1.3); place(makeChocolateChunk(C_CREAM),18,-8,-11,1.0);
-  place(makeChocolateChunk(C_GOLD),-4,-10,-13,1.6);
-  place(makeStar(C_GOLD,5),6,10,-9,1.2);    place(makeStar(C_CREAM,6),-8,-7,-10,1.0);
-  place(makeStar(C_LIGHT,5),22,2,-12,1.5);  place(makeStar(C_GOLD,4),-16,4,-7,0.9);
-  place(makeChocolateSwirl(C_CHOCO),-22,-9,-8,1.6); place(makeChocolateSwirl(C_CREAM),15,-10,-9,1.3);
-  place(makeSnowflake(C_CREAM),-10,6,-11,1.4); place(makeSnowflake(C_LIGHT),10,8,-13,1.1);
-  place(makeSnowflake(C_GOLD),-18,-3,-10,0.8);
+  /* Magnums: bien distribuidos, alejados del centro */
+  place(makeMagnum(C_CREAM, C_DARK),  -26,  10, -13, 1.9);
+  place(makeMagnum(C_GOLD,  C_DARK),   24,  -8, -11, 1.5);
+  place(makeMagnum(C_CREAM, C_CHOCO), -22, -11, -15, 1.7);
+  place(makeMagnum(C_LIGHT, C_DARK),   20,  11, -12, 1.3);
+  place(makeMagnum(C_CREAM, C_CHOCO),  -4,  15, -17, 2.0);
+  place(makeMagnum(C_GOLD,  C_DARK),    6, -15, -10, 1.2);
+
+  /* Almendras: dispersas en todo el espacio */
+  place(makeAlmond(C_GOLD),    22,  12, -14, 2.1);
+  place(makeAlmond(C_CREAM),  -18,  -9, -12, 1.7);
+  place(makeAlmond(C_LIGHT),    0,  16, -16, 1.9);
+  place(makeAlmond(C_GOLD),   -28,   4, -11, 1.4);
+  place(makeAlmond(C_CREAM),   16,  -5, -9,  1.3);
+  place(makeAlmond(C_LIGHT),  -12, -16, -14, 1.6);
+  place(makeAlmond(C_GOLD),    28,   0, -13, 1.1);
+  place(makeAlmond(C_CREAM),   -8,  -2, -18, 2.2);
+
+  /* Tabletas: distribuidas */
+  place(makeChocolate(C_CHOCO), -24,   8, -11, 1.6);
+  place(makeChocolate(C_CREAM),  18, -12, -14, 1.4);
+  place(makeChocolate(C_GOLD),   -2, -10, -16, 1.7);
+  place(makeChocolate(C_CHOCO),  26,   7, -10, 1.2);
+  place(makeChocolate(C_CREAM), -16,  14, -15, 1.5);
 
   /* Partículas */
-  const pCount=1400,pGeo=new THREE.BufferGeometry();
-  const pPos=new Float32Array(pCount*3),pCol=new Float32Array(pCount*3),pSpd=new Float32Array(pCount);
-  const CA=new THREE.Color(0x6b3d2e),CB=new THREE.Color(0xc8922a),CC=new THREE.Color(0xe8b84b);
+  const pCount=1200, pGeo=new THREE.BufferGeometry();
+  const pPos=new Float32Array(pCount*3), pCol=new Float32Array(pCount*3), pSpd=new Float32Array(pCount);
+  const CA=new THREE.Color(0x6b3d2e), CB=new THREE.Color(0xc8922a), CC=new THREE.Color(0xe8b84b);
   for(let i=0;i<pCount;i++){
-    pPos[i*3]=(Math.random()-.5)*120;pPos[i*3+1]=(Math.random()-.5)*80;pPos[i*3+2]=(Math.random()-.5)*60;
-    const t=Math.random(),c=t<.33?CA:t<.66?CB:CC;
-    pCol[i*3]=c.r;pCol[i*3+1]=c.g;pCol[i*3+2]=c.b;pSpd[i]=.02+Math.random()*.06;
+    pPos[i*3]  =(Math.random()-.5)*140;
+    pPos[i*3+1]=(Math.random()-.5)*90;
+    pPos[i*3+2]=(Math.random()-.5)*70;
+    const t=Math.random(), c=t<.33?CA:t<.66?CB:CC;
+    pCol[i*3]=c.r; pCol[i*3+1]=c.g; pCol[i*3+2]=c.b;
+    pSpd[i]=.018+Math.random()*.05;
   }
   pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
   pGeo.setAttribute('color',new THREE.BufferAttribute(pCol,3));
-  const particles=new THREE.Points(pGeo,new THREE.PointsMaterial({size:.15,vertexColors:true,transparent:true,opacity:.65,sizeAttenuation:true}));
+  const particles=new THREE.Points(pGeo,new THREE.PointsMaterial({size:.13,vertexColors:true,transparent:true,opacity:.55,sizeAttenuation:true}));
   scene.add(particles);
 
-  /* Líneas de conexión */
+  /* Líneas de conexión entre objetos cercanos */
   const maxL=floaters.length*(floaters.length-1)/2;
   const lineGeo=new THREE.BufferGeometry();
-  const lineArr=new Float32Array(maxL*6);
-  lineGeo.setAttribute('position',new THREE.BufferAttribute(lineArr,3));
-  scene.add(new THREE.LineSegments(lineGeo,new THREE.LineBasicMaterial({color:0xc8922a,transparent:true,opacity:.05})));
+  lineGeo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(maxL*6),3));
+  scene.add(new THREE.LineSegments(lineGeo,new THREE.LineBasicMaterial({color:0xc8922a,transparent:true,opacity:.04})));
 
   /* Anillo ambiental */
-  const ring=new THREE.Mesh(new THREE.TorusGeometry(22,.05,4,120),new THREE.MeshBasicMaterial({color:0xc8922a,transparent:true,opacity:.06}));
-  ring.rotation.x=Math.PI/2.5;scene.add(ring);
+  const ring=new THREE.Mesh(new THREE.TorusGeometry(28,.04,4,120),new THREE.MeshBasicMaterial({color:0xc8922a,transparent:true,opacity:.045}));
+  ring.rotation.x=Math.PI/2.5; scene.add(ring);
 
   let mx=0,my=0,tmx=0,tmy=0;
   document.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=(e.clientY/innerHeight-.5)*2;});
-  let scrollY=0;window.addEventListener('scroll',()=>scrollY=window.scrollY);
+  let sY=0; window.addEventListener('scroll',()=>sY=window.scrollY);
   let tc=0;
+
   (function animate(){
-    requestAnimationFrame(animate);tc+=.007;
-    tmx+=(mx*1.4-tmx)*.04;tmy+=(my*.7-tmy)*.04;
-    camera.position.x=tmx;camera.position.y=-tmy+scrollY*.003;camera.lookAt(0,scrollY*.003,0);
-    particles.rotation.y=tc*.035;particles.rotation.x=tc*.012;
+    requestAnimationFrame(animate); tc+=.007;
+    tmx+=(mx*1.2-tmx)*.04; tmy+=(my*.6-tmy)*.04;
+    camera.position.x=tmx; camera.position.y=-tmy+sY*.003; camera.lookAt(0,sY*.003,0);
+    particles.rotation.y=tc*.025; particles.rotation.x=tc*.009;
     const pos=pGeo.attributes.position.array;
     for(let i=0;i<pCount;i++) pos[i*3+1]+=Math.sin(tc*pSpd[i]+i)*.003;
     pGeo.attributes.position.needsUpdate=true;
     floaters.forEach(m=>{
-      m.rotation.x+=m.userData.rx;m.rotation.y+=m.userData.ry;m.rotation.z+=m.userData.rz;
+      m.rotation.x+=m.userData.rx; m.rotation.y+=m.userData.ry; m.rotation.z+=m.userData.rz;
       m.position.y=m.userData.baseY+Math.sin(tc*m.userData.floatSpd+m.userData.floatOff)*m.userData.floatAmp;
     });
-    let li=0;const lp=lineGeo.attributes.position.array;
-    for(let a=0;a<floaters.length;a++) for(let b=a+1;b<floaters.length;b++) if(floaters[a].position.distanceTo(floaters[b].position)<18){lp[li++]=floaters[a].position.x;lp[li++]=floaters[a].position.y;lp[li++]=floaters[a].position.z;lp[li++]=floaters[b].position.x;lp[li++]=floaters[b].position.y;lp[li++]=floaters[b].position.z;}
+    let li=0; const lp=lineGeo.attributes.position.array;
+    for(let a=0;a<floaters.length;a++) for(let b=a+1;b<floaters.length;b++){
+      if(floaters[a].position.distanceTo(floaters[b].position)<24){
+        lp[li++]=floaters[a].position.x;lp[li++]=floaters[a].position.y;lp[li++]=floaters[a].position.z;
+        lp[li++]=floaters[b].position.x;lp[li++]=floaters[b].position.y;lp[li++]=floaters[b].position.z;
+      }
+    }
     for(;li<lp.length;li++) lp[li]=0;
-    lineGeo.attributes.position.needsUpdate=true;lineGeo.setDrawRange(0,li/3);
-    ring.rotation.z=tc*.04;
+    lineGeo.attributes.position.needsUpdate=true; lineGeo.setDrawRange(0,li/3);
+    ring.rotation.z=tc*.03;
     renderer.render(scene,camera);
   })();
 })();
@@ -917,15 +778,15 @@ if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){
   const tc=['#c8922a','#e8b84b','#f5e6c8','#6b3d2e','#3d1f0d'];
   let ti=0,lx=0,ly=0;
   document.addEventListener('mousemove',e=>{
-    dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';
+    dot.style.left=e.clientX+'px'; dot.style.top=e.clientY+'px';
     const d=Math.hypot(e.clientX-lx,e.clientY-ly);
     if(d>5){lx=e.clientX;ly=e.clientY;
       for(let k=0;k<3;k++){
-        const t=document.createElement('div');t.className='ctrail';
-        const sz=Math.random()*8+5,col=tc[(ti+k)%tc.length];
-        const ox=(Math.random()-.5)*6,oy=(Math.random()-.5)*6;
+        const t=document.createElement('div'); t.className='ctrail';
+        const sz=Math.random()*8+5, col=tc[(ti+k)%tc.length];
+        const ox=(Math.random()-.5)*6, oy=(Math.random()-.5)*6;
         t.style.cssText=`width:${sz}px;height:${sz}px;left:${e.clientX+ox}px;top:${e.clientY+oy}px;background:${col};box-shadow:0 0 ${sz*2}px ${col};`;
-        document.body.appendChild(t);ti++;setTimeout(()=>t.remove(),650);
+        document.body.appendChild(t); ti++; setTimeout(()=>t.remove(),650);
       }
     }
   });
@@ -938,14 +799,20 @@ if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){
 /* ── ACORDEÓN ── */
 function toggleAcc(btn){
   const content=btn.nextElementSibling;
+  const arrow=btn.querySelector('.accordion-arrow img');
   const isOpen=btn.classList.contains('open');
+  /* Cerrar todos */
   document.querySelectorAll('.accordion-item button').forEach(b=>{
     b.classList.remove('open');
     b.nextElementSibling.classList.remove('open');
+    const img=b.querySelector('.accordion-arrow img');
+    if(img) img.src='flecha-magnum-cerrado.png';
   });
+  /* Abrir el pulsado si estaba cerrado */
   if(!isOpen){
     btn.classList.add('open');
     content.classList.add('open');
+    if(arrow) arrow.src='flecha-magnum-abierto.png';
   }
 }
 
