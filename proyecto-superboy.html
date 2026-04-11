@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@300;400;500&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
 <title>Superboy — VFX</title>
 <style>
 
@@ -76,7 +76,6 @@ body {
   align-items:center;
   justify-content:center;
 }
-
 .hero-img {
   position:absolute; inset:0;
   width:100%; height:100%;
@@ -89,7 +88,6 @@ body {
   0%,100% { transform:scale(1.04); }
   50%      { transform:scale(1.07); }
 }
-
 .hero-overlay {
   position:absolute; inset:0;
   background:linear-gradient(
@@ -99,18 +97,12 @@ body {
     rgba(200,232,255,.90) 100%
   );
 }
-
 .hero-title-block {
-  position:relative;
-  z-index:2;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:0 30px;
+  position:relative; z-index:2;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  text-align:center; padding:0 30px;
 }
-
 .hero-eyebrow {
   display:inline-flex; align-items:center; gap:10px;
   font-family:'Poppins',sans-serif;
@@ -126,21 +118,29 @@ body {
   opacity:0; animation:fadeUp .9s ease .4s forwards;
 }
 
-.title-path {
-  fill:none;
-  stroke:url(#titleGrad);
-  stroke-width:2.5;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-  stroke-dasharray:5000;
-  stroke-dashoffset:5000;
-  animation:drawTitle 1.4s cubic-bezier(.4,0,.2,1) .3s forwards;
-  filter:drop-shadow(0 0 12px rgba(140,200,255,.7)) drop-shadow(0 0 28px rgba(46,141,232,.5));
-}
+/*
+  FIX TIPOGRAFÍA p/b:
+  - title-fill: relleno opaco con paint-order:fill stroke — tapa el interior
+  - title-path: fill:none + trazo luminoso encima
+  De esta forma las letras cerradas (p, b, o…) se ven completas,
+  sin el hueco que dejaba el stroke recortando el bowl.
+*/
 .title-fill {
-  fill:url(#titleFill);
-  opacity:0;
-  animation:fillAppear 1.2s ease 1.5s forwards;
+  fill: url(#titleFill);
+  paint-order: fill stroke;
+  opacity: 0;
+  animation: fillAppear 1.2s ease 1.5s forwards;
+}
+.title-path {
+  fill: none;
+  stroke: url(#titleGrad);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 5000;
+  stroke-dashoffset: 5000;
+  animation: drawTitle 1.4s cubic-bezier(.4,0,.2,1) .3s forwards;
+  filter: drop-shadow(0 0 12px rgba(140,200,255,.7)) drop-shadow(0 0 28px rgba(46,141,232,.5));
 }
 @keyframes drawTitle { to { stroke-dashoffset:0; } }
 @keyframes fillAppear {
@@ -157,7 +157,6 @@ body {
   margin-top:18px;
   opacity:0; animation:fadeUp .8s ease 2.5s forwards;
 }
-
 @keyframes fadeUp {
   from { opacity:0; transform:translateY(20px); }
   to   { opacity:1; transform:translateY(0); }
@@ -199,20 +198,18 @@ body {
 }
 .video-wrapper {
   width:100%;
-  /* 1902:1080 ratio */
   aspect-ratio:1902/1080;
   border-radius:20px; overflow:hidden;
   box-shadow:0 40px 100px rgba(0,0,0,.22);
 }
 .video-wrapper iframe { width:100%; height:100%; border:0; display:block; }
 
-/* ══ SECCIÓN INFO ══ */
+/* ══ INFO ══ */
 .sw {
   max-width:1080px; margin:0 auto;
   padding:80px 40px; position:relative; z-index:1;
 }
 @media(max-width:640px){ .sw{ padding:60px 20px; } }
-
 .info-title {
   font-family:'Fredoka',sans-serif;
   font-size:clamp(32px,5vw,58px); font-weight:700;
@@ -223,6 +220,10 @@ body {
   font-size:15px; font-weight:300; line-height:1.85;
   color:var(--muted); margin-bottom:16px;
   max-width:680px;
+}
+.info-text strong {
+  font-weight:600;
+  color:var(--blue);
 }
 .tech-chips { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
 .chip {
@@ -300,13 +301,12 @@ footer {
   -webkit-text-stroke:1px rgba(255,255,255,.04);
   white-space:nowrap; user-select:none;
 }
-.footer-daisy { position:absolute; pointer-events:none; opacity:.1; }
-.footer-daisy.fd1 { width:180px; height:180px; top:-50px; left:-50px; transform:rotate(25deg); }
-.footer-daisy.fd2 { width:110px; height:110px; bottom:30px; right:80px; transform:rotate(-20deg); }
-.footer-daisy.fd3 { width:75px;  height:75px;  bottom:20px; left:140px; transform:rotate(55deg); }
+.footer-deco { position:absolute; pointer-events:none; opacity:.1; }
+.footer-deco.fd1 { width:180px; height:220px; top:-50px; left:-50px; transform:rotate(15deg); }
+.footer-deco.fd2 { width:110px; height:110px; bottom:30px; right:80px; transform:rotate(-20deg); }
+.footer-deco.fd3 { width:75px;  height:75px;  bottom:20px; left:140px; transform:rotate(55deg); }
 
 .footer-inner { position:relative; z-index:2; max-width:900px; margin:0 auto; }
-
 .footer-heading {
   display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;
   margin-bottom:28px;
@@ -335,7 +335,6 @@ footer {
 .footer-cta:hover { background:white; transform:translateY(-3px); box-shadow:0 14px 36px rgba(0,0,0,.28); }
 .footer-cta-arrow { display:inline-block; transition:transform .25s; }
 .footer-cta:hover .footer-cta-arrow { transform:translateX(4px); }
-
 .footer-divider {
   position:relative; z-index:2;
   max-width:900px; margin:48px auto 24px;
@@ -414,6 +413,7 @@ footer {
           </linearGradient>
         </defs>
 
+        <!-- Relleno sólido: aparece tras la animación del trazo -->
         <text class="title-fill"
           x="410" y="96"
           text-anchor="middle"
@@ -421,13 +421,13 @@ footer {
           font-size="108" font-weight="700"
           letter-spacing="-1">Superboy</text>
 
+        <!-- Trazo luminoso animado encima del relleno -->
         <text class="title-path"
           x="410" y="96"
           text-anchor="middle"
           font-family="'Fredoka', sans-serif"
           font-size="108" font-weight="700"
-          letter-spacing="-1"
-          style="fill:none;stroke:url(#titleGrad);stroke-width:2.2;paint-order:stroke fill;">Superboy</text>
+          letter-spacing="-1">Superboy</text>
       </svg>
     </div>
 
@@ -476,13 +476,13 @@ footer {
 <div class="sw reveal">
   <h2 class="info-title">Cuando la realidad se rompe… literalmente</h2>
   <p class="info-text">
-    SUPERBOY es un experimento visual donde un personaje digital irrumpe dentro de una grabación real y altera la narrativa del plano, jugando con la idea de romper la frontera entre lo físico y lo digital.
+    <strong>SUPERBOY</strong> es un experimento visual donde un <strong>personaje digital irrumpe dentro de una grabación real</strong> y altera la narrativa del plano, jugando con la idea de romper la frontera entre lo físico y lo digital.
   </p>
   <p class="info-text">
-    La composición fusiona footage real con elementos generados digitalmente mediante rotoscopia, tracking de cámara y ajuste de luz y color — consiguiendo que lo imposible parezca creíble en cada fotograma.
+    La composición fusiona <strong>footage real con elementos generados digitalmente</strong> mediante rotoscopia, tracking de cámara y ajuste de luz y color — consiguiendo que <strong>lo imposible parezca creíble</strong> en cada fotograma.
   </p>
   <p class="info-text">
-    Un reto técnico disfrazado de historia. Un juego de ilusiones que cuestiona lo que ves.
+    Un <strong>reto técnico</strong> disfrazado de historia. Un juego de ilusiones que <strong>cuestiona lo que ves</strong>.
   </p>
   <div class="tech-chips">
     <span class="chip">VFX</span>
@@ -523,20 +523,17 @@ footer {
 <footer>
   <div class="footer-ghost"><span>Superboy</span></div>
 
-  <!-- Bolt decoration 1 -->
-  <div class="footer-daisy fd1">
+  <div class="footer-deco fd1">
     <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
       <polygon points="55,5 20,60 48,60 45,115 80,50 52,50" fill="white"/>
     </svg>
   </div>
-  <!-- Star decoration 2 -->
-  <div class="footer-daisy fd2">
+  <div class="footer-deco fd2">
     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <polygon points="50,5 61,35 95,35 68,57 79,91 50,70 21,91 32,57 5,35 39,35" fill="white"/>
     </svg>
   </div>
-  <!-- Small bolt 3 -->
-  <div class="footer-daisy fd3">
+  <div class="footer-deco fd3">
     <svg viewBox="0 0 60 100" xmlns="http://www.w3.org/2000/svg">
       <polygon points="38,2 12,52 32,52 22,98 48,42 28,42" fill="white"/>
     </svg>
@@ -572,200 +569,192 @@ footer {
   renderer.setClearColor(0x000000,0);
   const scene=new THREE.Scene();
   const camera=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,200);
-  camera.position.z=28;
+  camera.position.z=30;
   function resize(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}
-  resize();window.addEventListener('resize',resize);
+  resize(); window.addEventListener('resize',resize);
 
-  const C_BLUE=0x2e8de8,C_LTBLUE=0x7ec8f5,C_YELLOW=0xf0c430,C_RED=0xd93030,C_WHITE=0xe8f4ff;
+  const C_BLUE=0x2e8de8, C_LTBLUE=0x7ec8f5, C_YELLOW=0xf0c430, C_RED=0xd93030, C_WHITE=0xe8f4ff;
 
   function lMat(col,op=.55){return new THREE.LineBasicMaterial({color:col,transparent:true,opacity:op});}
-  function wMat(col,op=.3){return new THREE.MeshBasicMaterial({color:col,wireframe:true,transparent:true,opacity:op});}
+  function wMat(col,op=.35){return new THREE.MeshBasicMaterial({color:col,wireframe:true,transparent:true,opacity:op});}
 
-  /* ── CLOUD ── */
+  /* ── NUBE ── */
   function makeCloud(col){
     const g=new THREE.Group();
-    [[0,0,1.2],[1.4,.35,.9],[-1.2,.28,.85],[.6,-.18,.7],[-0.5,-.12,.65],[2.1,-.12,.75]].forEach(([cx,cy,r])=>{
-      const pts=[];for(let i=0;i<=22;i++){const a=(i/22)*Math.PI*2;pts.push(new THREE.Vector3(cx+Math.cos(a)*r,cy+Math.sin(a)*r,0));}
-      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.5)));
+    [[0,0,1.3],[1.6,.4,1.0],[-1.3,.3,.95],[.7,-.2,.8],[-0.6,-.14,.72],[2.5,-.14,.85]].forEach(([cx,cy,r])=>{
+      const pts=[];
+      for(let i=0;i<=24;i++){const a=(i/24)*Math.PI*2; pts.push(new THREE.Vector3(cx+Math.cos(a)*r,cy+Math.sin(a)*r,0));}
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.52)));
     });
     return g;
   }
 
-  /* ── LIGHTNING BOLT ── */
+  /* ── RAYO ── */
   function makeBolt(col){
     const g=new THREE.Group();
-    const pts=[new THREE.Vector3(.4,3,0),new THREE.Vector3(-.2,1.2,0),new THREE.Vector3(.35,1.2,0),new THREE.Vector3(-.4,-1,0)];
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.9)));
-    // glow duplicate slightly bigger
-    const pts2=[new THREE.Vector3(.5,3.1,0),new THREE.Vector3(-.3,1.25,0),new THREE.Vector3(.45,1.25,0),new THREE.Vector3(-.5,-1.05,0)];
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts2),lMat(col,.3)));
+    const a=[new THREE.Vector3(.5,3.5,0),new THREE.Vector3(-.25,1.4,0),new THREE.Vector3(.4,1.4,0),new THREE.Vector3(-.5,-1.2,0)];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(a),lMat(col,.95)));
+    const b=[new THREE.Vector3(.65,3.6,0),new THREE.Vector3(-.38,1.45,0),new THREE.Vector3(.52,1.45,0),new THREE.Vector3(-.62,-1.25,0)];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(b),lMat(col,.28)));
     return g;
   }
 
-  /* ── STAR ── */
-  function makeStar(col,pts=5){
-    const g=new THREE.Group();const p=[];
-    for(let i=0;i<pts*2;i++){
-      const a=(i/pts/2)*Math.PI*2-Math.PI/2;
-      const r=i%2===0?1.4:.6;
+  /* ── ESTRELLA ── */
+  function makeStar(col,n=5){
+    const g=new THREE.Group(); const p=[];
+    for(let i=0;i<n*2;i++){
+      const a=(i/n/2)*Math.PI*2-Math.PI/2;
+      const r=i%2===0?1.5:.62;
       p.push(new THREE.Vector3(Math.cos(a)*r,Math.sin(a)*r,0));
     }
     p.push(p[0].clone());
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(p),lMat(col,.75)));
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(p),lMat(col,.8)));
     return g;
   }
 
-  /* ── CAPE / SUPERHERO SILHOUETTE ── */
-  function makeCape(col){
+  /* ── SUPERHÉROE (silueta: cabeza + tronco + capa) ── */
+  function makeHero(col){
     const g=new THREE.Group();
-    // body
-    const body=new THREE.Mesh(new THREE.CylinderGeometry(.25,.35,1.2,8),wMat(col,.5));
-    body.position.set(0,0,0);g.add(body);
-    // head
-    const head=new THREE.Mesh(new THREE.SphereGeometry(.28,8,6),wMat(col,.5));
-    head.position.set(0,.9,0);g.add(head);
-    // cape lines
-    const cl=[
-      [new THREE.Vector3(-.25,.5,0),new THREE.Vector3(-.9,-.8,0)],
-      [new THREE.Vector3(.25,.5,0),new THREE.Vector3(.9,-.8,0)],
-      [new THREE.Vector3(-.25,.5,0),new THREE.Vector3(.25,.5,0)],
-      [new THREE.Vector3(-.9,-.8,0),new THREE.Vector3(.9,-.8,0)],
-    ];
-    cl.forEach(([a,b])=>g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([a,b]),lMat(col,.6))));
-    return g;
-  }
-
-  /* ── CIRCLE RING ── */
-  function makeRing(col){
-    const g=new THREE.Group();
-    [1,.7,.45].forEach(r=>{
-      const pts=[];for(let i=0;i<=32;i++){const a=(i/32)*Math.PI*2;pts.push(new THREE.Vector3(Math.cos(a)*r,Math.sin(a)*r,0));}
-      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.4)));
-    });
-    return g;
-  }
-
-  /* ── SPEED LINES ── */
-  function makeSpeedLines(col){
-    const g=new THREE.Group();
-    for(let i=0;i<8;i++){
-      const a=(i/8)*Math.PI*2;
-      const len=1+Math.random()*1.5;
-      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([
-        new THREE.Vector3(Math.cos(a)*1.1,Math.sin(a)*1.1,0),
-        new THREE.Vector3(Math.cos(a)*(1.1+len),Math.sin(a)*(1.1+len),0)
-      ]),lMat(col,.5)));
-    }
-    return g;
-  }
-
-  /* ── DIAMOND ── */
-  function makeDiamond(col){
-    const g=new THREE.Group();
-    const pts=[new THREE.Vector3(0,1.5,0),new THREE.Vector3(1,.3,0),new THREE.Vector3(.6,-1.2,0),new THREE.Vector3(-.6,-1.2,0),new THREE.Vector3(-1,.3,0),new THREE.Vector3(0,1.5,0)];
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.65)));
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,1.5,0),new THREE.Vector3(0,-1.2,0)]),lMat(col,.3)));
+    // cabeza
+    const head=new THREE.Mesh(new THREE.SphereGeometry(.32,10,7),wMat(col,.45));
+    head.position.set(0,1.1,0); g.add(head);
+    // tronco
+    const torso=new THREE.Mesh(new THREE.BoxGeometry(.6,1.0,.2),wMat(col,.4));
+    torso.position.set(0,.2,0); g.add(torso);
+    // brazo izq
+    const armL=new THREE.Mesh(new THREE.CylinderGeometry(.12,.12,.9,6),wMat(col,.35));
+    armL.position.set(-.48,.2,0); armL.rotation.z=Math.PI/6; g.add(armL);
+    // brazo der
+    const armR=new THREE.Mesh(new THREE.CylinderGeometry(.12,.12,.9,6),wMat(col,.35));
+    armR.position.set(.48,.2,0); armR.rotation.z=-Math.PI/6; g.add(armR);
+    // pierna izq
+    const legL=new THREE.Mesh(new THREE.CylinderGeometry(.13,.1,1.0,6),wMat(col,.35));
+    legL.position.set(-.2,-.8,0); g.add(legL);
+    // pierna der
+    const legR=new THREE.Mesh(new THREE.CylinderGeometry(.13,.1,1.0,6),wMat(col,.35));
+    legR.position.set(.2,-.8,0); g.add(legR);
+    // capa
+    const cape=[new THREE.Vector3(-.28,.55,0),new THREE.Vector3(-.95,-.9,0),new THREE.Vector3(.95,-.9,0),new THREE.Vector3(.28,.55,0)];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(cape),lMat(col,.65)));
+    // onda interior de capa
+    const wave=[];
+    for(let i=0;i<=14;i++){const t=i/14; wave.push(new THREE.Vector3(-0.95+t*1.9,-0.9+Math.sin(t*Math.PI)*.4,0));}
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(wave),lMat(col,.38)));
     return g;
   }
 
   const floaters=[];
   function place(obj,x,y,z,sc=1){
-    obj.scale.setScalar(sc);obj.position.set(x,y,z);
-    obj.userData={rx:(Math.random()-.5)*.008,ry:(Math.random()-.5)*.011,rz:(Math.random()-.5)*.006,floatAmp:.3+Math.random()*.6,floatSpd:.3+Math.random()*.5,floatOff:Math.random()*Math.PI*2,baseY:y};
-    scene.add(obj);floaters.push(obj);
+    obj.scale.setScalar(sc);
+    obj.position.set(x,y,z);
+    obj.userData={
+      rx:(Math.random()-.5)*.007,
+      ry:(Math.random()-.5)*.010,
+      rz:(Math.random()-.5)*.005,
+      floatAmp:.35+Math.random()*.55,
+      floatSpd:.28+Math.random()*.45,
+      floatOff:Math.random()*Math.PI*2,
+      baseY:y
+    };
+    scene.add(obj); floaters.push(obj);
   }
 
-  // Clouds
-  place(makeCloud(C_WHITE),-18,7,-9,2.0);
-  place(makeCloud(C_LTBLUE),14,-5,-8,1.4);
-  place(makeCloud(C_WHITE),-6,-9,-12,1.7);
-  place(makeCloud(C_LTBLUE),20,8,-10,1.1);
-  place(makeCloud(C_WHITE),-2,5,-14,2.2);
-  place(makeCloud(C_LTBLUE),8,-2,-7,1.0);
+  /* ── NUBES — repartidas por toda la pantalla ── */
+  place(makeCloud(C_WHITE),   -27,  9, -10, 2.0);
+  place(makeCloud(C_LTBLUE),   23,  8, -12, 1.6);
+  place(makeCloud(C_WHITE),   -21, -9, -14, 1.8);
+  place(makeCloud(C_LTBLUE),   19, -7,  -9, 1.3);
+  place(makeCloud(C_WHITE),     1, 13, -16, 2.2);
+  place(makeCloud(C_LTBLUE),  -11,  2, -18, 1.5);
+  place(makeCloud(C_WHITE),    27, -2, -13, 1.4);
+  place(makeCloud(C_LTBLUE),   -4,-13, -11, 1.7);
 
-  // Bolts
-  place(makeBolt(C_YELLOW),16,9,-11,2.2);
-  place(makeBolt(C_YELLOW),-14,-6,-9,1.6);
-  place(makeBolt(C_YELLOW),4,10,-8,1.8);
-  place(makeBolt(C_WHITE),-8,-3,-10,1.2);
+  /* ── RAYOS — esparcidos ── */
+  place(makeBolt(C_YELLOW), -26,  6,  -8, 2.0);
+  place(makeBolt(C_YELLOW),  25, 11, -10, 1.8);
+  place(makeBolt(C_YELLOW),   9,-11,  -9, 1.5);
+  place(makeBolt(C_YELLOW), -15, 13, -13, 1.6);
+  place(makeBolt(C_WHITE),   21, -5, -15, 1.3);
+  place(makeBolt(C_YELLOW), -23, -6, -12, 1.4);
 
-  // Stars
-  place(makeStar(C_YELLOW,5),-12,9,-8,1.5);
-  place(makeStar(C_WHITE,6),18,-8,-11,1.2);
-  place(makeStar(C_LTBLUE,5),-4,-11,-13,1.0);
-  place(makeStar(C_YELLOW,5),22,4,-9,0.9);
+  /* ── ESTRELLAS — dispersas ── */
+  place(makeStar(C_YELLOW,5), -28,  1,  -9, 1.4);
+  place(makeStar(C_WHITE, 6),  27,  5, -11, 1.2);
+  place(makeStar(C_YELLOW,5), -17,-12, -10, 1.0);
+  place(makeStar(C_LTBLUE,5),  15, 14, -13, 1.3);
+  place(makeStar(C_YELLOW,4),   0,-14,  -8, 1.1);
+  place(makeStar(C_WHITE, 5),  -7, 10, -17, 1.5);
+  place(makeStar(C_YELLOW,6),  23,-11, -14, 1.0);
 
-  // Superhero capes
-  place(makeCape(C_BLUE),-16,-4,-7,1.6);
-  place(makeCape(C_RED),12,5,-8,1.2);
-  place(makeCape(C_BLUE),-4,10,-13,1.8);
+  /* ── SUPERHÉROES — bien repartidos ── */
+  place(makeHero(C_BLUE),  -25,  4,  -8, 1.8);
+  place(makeHero(C_RED),    23, -9, -10, 1.5);
+  place(makeHero(C_BLUE),   -6, 13, -12, 1.6);
+  place(makeHero(C_LTBLUE),-19,-11, -15, 1.3);
+  place(makeHero(C_RED),    17,  7, -11, 1.4);
 
-  // Speed lines
-  place(makeSpeedLines(C_LTBLUE),6,8,-9,1.4);
-  place(makeSpeedLines(C_YELLOW),-10,-7,-10,1.1);
-  place(makeSpeedLines(C_WHITE),20,2,-12,1.7);
-
-  // Diamonds
-  place(makeDiamond(C_LTBLUE),-22,-9,-8,1.4);
-  place(makeDiamond(C_YELLOW),17,-10,-9,1.0);
-  place(makeDiamond(C_WHITE),0,-8,-14,1.3);
-
-  // Rings
-  place(makeRing(C_BLUE),10,-4,-11,1.8);
-  place(makeRing(C_YELLOW),-18,3,-10,1.3);
-
-  // Particles
-  const pCount=1400,pGeo=new THREE.BufferGeometry();
-  const pPos=new Float32Array(pCount*3),pCol=new Float32Array(pCount*3),pSpd=new Float32Array(pCount);
-  const CA=new THREE.Color(0x2e8de8),CB=new THREE.Color(0x7ec8f5),CC=new THREE.Color(0xf0c430);
+  /* ── PARTÍCULAS ── */
+  const pCount=1600, pGeo=new THREE.BufferGeometry();
+  const pPos=new Float32Array(pCount*3), pCol=new Float32Array(pCount*3), pSpd=new Float32Array(pCount);
+  const CA=new THREE.Color(0x2e8de8), CB=new THREE.Color(0x7ec8f5), CC=new THREE.Color(0xf0c430);
   for(let i=0;i<pCount;i++){
-    pPos[i*3]=(Math.random()-.5)*120;pPos[i*3+1]=(Math.random()-.5)*80;pPos[i*3+2]=(Math.random()-.5)*60;
-    const t=Math.random(),c=t<.5?CA:t<.8?CB:CC;
-    pCol[i*3]=c.r;pCol[i*3+1]=c.g;pCol[i*3+2]=c.b;pSpd[i]=.02+Math.random()*.06;
+    pPos[i*3]=(Math.random()-.5)*140; pPos[i*3+1]=(Math.random()-.5)*90; pPos[i*3+2]=(Math.random()-.5)*70;
+    const t=Math.random(), c=t<.5?CA:t<.82?CB:CC;
+    pCol[i*3]=c.r; pCol[i*3+1]=c.g; pCol[i*3+2]=c.b; pSpd[i]=.018+Math.random()*.055;
   }
   pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
   pGeo.setAttribute('color',new THREE.BufferAttribute(pCol,3));
-  const particles=new THREE.Points(pGeo,new THREE.PointsMaterial({size:.15,vertexColors:true,transparent:true,opacity:.65,sizeAttenuation:true}));
+  const particles=new THREE.Points(pGeo,new THREE.PointsMaterial({size:.14,vertexColors:true,transparent:true,opacity:.6,sizeAttenuation:true}));
   scene.add(particles);
 
+  /* líneas de conexión tenues */
   const maxL=floaters.length*(floaters.length-1)/2;
   const lineGeo=new THREE.BufferGeometry();
-  const lineArr=new Float32Array(maxL*6);
-  lineGeo.setAttribute('position',new THREE.BufferAttribute(lineArr,3));
-  scene.add(new THREE.LineSegments(lineGeo,new THREE.LineBasicMaterial({color:0x2e8de8,transparent:true,opacity:.05})));
+  lineGeo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(maxL*6),3));
+  scene.add(new THREE.LineSegments(lineGeo,new THREE.LineBasicMaterial({color:0x2e8de8,transparent:true,opacity:.04})));
 
-  const ring=new THREE.Mesh(new THREE.TorusGeometry(22,.05,4,120),new THREE.MeshBasicMaterial({color:0x1a6abf,transparent:true,opacity:.07}));
-  ring.rotation.x=Math.PI/2.5;scene.add(ring);
+  const torusRing=new THREE.Mesh(new THREE.TorusGeometry(24,.05,4,120),new THREE.MeshBasicMaterial({color:0x1a6abf,transparent:true,opacity:.06}));
+  torusRing.rotation.x=Math.PI/2.5; scene.add(torusRing);
 
   let mx=0,my=0,tmx=0,tmy=0;
-  document.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=(e.clientY/innerHeight-.5)*2;});
-  let scrollY=0;window.addEventListener('scroll',()=>scrollY=window.scrollY);
+  document.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2; my=(e.clientY/innerHeight-.5)*2;});
+  let scrollY=0; window.addEventListener('scroll',()=>scrollY=window.scrollY);
   let tc=0;
+
   (function animate(){
-    requestAnimationFrame(animate);tc+=.007;
-    tmx+=(mx*1.4-tmx)*.04;tmy+=(my*.7-tmy)*.04;
-    camera.position.x=tmx;camera.position.y=-tmy+scrollY*.003;camera.lookAt(0,scrollY*.003,0);
-    particles.rotation.y=tc*.035;particles.rotation.x=tc*.012;
+    requestAnimationFrame(animate); tc+=.007;
+    tmx+=(mx*1.4-tmx)*.04; tmy+=(my*.7-tmy)*.04;
+    camera.position.x=tmx; camera.position.y=-tmy+scrollY*.003;
+    camera.lookAt(0,scrollY*.003,0);
+
+    particles.rotation.y=tc*.03; particles.rotation.x=tc*.011;
     const pos=pGeo.attributes.position.array;
     for(let i=0;i<pCount;i++) pos[i*3+1]+=Math.sin(tc*pSpd[i]+i)*.003;
     pGeo.attributes.position.needsUpdate=true;
+
     floaters.forEach(m=>{
-      m.rotation.x+=m.userData.rx;m.rotation.y+=m.userData.ry;m.rotation.z+=m.userData.rz;
-      m.position.y=m.userData.baseY+Math.sin(tc*m.userData.floatSpd+m.userData.floatOff)*m.userData.floatAmd||0+Math.sin(tc*m.userData.floatSpd+m.userData.floatOff)*m.userData.floatAmp;
+      m.rotation.x+=m.userData.rx;
+      m.rotation.y+=m.userData.ry;
+      m.rotation.z+=m.userData.rz;
+      m.position.y=m.userData.baseY+Math.sin(tc*m.userData.floatSpd+m.userData.floatOff)*m.userData.floatAmp;
     });
-    let li=0;const lp=lineGeo.attributes.position.array;
-    for(let a=0;a<floaters.length;a++) for(let b=a+1;b<floaters.length;b++) if(floaters[a].position.distanceTo(floaters[b].position)<18){lp[li++]=floaters[a].position.x;lp[li++]=floaters[a].position.y;lp[li++]=floaters[a].position.z;lp[li++]=floaters[b].position.x;lp[li++]=floaters[b].position.y;lp[li++]=floaters[b].position.z;}
+
+    let li=0; const lp=lineGeo.attributes.position.array;
+    for(let a=0;a<floaters.length;a++){
+      for(let b=a+1;b<floaters.length;b++){
+        if(floaters[a].position.distanceTo(floaters[b].position)<15){
+          lp[li++]=floaters[a].position.x; lp[li++]=floaters[a].position.y; lp[li++]=floaters[a].position.z;
+          lp[li++]=floaters[b].position.x; lp[li++]=floaters[b].position.y; lp[li++]=floaters[b].position.z;
+        }
+      }
+    }
     for(;li<lp.length;li++) lp[li]=0;
-    lineGeo.attributes.position.needsUpdate=true;lineGeo.setDrawRange(0,li/3);
-    ring.rotation.z=tc*.04;
+    lineGeo.attributes.position.needsUpdate=true;
+    lineGeo.setDrawRange(0,li/3);
+
+    torusRing.rotation.z=tc*.04;
     renderer.render(scene,camera);
   })();
-
-  // fix userData floatAmp access
-  floaters.forEach(m=>{
-    const orig=m.userData.floatAmp;
-    m.userData.floatAmp=orig||0.5;
-  });
 })();
 
 /* ── CURSOR ── */
@@ -774,15 +763,16 @@ if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){
   const tc=['#2e8de8','#7ec8f5','#f0c430','#1a6abf','#d93030'];
   let ti=0,lx=0,ly=0;
   document.addEventListener('mousemove',e=>{
-    dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';
+    dot.style.left=e.clientX+'px'; dot.style.top=e.clientY+'px';
     const d=Math.hypot(e.clientX-lx,e.clientY-ly);
-    if(d>5){lx=e.clientX;ly=e.clientY;
+    if(d>5){
+      lx=e.clientX; ly=e.clientY;
       for(let k=0;k<3;k++){
-        const t=document.createElement('div');t.className='ctrail';
-        const sz=Math.random()*8+5,col=tc[(ti+k)%tc.length];
-        const ox=(Math.random()-.5)*6,oy=(Math.random()-.5)*6;
+        const t=document.createElement('div'); t.className='ctrail';
+        const sz=Math.random()*8+5, col=tc[(ti+k)%tc.length];
+        const ox=(Math.random()-.5)*6, oy=(Math.random()-.5)*6;
         t.style.cssText=`width:${sz}px;height:${sz}px;left:${e.clientX+ox}px;top:${e.clientY+oy}px;background:${col};box-shadow:0 0 ${sz*2}px ${col};`;
-        document.body.appendChild(t);ti++;setTimeout(()=>t.remove(),650);
+        document.body.appendChild(t); ti++; setTimeout(()=>t.remove(),650);
       }
     }
   });
@@ -793,7 +783,9 @@ if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){
 }
 
 /* ── SCROLL REVEAL ── */
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.12});
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('visible');});
+},{threshold:.12});
 document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
 
 /* ── BACK TO TOP ── */
