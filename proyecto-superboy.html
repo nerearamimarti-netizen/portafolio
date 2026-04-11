@@ -3,292 +3,803 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Bebas+Neue&display=swap" rel="stylesheet">
-
-<title>Superboy</title>
-
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@300;400;500&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
+<title>Superboy — VFX</title>
 <style>
 
+:root {
+  --sky:    #c8e8ff;
+  --blue:   #1a6abf;
+  --blue2:  #2e8de8;
+  --dark:   #0b1a2e;
+  --bolt:   #f0c430;
+  --red:    #d93030;
+  --muted:  #2a4a6e;
+  --bdr:    rgba(26,106,191,0.18);
+}
+
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+
 body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: #cfe9ff;
-  color: #111;
-  overflow-x: hidden;
+  font-family:'Poppins',sans-serif;
+  background:var(--sky);
+  color:var(--dark);
+  overflow-x:hidden;
+  cursor:none;
 }
 
-/* BOTÓN VOLVER (RESTAURADO ORIGINAL) */
+#bg-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
+
+/* ══ CURSOR ══ */
+@media(hover:hover) and (pointer:fine){ body{cursor:none} #cur{display:block!important} }
+#cur {
+  display:none; position:fixed; width:14px; height:14px; border-radius:50%;
+  background:var(--blue);
+  box-shadow:0 0 16px var(--blue2),0 0 32px rgba(46,141,232,.5);
+  pointer-events:none; z-index:9999; transform:translate(-50%,-50%);
+}
+.ctrail {
+  position:fixed; border-radius:50%; pointer-events:none; z-index:9997;
+  transform:translate(-50%,-50%); animation:tfade .65s ease forwards;
+}
+@keyframes tfade {
+  0%   { opacity:.85; transform:translate(-50%,-50%) scale(1); }
+  100% { opacity:0;   transform:translate(-50%,-50%) scale(.05); }
+}
+
+/* ══ BOTÓN VOLVER ══ */
 .back-home {
-  position: fixed;
-  top: 18px;
-  right: 18px;
-  background: linear-gradient(270deg,#ff4ecd,#6c63ff);
-  padding: 14px 20px;
-  border-radius: 999px;
-  color: white;
-  text-decoration: none;
-  font-size: 15px;
-  z-index: 999;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  animation: float 3s ease-in-out infinite;
-  transition: transform 0.3s ease;
+  position:fixed; top:22px; right:22px; z-index:900;
+  background:var(--blue); color:white; text-decoration:none;
+  font-family:'Fredoka',sans-serif; font-size:15px; font-weight:600;
+  letter-spacing:.5px; padding:11px 24px; border-radius:999px;
+  box-shadow:0 8px 24px rgba(26,106,191,.35);
+  animation:floatBtn 3s ease-in-out infinite;
+  transition:box-shadow .2s;
+}
+.back-home:hover { box-shadow:0 12px 32px rgba(46,141,232,.5); }
+@keyframes floatBtn {
+  0%,100% { transform:translateY(0); }
+  50%      { transform:translateY(-5px); }
 }
 
-.back-home:hover {
-  transform: scale(1.08);
-}
-
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0); }
-}
-
-/* HERO */
+/* ══ HERO ══ */
 .hero {
-  position: relative;
-  height: 32vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  position:relative;
+  width:100%;
+  height:56vh;
+  min-height:420px;
+  overflow:hidden;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-.hero video {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(1.05) saturate(1.2);
+.hero-img {
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  filter:saturate(1.2) brightness(1.04);
+  transform:scale(1.04);
+  animation:heroBreath 9s ease-in-out infinite;
+}
+@keyframes heroBreath {
+  0%,100% { transform:scale(1.04); }
+  50%      { transform:scale(1.07); }
 }
 
-/* 🔥 TRANSICIÓN SUAVE FONDO → HERO */
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
+.hero-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(
     180deg,
-    rgba(207,233,255,0.1),
-    rgba(207,233,255,0.95)
+    rgba(11,26,46,.12) 0%,
+    rgba(11,26,46,.38) 50%,
+    rgba(200,232,255,.90) 100%
   );
 }
 
-/* TÍTULO SUPERBOY */
-.hero h1 {
-  position: relative;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 72px;
-  letter-spacing: 5px;
-  margin: 0;
-  z-index: 2;
-
-  background: linear-gradient(
-    270deg,
-    #b3e5ff,
-    #4fc3ff,
-    #1e90ff,
-    #00b7ff,
-    #5ad7ff,
-    #2f80ff,
-    #a6e3ff
-  );
-
-  background-size: 900% 900%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: blueFlow 7s ease infinite;
+.hero-title-block {
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:0 30px;
 }
 
-@keyframes blueFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:'Poppins',sans-serif;
+  font-size:10px; font-weight:500; letter-spacing:5px;
+  text-transform:uppercase; color:rgba(255,255,255,.88);
+  margin-bottom:16px;
+  opacity:0; animation:fadeUp .8s ease .2s forwards;
+}
+.hero-eyebrow span { display:inline-block; width:22px; height:1px; background:rgba(255,255,255,.7); }
+
+.hero-title-svg-wrap {
+  width:min(820px, 90vw);
+  opacity:0; animation:fadeUp .9s ease .4s forwards;
 }
 
-/* SECCIONES */
-section {
-  max-width: 1000px;
-  margin: auto;
-  padding: 45px 20px;
+.title-path {
+  fill:none;
+  stroke:url(#titleGrad);
+  stroke-width:2.5;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-dasharray:5000;
+  stroke-dashoffset:5000;
+  animation:drawTitle 1.4s cubic-bezier(.4,0,.2,1) .3s forwards;
+  filter:drop-shadow(0 0 12px rgba(140,200,255,.7)) drop-shadow(0 0 28px rgba(46,141,232,.5));
+}
+.title-fill {
+  fill:url(#titleFill);
+  opacity:0;
+  animation:fillAppear 1.2s ease 1.5s forwards;
+}
+@keyframes drawTitle { to { stroke-dashoffset:0; } }
+@keyframes fillAppear {
+  0%   { opacity:0; }
+  30%  { opacity:0.3; }
+  70%  { opacity:0.7; }
+  100% { opacity:1; }
 }
 
-/* VIDEO */
+.hero-sub {
+  font-family:'Poppins',sans-serif; font-size:11px; font-weight:300;
+  letter-spacing:4px; text-transform:uppercase;
+  color:rgba(255,255,255,.75);
+  margin-top:18px;
+  opacity:0; animation:fadeUp .8s ease 2.5s forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ══ MARQUEE ══ */
+.marquee-wrap {
+  overflow:hidden; border-top:1px solid var(--bdr); border-bottom:1px solid var(--bdr);
+  padding:13px 0;
+  background:linear-gradient(90deg,rgba(26,106,191,.04),rgba(200,232,255,.04));
+  position:relative; z-index:2;
+}
+.marquee-track {
+  display:flex; gap:48px; white-space:nowrap;
+  animation:marquee 24s linear infinite;
+}
+.marquee-track span {
+  font-size:10px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--blue); opacity:.75; flex-shrink:0;
+}
+.marquee-track .dot { color:var(--bolt); font-size:8px; }
+@keyframes marquee { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+
+/* ══ VÍDEO ══ */
+.video-section {
+  position:relative; z-index:2;
+  padding:60px 40px 0;
+  max-width:1060px; margin:0 auto;
+}
+@media(max-width:640px){ .video-section{ padding:40px 20px 0; } }
+.video-frame { position:relative; }
+.video-frame::before {
+  content:''; position:absolute; inset:-10px -14px; border-radius:30px;
+  background:linear-gradient(135deg,rgba(255,255,255,.8),rgba(26,106,191,.12)); z-index:-1;
+}
+.video-frame::after {
+  content:''; position:absolute; inset:-20px -28px; border-radius:38px;
+  background:rgba(255,255,255,.28); z-index:-2;
+}
 .video-wrapper {
-  width: 100%;
-  max-width: 900px;
-  margin: auto;
-  aspect-ratio: 16 / 9;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+  width:100%;
+  /* 1902:1080 ratio */
+  aspect-ratio:1902/1080;
+  border-radius:20px; overflow:hidden;
+  box-shadow:0 40px 100px rgba(0,0,0,.22);
+}
+.video-wrapper iframe { width:100%; height:100%; border:0; display:block; }
+
+/* ══ SECCIÓN INFO ══ */
+.sw {
+  max-width:1080px; margin:0 auto;
+  padding:80px 40px; position:relative; z-index:1;
+}
+@media(max-width:640px){ .sw{ padding:60px 20px; } }
+
+.info-title {
+  font-family:'Fredoka',sans-serif;
+  font-size:clamp(32px,5vw,58px); font-weight:700;
+  color:var(--dark); margin-bottom:26px; line-height:1.1;
+}
+.info-text {
+  font-family:'Poppins',sans-serif;
+  font-size:15px; font-weight:300; line-height:1.85;
+  color:var(--muted); margin-bottom:16px;
+  max-width:680px;
+}
+.tech-chips { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
+.chip {
+  font-size:11px; font-weight:500; letter-spacing:2px;
+  text-transform:uppercase; padding:8px 18px; border-radius:999px;
+  border:1px solid var(--bdr); color:var(--blue);
+  background:rgba(255,255,255,.5); backdrop-filter:blur(8px);
+  transition:all .25s; cursor:default; font-family:'Poppins',sans-serif;
+}
+.chip:hover { background:var(--blue); color:white; border-color:var(--blue); transform:translateY(-2px); }
+
+/* ══ HERRAMIENTAS ══ */
+.tools-section {
+  position:relative; z-index:2;
+  padding:0 40px 100px; text-align:center;
+  max-width:1080px; margin:0 auto;
+}
+.tools-grid {
+  display:flex; justify-content:center; gap:60px; flex-wrap:wrap;
+  padding-top:20px;
+}
+.tool-item {
+  display:flex; flex-direction:column; align-items:center; gap:16px;
+  animation:toolFloat 3.5s ease-in-out infinite;
+}
+.tool-item:nth-child(2) { animation-delay:.6s; }
+.tool-item:nth-child(3) { animation-delay:1.2s; }
+.tool-item:nth-child(4) { animation-delay:1.8s; }
+@keyframes toolFloat {
+  0%,100% { transform:translateY(0); }
+  50%      { transform:translateY(-10px); }
+}
+.tool-item img {
+  width:72px; height:72px; object-fit:contain;
+  filter:drop-shadow(0 14px 20px rgba(0,0,0,.2)) drop-shadow(0 4px 8px rgba(26,106,191,.15));
+  transition:filter .3s, transform .3s;
+}
+.tool-item:hover img {
+  filter:drop-shadow(0 20px 30px rgba(0,0,0,.25)) drop-shadow(0 6px 12px rgba(46,141,232,.3));
+  transform:scale(1.1);
+}
+.tool-shadow {
+  width:50px; height:8px; border-radius:50%;
+  background:rgba(26,106,191,.18); filter:blur(4px);
+  transition:all .3s;
+}
+.tool-item:hover .tool-shadow { width:40px; opacity:.5; }
+.tool-name {
+  font-family:'Poppins',sans-serif;
+  font-size:11px; letter-spacing:3px;
+  text-transform:uppercase; color:var(--muted); font-weight:500;
+  margin-top:-8px;
 }
 
-.video-wrapper iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
+/* ══ REVEAL ══ */
+.reveal {
+  opacity:0; transform:translateY(32px);
+  transition:opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1);
 }
+.reveal.visible { opacity:1; transform:none; }
 
-/* TEXTO */
-.text-block {
-  background: rgba(255,255,255,0.7);
-  padding: 25px;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  backdrop-filter: blur(6px);
-  line-height: 1.7;
-}
-
-/* ICONOS */
-.icon-row {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 30px;
-  margin-top: 25px;
-}
-
-.icon-box {
-  width: 95px;
-  height: 95px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.25s ease;
-}
-
-.icon-box:hover {
-  transform: scale(1.12);
-}
-
-.icon-box img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-/* 🔵 TÍTULO CON DEGRADADO NUEVO */
-.section-title {
-  text-align: center;
-  font-size: 28px;
-  font-weight: 600;
-
-  background: linear-gradient(90deg, #4285ec, #3fcbff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* FOOTER NUEVO */
+/* ══ FOOTER ══ */
 footer {
-  margin-top: 40px;
-  padding: 70px 20px;
-  text-align: center;
+  position:relative; z-index:2;
+  background:var(--dark);
+  padding:90px 40px 70px; overflow:hidden;
+}
+.footer-ghost {
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  pointer-events:none; overflow:hidden;
+}
+.footer-ghost span {
+  font-family:'Fredoka',sans-serif; font-weight:700;
+  font-size:22vw; color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.04);
+  white-space:nowrap; user-select:none;
+}
+.footer-daisy { position:absolute; pointer-events:none; opacity:.1; }
+.footer-daisy.fd1 { width:180px; height:180px; top:-50px; left:-50px; transform:rotate(25deg); }
+.footer-daisy.fd2 { width:110px; height:110px; bottom:30px; right:80px; transform:rotate(-20deg); }
+.footer-daisy.fd3 { width:75px;  height:75px;  bottom:20px; left:140px; transform:rotate(55deg); }
 
-  background: linear-gradient(135deg, #4285ec, #3fcbff);
+.footer-inner { position:relative; z-index:2; max-width:900px; margin:0 auto; }
 
-  color: white;
-  position: relative;
-  overflow: hidden;
+.footer-heading {
+  display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;
+  margin-bottom:28px;
+}
+.footer-label {
+  font-family:'Fredoka',sans-serif; font-size:clamp(28px,4vw,44px);
+  font-weight:700; color:rgba(255,255,255,.4); letter-spacing:1px;
+}
+.footer-project-name {
+  font-family:'Playfair Display',serif; font-style:italic; font-weight:900;
+  font-size:clamp(48px,8vw,96px); color:white; line-height:.9;
+}
+.footer-meta {
+  font-family:'Poppins',sans-serif; font-size:13px; font-weight:300;
+  letter-spacing:3px; text-transform:uppercase;
+  color:rgba(255,255,255,.38); line-height:2; margin-bottom:48px;
+}
+.footer-cta {
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:'Fredoka',sans-serif; font-size:16px; font-weight:600;
+  text-decoration:none; color:var(--dark);
+  background:rgba(200,232,255,.9); padding:14px 30px; border-radius:999px;
+  transition:background .25s, transform .25s, box-shadow .25s;
+  box-shadow:0 8px 24px rgba(0,0,0,.2);
+}
+.footer-cta:hover { background:white; transform:translateY(-3px); box-shadow:0 14px 36px rgba(0,0,0,.28); }
+.footer-cta-arrow { display:inline-block; transition:transform .25s; }
+.footer-cta:hover .footer-cta-arrow { transform:translateX(4px); }
+
+.footer-divider {
+  position:relative; z-index:2;
+  max-width:900px; margin:48px auto 24px;
+  height:1px; background:rgba(255,255,255,.07);
+}
+.footer-bottom {
+  position:relative; z-index:2; max-width:900px; margin:0 auto;
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;
+}
+.footer-bottom span {
+  font-family:'Poppins',sans-serif;
+  font-size:11px; color:rgba(255,255,255,.18); letter-spacing:2px;
 }
 
-footer h3 {
-  font-size: 24px;
-  margin: 0;
+/* ══ BACK TO TOP ══ */
+#back-top {
+  position:fixed; bottom:36px; right:36px; z-index:900;
+  width:50px; height:50px; border-radius:50%;
+  background:linear-gradient(135deg,rgba(26,106,191,.18),rgba(46,141,232,.18));
+  border:1.5px solid rgba(26,106,191,.45);
+  display:flex; align-items:center; justify-content:center;
+  cursor:none; opacity:0; pointer-events:none;
+  transition:opacity .4s, background .25s;
+  box-shadow:0 0 20px rgba(26,106,191,.3);
+  animation:floatBtn 3s ease-in-out infinite;
 }
-
-footer p {
-  margin-top: 10px;
-  opacity: 0.9;
-}
-
-footer::before {
-  content: "SUPERBOY • VFX • MOTION • DIGITAL WORLD";
-  position: absolute;
-  top: 50%;
-  left: -50%;
-  width: 200%;
-  transform: rotate(-5deg);
-  font-size: 38px;
-  opacity: 0.07;
-}
+#back-top.show { opacity:1; pointer-events:auto; }
+#back-top:hover { background:linear-gradient(135deg,rgba(26,106,191,.4),rgba(46,141,232,.4)); box-shadow:0 0 32px rgba(26,106,191,.55); }
+#back-top svg { width:20px; height:20px; }
 
 </style>
 </head>
-
 <body>
 
-<a class="back-home" href="index.html">← Volver</a>
+<canvas id="bg-canvas"></canvas>
+<div id="cur"></div>
 
-<!-- HERO -->
-<header class="hero">
-  <video autoplay muted loop playsinline>
-    <source src="header-superboy-final.mp4" type="video/mp4">
-  </video>
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Volver arriba">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <defs>
+      <linearGradient id="bArrow" x1="0" y1="24" x2="24" y2="0" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#1a6abf"/><stop offset="1" stop-color="#6eb8f5"/>
+      </linearGradient>
+    </defs>
+    <polyline points="18 15 12 9 6 15" stroke="url(#bArrow)"/>
+  </svg>
+</button>
 
-  <h1>SUPERBOY</h1>
-</header>
+<a class="back-home" href="index.html#proyectos">← Volver</a>
 
-<!-- VIDEO -->
-<section>
-<div class="video-wrapper">
-  <iframe src="https://www.youtube.com/embed/Se0s5MMtKYY" allowfullscreen></iframe>
-</div>
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <img class="hero-img" src="hero-superboy-foto.png" alt="Superboy project hero">
+  <div class="hero-overlay"></div>
+
+  <div class="hero-title-block">
+    <div class="hero-eyebrow">
+      <span></span>VFX · Composición Visual<span></span>
+    </div>
+
+    <div class="hero-title-svg-wrap">
+      <svg viewBox="0 0 820 115" xmlns="http://www.w3.org/2000/svg" style="width:100%;overflow:visible;">
+        <defs>
+          <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#a0d8ff"/>
+            <stop offset="35%"  stop-color="#5db8ff"/>
+            <stop offset="65%"  stop-color="#f5e060"/>
+            <stop offset="100%" stop-color="#b0e0ff"/>
+          </linearGradient>
+          <linearGradient id="titleFill" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stop-color="#0d3a6e"/>
+            <stop offset="25%"  stop-color="#1a6abf"/>
+            <stop offset="50%"  stop-color="#0f4f9e"/>
+            <stop offset="75%"  stop-color="#2e8de8"/>
+            <stop offset="100%" stop-color="#092d55"/>
+          </linearGradient>
+        </defs>
+
+        <text class="title-fill"
+          x="410" y="96"
+          text-anchor="middle"
+          font-family="'Fredoka', sans-serif"
+          font-size="108" font-weight="700"
+          letter-spacing="-1">Superboy</text>
+
+        <text class="title-path"
+          x="410" y="96"
+          text-anchor="middle"
+          font-family="'Fredoka', sans-serif"
+          font-size="108" font-weight="700"
+          letter-spacing="-1"
+          style="fill:none;stroke:url(#titleGrad);stroke-width:2.2;paint-order:stroke fill;">Superboy</text>
+      </svg>
+    </div>
+
+    <p class="hero-sub">VFX · Composición · Narrativa Visual Experimental</p>
+  </div>
 </section>
 
-<!-- TEXTO -->
-<section>
-<div class="text-block">
-<p><strong>SUPERBOY</strong> es un experimento visual donde la realidad se rompe un poco… literalmente.</p>
-
-<p>
-Un personaje digital aparece dentro de una grabación real y altera la narrativa del plano,
-jugando con la idea de romper la frontera entre lo físico y lo digital.
-</p>
-
-<p>
-Un proyecto centrado en VFX, composición y narrativa visual experimental.
-</p>
-
-<p>
-Realizado con After Effects, Premiere, Photoshop e Illustrator.
-</p>
-</div>
-</section>
-
-<!-- HERRAMIENTAS -->
-<section>
-
-<h2 class="section-title">Herramientas utilizadas</h2>
-
-<div class="icon-row">
-
-  <div class="icon-box">
-    <img src="aftereffects.png" alt="After Effects">
+<!-- ══ MARQUEE ══ -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>VFX</span><span class="dot">⚡</span>
+    <span>COMPOSICIÓN</span><span class="dot">⚡</span>
+    <span>AFTER EFFECTS</span><span class="dot">⚡</span>
+    <span>ROTOSCOPIA</span><span class="dot">⚡</span>
+    <span>NARRATIVA EXPERIMENTAL</span><span class="dot">⚡</span>
+    <span>CHROMA KEY</span><span class="dot">⚡</span>
+    <span>INTEGRACIÓN DIGITAL</span><span class="dot">⚡</span>
+    <span>TRACKING</span><span class="dot">⚡</span>
+    <span>VFX</span><span class="dot">⚡</span>
+    <span>COMPOSICIÓN</span><span class="dot">⚡</span>
+    <span>AFTER EFFECTS</span><span class="dot">⚡</span>
+    <span>ROTOSCOPIA</span><span class="dot">⚡</span>
+    <span>NARRATIVA EXPERIMENTAL</span><span class="dot">⚡</span>
+    <span>CHROMA KEY</span><span class="dot">⚡</span>
+    <span>INTEGRACIÓN DIGITAL</span><span class="dot">⚡</span>
+    <span>TRACKING</span><span class="dot">⚡</span>
   </div>
-
-  <div class="icon-box">
-    <img src="premier.png" alt="Premiere">
-  </div>
-
-  <div class="icon-box">
-    <img src="photoshop.png" alt="Photoshop">
-  </div>
-
-  <div class="icon-box">
-    <img src="ilustrador.png" alt="Illustrator">
-  </div>
-
 </div>
 
-</section>
+<!-- ══ VÍDEO ══ -->
+<div class="video-section reveal">
+  <div class="video-frame">
+    <div class="video-wrapper">
+      <iframe
+        src="https://www.youtube.com/embed/Se0s5MMtKYY?si=8FNBdLTPHFqYWCmM"
+        title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</div>
 
-<!-- FOOTER -->
+<!-- ══ INFO ══ -->
+<div class="sw reveal">
+  <h2 class="info-title">Cuando la realidad se rompe… literalmente</h2>
+  <p class="info-text">
+    SUPERBOY es un experimento visual donde un personaje digital irrumpe dentro de una grabación real y altera la narrativa del plano, jugando con la idea de romper la frontera entre lo físico y lo digital.
+  </p>
+  <p class="info-text">
+    La composición fusiona footage real con elementos generados digitalmente mediante rotoscopia, tracking de cámara y ajuste de luz y color — consiguiendo que lo imposible parezca creíble en cada fotograma.
+  </p>
+  <p class="info-text">
+    Un reto técnico disfrazado de historia. Un juego de ilusiones que cuestiona lo que ves.
+  </p>
+  <div class="tech-chips">
+    <span class="chip">VFX</span>
+    <span class="chip">Composición</span>
+    <span class="chip">Rotoscopia</span>
+    <span class="chip">Camera tracking</span>
+    <span class="chip">Narrativa experimental</span>
+  </div>
+</div>
+
+<!-- ══ HERRAMIENTAS ══ -->
+<div class="tools-section reveal">
+  <div class="tools-grid">
+    <div class="tool-item">
+      <img src="aftereffects.png" alt="After Effects">
+      <div class="tool-shadow"></div>
+      <span class="tool-name">After Effects</span>
+    </div>
+    <div class="tool-item">
+      <img src="premier.png" alt="Premiere">
+      <div class="tool-shadow"></div>
+      <span class="tool-name">Premiere</span>
+    </div>
+    <div class="tool-item">
+      <img src="photoshop.png" alt="Photoshop">
+      <div class="tool-shadow"></div>
+      <span class="tool-name">Photoshop</span>
+    </div>
+    <div class="tool-item">
+      <img src="ilustrador.png" alt="Illustrator">
+      <div class="tool-shadow"></div>
+      <span class="tool-name">Illustrator</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
 <footer>
-  <h3>SUPERBOY PROJECT</h3>
-  <p>VFX • Motion • Digital storytelling</p>
+  <div class="footer-ghost"><span>Superboy</span></div>
+
+  <!-- Bolt decoration 1 -->
+  <div class="footer-daisy fd1">
+    <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="55,5 20,60 48,60 45,115 80,50 52,50" fill="white"/>
+    </svg>
+  </div>
+  <!-- Star decoration 2 -->
+  <div class="footer-daisy fd2">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="50,5 61,35 95,35 68,57 79,91 50,70 21,91 32,57 5,35 39,35" fill="white"/>
+    </svg>
+  </div>
+  <!-- Small bolt 3 -->
+  <div class="footer-daisy fd3">
+    <svg viewBox="0 0 60 100" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="38,2 12,52 32,52 22,98 48,42 28,42" fill="white"/>
+    </svg>
+  </div>
+
+  <div class="footer-inner">
+    <div class="footer-heading">
+      <span class="footer-label">Proyecto:</span>
+      <span class="footer-project-name">Superboy</span>
+    </div>
+    <p class="footer-meta">
+      VFX · Composición · Narrativa Visual<br>
+      After Effects · Premiere · Photoshop · Illustrator
+    </p>
+    <a class="footer-cta" href="index.html#proyectos">
+      Ver más proyectos <span class="footer-cta-arrow">→</span>
+    </a>
+  </div>
+
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <span>Superboy — VFX</span>
+    <span>Composición · Integración Digital</span>
+  </div>
 </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  const canvas=document.getElementById('bg-canvas');
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setClearColor(0x000000,0);
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,200);
+  camera.position.z=28;
+  function resize(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}
+  resize();window.addEventListener('resize',resize);
+
+  const C_BLUE=0x2e8de8,C_LTBLUE=0x7ec8f5,C_YELLOW=0xf0c430,C_RED=0xd93030,C_WHITE=0xe8f4ff;
+
+  function lMat(col,op=.55){return new THREE.LineBasicMaterial({color:col,transparent:true,opacity:op});}
+  function wMat(col,op=.3){return new THREE.MeshBasicMaterial({color:col,wireframe:true,transparent:true,opacity:op});}
+
+  /* ── CLOUD ── */
+  function makeCloud(col){
+    const g=new THREE.Group();
+    [[0,0,1.2],[1.4,.35,.9],[-1.2,.28,.85],[.6,-.18,.7],[-0.5,-.12,.65],[2.1,-.12,.75]].forEach(([cx,cy,r])=>{
+      const pts=[];for(let i=0;i<=22;i++){const a=(i/22)*Math.PI*2;pts.push(new THREE.Vector3(cx+Math.cos(a)*r,cy+Math.sin(a)*r,0));}
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.5)));
+    });
+    return g;
+  }
+
+  /* ── LIGHTNING BOLT ── */
+  function makeBolt(col){
+    const g=new THREE.Group();
+    const pts=[new THREE.Vector3(.4,3,0),new THREE.Vector3(-.2,1.2,0),new THREE.Vector3(.35,1.2,0),new THREE.Vector3(-.4,-1,0)];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.9)));
+    // glow duplicate slightly bigger
+    const pts2=[new THREE.Vector3(.5,3.1,0),new THREE.Vector3(-.3,1.25,0),new THREE.Vector3(.45,1.25,0),new THREE.Vector3(-.5,-1.05,0)];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts2),lMat(col,.3)));
+    return g;
+  }
+
+  /* ── STAR ── */
+  function makeStar(col,pts=5){
+    const g=new THREE.Group();const p=[];
+    for(let i=0;i<pts*2;i++){
+      const a=(i/pts/2)*Math.PI*2-Math.PI/2;
+      const r=i%2===0?1.4:.6;
+      p.push(new THREE.Vector3(Math.cos(a)*r,Math.sin(a)*r,0));
+    }
+    p.push(p[0].clone());
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(p),lMat(col,.75)));
+    return g;
+  }
+
+  /* ── CAPE / SUPERHERO SILHOUETTE ── */
+  function makeCape(col){
+    const g=new THREE.Group();
+    // body
+    const body=new THREE.Mesh(new THREE.CylinderGeometry(.25,.35,1.2,8),wMat(col,.5));
+    body.position.set(0,0,0);g.add(body);
+    // head
+    const head=new THREE.Mesh(new THREE.SphereGeometry(.28,8,6),wMat(col,.5));
+    head.position.set(0,.9,0);g.add(head);
+    // cape lines
+    const cl=[
+      [new THREE.Vector3(-.25,.5,0),new THREE.Vector3(-.9,-.8,0)],
+      [new THREE.Vector3(.25,.5,0),new THREE.Vector3(.9,-.8,0)],
+      [new THREE.Vector3(-.25,.5,0),new THREE.Vector3(.25,.5,0)],
+      [new THREE.Vector3(-.9,-.8,0),new THREE.Vector3(.9,-.8,0)],
+    ];
+    cl.forEach(([a,b])=>g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([a,b]),lMat(col,.6))));
+    return g;
+  }
+
+  /* ── CIRCLE RING ── */
+  function makeRing(col){
+    const g=new THREE.Group();
+    [1,.7,.45].forEach(r=>{
+      const pts=[];for(let i=0;i<=32;i++){const a=(i/32)*Math.PI*2;pts.push(new THREE.Vector3(Math.cos(a)*r,Math.sin(a)*r,0));}
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.4)));
+    });
+    return g;
+  }
+
+  /* ── SPEED LINES ── */
+  function makeSpeedLines(col){
+    const g=new THREE.Group();
+    for(let i=0;i<8;i++){
+      const a=(i/8)*Math.PI*2;
+      const len=1+Math.random()*1.5;
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(Math.cos(a)*1.1,Math.sin(a)*1.1,0),
+        new THREE.Vector3(Math.cos(a)*(1.1+len),Math.sin(a)*(1.1+len),0)
+      ]),lMat(col,.5)));
+    }
+    return g;
+  }
+
+  /* ── DIAMOND ── */
+  function makeDiamond(col){
+    const g=new THREE.Group();
+    const pts=[new THREE.Vector3(0,1.5,0),new THREE.Vector3(1,.3,0),new THREE.Vector3(.6,-1.2,0),new THREE.Vector3(-.6,-1.2,0),new THREE.Vector3(-1,.3,0),new THREE.Vector3(0,1.5,0)];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.65)));
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,1.5,0),new THREE.Vector3(0,-1.2,0)]),lMat(col,.3)));
+    return g;
+  }
+
+  const floaters=[];
+  function place(obj,x,y,z,sc=1){
+    obj.scale.setScalar(sc);obj.position.set(x,y,z);
+    obj.userData={rx:(Math.random()-.5)*.008,ry:(Math.random()-.5)*.011,rz:(Math.random()-.5)*.006,floatAmp:.3+Math.random()*.6,floatSpd:.3+Math.random()*.5,floatOff:Math.random()*Math.PI*2,baseY:y};
+    scene.add(obj);floaters.push(obj);
+  }
+
+  // Clouds
+  place(makeCloud(C_WHITE),-18,7,-9,2.0);
+  place(makeCloud(C_LTBLUE),14,-5,-8,1.4);
+  place(makeCloud(C_WHITE),-6,-9,-12,1.7);
+  place(makeCloud(C_LTBLUE),20,8,-10,1.1);
+  place(makeCloud(C_WHITE),-2,5,-14,2.2);
+  place(makeCloud(C_LTBLUE),8,-2,-7,1.0);
+
+  // Bolts
+  place(makeBolt(C_YELLOW),16,9,-11,2.2);
+  place(makeBolt(C_YELLOW),-14,-6,-9,1.6);
+  place(makeBolt(C_YELLOW),4,10,-8,1.8);
+  place(makeBolt(C_WHITE),-8,-3,-10,1.2);
+
+  // Stars
+  place(makeStar(C_YELLOW,5),-12,9,-8,1.5);
+  place(makeStar(C_WHITE,6),18,-8,-11,1.2);
+  place(makeStar(C_LTBLUE,5),-4,-11,-13,1.0);
+  place(makeStar(C_YELLOW,5),22,4,-9,0.9);
+
+  // Superhero capes
+  place(makeCape(C_BLUE),-16,-4,-7,1.6);
+  place(makeCape(C_RED),12,5,-8,1.2);
+  place(makeCape(C_BLUE),-4,10,-13,1.8);
+
+  // Speed lines
+  place(makeSpeedLines(C_LTBLUE),6,8,-9,1.4);
+  place(makeSpeedLines(C_YELLOW),-10,-7,-10,1.1);
+  place(makeSpeedLines(C_WHITE),20,2,-12,1.7);
+
+  // Diamonds
+  place(makeDiamond(C_LTBLUE),-22,-9,-8,1.4);
+  place(makeDiamond(C_YELLOW),17,-10,-9,1.0);
+  place(makeDiamond(C_WHITE),0,-8,-14,1.3);
+
+  // Rings
+  place(makeRing(C_BLUE),10,-4,-11,1.8);
+  place(makeRing(C_YELLOW),-18,3,-10,1.3);
+
+  // Particles
+  const pCount=1400,pGeo=new THREE.BufferGeometry();
+  const pPos=new Float32Array(pCount*3),pCol=new Float32Array(pCount*3),pSpd=new Float32Array(pCount);
+  const CA=new THREE.Color(0x2e8de8),CB=new THREE.Color(0x7ec8f5),CC=new THREE.Color(0xf0c430);
+  for(let i=0;i<pCount;i++){
+    pPos[i*3]=(Math.random()-.5)*120;pPos[i*3+1]=(Math.random()-.5)*80;pPos[i*3+2]=(Math.random()-.5)*60;
+    const t=Math.random(),c=t<.5?CA:t<.8?CB:CC;
+    pCol[i*3]=c.r;pCol[i*3+1]=c.g;pCol[i*3+2]=c.b;pSpd[i]=.02+Math.random()*.06;
+  }
+  pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  pGeo.setAttribute('color',new THREE.BufferAttribute(pCol,3));
+  const particles=new THREE.Points(pGeo,new THREE.PointsMaterial({size:.15,vertexColors:true,transparent:true,opacity:.65,sizeAttenuation:true}));
+  scene.add(particles);
+
+  const maxL=floaters.length*(floaters.length-1)/2;
+  const lineGeo=new THREE.BufferGeometry();
+  const lineArr=new Float32Array(maxL*6);
+  lineGeo.setAttribute('position',new THREE.BufferAttribute(lineArr,3));
+  scene.add(new THREE.LineSegments(lineGeo,new THREE.LineBasicMaterial({color:0x2e8de8,transparent:true,opacity:.05})));
+
+  const ring=new THREE.Mesh(new THREE.TorusGeometry(22,.05,4,120),new THREE.MeshBasicMaterial({color:0x1a6abf,transparent:true,opacity:.07}));
+  ring.rotation.x=Math.PI/2.5;scene.add(ring);
+
+  let mx=0,my=0,tmx=0,tmy=0;
+  document.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=(e.clientY/innerHeight-.5)*2;});
+  let scrollY=0;window.addEventListener('scroll',()=>scrollY=window.scrollY);
+  let tc=0;
+  (function animate(){
+    requestAnimationFrame(animate);tc+=.007;
+    tmx+=(mx*1.4-tmx)*.04;tmy+=(my*.7-tmy)*.04;
+    camera.position.x=tmx;camera.position.y=-tmy+scrollY*.003;camera.lookAt(0,scrollY*.003,0);
+    particles.rotation.y=tc*.035;particles.rotation.x=tc*.012;
+    const pos=pGeo.attributes.position.array;
+    for(let i=0;i<pCount;i++) pos[i*3+1]+=Math.sin(tc*pSpd[i]+i)*.003;
+    pGeo.attributes.position.needsUpdate=true;
+    floaters.forEach(m=>{
+      m.rotation.x+=m.userData.rx;m.rotation.y+=m.userData.ry;m.rotation.z+=m.userData.rz;
+      m.position.y=m.userData.baseY+Math.sin(tc*m.userData.floatSpd+m.userData.floatOff)*m.userData.floatAmd||0+Math.sin(tc*m.userData.floatSpd+m.userData.floatOff)*m.userData.floatAmp;
+    });
+    let li=0;const lp=lineGeo.attributes.position.array;
+    for(let a=0;a<floaters.length;a++) for(let b=a+1;b<floaters.length;b++) if(floaters[a].position.distanceTo(floaters[b].position)<18){lp[li++]=floaters[a].position.x;lp[li++]=floaters[a].position.y;lp[li++]=floaters[a].position.z;lp[li++]=floaters[b].position.x;lp[li++]=floaters[b].position.y;lp[li++]=floaters[b].position.z;}
+    for(;li<lp.length;li++) lp[li]=0;
+    lineGeo.attributes.position.needsUpdate=true;lineGeo.setDrawRange(0,li/3);
+    ring.rotation.z=tc*.04;
+    renderer.render(scene,camera);
+  })();
+
+  // fix userData floatAmp access
+  floaters.forEach(m=>{
+    const orig=m.userData.floatAmp;
+    m.userData.floatAmp=orig||0.5;
+  });
+})();
+
+/* ── CURSOR ── */
+if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){
+  const dot=document.getElementById('cur');
+  const tc=['#2e8de8','#7ec8f5','#f0c430','#1a6abf','#d93030'];
+  let ti=0,lx=0,ly=0;
+  document.addEventListener('mousemove',e=>{
+    dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';
+    const d=Math.hypot(e.clientX-lx,e.clientY-ly);
+    if(d>5){lx=e.clientX;ly=e.clientY;
+      for(let k=0;k<3;k++){
+        const t=document.createElement('div');t.className='ctrail';
+        const sz=Math.random()*8+5,col=tc[(ti+k)%tc.length];
+        const ox=(Math.random()-.5)*6,oy=(Math.random()-.5)*6;
+        t.style.cssText=`width:${sz}px;height:${sz}px;left:${e.clientX+ox}px;top:${e.clientY+oy}px;background:${col};box-shadow:0 0 ${sz*2}px ${col};`;
+        document.body.appendChild(t);ti++;setTimeout(()=>t.remove(),650);
+      }
+    }
+  });
+  document.querySelectorAll('a,.chip,.tool-item,.footer-cta').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{dot.style.transform='translate(-50%,-50%) scale(2.5)';dot.style.background='#f0c430';dot.style.boxShadow='0 0 16px #f0c430,0 0 32px rgba(240,196,48,.5)';});
+    el.addEventListener('mouseleave',()=>{dot.style.transform='translate(-50%,-50%) scale(1)';dot.style.background='var(--blue)';dot.style.boxShadow='0 0 16px var(--blue2)';});
+  });
+}
+
+/* ── SCROLL REVEAL ── */
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+
+/* ── BACK TO TOP ── */
+const bTop=document.getElementById('back-top');
+window.addEventListener('scroll',()=>bTop.classList.toggle('show',window.scrollY>400));
+</script>
 
 </body>
 </html>
