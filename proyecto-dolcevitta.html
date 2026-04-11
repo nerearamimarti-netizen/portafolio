@@ -1,323 +1,900 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <title>Dolce Vitta</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
+<title>Dolce Vitta — Branding</title>
+<style>
 
-    <style>
-        :root {
-            --cake-pink: #f6dede;
-            --cake-dark: #493026;
-            --cherry-red: #dc1e23;
-            --glass: rgba(255, 255, 255, 0.6);
-        }
+:root {
+  --cream:  #fdf0e4;
+  --pink:   #f6dede;
+  --cherry: #c41e23;
+  --cherry2:#e83045;
+  --dark:   #2e1a0e;
+  --choco:  #5c3317;
+  --caramel:#c47a2a;
+  --muted:  #6b3d20;
+  --bdr:    rgba(196,30,35,0.15);
+}
 
-        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
 
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--cake-pink);
-            color: var(--cake-dark);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
+body {
+  font-family:'Poppins',sans-serif;
+  background:var(--cream);
+  color:var(--dark);
+  overflow-x:hidden;
+  cursor:none;
+}
 
-        /* --- CANVAS THREE.JS --- */
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
+#bg-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
 
-        /* --- BOTÓN VOLVER --- */
-        .back-home {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            background: var(--cake-dark);
-            padding: 12px 24px;
-            border-radius: 50px;
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            z-index: 1000;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
+/* ══ CURSOR ══ */
+@media(hover:hover) and (pointer:fine){ body{cursor:none} #cur{display:block!important} }
+#cur {
+  display:none; position:fixed; width:14px; height:14px; border-radius:50%;
+  background:var(--cherry);
+  box-shadow:0 0 16px var(--cherry2),0 0 32px rgba(232,48,69,.5);
+  pointer-events:none; z-index:9999; transform:translate(-50%,-50%);
+}
+.ctrail {
+  position:fixed; border-radius:50%; pointer-events:none; z-index:9997;
+  transform:translate(-50%,-50%); animation:tfade .65s ease forwards;
+}
+@keyframes tfade {
+  0%   { opacity:.85; transform:translate(-50%,-50%) scale(1); }
+  100% { opacity:0;   transform:translate(-50%,-50%) scale(.05); }
+}
 
-        .back-home:hover {
-            transform: scale(1.05);
-            background: var(--cherry-red);
-        }
+/* ══ BOTÓN VOLVER ══ */
+.back-home {
+  position:fixed; top:22px; right:22px; z-index:900;
+  background:var(--choco); color:white; text-decoration:none;
+  font-family:'Fredoka',sans-serif; font-size:15px; font-weight:600;
+  letter-spacing:.5px; padding:11px 24px; border-radius:999px;
+  box-shadow:0 8px 24px rgba(92,51,23,.35);
+  animation:floatBtn 3s ease-in-out infinite;
+  transition:box-shadow .2s;
+}
+.back-home:hover { box-shadow:0 12px 32px rgba(196,30,35,.5); }
+@keyframes floatBtn {
+  0%,100% { transform:translateY(0); }
+  50%      { transform:translateY(-5px); }
+}
 
-        /* --- HERO --- */
-        .hero {
-            height: 70vh;
-            width: 100%;
-            background: url("hero-dolcevitta.png") center/cover no-repeat;
-            position: relative;
-            border-bottom: 8px solid white;
-        }
+/* ══ HERO ══ */
+.hero {
+  position:relative;
+  width:100%;
+  height:56vh;
+  min-height:420px;
+  overflow:hidden;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.hero-img {
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  filter:saturate(1.15) brightness(1.02);
+  transform:scale(1.04);
+  animation:heroBreath 9s ease-in-out infinite;
+}
+@keyframes heroBreath {
+  0%,100% { transform:scale(1.04); }
+  50%      { transform:scale(1.07); }
+}
+.hero-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(
+    180deg,
+    rgba(46,26,14,.10) 0%,
+    rgba(46,26,14,.35) 50%,
+    rgba(253,240,228,.92) 100%
+  );
+}
+.hero-title-block {
+  position:relative; z-index:2;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  text-align:center; padding:0 30px;
+}
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:'Poppins',sans-serif;
+  font-size:10px; font-weight:500; letter-spacing:5px;
+  text-transform:uppercase; color:rgba(255,255,255,.88);
+  margin-bottom:16px;
+  opacity:0; animation:fadeUp .8s ease .2s forwards;
+}
+.hero-eyebrow span { display:inline-block; width:22px; height:1px; background:rgba(255,255,255,.7); }
 
-        /* --- SECCIONES --- */
-        section {
-            padding: 60px 20px;
-            max-width: 1000px;
-            margin: auto;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s ease-out;
-        }
+.hero-title-svg-wrap {
+  width:min(820px, 90vw);
+  opacity:0; animation:fadeUp .9s ease .4s forwards;
+}
 
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+.title-fill {
+  fill: url(#titleFill);
+  paint-order: fill stroke;
+  opacity: 0;
+  animation: fillAppear 1.2s ease 1.5s forwards;
+}
+.title-path {
+  fill: none;
+  stroke: url(#titleGrad);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 5000;
+  stroke-dashoffset: 5000;
+  animation: drawTitle 1.4s cubic-bezier(.4,0,.2,1) .3s forwards;
+  filter: drop-shadow(0 0 12px rgba(255,180,140,.7)) drop-shadow(0 0 28px rgba(196,30,35,.5));
+}
+@keyframes drawTitle { to { stroke-dashoffset:0; } }
+@keyframes fillAppear {
+  0%   { opacity:0; }
+  30%  { opacity:0.3; }
+  70%  { opacity:0.7; }
+  100% { opacity:1; }
+}
 
-        h2 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 40px;
-            text-align: center;
-            color: var(--cake-dark);
-        }
+.hero-sub {
+  font-family:'Poppins',sans-serif; font-size:11px; font-weight:300;
+  letter-spacing:4px; text-transform:uppercase;
+  color:rgba(255,255,255,.75);
+  margin-top:18px;
+  opacity:0; animation:fadeUp .8s ease 2.5s forwards;
+}
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
 
-        .description-box {
-            background: var(--glass);
-            border: 2px solid white;
-            padding: 40px;
-            border-radius: 30px;
-            backdrop-filter: blur(10px);
-            text-align: center;
-            font-size: 1.1rem;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-        }
+/* ══ MARQUEE ══ */
+.marquee-wrap {
+  overflow:hidden; border-top:1px solid var(--bdr); border-bottom:1px solid var(--bdr);
+  padding:13px 0;
+  background:linear-gradient(90deg,rgba(196,30,35,.04),rgba(253,240,228,.04));
+  position:relative; z-index:2;
+}
+.marquee-track {
+  display:flex; gap:48px; white-space:nowrap;
+  animation:marquee 24s linear infinite;
+}
+.marquee-track span {
+  font-size:10px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--cherry); opacity:.75; flex-shrink:0;
+}
+.marquee-track .dot { color:var(--caramel); font-size:8px; }
+@keyframes marquee { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
 
-        /* --- IMÁGENES --- */
-        .img-project {
-            width: 100%;
-            display: block;
-            border-radius: 40px; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1); 
-            transition: transform 0.5s ease;
-            margin-bottom: 50px;
-        }
+/* ══ SECCIONES DE IMÁGENES ══ */
+.img-section {
+  position:relative; z-index:2;
+  padding:60px 40px 0;
+  max-width:1060px; margin:0 auto;
+}
+@media(max-width:640px){ .img-section{ padding:40px 20px 0; } }
 
-        .img-project:hover {
-            transform: scale(1.02);
-        }
+.img-frame { position:relative; margin-bottom:0; }
+.img-frame::before {
+  content:''; position:absolute; inset:-10px -14px; border-radius:30px;
+  background:linear-gradient(135deg,rgba(255,255,255,.8),rgba(196,30,35,.10)); z-index:-1;
+}
+.img-frame::after {
+  content:''; position:absolute; inset:-20px -28px; border-radius:38px;
+  background:rgba(255,255,255,.28); z-index:-2;
+}
+.img-wrapper {
+  width:100%;
+  border-radius:20px; overflow:hidden;
+  box-shadow:0 40px 100px rgba(0,0,0,.18);
+}
+.img-wrapper img { width:100%; height:auto; border:0; display:block; }
 
-        .grid-2 {
-            display: grid;
-            gap: 40px;
-            margin-bottom: 50px;
-        }
+.grid-2 {
+  display:grid; gap:30px;
+  grid-template-columns:1fr 1fr;
+}
+@media(max-width:640px){ .grid-2{ grid-template-columns:1fr; } }
 
-        @media(min-width:768px){
-            .grid-2 { grid-template-columns: 1fr 1fr; }
-        }
+.grid-img-frame { position:relative; }
+.grid-img-frame::before {
+  content:''; position:absolute; inset:-8px -10px; border-radius:26px;
+  background:linear-gradient(135deg,rgba(255,255,255,.8),rgba(196,30,35,.10)); z-index:-1;
+}
+.grid-img-wrap {
+  width:100%; border-radius:16px; overflow:hidden;
+  box-shadow:0 30px 70px rgba(0,0,0,.15);
+}
+.grid-img-wrap img { width:100%; height:auto; display:block; }
 
-        /* --- HERRAMIENTAS AL FINAL (FLOTANTES) --- */
-        .tools-section {
-            margin-bottom: 100px;
-        }
+/* ══ INFO ══ */
+.sw {
+  max-width:1080px; margin:0 auto;
+  padding:80px 40px; position:relative; z-index:1;
+}
+@media(max-width:640px){ .sw{ padding:60px 20px; } }
+.info-title {
+  font-family:'Fredoka',sans-serif;
+  font-size:clamp(32px,5vw,58px); font-weight:700;
+  color:var(--dark); margin-bottom:26px; line-height:1.1;
+}
+.info-text {
+  font-family:'Poppins',sans-serif;
+  font-size:15px; font-weight:300; line-height:1.85;
+  color:var(--muted); margin-bottom:16px;
+  max-width:680px;
+}
+.info-text strong {
+  font-weight:600;
+  color:var(--cherry);
+}
+.tech-chips { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
+.chip {
+  font-size:11px; font-weight:500; letter-spacing:2px;
+  text-transform:uppercase; padding:8px 18px; border-radius:999px;
+  border:1px solid var(--bdr); color:var(--cherry);
+  background:rgba(255,255,255,.5); backdrop-filter:blur(8px);
+  transition:all .25s; cursor:default; font-family:'Poppins',sans-serif;
+}
+.chip:hover { background:var(--cherry); color:white; border-color:var(--cherry); transform:translateY(-2px); }
 
-        .icon-row {
-            display: flex;
-            justify-content: center;
-            gap: 70px;
-            padding: 50px 0;
-        }
+/* ══ SECTION TITLES ══ */
+.section-label {
+  font-family:'Fredoka',sans-serif;
+  font-size:clamp(22px,3.5vw,36px); font-weight:700;
+  color:var(--dark); margin-bottom:32px; line-height:1.1;
+  padding:0 40px;
+  max-width:1080px; margin-left:auto; margin-right:auto;
+}
+@media(max-width:640px){ .section-label{ padding:0 20px; } }
 
-        .icon-floating {
-            width: 75px;
-            height: auto;
-            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.15)); 
-            animation: floatAnim 4s ease-in-out infinite;
-        }
+/* ══ HERRAMIENTAS ══ */
+.tools-section {
+  position:relative; z-index:2;
+  padding:0 40px 100px; text-align:center;
+  max-width:1080px; margin:0 auto;
+}
+.tools-grid {
+  display:flex; justify-content:center; gap:80px; flex-wrap:wrap;
+  padding-top:20px;
+}
+.tool-item {
+  display:flex; flex-direction:column; align-items:center; gap:16px;
+  animation:toolFloat 3.5s ease-in-out infinite;
+}
+.tool-item:nth-child(2) { animation-delay:.6s; }
+@keyframes toolFloat {
+  0%,100% { transform:translateY(0); }
+  50%      { transform:translateY(-10px); }
+}
+.tool-item img {
+  width:72px; height:72px; object-fit:contain;
+  filter:drop-shadow(0 14px 20px rgba(0,0,0,.2)) drop-shadow(0 4px 8px rgba(196,30,35,.15));
+  transition:filter .3s, transform .3s;
+}
+.tool-item:hover img {
+  filter:drop-shadow(0 20px 30px rgba(0,0,0,.25)) drop-shadow(0 6px 12px rgba(196,30,35,.3));
+  transform:scale(1.1);
+}
+.tool-shadow {
+  width:50px; height:8px; border-radius:50%;
+  background:rgba(196,30,35,.18); filter:blur(4px);
+  transition:all .3s;
+}
+.tool-item:hover .tool-shadow { width:40px; opacity:.5; }
+.tool-name {
+  font-family:'Poppins',sans-serif;
+  font-size:11px; letter-spacing:3px;
+  text-transform:uppercase; color:var(--muted); font-weight:500;
+  margin-top:-8px;
+}
 
-        @keyframes floatAnim {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0); }
-        }
+/* ══ REVEAL ══ */
+.reveal {
+  opacity:0; transform:translateY(32px);
+  transition:opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1);
+}
+.reveal.visible { opacity:1; transform:none; }
 
-        /* --- FOOTER --- */
-        .footer-wrapper {
-            background: white;
-            padding: 40px;
-            text-align: center;
-        }
+/* ══ FOOTER ══ */
+footer {
+  position:relative; z-index:2;
+  background:var(--dark);
+  padding:90px 40px 70px; overflow:hidden;
+}
+.footer-ghost {
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  pointer-events:none; overflow:hidden;
+}
+.footer-ghost span {
+  font-family:'Fredoka',sans-serif; font-weight:700;
+  font-size:19vw; color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.04);
+  white-space:nowrap; user-select:none;
+}
+.footer-deco { position:absolute; pointer-events:none; opacity:.1; }
+.footer-deco.fd1 { width:160px; height:200px; top:-40px; left:-40px; transform:rotate(15deg); }
+.footer-deco.fd2 { width:100px; height:100px; bottom:30px; right:80px; transform:rotate(-20deg); }
+.footer-deco.fd3 { width:70px;  height:70px;  bottom:20px; left:140px; transform:rotate(55deg); }
 
-        .copyright-box {
-            font-weight: 600;
-            color: var(--cake-dark);
-            letter-spacing: 1px;
-        }
+.footer-inner { position:relative; z-index:2; max-width:900px; margin:0 auto; }
+.footer-heading {
+  display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;
+  margin-bottom:28px;
+}
+.footer-label {
+  font-family:'Fredoka',sans-serif; font-size:clamp(28px,4vw,44px);
+  font-weight:700; color:rgba(255,255,255,.4); letter-spacing:1px;
+}
+.footer-project-name {
+  font-family:'Playfair Display',serif; font-style:italic; font-weight:900;
+  font-size:clamp(48px,8vw,96px); color:white; line-height:.9;
+}
+.footer-meta {
+  font-family:'Poppins',sans-serif; font-size:13px; font-weight:300;
+  letter-spacing:3px; text-transform:uppercase;
+  color:rgba(255,255,255,.38); line-height:2; margin-bottom:48px;
+}
+.footer-cta {
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:'Fredoka',sans-serif; font-size:16px; font-weight:600;
+  text-decoration:none; color:var(--dark);
+  background:rgba(253,240,228,.9); padding:14px 30px; border-radius:999px;
+  transition:background .25s, transform .25s, box-shadow .25s;
+  box-shadow:0 8px 24px rgba(0,0,0,.2);
+}
+.footer-cta:hover { background:white; transform:translateY(-3px); box-shadow:0 14px 36px rgba(0,0,0,.28); }
+.footer-cta-arrow { display:inline-block; transition:transform .25s; }
+.footer-cta:hover .footer-cta-arrow { transform:translateX(4px); }
+.footer-divider {
+  position:relative; z-index:2;
+  max-width:900px; margin:48px auto 24px;
+  height:1px; background:rgba(255,255,255,.07);
+}
+.footer-bottom {
+  position:relative; z-index:2; max-width:900px; margin:0 auto;
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;
+}
+.footer-bottom span {
+  font-family:'Poppins',sans-serif;
+  font-size:11px; color:rgba(255,255,255,.18); letter-spacing:2px;
+}
 
-    </style>
+/* ══ BACK TO TOP ══ */
+#back-top {
+  position:fixed; bottom:36px; right:36px; z-index:900;
+  width:50px; height:50px; border-radius:50%;
+  background:linear-gradient(135deg,rgba(196,30,35,.18),rgba(232,48,69,.18));
+  border:1.5px solid rgba(196,30,35,.45);
+  display:flex; align-items:center; justify-content:center;
+  cursor:none; opacity:0; pointer-events:none;
+  transition:opacity .4s, background .25s;
+  box-shadow:0 0 20px rgba(196,30,35,.3);
+  animation:floatBtn 3s ease-in-out infinite;
+}
+#back-top.show { opacity:1; pointer-events:auto; }
+#back-top:hover { background:linear-gradient(135deg,rgba(196,30,35,.4),rgba(232,48,69,.4)); box-shadow:0 0 32px rgba(196,30,35,.55); }
+#back-top svg { width:20px; height:20px; }
+
+/* ══ SPACING BETWEEN SECTIONS ══ */
+.section-gap { height:60px; position:relative; z-index:2; }
+
+</style>
 </head>
-
 <body>
 
-<div id="canvas-container"></div>
+<canvas id="bg-canvas"></canvas>
+<div id="cur"></div>
 
-<a class="back-home" href="index.html">← VOLVER</a>
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Volver arriba">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <defs>
+      <linearGradient id="bArrow" x1="0" y1="24" x2="24" y2="0" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#c41e23"/><stop offset="1" stop-color="#f5a07e"/>
+      </linearGradient>
+    </defs>
+    <polyline points="18 15 12 9 6 15" stroke="url(#bArrow)"/>
+  </svg>
+</button>
 
-<header class="hero"></header>
+<a class="back-home" href="index.html#proyectos">← Volver</a>
 
-<section id="intro">
-    <div class="description-box">
-        <p><strong>Dolce Vitta</strong><br>Creación integral de identidad visual, aplicaciones de marca, packaging premium y estrategia de contenido para redes sociales.</p>
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <img class="hero-img" src="hero-dolcevitta.png" alt="Dolce Vitta project hero">
+  <div class="hero-overlay"></div>
+
+  <div class="hero-title-block">
+    <div class="hero-eyebrow">
+      <span></span>Branding · Identidad Visual<span></span>
     </div>
-</section>
 
-<section>
-    <h2>Identidad Visual</h2>
-    <img src="aplicaciones-dolcevitta.png" class="img-project" alt="Branding">
-</section>
+    <div class="hero-title-svg-wrap">
+      <svg viewBox="0 0 820 115" xmlns="http://www.w3.org/2000/svg" style="width:100%;overflow:visible;">
+        <defs>
+          <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#ffcba0"/>
+            <stop offset="35%"  stop-color="#f5907a"/>
+            <stop offset="65%"  stop-color="#e83045"/>
+            <stop offset="100%" stop-color="#ffd0b0"/>
+          </linearGradient>
+          <linearGradient id="titleFill" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stop-color="#5c1e10"/>
+            <stop offset="25%"  stop-color="#c41e23"/>
+            <stop offset="50%"  stop-color="#8b1a1a"/>
+            <stop offset="75%"  stop-color="#e83045"/>
+            <stop offset="100%" stop-color="#3e1208"/>
+          </linearGradient>
+        </defs>
 
-<section>
-    <h2>Packaging & Experiencia</h2>
-    <div class="grid-2">
-        <img src="cuadrada-dolcevitta-izq.png" class="img-project" alt="Packaging 1">
-        <img src="cuadrada-dolcevitta-der.png" class="img-project" alt="Packaging 2">
+        <text class="title-fill"
+          x="410" y="96"
+          text-anchor="middle"
+          font-family="'Fredoka', sans-serif"
+          font-size="108" font-weight="700"
+          letter-spacing="-1">Dolce Vitta</text>
+
+        <text class="title-path"
+          x="410" y="96"
+          text-anchor="middle"
+          font-family="'Fredoka', sans-serif"
+          font-size="108" font-weight="700"
+          letter-spacing="-1">Dolce Vitta</text>
+      </svg>
     </div>
-    <img src="grande-dolcevitta.png" class="img-project" alt="Banner Dolce Vitta">
+
+    <p class="hero-sub">Branding · Packaging · Identidad Visual · Social Media</p>
+  </div>
 </section>
 
-<section>
-    <h2>Social Media Content</h2>
-    <img src="imagen-rrss-dolcevitta.png" class="img-project" alt="Instagram Feed">
-</section>
+<!-- ══ MARQUEE ══ -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>BRANDING</span><span class="dot">🍒</span>
+    <span>IDENTIDAD VISUAL</span><span class="dot">🍒</span>
+    <span>PACKAGING</span><span class="dot">🍒</span>
+    <span>SOCIAL MEDIA</span><span class="dot">🍒</span>
+    <span>ILUSTRACIÓN</span><span class="dot">🍒</span>
+    <span>PHOTOSHOP</span><span class="dot">🍒</span>
+    <span>ILLUSTRATOR</span><span class="dot">🍒</span>
+    <span>ESTRATEGIA DE MARCA</span><span class="dot">🍒</span>
+    <span>BRANDING</span><span class="dot">🍒</span>
+    <span>IDENTIDAD VISUAL</span><span class="dot">🍒</span>
+    <span>PACKAGING</span><span class="dot">🍒</span>
+    <span>SOCIAL MEDIA</span><span class="dot">🍒</span>
+    <span>ILUSTRACIÓN</span><span class="dot">🍒</span>
+    <span>PHOTOSHOP</span><span class="dot">🍒</span>
+    <span>ILLUSTRATOR</span><span class="dot">🍒</span>
+    <span>ESTRATEGIA DE MARCA</span><span class="dot">🍒</span>
+  </div>
+</div>
 
-<section class="tools-section">
-    <h2>Herramientas utilizadas</h2>
-    <div class="icon-row">
-        <img src="photoshop.png" alt="Photoshop" class="icon-floating">
-        <img src="ilustrador.png" alt="Illustrator" class="icon-floating" style="animation-delay: 0.5s;">
+<!-- ══ INFO ══ -->
+<div class="sw reveal">
+  <h2 class="info-title">La dulzura también se diseña</h2>
+  <p class="info-text">
+    <strong>DOLCE VITTA</strong> es un proyecto de <strong>identidad visual completa</strong> para una pastelería premium, donde cada detalle —desde el logotipo hasta el packaging— comunica artesanía, sabor y elegancia.
+  </p>
+  <p class="info-text">
+    El proyecto abarca <strong>aplicaciones de marca, packaging premium</strong> y una <strong>estrategia de contenido para redes sociales</strong>, con un lenguaje visual coherente que traduce la experiencia sensorial de la pastelería en imagen.
+  </p>
+  <p class="info-text">
+    Un <strong>sistema de identidad</strong> construido desde el sabor. Una marca que <strong>se ve, se siente… y se antoja</strong>.
+  </p>
+  <div class="tech-chips">
+    <span class="chip">Branding</span>
+    <span class="chip">Identidad Visual</span>
+    <span class="chip">Packaging</span>
+    <span class="chip">Social Media</span>
+    <span class="chip">Diseño Editorial</span>
+  </div>
+</div>
+
+<!-- ══ IMAGEN — APLICACIONES ══ -->
+<p class="section-label reveal">Identidad Visual</p>
+<div class="img-section reveal">
+  <div class="img-frame">
+    <div class="img-wrapper">
+      <img src="aplicaciones-dolcevitta.png" alt="Aplicaciones de marca Dolce Vitta">
     </div>
-</section>
+  </div>
+</div>
 
-<footer class="footer-wrapper">
-    <div class="copyright-box">© 2026 NEERGRAPHS • DOLCE VITTA</div>
+<div class="section-gap"></div>
+
+<!-- ══ IMÁGENES PACKAGING (GRID) ══ -->
+<p class="section-label reveal">Packaging &amp; Experiencia</p>
+<div class="img-section reveal">
+  <div class="grid-2">
+    <div class="grid-img-frame">
+      <div class="grid-img-wrap">
+        <img src="cuadrada-dolcevitta-izq.png" alt="Packaging Dolce Vitta 1">
+      </div>
+    </div>
+    <div class="grid-img-frame">
+      <div class="grid-img-wrap">
+        <img src="cuadrada-dolcevitta-der.png" alt="Packaging Dolce Vitta 2">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-gap"></div>
+
+<div class="img-section reveal">
+  <div class="img-frame">
+    <div class="img-wrapper">
+      <img src="grande-dolcevitta.png" alt="Banner Dolce Vitta">
+    </div>
+  </div>
+</div>
+
+<div class="section-gap"></div>
+
+<!-- ══ IMAGEN SOCIAL MEDIA ══ -->
+<p class="section-label reveal">Social Media Content</p>
+<div class="img-section reveal">
+  <div class="img-frame">
+    <div class="img-wrapper">
+      <img src="imagen-rrss-dolcevitta.png" alt="Contenido redes sociales Dolce Vitta">
+    </div>
+  </div>
+</div>
+
+<div class="section-gap"></div>
+
+<!-- ══ HERRAMIENTAS ══ -->
+<div class="tools-section reveal">
+  <div class="tools-grid">
+    <div class="tool-item">
+      <img src="photoshop.png" alt="Photoshop">
+      <div class="tool-shadow"></div>
+      <span class="tool-name">Photoshop</span>
+    </div>
+    <div class="tool-item">
+      <img src="ilustrador.png" alt="Illustrator">
+      <div class="tool-shadow"></div>
+      <span class="tool-name">Illustrator</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-ghost"><span>Dolce Vitta</span></div>
+
+  <!-- decoraciones: cereza SVG, croissant SVG, estrella -->
+  <div class="footer-deco fd1">
+    <svg viewBox="0 0 80 110" xmlns="http://www.w3.org/2000/svg">
+      <!-- cereza simple -->
+      <circle cx="25" cy="75" r="18" fill="white"/>
+      <circle cx="55" cy="82" r="14" fill="white"/>
+      <path d="M25 57 Q35 20 60 10 Q55 35 55 68" stroke="white" stroke-width="4" fill="none"/>
+    </svg>
+  </div>
+  <div class="footer-deco fd2">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="50,5 61,35 95,35 68,57 79,91 50,70 21,91 32,57 5,35 39,35" fill="white"/>
+    </svg>
+  </div>
+  <div class="footer-deco fd3">
+    <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg">
+      <!-- croissant simple -->
+      <path d="M10 45 Q5 20 25 10 Q40 5 55 15 Q70 25 70 45 Q55 55 40 50 Q25 55 10 45Z" fill="white"/>
+      <path d="M20 42 Q18 25 30 16" stroke="#f6dede" stroke-width="2" fill="none"/>
+      <path d="M30 46 Q28 30 38 20" stroke="#f6dede" stroke-width="2" fill="none"/>
+    </svg>
+  </div>
+
+  <div class="footer-inner">
+    <div class="footer-heading">
+      <span class="footer-label">Proyecto:</span>
+      <span class="footer-project-name">Dolce Vitta</span>
+    </div>
+    <p class="footer-meta">
+      Branding · Packaging · Identidad Visual<br>
+      Photoshop · Illustrator
+    </p>
+    <a class="footer-cta" href="index.html#proyectos">
+      Ver más proyectos <span class="footer-cta-arrow">→</span>
+    </a>
+  </div>
+
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <span>Dolce Vitta — Branding</span>
+    <span>Identidad Visual · Packaging · Social Media</span>
+  </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-    // --- THREE.JS EFFECT ---
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.getElementById('canvas-container').appendChild(renderer.domElement);
+(function(){
+  const canvas=document.getElementById('bg-canvas');
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setClearColor(0x000000,0);
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,200);
+  camera.position.z=30;
+  function resize(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}
+  resize(); window.addEventListener('resize',resize);
 
-    // Partículas
-    const geometry = new THREE.BufferGeometry();
-    const vertices = [];
-    const colors = [];
-    const colorWhite = new THREE.Color(0xffffff);
-    const colorCherry = new THREE.Color(0xdc1e23);
+  const C_CHERRY=0xc41e23, C_CHERRY2=0xe83045, C_CREAM=0xfdf0e4, C_CARAMEL=0xc47a2a, C_CHOCO=0x5c3317, C_PINK=0xf6b0a0;
 
-    for (let i = 0; i < 600; i++) {
-        vertices.push(Math.random() * 20 - 10, Math.random() * 20 - 10, Math.random() * 20 - 10);
-        const chosenColor = Math.random() > 0.8 ? colorCherry : colorWhite;
-        colors.push(chosenColor.r, chosenColor.g, chosenColor.b);
+  function lMat(col,op=.55){return new THREE.LineBasicMaterial({color:col,transparent:true,opacity:op});}
+  function wMat(col,op=.38){return new THREE.MeshBasicMaterial({color:col,wireframe:true,transparent:true,opacity:op});}
+  function sMat(col,op=.5){return new THREE.MeshPhongMaterial({color:col,transparent:true,opacity:op,shininess:60});}
+
+  /* ── CEREZA (pareja) ── */
+  function makeCherry(col){
+    const g=new THREE.Group();
+    // cuerpos
+    const m1=new THREE.Mesh(new THREE.SphereGeometry(.5,12,10),wMat(col,.55));
+    m1.position.set(-.55,0,0); g.add(m1);
+    const m2=new THREE.Mesh(new THREE.SphereGeometry(.42,12,10),wMat(col,.55));
+    m2.position.set(.5,-.2,0); g.add(m2);
+    // tallos (líneas)
+    const t1=[new THREE.Vector3(-.55,.5,0),new THREE.Vector3(0,1.4,0),new THREE.Vector3(.7,2.2,0)];
+    const t2=[new THREE.Vector3(.5,.22,0),new THREE.Vector3(.3,1.2,0),new THREE.Vector3(.7,2.2,0)];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(t1),lMat(C_CHOCO,.7)));
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(t2),lMat(C_CHOCO,.7)));
+    // hojita
+    const leaf=[new THREE.Vector3(.5,2.0,0),new THREE.Vector3(1.4,2.5,0),new THREE.Vector3(.9,1.8,0)];
+    leaf.push(leaf[0]);
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(leaf),lMat(0x4a7a20,.6)));
+    return g;
+  }
+
+  /* ── CROISSANT ── */
+  function makeCroissant(col){
+    const g=new THREE.Group();
+    // arco principal
+    const pts=[];
+    for(let i=0;i<=28;i++){
+      const t=i/28, a=Math.PI*.1+t*Math.PI*.8;
+      const r=1.8+Math.sin(t*Math.PI)*.5;
+      pts.push(new THREE.Vector3(Math.cos(a)*r, Math.sin(a)*r*.55,0));
     }
-    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-
-    const material = new THREE.PointsMaterial({ size: 0.06, vertexColors: true, transparent: true, opacity: 0.7 });
-    const points = new THREE.Points(geometry, material);
-    scene.add(points);
-
-    // --- FUNCIÓN PARA CREAR PAREJA DE CEREZAS ---
-    function createCherryPair() {
-        const group = new THREE.Group();
-        const cherryGeo = new THREE.SphereGeometry(0.6, 32, 32);
-        const cherryMat = new THREE.MeshPhongMaterial({ color: 0xdc1e23, shininess: 100 });
-        
-        const c1 = new THREE.Mesh(cherryGeo, cherryMat);
-        const c2 = new THREE.Mesh(cherryGeo, cherryMat);
-        c1.position.set(-0.4, 0, 0);
-        c2.position.set(0.4, -0.2, 0.2);
-        
-        const stemMat = new THREE.MeshBasicMaterial({ color: 0x493026 });
-        const stemCurve1 = new THREE.QuadraticBezierCurve3(
-            new THREE.Vector3(-0.2, 0.5, 0),
-            new THREE.Vector3(0.5, 1.5, 0),
-            new THREE.Vector3(1, 2, 0)
-        );
-        const stemCurve2 = new THREE.QuadraticBezierCurve3(
-            new THREE.Vector3(0.2, 0.5, 0),
-            new THREE.Vector3(0.5, 1.5, 0),
-            new THREE.Vector3(1, 2, 0)
-        );
-        
-        const stem1 = new THREE.Mesh(new THREE.TubeGeometry(stemCurve1, 20, 0.05, 8, false), stemMat);
-        const stem2 = new THREE.Mesh(new THREE.TubeGeometry(stemCurve2, 20, 0.05, 8, false), stemMat);
-
-        group.add(c1, c2, stem1, stem2);
-        return group;
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.65)));
+    // curvas interiores
+    for(let k=1;k<=3;k++){
+      const inner=pts.slice(3*k,28-3*k).map(p=>new THREE.Vector3(p.x*.78,p.y*.78,0));
+      if(inner.length>1) g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(inner),lMat(col,.3)));
     }
+    // puntas
+    const pL=[new THREE.Vector3(-1.6,.35,0),new THREE.Vector3(-2.1,-.3,0),new THREE.Vector3(-1.45,-.4,0)];
+    pL.push(pL[0]);
+    const pR=[new THREE.Vector3(1.6,.35,0),new THREE.Vector3(2.1,-.3,0),new THREE.Vector3(1.45,-.4,0)];
+    pR.push(pR[0]);
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pL),lMat(col,.6)));
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pR),lMat(col,.6)));
+    return g;
+  }
 
-    // Cereza Derecha (Original)
-    const cherryRight = createCherryPair();
-    cherryRight.position.set(2.5, 0, -2);
-    scene.add(cherryRight);
-
-    // Cereza Izquierda (Nueva, un poco más pequeña)
-    const cherryLeft = createCherryPair();
-    cherryLeft.scale.set(0.7, 0.7, 0.7); // 30% más pequeña
-    cherryLeft.position.set(-3, -1, -3); // Lado izquierdo y un poco más al fondo
-    scene.add(cherryLeft);
-
-    const light = new THREE.DirectionalLight(0xffffff, 1);
-    light.position.set(5, 5, 5);
-    scene.add(light);
-    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-
-    camera.position.z = 5;
-
-    function animate() {
-        requestAnimationFrame(animate);
-        const time = Date.now() * 0.001;
-        
-        points.rotation.y += 0.0008;
-        
-        // Animación Derecha
-        cherryRight.rotation.y += 0.01;
-        cherryRight.position.y = Math.sin(time) * 0.2;
-        
-        // Animación Izquierda (desfasada para que no sea idéntica)
-        cherryLeft.rotation.y -= 0.008;
-        cherryLeft.position.y = Math.sin(time + 1) * 0.15 - 1; 
-
-        renderer.render(scene, camera);
+  /* ── TABLETA DE CHOCOLATE ── */
+  function makeChocolate(col){
+    const g=new THREE.Group();
+    // rectángulo exterior
+    const rect=[
+      new THREE.Vector3(-1.4,-1.0,0), new THREE.Vector3(1.4,-1.0,0),
+      new THREE.Vector3(1.4,1.0,0),   new THREE.Vector3(-1.4,1.0,0),
+      new THREE.Vector3(-1.4,-1.0,0)
+    ];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(rect),lMat(col,.7)));
+    // líneas de tableta (grid 3x2)
+    for(let c=-1;c<=1;c++){
+      const x=c*0.93;
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x,-1,0),new THREE.Vector3(x,1,0)]),lMat(col,.35)));
     }
-    animate();
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-1.4,0,0),new THREE.Vector3(1.4,0,0)]),lMat(col,.35)));
+    return g;
+  }
 
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
+  /* ── MACARON ── */
+  function makeMacaron(col){
+    const g=new THREE.Group();
+    // tapa superior
+    const pts1=[];
+    for(let i=0;i<=20;i++){const a=(i/20)*Math.PI*2;pts1.push(new THREE.Vector3(Math.cos(a)*.9,Math.sin(a)*.5+.4,0));}
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts1),lMat(col,.65)));
+    // tapa inferior
+    const pts2=[];
+    for(let i=0;i<=20;i++){const a=(i/20)*Math.PI*2;pts2.push(new THREE.Vector3(Math.cos(a)*.9,Math.sin(a)*.5-.4,0));}
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts2),lMat(col,.65)));
+    // relleno crema
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-1.0,0,0),new THREE.Vector3(1.0,0,0)]),lMat(C_CREAM,.5)));
+    return g;
+  }
+
+  /* ── NUBE/MANCHA CREMA ── */
+  function makeBlob(col){
+    const g=new THREE.Group();
+    [[0,0,1.2],[1.4,.3,.9],[-1.1,.25,.85],[.6,-.15,.72],[-0.5,-.12,.65]].forEach(([cx,cy,r])=>{
+      const pts=[];
+      for(let i=0;i<=22;i++){const a=(i/22)*Math.PI*2;pts.push(new THREE.Vector3(cx+Math.cos(a)*r,cy+Math.sin(a)*r,0));}
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.45)));
+    });
+    return g;
+  }
+
+  /* ── ESTRELLA ── */
+  function makeStar(col,n=5){
+    const g=new THREE.Group(); const p=[];
+    for(let i=0;i<n*2;i++){
+      const a=(i/n/2)*Math.PI*2-Math.PI/2;
+      const r=i%2===0?1.5:.62;
+      p.push(new THREE.Vector3(Math.cos(a)*r,Math.sin(a)*r,0));
+    }
+    p.push(p[0].clone());
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(p),lMat(col,.8)));
+    return g;
+  }
+
+  const floaters=[];
+  function place(obj,x,y,z,sc=1){
+    obj.scale.setScalar(sc);
+    obj.position.set(x,y,z);
+    obj.userData={
+      rx:(Math.random()-.5)*.007,
+      ry:(Math.random()-.5)*.010,
+      rz:(Math.random()-.5)*.006,
+      floatAmp:.35+Math.random()*.55,
+      floatSpd:.28+Math.random()*.45,
+      floatOff:Math.random()*Math.PI*2,
+      baseY:y
+    };
+    scene.add(obj); floaters.push(obj);
+  }
+
+  /* ── CEREZAS ── */
+  place(makeCherry(C_CHERRY),   -26,  8, -10, 1.9);
+  place(makeCherry(C_CHERRY2),   24,  9, -12, 1.6);
+  place(makeCherry(C_CHERRY),   -20, -9, -14, 1.7);
+  place(makeCherry(C_CHERRY2),   19, -7,  -9, 1.4);
+  place(makeCherry(C_CHERRY),     1, 13, -16, 2.0);
+  place(makeCherry(C_CHERRY2),  -11,  2, -18, 1.5);
+  place(makeCherry(C_CHERRY),    27, -2, -13, 1.3);
+  place(makeCherry(C_CHERRY2),   -4,-13, -11, 1.6);
+  place(makeCherry(C_CHERRY),    12,  5, -20, 1.8);
+
+  /* ── CROISSANTS ── */
+  place(makeCroissant(C_CARAMEL), -25,  5,  -8, 1.8);
+  place(makeCroissant(C_CARAMEL),  24, 11, -10, 1.6);
+  place(makeCroissant(C_CARAMEL),   8,-11,  -9, 1.4);
+  place(makeCroissant(C_CARAMEL), -14, 13, -13, 1.5);
+  place(makeCroissant(C_CARAMEL),  22, -5, -15, 1.2);
+
+  /* ── TABLETAS DE CHOCOLATE ── */
+  place(makeChocolate(C_CHOCO),  -27,  1,  -9, 1.5);
+  place(makeChocolate(C_CHOCO),   26,  5, -11, 1.3);
+  place(makeChocolate(C_CHOCO),  -16,-12, -10, 1.1);
+  place(makeChocolate(C_CHOCO),   14, 14, -13, 1.4);
+
+  /* ── MACARONS ── */
+  place(makeMacaron(C_PINK),  -28, -1,  -9, 1.4);
+  place(makeMacaron(C_CHERRY),  27,  6, -11, 1.2);
+  place(makeMacaron(C_CARAMEL), -6, 11, -17, 1.5);
+  place(makeMacaron(C_PINK),   22,-10, -14, 1.1);
+  place(makeMacaron(C_CHERRY2),  0,-14,  -8, 1.2);
+
+  /* ── MANCHAS CREMA ── */
+  place(makeBlob(C_CREAM),   -10,  3, -18, 2.0);
+  place(makeBlob(C_PINK),     18, -4, -16, 1.8);
+
+  /* ── ESTRELLAS ── */
+  place(makeStar(C_CARAMEL,5), -28,  1,  -9, 1.3);
+  place(makeStar(C_CHERRY, 6),  27,  5, -11, 1.1);
+  place(makeStar(C_CARAMEL,5), -17,-12, -10, 1.0);
+  place(makeStar(C_PINK,   5),  15, 14, -13, 1.2);
+  place(makeStar(C_CARAMEL,4),   0,-13,  -8, 1.0);
+
+  /* ── PARTÍCULAS ══ */
+  const pCount=1600, pGeo=new THREE.BufferGeometry();
+  const pPos=new Float32Array(pCount*3), pCol=new Float32Array(pCount*3), pSpd=new Float32Array(pCount);
+  const CA=new THREE.Color(C_CHERRY), CB=new THREE.Color(C_CARAMEL), CC=new THREE.Color(C_CREAM), CD=new THREE.Color(C_PINK);
+  for(let i=0;i<pCount;i++){
+    pPos[i*3]=(Math.random()-.5)*140; pPos[i*3+1]=(Math.random()-.5)*90; pPos[i*3+2]=(Math.random()-.5)*70;
+    const t=Math.random(), c=t<.4?CA:t<.65?CB:t<.85?CC:CD;
+    pCol[i*3]=c.r; pCol[i*3+1]=c.g; pCol[i*3+2]=c.b; pSpd[i]=.018+Math.random()*.055;
+  }
+  pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  pGeo.setAttribute('color',new THREE.BufferAttribute(pCol,3));
+  const particles=new THREE.Points(pGeo,new THREE.PointsMaterial({size:.14,vertexColors:true,transparent:true,opacity:.55,sizeAttenuation:true}));
+  scene.add(particles);
+
+  /* líneas de conexión */
+  const maxL=floaters.length*(floaters.length-1)/2;
+  const lineGeo=new THREE.BufferGeometry();
+  lineGeo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(maxL*6),3));
+  scene.add(new THREE.LineSegments(lineGeo,new THREE.LineBasicMaterial({color:C_CHERRY,transparent:true,opacity:.04})));
+
+  const torusRing=new THREE.Mesh(new THREE.TorusGeometry(24,.05,4,120),new THREE.MeshBasicMaterial({color:C_CHERRY,transparent:true,opacity:.05}));
+  torusRing.rotation.x=Math.PI/2.5; scene.add(torusRing);
+
+  let mx=0,my=0,tmx=0,tmy=0;
+  document.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2; my=(e.clientY/innerHeight-.5)*2;});
+  let scrollY=0; window.addEventListener('scroll',()=>scrollY=window.scrollY);
+  let tc=0;
+
+  (function animate(){
+    requestAnimationFrame(animate); tc+=.007;
+    tmx+=(mx*1.4-tmx)*.04; tmy+=(my*.7-tmy)*.04;
+    camera.position.x=tmx; camera.position.y=-tmy+scrollY*.003;
+    camera.lookAt(0,scrollY*.003,0);
+
+    particles.rotation.y=tc*.03; particles.rotation.x=tc*.011;
+    const pos=pGeo.attributes.position.array;
+    for(let i=0;i<pCount;i++) pos[i*3+1]+=Math.sin(tc*pSpd[i]+i)*.003;
+    pGeo.attributes.position.needsUpdate=true;
+
+    floaters.forEach(m=>{
+      m.rotation.x+=m.userData.rx;
+      m.rotation.y+=m.userData.ry;
+      m.rotation.z+=m.userData.rz;
+      m.position.y=m.userData.baseY+Math.sin(tc*m.userData.floatSpd+m.userData.floatOff)*m.userData.floatAmp;
     });
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add('visible');
-        });
-    }, { threshold: 0.1 });
+    let li=0; const lp=lineGeo.attributes.position.array;
+    for(let a=0;a<floaters.length;a++){
+      for(let b=a+1;b<floaters.length;b++){
+        if(floaters[a].position.distanceTo(floaters[b].position)<15){
+          lp[li++]=floaters[a].position.x; lp[li++]=floaters[a].position.y; lp[li++]=floaters[a].position.z;
+          lp[li++]=floaters[b].position.x; lp[li++]=floaters[b].position.y; lp[li++]=floaters[b].position.z;
+        }
+      }
+    }
+    for(;li<lp.length;li++) lp[li]=0;
+    lineGeo.attributes.position.needsUpdate=true;
+    lineGeo.setDrawRange(0,li/3);
 
-    document.querySelectorAll('section').forEach(s => observer.observe(s));
+    torusRing.rotation.z=tc*.04;
+    renderer.render(scene,camera);
+  })();
+})();
+
+/* ── CURSOR ── */
+if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){
+  const dot=document.getElementById('cur');
+  const tc=['#c41e23','#e83045','#c47a2a','#f6b0a0','#5c3317'];
+  let ti=0,lx=0,ly=0;
+  document.addEventListener('mousemove',e=>{
+    dot.style.left=e.clientX+'px'; dot.style.top=e.clientY+'px';
+    const d=Math.hypot(e.clientX-lx,e.clientY-ly);
+    if(d>5){
+      lx=e.clientX; ly=e.clientY;
+      for(let k=0;k<3;k++){
+        const t=document.createElement('div'); t.className='ctrail';
+        const sz=Math.random()*8+5, col=tc[(ti+k)%tc.length];
+        const ox=(Math.random()-.5)*6, oy=(Math.random()-.5)*6;
+        t.style.cssText=`width:${sz}px;height:${sz}px;left:${e.clientX+ox}px;top:${e.clientY+oy}px;background:${col};box-shadow:0 0 ${sz*2}px ${col};`;
+        document.body.appendChild(t); ti++; setTimeout(()=>t.remove(),650);
+      }
+    }
+  });
+  document.querySelectorAll('a,.chip,.tool-item,.footer-cta').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{dot.style.transform='translate(-50%,-50%) scale(2.5)';dot.style.background='#c47a2a';dot.style.boxShadow='0 0 16px #c47a2a,0 0 32px rgba(196,122,42,.5)';});
+    el.addEventListener('mouseleave',()=>{dot.style.transform='translate(-50%,-50%) scale(1)';dot.style.background='var(--cherry)';dot.style.boxShadow='0 0 16px var(--cherry2)';});
+  });
+}
+
+/* ── SCROLL REVEAL ── */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('visible');});
+},{threshold:.10});
+document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+
+/* ── BACK TO TOP ── */
+const bTop=document.getElementById('back-top');
+window.addEventListener('scroll',()=>bTop.classList.toggle('show',window.scrollY>400));
 </script>
 
 </body>
