@@ -276,6 +276,12 @@ footer {
   padding:90px 40px 70px; overflow:hidden;
   border-top:1px solid rgba(206,27,22,.12);
 }
+
+/*
+  Ghost text: mismo tratamiento exacto que Superboy.
+  font-size: 22vw, color:transparent, -webkit-text-stroke: 1px rgba(255,255,255,.04)
+  Aquí usamos el rojo muy tenue para mantener la paleta del proyecto.
+*/
 .footer-ghost {
   position:absolute; inset:0;
   display:flex; align-items:center; justify-content:center;
@@ -283,19 +289,21 @@ footer {
 }
 .footer-ghost span {
   font-family:'Fredoka',sans-serif; font-weight:700;
-  font-size:17vw; color:transparent;
-  -webkit-text-stroke:1px rgba(206,27,22,.05);
-  white-space:nowrap; user-select:none; letter-spacing:-2px;
+  font-size:22vw;                           /* ← igual que Superboy */
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.04); /* ← igual que Superboy */
+  white-space:nowrap; user-select:none;
+  letter-spacing:-2px;
 }
 
-/* footer deco */
+/* footer deco SVGs */
 .footer-deco { position:absolute; pointer-events:none; }
-.footer-deco.car1 { width:240px; bottom:-10px; left:-20px; opacity:.07; }
-.footer-deco.car2 { width:170px; bottom:18px;  right:55px; opacity:.06; }
-.footer-deco.car3 { width:110px; top:22px;     right:200px; opacity:.05; }
-.footer-deco.smk1 { width:150px; bottom:50px;  left:185px; opacity:.05; }
-.footer-deco.smk2 { width:110px; top:28px;     left:55px;  opacity:.04; }
-.footer-deco.smk3 { width:130px; bottom:25px;  right:240px; opacity:.04; }
+.footer-deco.car1 { width:240px; bottom:-10px; left:-20px;   opacity:.07; }
+.footer-deco.car2 { width:170px; bottom:18px;  right:55px;   opacity:.06; }
+.footer-deco.car3 { width:110px; top:22px;     right:200px;  opacity:.05; }
+.footer-deco.smk1 { width:150px; bottom:50px;  left:185px;   opacity:.05; }
+.footer-deco.smk2 { width:110px; top:28px;     left:55px;    opacity:.04; }
+.footer-deco.smk3 { width:130px; bottom:25px;  right:240px;  opacity:.04; }
 
 .footer-inner { position:relative; z-index:2; max-width:900px; margin:0 auto; }
 .footer-heading {
@@ -495,32 +503,26 @@ footer {
 <!-- ══ FOOTER ══ -->
 <footer>
 
-  <!-- "Hot Wheels" ghost text background -->
+  <!-- "Hot Wheels" en trazado grande en transparencia — igual que "Superboy" -->
   <div class="footer-ghost"><span>Hot Wheels</span></div>
 
   <!-- Car silhouettes -->
   <svg class="footer-deco car1" viewBox="0 0 340 140" xmlns="http://www.w3.org/2000/svg">
     <g fill="white">
-      <!-- body -->
       <path d="M15 95 Q32 52 82 38 L112 30 L178 26 L232 30 Q275 38 300 64 L314 88 L314 100 Q294 110 266 112 L258 112 Q254 90 228 90 Q202 90 198 112 L114 112 Q110 90 84 90 Q58 90 54 112 L26 109 Q13 102 15 95Z"/>
-      <!-- rear wing blade -->
       <rect x="10" y="30" width="76" height="6" rx="3"/>
       <rect x="16" y="30" width="5" height="14" rx="2"/>
       <rect x="74" y="30" width="5" height="14" rx="2"/>
-      <!-- headlight -->
       <rect x="290" y="58" width="18" height="20" rx="4"/>
-      <!-- taillight -->
-      <rect x="12" y="62" width="12" height="18" rx="3"/>
+      <rect x="12"  y="62" width="12" height="18" rx="3"/>
     </g>
-    <!-- wheels -->
     <circle cx="84"  cy="112" r="24" fill="none" stroke="white" stroke-width="9"/>
     <circle cx="228" cy="112" r="24" fill="none" stroke="white" stroke-width="9"/>
     <circle cx="84"  cy="112" r="11" fill="white"/>
     <circle cx="228" cy="112" r="11" fill="white"/>
-    <!-- rim spokes -->
     <g stroke="white" stroke-width="1.5" opacity=".7">
-      <line x1="84" y1="101" x2="84" y2="95"/><line x1="84" y1="123" x2="84" y2="129"/>
-      <line x1="73" y1="112" x2="67" y2="112"/><line x1="95" y1="112" x2="101" y2="112"/>
+      <line x1="84"  y1="101" x2="84"  y2="95"/><line x1="84"  y1="123" x2="84"  y2="129"/>
+      <line x1="73"  y1="112" x2="67"  y2="112"/><line x1="95"  y1="112" x2="101" y2="112"/>
       <line x1="228" y1="101" x2="228" y2="95"/><line x1="228" y1="123" x2="228" y2="129"/>
       <line x1="217" y1="112" x2="211" y2="112"/><line x1="239" y1="112" x2="245" y2="112"/>
     </g>
@@ -621,45 +623,36 @@ footer {
 
   function lMat(col, op){ return new THREE.LineBasicMaterial({color:col, transparent:true, opacity:op}); }
 
-  /*
-    ── CLEAN 4-WHEEL SPORTS CAR (side-profile lines) ──
-    Every shape reads unambiguously as a car.
-  */
   function makeCar(bodyCol, accentCol){
     const g = new THREE.Group();
 
-    // ── BODY OUTLINE ──
     const body = [
-      new THREE.Vector3(-2.20, -0.40, 0),  // rear bumper bottom
-      new THREE.Vector3( 2.20, -0.40, 0),  // front bumper bottom
-      new THREE.Vector3( 2.45,  0.02, 0),  // front chin splitter tip
-      new THREE.Vector3( 2.38,  0.56, 0),  // hood front
-      new THREE.Vector3( 1.52,  0.66, 0),  // windshield base
-      new THREE.Vector3( 1.12,  1.22, 0),  // windshield top
-      new THREE.Vector3(-0.58,  1.30, 0),  // roof
-      new THREE.Vector3(-1.32,  1.20, 0),  // rear window top
-      new THREE.Vector3(-1.82,  0.68, 0),  // rear deck
-      new THREE.Vector3(-2.32,  0.46, 0),  // trunk
-      new THREE.Vector3(-2.42,  0.08, 0),  // rear bumper top
-      new THREE.Vector3(-2.20, -0.40, 0),  // close
+      new THREE.Vector3(-2.20, -0.40, 0),
+      new THREE.Vector3( 2.20, -0.40, 0),
+      new THREE.Vector3( 2.45,  0.02, 0),
+      new THREE.Vector3( 2.38,  0.56, 0),
+      new THREE.Vector3( 1.52,  0.66, 0),
+      new THREE.Vector3( 1.12,  1.22, 0),
+      new THREE.Vector3(-0.58,  1.30, 0),
+      new THREE.Vector3(-1.32,  1.20, 0),
+      new THREE.Vector3(-1.82,  0.68, 0),
+      new THREE.Vector3(-2.32,  0.46, 0),
+      new THREE.Vector3(-2.42,  0.08, 0),
+      new THREE.Vector3(-2.20, -0.40, 0),
     ];
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(body), lMat(bodyCol, .78)));
 
-    // ── REAR WING ──
-    // supports
     [-.18, -.56].forEach(dx=>{
       g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([
         new THREE.Vector3(-2.28+dx, 0.66, 0),
         new THREE.Vector3(-2.28+dx, 0.94, 0),
       ]), lMat(accentCol, .55)));
     });
-    // blade
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([
       new THREE.Vector3(-2.64, 0.94, 0),
       new THREE.Vector3(-1.86, 0.94, 0),
     ]), lMat(accentCol, .88)));
 
-    // ── WINDSHIELD ──
     const ws = [
       new THREE.Vector3( 1.10,  0.70, 0),
       new THREE.Vector3( 1.46,  0.68, 0),
@@ -668,7 +661,6 @@ footer {
     ];
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(ws), lMat(C_WHITE, .32)));
 
-    // ── SIDE WINDOW ──
     const sw = [
       new THREE.Vector3( 1.10,  0.70, 0),
       new THREE.Vector3(-0.56,  0.72, 0),
@@ -679,7 +671,6 @@ footer {
     ];
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(sw), lMat(C_WHITE, .26)));
 
-    // ── HEADLIGHT ──
     const hl = [
       new THREE.Vector3( 2.26, 0.26, 0), new THREE.Vector3( 2.40, 0.26, 0),
       new THREE.Vector3( 2.40, 0.52, 0), new THREE.Vector3( 2.26, 0.52, 0),
@@ -687,7 +678,6 @@ footer {
     ];
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(hl), lMat(C_WHITE, .70)));
 
-    // ── TAILLIGHT ──
     const tl = [
       new THREE.Vector3(-2.36, 0.16, 0), new THREE.Vector3(-2.44, 0.16, 0),
       new THREE.Vector3(-2.44, 0.42, 0), new THREE.Vector3(-2.36, 0.42, 0),
@@ -695,30 +685,23 @@ footer {
     ];
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(tl), lMat(C_RED2, .72)));
 
-    // ── FRONT SPLITTER ──
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([
       new THREE.Vector3(2.22, -0.38, 0),
       new THREE.Vector3(2.54, -0.38, 0),
     ]), lMat(accentCol, .62)));
 
-    // ── SIDE SKIRT ──
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([
       new THREE.Vector3(-1.92, -0.28, 0),
       new THREE.Vector3( 1.92, -0.28, 0),
     ]), lMat(accentCol, .28)));
 
-    // ── DOOR LINE ──
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([
       new THREE.Vector3(-0.08, -0.30, 0),
       new THREE.Vector3(-0.08,  0.70, 0),
     ]), lMat(bodyCol, .20)));
 
-    // ── WHEELS (front & rear) ──
     [[-1.35, -0.44], [1.35, -0.44]].forEach(([wx, wy])=>{
-      const R  = 0.53; // tyre radius
-      const R2 = 0.36; // inner rim
-
-      // tyre circle
+      const R = 0.53, R2 = 0.36;
       const tyre = [];
       for(let i=0;i<=36;i++){
         const a=(i/36)*Math.PI*2;
@@ -726,7 +709,6 @@ footer {
       }
       g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(tyre), lMat(bodyCol, .65)));
 
-      // tyre width line (inner ring)
       const rim = [];
       for(let i=0;i<=36;i++){
         const a=(i/36)*Math.PI*2;
@@ -734,7 +716,6 @@ footer {
       }
       g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(rim), lMat(C_WHITE, .38)));
 
-      // 5 spokes
       for(let s=0;s<5;s++){
         const a = (s/5)*Math.PI*2;
         g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([
@@ -743,7 +724,6 @@ footer {
         ]), lMat(C_WHITE, .30)));
       }
 
-      // hub circle
       const hub = [];
       for(let i=0;i<=14;i++){
         const a=(i/14)*Math.PI*2;
@@ -751,7 +731,6 @@ footer {
       }
       g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(hub), lMat(C_WHITE, .45)));
 
-      // wheel arch
       const arch = [];
       for(let i=0;i<=20;i++){
         const a = Math.PI + (i/20)*Math.PI;
@@ -763,7 +742,6 @@ footer {
     return g;
   }
 
-  /* ── PLACE HELPER ── */
   const floaters = [];
   function place(obj, x, y, z, sc){
     obj.scale.setScalar(sc);
@@ -781,7 +759,6 @@ footer {
     floaters.push(obj);
   }
 
-  // 10 cars spread across the canvas — all proper 4-wheelers
   place(makeCar(C_RED,   C_WHITE), -25,  7, -10, 2.1);
   place(makeCar(C_WHITE, C_RED),    23, -6, -11, 1.9);
   place(makeCar(C_RED2,  C_WHITE),  -7, 13, -14, 1.7);
@@ -793,7 +770,6 @@ footer {
   place(makeCar(C_MUTED, C_WHITE),  11, -9, -10, 1.3);
   place(makeCar(C_RED,   C_WHITE), -27, -2, -16, 1.6);
 
-  /* ── PARTICLES ── */
   const pCount = 1800;
   const pGeo   = new THREE.BufferGeometry();
   const pPos   = new Float32Array(pCount*3);
@@ -818,7 +794,6 @@ footer {
   }));
   scene.add(particles);
 
-  // faint connection lines
   const maxSeg = floaters.length*(floaters.length-1)/2;
   const lineGeo = new THREE.BufferGeometry();
   lineGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(maxSeg*6),3));
@@ -826,7 +801,6 @@ footer {
     new THREE.LineBasicMaterial({color:0xce1b16, transparent:true, opacity:.03})
   ));
 
-  // ambient ring
   const ring = new THREE.Mesh(
     new THREE.TorusGeometry(22, .05, 4, 120),
     new THREE.MeshBasicMaterial({color:0xce1b16, transparent:true, opacity:.04})
@@ -834,7 +808,6 @@ footer {
   ring.rotation.x = Math.PI/2.5;
   scene.add(ring);
 
-  /* ── ANIMATION LOOP ── */
   let mx=0, my=0, tmx=0, tmy=0, scrollY=0, tc=0;
   document.addEventListener('mousemove', e=>{
     mx = (e.clientX/innerWidth-.5)*2;
