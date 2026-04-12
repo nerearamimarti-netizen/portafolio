@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
+<title>Hot Wheels | Mitsubishi Evo X — Edición Coleccionista</title>
+<style>
+
+:root {
+  --bg:     #052748;
+  --red:    #ce1b16;
+  --red2:   #e8342e;
+  --white:  #f0f6ff;
+  --muted:  #7aa5c8;
+  --dark:   #031b35;
+  --bdr:    rgba(206,27,22,0.22);
+  --bolt:   #ce1b16;
+}
+
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+
+body {
+  font-family:'Poppins',sans-serif;
+  background:var(--bg);
+  color:var(--white);
+  overflow-x:hidden;
+  cursor:none;
+}
+
+#bg-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
+
+/* ══ CURSOR ══ */
+@media(hover:hover) and (pointer:fine){ body{cursor:none} #cur{display:block!important} }
+#cur {
+  display:none; position:fixed; width:14px; height:14px; border-radius:50%;
+  background:var(--red);
+  box-shadow:0 0 16px var(--red2),0 0 32px rgba(206,27,22,.5);
+  pointer-events:none; z-index:9999; transform:translate(-50%,-50%);
+}
+.ctrail {
+  position:fixed; border-radius:50%; pointer-events:none; z-index:9997;
+  transform:translate(-50%,-50%); animation:tfade .65s ease forwards;
+}
+@keyframes tfade {
+  0%   { opacity:.85; transform:translate(-50%,-50%) scale(1); }
+  100% { opacity:0;   transform:translate(-50%,-50%) scale(.05); }
+}
+
+/* ══ BOTÓN VOLVER ══ */
+.back-home {
+  position:fixed; top:22px; right:22px; z-index:900;
+  background:var(--red); color:white; text-decoration:none;
+  font-family:'Fredoka',sans-serif; font-size:15px; font-weight:600;
+  letter-spacing:.5px; padding:11px 24px; border-radius:999px;
+  box-shadow:0 8px 24px rgba(206,27,22,.4);
+  animation:floatBtn 3s ease-in-out infinite;
+  transition:box-shadow .2s;
+}
+.back-home:hover { box-shadow:0 12px 32px rgba(232,52,46,.6); }
+@keyframes floatBtn {
+  0%,100% { transform:translateY(0); }
+  50%      { transform:translateY(-5px); }
+}
+
+/* ══ HERO ══ */
+.hero {
+  position:relative;
+  width:100%;
+  height:56vh;
+  min-height:420px;
+  overflow:hidden;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.hero-bg-gradient {
+  position:absolute; inset:0;
+  background: radial-gradient(ellipse at 30% 60%, rgba(206,27,22,.25) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 30%, rgba(5,39,72,.9) 0%, rgba(3,27,53,1) 100%);
+}
+/* Animated car silhouette lines in hero */
+.hero-car-deco {
+  position:absolute; right:5%; bottom:0; width:55%; max-width:600px;
+  opacity:.07; pointer-events:none;
+}
+.hero-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(
+    180deg,
+    rgba(3,27,53,.10) 0%,
+    rgba(3,27,53,.35) 50%,
+    rgba(5,39,72,.97) 100%
+  );
+}
+.hero-title-block {
+  position:relative; z-index:2;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  text-align:center; padding:0 30px;
+}
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:'Poppins',sans-serif;
+  font-size:10px; font-weight:500; letter-spacing:5px;
+  text-transform:uppercase; color:rgba(240,246,255,.78);
+  margin-bottom:16px;
+  opacity:0; animation:fadeUp .8s ease .2s forwards;
+}
+.hero-eyebrow span { display:inline-block; width:22px; height:1px; background:rgba(206,27,22,.8); }
+
+.hero-title-svg-wrap {
+  width:min(900px, 92vw);
+  opacity:0; animation:fadeUp .9s ease .4s forwards;
+}
+
+.title-fill {
+  fill: url(#titleFill);
+  paint-order: fill stroke;
+  opacity: 0;
+  animation: fillAppear 1.2s ease 1.5s forwards;
+}
+.title-path {
+  fill: none;
+  stroke: url(#titleGrad);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 6000;
+  stroke-dashoffset: 6000;
+  animation: drawTitle 1.5s cubic-bezier(.4,0,.2,1) .3s forwards;
+  filter: drop-shadow(0 0 12px rgba(206,27,22,.8)) drop-shadow(0 0 28px rgba(232,52,46,.5));
+}
+@keyframes drawTitle { to { stroke-dashoffset:0; } }
+@keyframes fillAppear {
+  0%   { opacity:0; }
+  30%  { opacity:0.3; }
+  70%  { opacity:0.7; }
+  100% { opacity:1; }
+}
+
+.hero-sub {
+  font-family:'Poppins',sans-serif; font-size:11px; font-weight:300;
+  letter-spacing:4px; text-transform:uppercase;
+  color:rgba(240,246,255,.65);
+  margin-top:18px;
+  opacity:0; animation:fadeUp .8s ease 2.5s forwards;
+}
+.hero-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'Fredoka',sans-serif; font-size:13px; font-weight:600;
+  letter-spacing:2px; text-transform:uppercase;
+  color:var(--red); margin-top:14px;
+  border:1px solid rgba(206,27,22,.4); padding:6px 18px; border-radius:999px;
+  background:rgba(206,27,22,.08);
+  opacity:0; animation:fadeUp .8s ease 2.8s forwards;
+}
+.hero-badge::before { content:'🔴'; font-size:10px; }
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ══ MARQUEE ══ */
+.marquee-wrap {
+  overflow:hidden; border-top:1px solid var(--bdr); border-bottom:1px solid var(--bdr);
+  padding:13px 0;
+  background:linear-gradient(90deg,rgba(206,27,22,.05),rgba(5,39,72,.03));
+  position:relative; z-index:2;
+}
+.marquee-track {
+  display:flex; gap:48px; white-space:nowrap;
+  animation:marquee 26s linear infinite;
+}
+.marquee-track span {
+  font-size:10px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--muted); opacity:.85; flex-shrink:0;
+}
+.marquee-track .dot { color:var(--red); font-size:9px; }
+@keyframes marquee { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+
+/* ══ VÍDEO ══ */
+.video-section {
+  position:relative; z-index:2;
+  padding:60px 40px 0;
+  max-width:1060px; margin:0 auto;
+}
+@media(max-width:640px){ .video-section{ padding:40px 20px 0; } }
+.video-frame { position:relative; }
+.video-frame::before {
+  content:''; position:absolute; inset:-10px -14px; border-radius:30px;
+  background:linear-gradient(135deg,rgba(206,27,22,.2),rgba(5,39,72,.12)); z-index:-1;
+}
+.video-frame::after {
+  content:''; position:absolute; inset:-20px -28px; border-radius:38px;
+  background:rgba(206,27,22,.06); z-index:-2;
+}
+.video-wrapper {
+  width:100%;
+  aspect-ratio:1902/1080;
+  border-radius:20px; overflow:hidden;
+  box-shadow:0 40px 100px rgba(0,0,0,.5), 0 0 60px rgba(206,27,22,.12);
+}
+.video-wrapper iframe { width:100%; height:100%; border:0; display:block; }
+
+/* ══ INFO ══ */
+.sw {
+  max-width:1080px; margin:0 auto;
+  padding:80px 40px; position:relative; z-index:1;
+}
+@media(max-width:640px){ .sw{ padding:60px 20px; } }
+.info-title {
+  font-family:'Fredoka',sans-serif;
+  font-size:clamp(32px,5vw,58px); font-weight:700;
+  color:var(--white); margin-bottom:26px; line-height:1.1;
+}
+.info-text {
+  font-family:'Poppins',sans-serif;
+  font-size:15px; font-weight:300; line-height:1.85;
+  color:var(--muted); margin-bottom:16px;
+  max-width:680px;
+}
+.info-text strong {
+  font-weight:600;
+  color:var(--red2);
+}
+.tech-chips { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
+.chip {
+  font-size:11px; font-weight:500; letter-spacing:2px;
+  text-transform:uppercase; padding:8px 18px; border-radius:999px;
+  border:1px solid var(--bdr); color:var(--muted);
+  background:rgba(255,255,255,.04); backdrop-filter:blur(8px);
+  transition:all .25s; cursor:default; font-family:'Poppins',sans-serif;
+}
+.chip:hover { background:var(--red); color:white; border-color:var(--red); transform:translateY(-2px); box-shadow:0 8px 20px rgba(206,27,22,.4); }
+
+/* ══ HERRAMIENTAS ══ */
+.tools-section {
+  position:relative; z-index:2;
+  padding:0 40px 100px; text-align:center;
+  max-width:1080px; margin:0 auto;
+}
+.tools-grid {
+  display:flex; justify-content:center; gap:60px; flex-wrap:wrap;
+  padding-top:20px;
+}
+.tool-item {
+  display:flex; flex-direction:column; align-items:center; gap:16px;
+  animation:toolFloat 3.5s ease-in-out infinite;
+}
+.tool-item:nth-child(2) { animation-delay:.6s; }
+.tool-item:nth-child(3) { animation-delay:1.2s; }
+.tool-item:nth-child(4) { animation-delay:1.8s; }
+@keyframes toolFloat {
+  0%,100% { transform:translateY(0); }
+  50%      { transform:translateY(-10px); }
+}
+.tool-item img {
+  width:72px; height:72px; object-fit:contain;
+  filter:drop-shadow(0 14px 20px rgba(0,0,0,.4)) drop-shadow(0 4px 8px rgba(206,27,22,.2));
+  transition:filter .3s, transform .3s;
+}
+.tool-item:hover img {
+  filter:drop-shadow(0 20px 30px rgba(0,0,0,.5)) drop-shadow(0 6px 12px rgba(206,27,22,.4));
+  transform:scale(1.1);
+}
+.tool-shadow {
+  width:50px; height:8px; border-radius:50%;
+  background:rgba(206,27,22,.22); filter:blur(4px);
+  transition:all .3s;
+}
+.tool-item:hover .tool-shadow { width:40px; opacity:.5; }
+.tool-name {
+  font-family:'Poppins',sans-serif;
+  font-size:11px; letter-spacing:3px;
+  text-transform:uppercase; color:var(--muted); font-weight:500;
+  margin-top:-8px;
+}
+
+/* ══ SECTION LABEL ══ */
+.section-label {
+  font-family:'Poppins',sans-serif;
+  font-size:10px; font-weight:500; letter-spacing:5px; text-transform:uppercase;
+  color:var(--red); margin-bottom:12px; display:block;
+}
+
+/* ══ REVEAL ══ */
+.reveal {
+  opacity:0; transform:translateY(32px);
+  transition:opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1);
+}
+.reveal.visible { opacity:1; transform:none; }
+
+/* ══ FOOTER ══ */
+footer {
+  position:relative; z-index:2;
+  background:var(--dark);
+  padding:90px 40px 70px; overflow:hidden;
+  border-top:1px solid rgba(206,27,22,.12);
+}
+.footer-ghost {
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  pointer-events:none; overflow:hidden;
+}
+.footer-ghost span {
+  font-family:'Fredoka',sans-serif; font-weight:700;
+  font-size:14vw; color:transparent;
+  -webkit-text-stroke:1px rgba(206,27,22,.06);
+  white-space:nowrap; user-select:none;
+}
+.footer-deco { position:absolute; pointer-events:none; opacity:.08; }
+.footer-deco.fd1 { width:200px; height:120px; top:-30px; left:-40px; transform:rotate(5deg); }
+.footer-deco.fd2 { width:120px; height:80px; bottom:30px; right:80px; transform:rotate(-10deg); }
+.footer-deco.fd3 { width:80px;  height:50px; bottom:20px; left:140px; transform:rotate(15deg); }
+
+.footer-inner { position:relative; z-index:2; max-width:900px; margin:0 auto; }
+.footer-heading {
+  display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;
+  margin-bottom:28px;
+}
+.footer-label-text {
+  font-family:'Fredoka',sans-serif; font-size:clamp(28px,4vw,44px);
+  font-weight:700; color:rgba(255,255,255,.3); letter-spacing:1px;
+}
+.footer-project-name {
+  font-family:'Playfair Display',serif; font-style:italic; font-weight:900;
+  font-size:clamp(40px,7vw,82px); color:white; line-height:.9;
+}
+.footer-meta {
+  font-family:'Poppins',sans-serif; font-size:13px; font-weight:300;
+  letter-spacing:3px; text-transform:uppercase;
+  color:rgba(255,255,255,.28); line-height:2; margin-bottom:48px;
+}
+.footer-cta {
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:'Fredoka',sans-serif; font-size:16px; font-weight:600;
+  text-decoration:none; color:white;
+  background:var(--red); padding:14px 30px; border-radius:999px;
+  transition:background .25s, transform .25s, box-shadow .25s;
+  box-shadow:0 8px 24px rgba(206,27,22,.4);
+}
+.footer-cta:hover { background:var(--red2); transform:translateY(-3px); box-shadow:0 14px 36px rgba(206,27,22,.55); }
+.footer-cta-arrow { display:inline-block; transition:transform .25s; }
+.footer-cta:hover .footer-cta-arrow { transform:translateX(4px); }
+.footer-divider {
+  position:relative; z-index:2;
+  max-width:900px; margin:48px auto 24px;
+  height:1px; background:rgba(255,255,255,.05);
+}
+.footer-bottom {
+  position:relative; z-index:2; max-width:900px; margin:0 auto;
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;
+}
+.footer-bottom span {
+  font-family:'Poppins',sans-serif;
+  font-size:11px; color:rgba(255,255,255,.15); letter-spacing:2px;
+}
+
+/* ══ BACK TO TOP ══ */
+#back-top {
+  position:fixed; bottom:36px; right:36px; z-index:900;
+  width:50px; height:50px; border-radius:50%;
+  background:linear-gradient(135deg,rgba(206,27,22,.2),rgba(232,52,46,.2));
+  border:1.5px solid rgba(206,27,22,.5);
+  display:flex; align-items:center; justify-content:center;
+  cursor:none; opacity:0; pointer-events:none;
+  transition:opacity .4s, background .25s;
+  box-shadow:0 0 20px rgba(206,27,22,.3);
+  animation:floatBtn 3s ease-in-out infinite;
+}
+#back-top.show { opacity:1; pointer-events:auto; }
+#back-top:hover { background:linear-gradient(135deg,rgba(206,27,22,.5),rgba(232,52,46,.5)); box-shadow:0 0 32px rgba(206,27,22,.6); }
+#back-top svg { width:20px; height:20px; }
+
+/* ══ DISCLAIMER NOTE ══ */
+.disclaimer {
+  font-family:'Poppins',sans-serif; font-size:11px; font-weight:300;
+  color:rgba(122,165,200,.5); font-style:italic; margin-top:12px;
+  max-width:600px;
+}
+
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div id="cur"></div>
+
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Volver arriba">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <defs>
+      <linearGradient id="bArrow" x1="0" y1="24" x2="24" y2="0" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#ce1b16"/><stop offset="1" stop-color="#e8342e"/>
+      </linearGradient>
+    </defs>
+    <polyline points="18 15 12 9 6 15" stroke="url(#bArrow)"/>
+  </svg>
+</button>
+
+<a class="back-home" href="index.html#proyectos">← Volver</a>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <img class="hero-img" src="hotwheels-hero.png" alt="Hotwheels">
+  <div class="hero-bg-gradient"></div>
+
+  <!-- SVG car silhouette decoration in hero bg -->
+  <svg class="hero-car-deco" viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <!-- Evo X silhouette outline -->
+    <path d="M30 160 Q50 100 110 80 L160 70 Q200 55 240 50 L320 48 Q370 48 400 58 L450 70 Q490 80 520 100 L560 140 L560 165 Q540 178 500 180 L490 180 Q485 155 460 155 Q435 155 430 180 L200 180 Q195 155 170 155 Q145 155 140 180 L50 178 Q30 172 30 160Z" stroke="#ce1b16" stroke-width="1.5" opacity="0.6"/>
+    <!-- Roof line -->
+    <path d="M150 78 Q180 45 220 38 L330 34 Q370 34 400 48 L440 72" stroke="#ce1b16" stroke-width="1" opacity="0.4"/>
+    <!-- Window -->
+    <path d="M160 75 Q185 48 220 40 L280 38 L310 40 L320 75 Z" stroke="#ffffff" stroke-width="0.8" opacity="0.25"/>
+    <path d="M320 75 L330 38 Q360 38 390 50 L420 75 Z" stroke="#ffffff" stroke-width="0.8" opacity="0.25"/>
+    <!-- Wheels -->
+    <circle cx="170" cy="175" r="28" stroke="#ce1b16" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="170" cy="175" r="14" stroke="#ffffff" stroke-width="0.8" opacity="0.3"/>
+    <circle cx="450" cy="175" r="28" stroke="#ce1b16" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="450" cy="175" r="14" stroke="#ffffff" stroke-width="0.8" opacity="0.3"/>
+    <!-- Speed lines -->
+    <line x1="0" y1="130" x2="30" y2="130" stroke="#ce1b16" stroke-width="1" opacity="0.3"/>
+    <line x1="0" y1="145" x2="25" y2="145" stroke="#ce1b16" stroke-width="0.6" opacity="0.2"/>
+    <line x1="0" y1="115" x2="20" y2="115" stroke="#ce1b16" stroke-width="0.6" opacity="0.2"/>
+  </svg>
+
+  <div class="hero-overlay"></div>
+
+  <div class="hero-title-block">
+    <div class="hero-eyebrow">
+      <span></span>IA · Edición Visual · Concept Video<span></span>
+    </div>
+
+    <div class="hero-title-svg-wrap">
+      <svg viewBox="0 0 900 115" xmlns="http://www.w3.org/2000/svg" style="width:100%;overflow:visible;">
+        <defs>
+          <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#f0a0a0"/>
+            <stop offset="30%"  stop-color="#e8342e"/>
+            <stop offset="55%"  stop-color="#ffffff"/>
+            <stop offset="80%"  stop-color="#ce1b16"/>
+            <stop offset="100%" stop-color="#f0c0c0"/>
+          </linearGradient>
+          <linearGradient id="titleFill" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stop-color="#f0f6ff"/>
+            <stop offset="30%"  stop-color="#d4e8ff"/>
+            <stop offset="60%"  stop-color="#ffffff"/>
+            <stop offset="100%" stop-color="#aecfee"/>
+          </linearGradient>
+        </defs>
+
+        <text class="title-fill"
+          x="450" y="96"
+          text-anchor="middle"
+          font-family="'Fredoka', sans-serif"
+          font-size="98" font-weight="700"
+          letter-spacing="-1">Hot Wheels</text>
+
+        <text class="title-path"
+          x="450" y="96"
+          text-anchor="middle"
+          font-family="'Fredoka', sans-serif"
+          font-size="98" font-weight="700"
+          letter-spacing="-1">Hot Wheels</text>
+      </svg>
+    </div>
+
+    <p class="hero-sub">Mitsubishi Evo X · Edición Coleccionista · Concept Video</p>
+    <div class="hero-badge">Generado con IA</div>
+  </div>
+</section>
+
+<!-- ══ MARQUEE ══ -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>HOT WHEELS</span><span class="dot">🔴</span>
+    <span>MITSUBISHI EVO X</span><span class="dot">🔴</span>
+    <span>CONCEPT VIDEO</span><span class="dot">🔴</span>
+    <span>GENERADO CON IA</span><span class="dot">🔴</span>
+    <span>EDICIÓN COLECCIONISTA</span><span class="dot">🔴</span>
+    <span>NARRATIVA VISUAL</span><span class="dot">🔴</span>
+    <span>EDICIÓN CREATIVA</span><span class="dot">🔴</span>
+    <span>CINEMATOGRÁFICO</span><span class="dot">🔴</span>
+    <span>HOT WHEELS</span><span class="dot">🔴</span>
+    <span>MITSUBISHI EVO X</span><span class="dot">🔴</span>
+    <span>CONCEPT VIDEO</span><span class="dot">🔴</span>
+    <span>GENERADO CON IA</span><span class="dot">🔴</span>
+    <span>EDICIÓN COLECCIONISTA</span><span class="dot">🔴</span>
+    <span>NARRATIVA VISUAL</span><span class="dot">🔴</span>
+    <span>EDICIÓN CREATIVA</span><span class="dot">🔴</span>
+    <span>CINEMATOGRÁFICO</span><span class="dot">🔴</span>
+  </div>
+</div>
+
+<!-- ══ VÍDEO ══ -->
+<div class="video-section reveal">
+  <div class="video-frame">
+    <div class="video-wrapper">
+      <iframe
+        src="https://www.youtube.com/embed/P_P_QsbhgbY?si=99l-4ThWVgM-cuMQ"
+        title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INFO ══ -->
+<div class="sw reveal">
+  <span class="section-label">Sobre el proyecto</span>
+  <h2 class="info-title">Cuando un icono de colección cobra vida</h2>
+  <p class="info-text">
+    <strong>Hot Wheels | Mitsubishi Evo X</strong> es una reinterpretación visual de un modelo icónico: el <strong>Evo X en su versión de colección</strong>, llevado a un terreno más cinematográfico a través de clips generados con IA y editados con precisión.
+  </p>
+  <p class="info-text">
+    Una serie de secuencias visuales construyen una pieza dinámica que captura el <strong>diseño, la velocidad y el carácter</strong> del vehículo — explorando cómo la inteligencia artificial puede reinterpretar un universo tan reconocible como Hot Wheels.
+  </p>
+  <p class="info-text">
+    Un proyecto personal de <strong>experimentación visual y edición</strong>, que investiga nuevas formas de crear contenido en la intersección entre IA y narrativa cinematográfica.
+  </p>
+  <p class="disclaimer">
+    Proyecto realizado con fines creativos y de aprendizaje. Hot Wheels es propiedad de sus respectivos dueños.
+  </p>
+  <div class="tech-chips">
+    <span class="chip">IA Generativa</span>
+    <span class="chip">Concept Video</span>
+    <span class="chip">Edición Creativa</span>
+    <span class="chip">Narrativa Visual</span>
+    <span class="chip">Experimentación</span>
+  </div>
+</div>
+
+<!-- ══ HERRAMIENTAS ══ -->
+<div class="tools-section reveal">
+  <span class="section-label">Herramientas</span>
+  <div class="tools-grid">
+    <div class="tool-item">
+      <img src="aftereffects.png" alt="After Effects">
+      <div class="tool-shadow"></div>
+      <span class="tool-name">After Effects</span>
+    </div>
+    <div class="tool-item">
+      <img src="premier.png" alt="Premiere">
+      <div class="tool-shadow"></div>
+      <span class="tool-name">Premiere</span>
+    </div>
+    <div class="tool-item">
+      <img src="photoshop.png" alt="Photoshop">
+      <div class="tool-shadow"></div>
+      <span class="tool-name">Photoshop</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-ghost"><span>Evo X</span></div>
+
+  <!-- Car silhouette deco in footer -->
+  <div class="footer-deco fd1">
+    <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 75 Q25 40 60 30 L90 25 L130 23 L160 30 L185 55 L190 75 Z" fill="white"/>
+      <circle cx="50" cy="80" r="12" fill="white"/>
+      <circle cx="150" cy="80" r="12" fill="white"/>
+    </svg>
+  </div>
+  <div class="footer-deco fd2">
+    <svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 45 Q15 22 38 16 L55 13 L80 13 L100 20 L115 38 L115 48 Z" fill="white"/>
+      <circle cx="30" cy="50" r="8" fill="white"/>
+      <circle cx="90" cy="50" r="8" fill="white"/>
+    </svg>
+  </div>
+  <div class="footer-deco fd3">
+    <svg viewBox="0 0 80 40" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 30 Q10 15 26 10 L38 8 L55 8 L68 15 L76 28 L76 32 Z" fill="white"/>
+      <circle cx="20" cy="34" r="6" fill="white"/>
+      <circle cx="60" cy="34" r="6" fill="white"/>
+    </svg>
+  </div>
+
+  <div class="footer-inner">
+    <div class="footer-heading">
+      <span class="footer-label-text">Proyecto:</span>
+      <span class="footer-project-name">Hot Wheels</span>
+    </div>
+    <p class="footer-meta">
+      Mitsubishi Evo X · Edición Coleccionista<br>
+      IA Generativa · Edición · Narrativa Visual
+    </p>
+    <a class="footer-cta" href="index.html#proyectos">
+      Ver más proyectos <span class="footer-cta-arrow">→</span>
+    </a>
+  </div>
+
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <span>Hot Wheels | Evo X — Concept Video</span>
+    <span>Edición · IA Generativa · Narrativa Cinematográfica</span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  const canvas=document.getElementById('bg-canvas');
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setClearColor(0x000000,0);
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,200);
+  camera.position.z=30;
+  function resize(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}
+  resize(); window.addEventListener('resize',resize);
+
+  const C_RED=0xce1b16, C_RED2=0xe8342e, C_WHITE=0xf0f6ff, C_LTBLUE=0x7aa5c8, C_BLUE=0x1a5a8a;
+
+  function lMat(col,op=.55){return new THREE.LineBasicMaterial({color:col,transparent:true,opacity:op});}
+  function wMat(col,op=.35){return new THREE.MeshBasicMaterial({color:col,wireframe:true,transparent:true,opacity:op});}
+
+  /* ── CAR BODY ── */
+  function makeCar(col){
+    const g=new THREE.Group();
+    // car body main
+    const body=new THREE.Mesh(new THREE.BoxGeometry(4.0,1.0,.3),wMat(col,.38));
+    body.position.set(0,.1,0); g.add(body);
+    // roof
+    const roof=new THREE.Mesh(new THREE.BoxGeometry(2.4,.7,.25),wMat(col,.32));
+    roof.position.set(-.1,.75,0); g.add(roof);
+    // front spoiler
+    const spoiler=new THREE.Mesh(new THREE.BoxGeometry(.15,.5,.25),wMat(C_WHITE,.28));
+    spoiler.position.set(2.15,-.15,0); g.add(spoiler);
+    // rear wing
+    const wingBase=new THREE.Mesh(new THREE.CylinderGeometry(.04,.04,.6,6),wMat(C_WHITE,.3));
+    wingBase.position.set(-2.0,.7,0); wingBase.rotation.z=Math.PI/2; g.add(wingBase);
+    const wingPlane=new THREE.Mesh(new THREE.BoxGeometry(1.8,.06,.35),wMat(col,.45));
+    wingPlane.position.set(-1.9,.95,0); g.add(wingPlane);
+    // wheels
+    [[1.5,-.5],[-.5,-.5],[1.5,.5],[-.5,.5]].forEach(([x,y])=>{
+      const w=new THREE.Mesh(new THREE.CylinderGeometry(.38,.38,.22,12),wMat(col,.42));
+      w.rotation.z=Math.PI/2; w.position.set(x,-.48,y*.6); g.add(w);
+      // rim
+      const rim=new THREE.Mesh(new THREE.TorusGeometry(.38,.04,4,12),wMat(C_WHITE,.3));
+      rim.rotation.y=Math.PI/2; rim.position.set(x,-.48,y*.6); g.add(rim);
+    });
+    // headlights
+    const hl=new THREE.Mesh(new THREE.BoxGeometry(.08,.22,.25),wMat(C_WHITE,.55));
+    hl.position.set(2.05,.18,.0); g.add(hl);
+    // outline lines
+    const outline=[
+      new THREE.Vector3(-2.0,-.5,0), new THREE.Vector3(2.1,-.5,0),
+      new THREE.Vector3(2.1,.5,0), new THREE.Vector3(1.2,.5,0),
+      new THREE.Vector3(.9,1.15,0), new THREE.Vector3(-1.2,1.15,0),
+      new THREE.Vector3(-2.0,.5,0), new THREE.Vector3(-2.0,-.5,0)
+    ];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(outline),lMat(col,.7)));
+    return g;
+  }
+
+  /* ── SMOKE PUFF ── */
+  function makeSmoke(col){
+    const g=new THREE.Group();
+    [[0,0,1.2],[1.2,.3,.9],[-.9,.2,.8],[2.0,-.1,.7],[-.5,-.1,.65],[2.8,.2,.6]].forEach(([cx,cy,r])=>{
+      const pts=[];
+      for(let i=0;i<=20;i++){const a=(i/20)*Math.PI*2; pts.push(new THREE.Vector3(cx+Math.cos(a)*r,cy+Math.sin(a)*r,0));}
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.28)));
+    });
+    return g;
+  }
+
+  /* ── HOT WHEELS LOGO (simplified H shape) ── */
+  function makeHWLogo(col){
+    const g=new THREE.Group();
+    // H shape
+    const pts=[
+      new THREE.Vector3(-1.2,1.4,0), new THREE.Vector3(-1.2,-1.4,0),
+      new THREE.Vector3(-1.2,0,0), new THREE.Vector3(1.2,0,0),
+      new THREE.Vector3(1.2,1.4,0), new THREE.Vector3(1.2,-1.4,0)
+    ];
+    // left vertical
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([pts[0],pts[1]]),lMat(col,.8)));
+    // crossbar
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([pts[2],pts[3]]),lMat(col,.8)));
+    // right vertical
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([pts[4],pts[5]]),lMat(col,.8)));
+    return g;
+  }
+
+  /* ── FLAME ── */
+  function makeFlame(col){
+    const g=new THREE.Group();
+    const f=[
+      new THREE.Vector3(0,-1.2,0), new THREE.Vector3(-.4,.2,0),
+      new THREE.Vector3(.1,-.2,0), new THREE.Vector3(-.2,1.4,0),
+      new THREE.Vector3(.3,0,0), new THREE.Vector3(.15,1.6,0),
+      new THREE.Vector3(.5,-.1,0), new THREE.Vector3(.1,-1.2,0)
+    ];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(f),lMat(col,.9)));
+    return g;
+  }
+
+  /* ── SPEED LINES ── */
+  function makeSpeedLines(col){
+    const g=new THREE.Group();
+    for(let i=0;i<6;i++){
+      const y=(i-.5)*.5;
+      const len=1.5+Math.random()*2;
+      const pts=[new THREE.Vector3(0,y,0), new THREE.Vector3(len,y,0)];
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.3+i*.05)));
+    }
+    return g;
+  }
+
+  /* ── STAR ── */
+  function makeStar(col,n=5){
+    const g=new THREE.Group(); const p=[];
+    for(let i=0;i<n*2;i++){
+      const a=(i/n/2)*Math.PI*2-Math.PI/2;
+      const r=i%2===0?1.5:.62;
+      p.push(new THREE.Vector3(Math.cos(a)*r,Math.sin(a)*r,0));
+    }
+    p.push(p[0].clone());
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(p),lMat(col,.8)));
+    return g;
+  }
+
+  /* ── TYRE TRACK ── */
+  function makeTireTrack(col){
+    const g=new THREE.Group();
+    for(let i=0;i<10;i++){
+      const x=i*.6-2.7;
+      const rect=[
+        new THREE.Vector3(x,-.15,0), new THREE.Vector3(x+.3,-.15,0),
+        new THREE.Vector3(x+.3,.15,0), new THREE.Vector3(x,-.15,0)
+      ];
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(rect),lMat(col,.22)));
+    }
+    return g;
+  }
+
+  const floaters=[];
+  function place(obj,x,y,z,sc=1){
+    obj.scale.setScalar(sc);
+    obj.position.set(x,y,z);
+    obj.userData={
+      rx:(Math.random()-.5)*.006,
+      ry:(Math.random()-.5)*.009,
+      rz:(Math.random()-.5)*.004,
+      floatAmp:.3+Math.random()*.5,
+      floatSpd:.25+Math.random()*.4,
+      floatOff:Math.random()*Math.PI*2,
+      baseY:y
+    };
+    scene.add(obj); floaters.push(obj);
+  }
+
+  /* ── CARS — main attraction ── */
+  place(makeCar(C_RED),   -24,  6,  -9, 2.2);
+  place(makeCar(C_RED2),   22, -7, -10, 1.8);
+  place(makeCar(C_WHITE),  -8, 13, -14, 1.6);
+  place(makeCar(C_RED),    18,  5, -12, 1.4);
+  place(makeCar(C_LTBLUE),-20,-10, -16, 1.5);
+  place(makeCar(C_RED2),    2,-13,  -9, 1.3);
+
+  /* ── SMOKE PUFFS ── */
+  place(makeSmoke(C_WHITE),  -26,  8, -11, 1.8);
+  place(makeSmoke(C_LTBLUE),  24,  9, -13, 1.5);
+  place(makeSmoke(C_WHITE),  -15, -8, -15, 1.6);
+  place(makeSmoke(C_LTBLUE),  16,-10,  -9, 1.2);
+  place(makeSmoke(C_WHITE),    0, 11, -17, 2.0);
+  place(makeSmoke(C_WHITE),   26, -4, -13, 1.3);
+
+  /* ── HOT WHEELS LOGOS ── */
+  place(makeHWLogo(C_RED),  -27,  3,  -8, 1.4);
+  place(makeHWLogo(C_RED2),  25, 12, -12, 1.2);
+  place(makeHWLogo(C_WHITE), -12,-13, -10, 1.0);
+  place(makeHWLogo(C_RED),   14, 10, -14, 1.3);
+
+  /* ── FLAMES ── */
+  place(makeFlame(C_RED),  -22,  5, -8, 2.0);
+  place(makeFlame(C_RED2),  23, -8,-10, 1.7);
+  place(makeFlame(C_RED),   -5, 12,-13, 1.5);
+  place(makeFlame(C_RED2), -17,-12,-12, 1.4);
+  place(makeFlame(C_WHITE),  20,  3,-15, 1.2);
+
+  /* ── SPEED LINES ── */
+  place(makeSpeedLines(C_WHITE), -28, 10, -9, 2.0);
+  place(makeSpeedLines(C_RED),    26,  7,-11, 1.6);
+  place(makeSpeedLines(C_WHITE), -24, -5,-14, 1.8);
+  place(makeSpeedLines(C_LTBLUE), 18,-11, -9, 1.4);
+
+  /* ── STARS ── */
+  place(makeStar(C_RED,5),    -27,  1,  -9, 1.3);
+  place(makeStar(C_WHITE, 6),  25,  4, -11, 1.1);
+  place(makeStar(C_RED,5),   -16,-11, -10, 1.0);
+  place(makeStar(C_LTBLUE,5), 14, 13, -13, 1.2);
+  place(makeStar(C_RED,4),     0,-14,  -8, 1.0);
+  place(makeStar(C_WHITE, 5), -6,  9, -17, 1.4);
+
+  /* ── TIRE TRACKS ── */
+  place(makeTireTrack(C_RED),   -20,  0, -8, 2.0);
+  place(makeTireTrack(C_WHITE),  18,  2,-10, 1.7);
+  place(makeTireTrack(C_RED),   -10,-12,-12, 1.5);
+
+  /* ── PARTICLES ── */
+  const pCount=1800, pGeo=new THREE.BufferGeometry();
+  const pPos=new Float32Array(pCount*3), pCol=new Float32Array(pCount*3), pSpd=new Float32Array(pCount);
+  const CA=new THREE.Color(0xce1b16), CB=new THREE.Color(0x7aa5c8), CC=new THREE.Color(0xf0f6ff);
+  for(let i=0;i<pCount;i++){
+    pPos[i*3]=(Math.random()-.5)*150; pPos[i*3+1]=(Math.random()-.5)*95; pPos[i*3+2]=(Math.random()-.5)*75;
+    const t=Math.random(), c=t<.45?CA:t<.75?CC:CB;
+    pCol[i*3]=c.r; pCol[i*3+1]=c.g; pCol[i*3+2]=c.b; pSpd[i]=.016+Math.random()*.05;
+  }
+  pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  pGeo.setAttribute('color',new THREE.BufferAttribute(pCol,3));
+  const particles=new THREE.Points(pGeo,new THREE.PointsMaterial({size:.13,vertexColors:true,transparent:true,opacity:.55,sizeAttenuation:true}));
+  scene.add(particles);
+
+  /* connection lines */
+  const maxL=floaters.length*(floaters.length-1)/2;
+  const lineGeo=new THREE.BufferGeometry();
+  lineGeo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(maxL*6),3));
+  scene.add(new THREE.LineSegments(lineGeo,new THREE.LineBasicMaterial({color:0xce1b16,transparent:true,opacity:.03})));
+
+  const torusRing=new THREE.Mesh(new THREE.TorusGeometry(22,.05,4,120),new THREE.MeshBasicMaterial({color:0xce1b16,transparent:true,opacity:.05}));
+  torusRing.rotation.x=Math.PI/2.5; scene.add(torusRing);
+
+  let mx=0,my=0,tmx=0,tmy=0;
+  document.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2; my=(e.clientY/innerHeight-.5)*2;});
+  let scrollY=0; window.addEventListener('scroll',()=>scrollY=window.scrollY);
+  let tc=0;
+
+  (function animate(){
+    requestAnimationFrame(animate); tc+=.007;
+    tmx+=(mx*1.4-tmx)*.04; tmy+=(my*.7-tmy)*.04;
+    camera.position.x=tmx; camera.position.y=-tmy+scrollY*.003;
+    camera.lookAt(0,scrollY*.003,0);
+
+    particles.rotation.y=tc*.025; particles.rotation.x=tc*.01;
+    const pos=pGeo.attributes.position.array;
+    for(let i=0;i<pCount;i++) pos[i*3+1]+=Math.sin(tc*pSpd[i]+i)*.003;
+    pGeo.attributes.position.needsUpdate=true;
+
+    floaters.forEach(m=>{
+      m.rotation.x+=m.userData.rx;
+      m.rotation.y+=m.userData.ry;
+      m.rotation.z+=m.userData.rz;
+      m.position.y=m.userData.baseY+Math.sin(tc*m.userData.floatSpd+m.userData.floatOff)*m.userData.floatAmp;
+    });
+
+    let li=0; const lp=lineGeo.attributes.position.array;
+    for(let a=0;a<floaters.length;a++){
+      for(let b=a+1;b<floaters.length;b++){
+        if(floaters[a].position.distanceTo(floaters[b].position)<14){
+          lp[li++]=floaters[a].position.x; lp[li++]=floaters[a].position.y; lp[li++]=floaters[a].position.z;
+          lp[li++]=floaters[b].position.x; lp[li++]=floaters[b].position.y; lp[li++]=floaters[b].position.z;
+        }
+      }
+    }
+    for(;li<lp.length;li++) lp[li]=0;
+    lineGeo.attributes.position.needsUpdate=true;
+    lineGeo.setDrawRange(0,li/3);
+
+    torusRing.rotation.z=tc*.035;
+    renderer.render(scene,camera);
+  })();
+})();
+
+/* ── CURSOR ── */
+if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){
+  const dot=document.getElementById('cur');
+  const tc=['#ce1b16','#e8342e','#f0f6ff','#7aa5c8','#ff6060'];
+  let ti=0,lx=0,ly=0;
+  document.addEventListener('mousemove',e=>{
+    dot.style.left=e.clientX+'px'; dot.style.top=e.clientY+'px';
+    const d=Math.hypot(e.clientX-lx,e.clientY-ly);
+    if(d>5){
+      lx=e.clientX; ly=e.clientY;
+      for(let k=0;k<3;k++){
+        const t=document.createElement('div'); t.className='ctrail';
+        const sz=Math.random()*8+5, col=tc[(ti+k)%tc.length];
+        const ox=(Math.random()-.5)*6, oy=(Math.random()-.5)*6;
+        t.style.cssText=`width:${sz}px;height:${sz}px;left:${e.clientX+ox}px;top:${e.clientY+oy}px;background:${col};box-shadow:0 0 ${sz*2}px ${col};`;
+        document.body.appendChild(t); ti++; setTimeout(()=>t.remove(),650);
+      }
+    }
+  });
+  document.querySelectorAll('a,.chip,.tool-item,.footer-cta').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{dot.style.transform='translate(-50%,-50%) scale(2.5)';dot.style.background='#ffffff';dot.style.boxShadow='0 0 16px #ffffff,0 0 32px rgba(206,27,22,.6)';});
+    el.addEventListener('mouseleave',()=>{dot.style.transform='translate(-50%,-50%) scale(1)';dot.style.background='var(--red)';dot.style.boxShadow='0 0 16px var(--red2)';});
+  });
+}
+
+/* ── SCROLL REVEAL ── */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('visible');});
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+
+/* ── BACK TO TOP ── */
+const bTop=document.getElementById('back-top');
+window.addEventListener('scroll',()=>bTop.classList.toggle('show',window.scrollY>400));
+</script>
+
+</body>
+</html>
