@@ -118,13 +118,6 @@ body {
   opacity:0; animation:fadeUp .9s ease .4s forwards;
 }
 
-/*
-  FIX TIPOGRAFÍA p/b:
-  - title-fill: relleno opaco con paint-order:fill stroke — tapa el interior
-  - title-path: fill:none + trazo luminoso encima
-  De esta forma las letras cerradas (p, b, o…) se ven completas,
-  sin el hueco que dejaba el stroke recortando el bowl.
-*/
 .title-fill {
   fill: url(#titleFill);
   paint-order: fill stroke;
@@ -204,12 +197,15 @@ body {
 }
 .video-wrapper iframe { width:100%; height:100%; border:0; display:block; }
 
-/* ══ INFO ══ */
+/* ══ INFO — centrada ══ */
 .sw {
-  max-width:1080px; margin:0 auto;
-  padding:80px 40px; position:relative; z-index:1;
+  max-width:860px; margin:0 auto;
+  padding:80px 40px;
+  position:relative; z-index:1;
+  text-align:center;
 }
 @media(max-width:640px){ .sw{ padding:60px 20px; } }
+
 .info-title {
   font-family:'Fredoka',sans-serif;
   font-size:clamp(32px,5vw,58px); font-weight:700;
@@ -219,13 +215,16 @@ body {
   font-family:'Poppins',sans-serif;
   font-size:15px; font-weight:300; line-height:1.85;
   color:var(--muted); margin-bottom:16px;
-  max-width:680px;
+  max-width:100%;
 }
 .info-text strong {
   font-weight:600;
   color:var(--blue);
 }
-.tech-chips { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
+.tech-chips {
+  display:flex; flex-wrap:wrap; gap:10px; margin-top:28px;
+  justify-content:center;
+}
 .chip {
   font-size:11px; font-weight:500; letter-spacing:2px;
   text-transform:uppercase; padding:8px 18px; border-radius:999px;
@@ -413,7 +412,6 @@ footer {
           </linearGradient>
         </defs>
 
-        <!-- Relleno sólido: aparece tras la animación del trazo -->
         <text class="title-fill"
           x="410" y="96"
           text-anchor="middle"
@@ -421,7 +419,6 @@ footer {
           font-size="108" font-weight="700"
           letter-spacing="-1">Superboy</text>
 
-        <!-- Trazo luminoso animado encima del relleno -->
         <text class="title-path"
           x="410" y="96"
           text-anchor="middle"
@@ -472,7 +469,7 @@ footer {
   </div>
 </div>
 
-<!-- ══ INFO ══ -->
+<!-- ══ INFO — centrada ══ -->
 <div class="sw reveal">
   <h2 class="info-title">Cuando la realidad se rompe… literalmente</h2>
   <p class="info-text">
@@ -612,31 +609,23 @@ footer {
     return g;
   }
 
-  /* ── SUPERHÉROE (silueta: cabeza + tronco + capa) ── */
+  /* ── SUPERHÉROE ── */
   function makeHero(col){
     const g=new THREE.Group();
-    // cabeza
     const head=new THREE.Mesh(new THREE.SphereGeometry(.32,10,7),wMat(col,.45));
     head.position.set(0,1.1,0); g.add(head);
-    // tronco
     const torso=new THREE.Mesh(new THREE.BoxGeometry(.6,1.0,.2),wMat(col,.4));
     torso.position.set(0,.2,0); g.add(torso);
-    // brazo izq
     const armL=new THREE.Mesh(new THREE.CylinderGeometry(.12,.12,.9,6),wMat(col,.35));
     armL.position.set(-.48,.2,0); armL.rotation.z=Math.PI/6; g.add(armL);
-    // brazo der
     const armR=new THREE.Mesh(new THREE.CylinderGeometry(.12,.12,.9,6),wMat(col,.35));
     armR.position.set(.48,.2,0); armR.rotation.z=-Math.PI/6; g.add(armR);
-    // pierna izq
     const legL=new THREE.Mesh(new THREE.CylinderGeometry(.13,.1,1.0,6),wMat(col,.35));
     legL.position.set(-.2,-.8,0); g.add(legL);
-    // pierna der
     const legR=new THREE.Mesh(new THREE.CylinderGeometry(.13,.1,1.0,6),wMat(col,.35));
     legR.position.set(.2,-.8,0); g.add(legR);
-    // capa
     const cape=[new THREE.Vector3(-.28,.55,0),new THREE.Vector3(-.95,-.9,0),new THREE.Vector3(.95,-.9,0),new THREE.Vector3(.28,.55,0)];
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(cape),lMat(col,.65)));
-    // onda interior de capa
     const wave=[];
     for(let i=0;i<=14;i++){const t=i/14; wave.push(new THREE.Vector3(-0.95+t*1.9,-0.9+Math.sin(t*Math.PI)*.4,0));}
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(wave),lMat(col,.38)));
@@ -659,7 +648,7 @@ footer {
     scene.add(obj); floaters.push(obj);
   }
 
-  /* ── NUBES — repartidas por toda la pantalla ── */
+  /* NUBES */
   place(makeCloud(C_WHITE),   -27,  9, -10, 2.0);
   place(makeCloud(C_LTBLUE),   23,  8, -12, 1.6);
   place(makeCloud(C_WHITE),   -21, -9, -14, 1.8);
@@ -669,7 +658,7 @@ footer {
   place(makeCloud(C_WHITE),    27, -2, -13, 1.4);
   place(makeCloud(C_LTBLUE),   -4,-13, -11, 1.7);
 
-  /* ── RAYOS — esparcidos ── */
+  /* RAYOS */
   place(makeBolt(C_YELLOW), -26,  6,  -8, 2.0);
   place(makeBolt(C_YELLOW),  25, 11, -10, 1.8);
   place(makeBolt(C_YELLOW),   9,-11,  -9, 1.5);
@@ -677,7 +666,7 @@ footer {
   place(makeBolt(C_WHITE),   21, -5, -15, 1.3);
   place(makeBolt(C_YELLOW), -23, -6, -12, 1.4);
 
-  /* ── ESTRELLAS — dispersas ── */
+  /* ESTRELLAS */
   place(makeStar(C_YELLOW,5), -28,  1,  -9, 1.4);
   place(makeStar(C_WHITE, 6),  27,  5, -11, 1.2);
   place(makeStar(C_YELLOW,5), -17,-12, -10, 1.0);
@@ -686,14 +675,14 @@ footer {
   place(makeStar(C_WHITE, 5),  -7, 10, -17, 1.5);
   place(makeStar(C_YELLOW,6),  23,-11, -14, 1.0);
 
-  /* ── SUPERHÉROES — bien repartidos ── */
+  /* SUPERHÉROES */
   place(makeHero(C_BLUE),  -25,  4,  -8, 1.8);
   place(makeHero(C_RED),    23, -9, -10, 1.5);
   place(makeHero(C_BLUE),   -6, 13, -12, 1.6);
   place(makeHero(C_LTBLUE),-19,-11, -15, 1.3);
   place(makeHero(C_RED),    17,  7, -11, 1.4);
 
-  /* ── PARTÍCULAS ── */
+  /* PARTÍCULAS */
   const pCount=1600, pGeo=new THREE.BufferGeometry();
   const pPos=new Float32Array(pCount*3), pCol=new Float32Array(pCount*3), pSpd=new Float32Array(pCount);
   const CA=new THREE.Color(0x2e8de8), CB=new THREE.Color(0x7ec8f5), CC=new THREE.Color(0xf0c430);
@@ -707,7 +696,6 @@ footer {
   const particles=new THREE.Points(pGeo,new THREE.PointsMaterial({size:.14,vertexColors:true,transparent:true,opacity:.6,sizeAttenuation:true}));
   scene.add(particles);
 
-  /* líneas de conexión tenues */
   const maxL=floaters.length*(floaters.length-1)/2;
   const lineGeo=new THREE.BufferGeometry();
   lineGeo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(maxL*6),3));
