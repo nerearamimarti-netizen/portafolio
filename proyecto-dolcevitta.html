@@ -175,6 +175,41 @@ body {
 .marquee-track .dot { color:var(--caramel); font-size:8px; }
 @keyframes marquee { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
 
+/* ══ INFO — centrado ══ */
+.sw {
+  max-width:780px; margin:0 auto;
+  padding:80px 40px 40px;
+  position:relative; z-index:1;
+  text-align:center;
+}
+@media(max-width:640px){ .sw{ padding:60px 20px 30px; } }
+
+.info-title {
+  font-family:'Fredoka',sans-serif;
+  font-size:clamp(32px,5vw,58px); font-weight:700;
+  color:var(--dark); margin-bottom:26px; line-height:1.1;
+}
+.info-text {
+  font-family:'Poppins',sans-serif;
+  font-size:15px; font-weight:300; line-height:1.85;
+  color:var(--muted); margin-bottom:16px;
+}
+.info-text strong { font-weight:600; color:var(--cherry); }
+
+.tech-chips {
+  display:flex; flex-wrap:wrap; gap:10px; margin-top:28px;
+  justify-content:center;
+}
+.chip {
+  font-size:11px; font-weight:500; letter-spacing:2px;
+  text-transform:uppercase; padding:8px 18px; border-radius:999px;
+  border:1px solid var(--bdr); color:var(--cherry);
+  background:rgba(255,255,255,.5); backdrop-filter:blur(8px);
+  transition:all .25s; cursor:pointer; font-family:'Poppins',sans-serif;
+  text-decoration:none; display:inline-block;
+}
+.chip:hover { background:var(--cherry); color:white; border-color:var(--cherry); transform:translateY(-2px); }
+
 /* ══ SECCIONES DE IMÁGENES ══ */
 .img-section {
   position:relative; z-index:2;
@@ -183,7 +218,6 @@ body {
 }
 @media(max-width:640px){ .img-section{ padding:20px 20px 0; } }
 
-/* imagen grande — esquinas muy redondeadas */
 .img-wrapper {
   width:100%;
   overflow:hidden;
@@ -192,7 +226,6 @@ body {
 }
 .img-wrapper img { width:100%; height:auto; border:0; display:block; }
 
-/* grid dos columnas */
 .grid-2 {
   display:grid; gap:28px;
   grid-template-columns:1fr 1fr;
@@ -206,36 +239,6 @@ body {
   box-shadow:0 18px 50px rgba(46,26,14,.14), 0 6px 14px rgba(46,26,14,.08);
 }
 .grid-img-wrap img { width:100%; height:auto; display:block; }
-
-/* ══ INFO ══ */
-.sw {
-  max-width:1080px; margin:0 auto;
-  padding:80px 40px 40px; position:relative; z-index:1;
-}
-@media(max-width:640px){ .sw{ padding:60px 20px 30px; } }
-.info-title {
-  font-family:'Fredoka',sans-serif;
-  font-size:clamp(32px,5vw,58px); font-weight:700;
-  color:var(--dark); margin-bottom:26px; line-height:1.1;
-}
-.info-text {
-  font-family:'Poppins',sans-serif;
-  font-size:15px; font-weight:300; line-height:1.85;
-  color:var(--muted); margin-bottom:16px;
-  max-width:680px;
-}
-.info-text strong { font-weight:600; color:var(--cherry); }
-
-.tech-chips { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
-.chip {
-  font-size:11px; font-weight:500; letter-spacing:2px;
-  text-transform:uppercase; padding:8px 18px; border-radius:999px;
-  border:1px solid var(--bdr); color:var(--cherry);
-  background:rgba(255,255,255,.5); backdrop-filter:blur(8px);
-  transition:all .25s; cursor:pointer; font-family:'Poppins',sans-serif;
-  text-decoration:none; display:inline-block;
-}
-.chip:hover { background:var(--cherry); color:white; border-color:var(--cherry); transform:translateY(-2px); }
 
 /* ══ SECTION TITLES ══ */
 .section-label {
@@ -458,7 +461,7 @@ footer {
   </div>
 </div>
 
-<!-- ══ INFO ══ -->
+<!-- ══ INFO — centrado ══ -->
 <div class="sw reveal">
   <h2 class="info-title">La dulzura también se diseña</h2>
   <p class="info-text">
@@ -479,6 +482,15 @@ footer {
   </div>
 </div>
 
+<!-- ══ LOGO ══ -->
+<div class="img-section reveal">
+  <div class="img-wrapper">
+    <img src="logo-dolce-vitta.png" alt="Logo Dolce Vitta">
+  </div>
+</div>
+
+<div class="section-gap"></div>
+
 <!-- ══ IDENTIDAD VISUAL ══ -->
 <p class="section-label reveal">Identidad Visual</p>
 <div class="img-section reveal">
@@ -488,14 +500,7 @@ footer {
 </div>
 
 <div class="section-gap"></div>
-<!-- ══ LOGO ══ -->
-<div class="img-section reveal">
-  <div class="img-wrapper">
-    <img src="logo-dolce-vitta.png" alt="Logo Dolce Vitta">
-  </div>
-</div>
 
-<div class="section-gap"></div>
 <!-- ══ PACKAGING ══ -->
 <p class="section-label reveal">Packaging &amp; Experiencia</p>
 <div class="img-section reveal">
