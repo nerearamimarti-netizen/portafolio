@@ -128,13 +128,14 @@ body {
   color:rgba(240,246,255,.70); margin-top:18px;
   opacity:0; animation:fadeUp .8s ease 2.5s forwards;
 }
+/* ── BADGE actualizado con texto nuevo y dos líneas ── */
 .hero-badge {
   display:inline-flex; align-items:center; gap:8px;
   font-family:'Fredoka',sans-serif; font-size:13px; font-weight:600;
-  letter-spacing:2px; text-transform:uppercase;
+  letter-spacing:1.5px; text-transform:uppercase;
   color:var(--red); margin-top:14px;
-  border:1px solid rgba(206,27,22,.4); padding:6px 18px; border-radius:999px;
-  background:rgba(206,27,22,.10);
+  border:1px solid rgba(206,27,22,.4); padding:7px 20px; border-radius:999px;
+  background:rgba(206,27,22,.10); line-height:1.35; text-align:center;
   opacity:0; animation:fadeUp .8s ease 2.8s forwards;
 }
 @keyframes fadeUp {
@@ -183,20 +184,24 @@ body {
 .sw {
   max-width:1080px; margin:0 auto;
   padding:80px 40px; position:relative; z-index:1;
+  /* centrado completo de todo el bloque */
+  display:flex; flex-direction:column; align-items:center; text-align:center;
 }
 @media(max-width:640px){ .sw{padding:60px 20px;} }
 .info-title {
   font-family:'Fredoka',sans-serif;
   font-size:clamp(32px,5vw,58px); font-weight:700;
   color:var(--white); margin-bottom:26px; line-height:1.1;
+  text-align:center;
 }
+/* Card más transparente para dejar ver el 3D del fondo */
 .info-card {
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(206,27,22,.18);
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(206,27,22,.14);
   border-radius:20px; padding:36px 40px;
-  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-  box-shadow:0 8px 40px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.06);
-  max-width:720px;
+  backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  box-shadow:0 8px 40px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.04);
+  max-width:720px; text-align:left;
 }
 @media(max-width:640px){ .info-card{padding:24px 22px;} }
 .info-text {
@@ -210,7 +215,10 @@ body {
   font-family:'Poppins',sans-serif; font-size:11px; font-weight:300;
   color:rgba(122,165,200,.5); font-style:italic; margin-top:20px;
 }
-.tech-chips { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
+.tech-chips {
+  display:flex; flex-wrap:wrap; gap:10px; margin-top:28px;
+  justify-content:center; /* chips centrados */
+}
 .chip {
   font-size:11px; font-weight:500; letter-spacing:2px;
   text-transform:uppercase; padding:8px 18px; border-radius:999px;
@@ -240,26 +248,29 @@ body {
   0%,100%{transform:translateY(0);}
   50%{transform:translateY(-10px);}
 }
+/* Icono sin sombra negra en el propio icono — solo sombra suave debajo */
 .tool-item img {
   width:72px; height:72px; object-fit:contain;
-  filter:drop-shadow(0 14px 22px rgba(0,0,0,.75)) drop-shadow(0 4px 10px rgba(0,0,0,.6));
-  transition:filter .3s,transform .3s;
+  filter:none;
+  transition:transform .3s;
 }
 .tool-item:hover img {
-  filter:drop-shadow(0 20px 32px rgba(0,0,0,.88)) drop-shadow(0 6px 14px rgba(0,0,0,.7));
   transform:scale(1.1);
 }
+/* Sombra de flotación debajo del icono, difusa y sutil */
 .tool-shadow {
-  width:50px; height:8px; border-radius:50%;
-  background:rgba(0,0,0,.4); filter:blur(5px);
+  width:46px; height:6px; border-radius:50%;
+  background:rgba(0,0,0,.28);
+  filter:blur(6px);
   transition:all .3s;
+  margin-top:-10px;
 }
-.tool-item:hover .tool-shadow{width:40px;opacity:.5;}
+.tool-item:hover .tool-shadow { width:36px; opacity:.55; }
 .tool-name {
   font-family:'Poppins',sans-serif;
   font-size:11px; letter-spacing:3px;
   text-transform:uppercase; color:var(--muted); font-weight:500;
-  margin-top:-8px;
+  margin-top:2px;
 }
 
 /* ══ REVEAL ══ */
@@ -276,12 +287,6 @@ footer {
   padding:90px 40px 70px; overflow:hidden;
   border-top:1px solid rgba(206,27,22,.12);
 }
-
-/*
-  Ghost text: mismo tratamiento exacto que Superboy.
-  font-size: 22vw, color:transparent, -webkit-text-stroke: 1px rgba(255,255,255,.04)
-  Aquí usamos el rojo muy tenue para mantener la paleta del proyecto.
-*/
 .footer-ghost {
   position:absolute; inset:0;
   display:flex; align-items:center; justify-content:center;
@@ -289,14 +294,12 @@ footer {
 }
 .footer-ghost span {
   font-family:'Fredoka',sans-serif; font-weight:700;
-  font-size:22vw;                           /* ← igual que Superboy */
+  font-size:22vw;
   color:transparent;
-  -webkit-text-stroke:1px rgba(255,255,255,.04); /* ← igual que Superboy */
+  -webkit-text-stroke:1px rgba(255,255,255,.04);
   white-space:nowrap; user-select:none;
   letter-spacing:-2px;
 }
-
-/* footer deco SVGs */
 .footer-deco { position:absolute; pointer-events:none; }
 .footer-deco.car1 { width:240px; bottom:-10px; left:-20px;   opacity:.07; }
 .footer-deco.car2 { width:170px; bottom:18px;  right:55px;   opacity:.06; }
@@ -414,7 +417,8 @@ footer {
       </svg>
     </div>
     <p class="hero-sub">Mitsubishi Evo X · Edición Coleccionista · Concept Video</p>
-    <div class="hero-badge">Generado con IA</div>
+    <!-- CAMBIO 1: badge con nuevo texto -->
+    <div class="hero-badge">Clips generados con IA · Edición final con Premiere</div>
   </div>
 </section>
 
@@ -455,8 +459,9 @@ footer {
   </div>
 </div>
 
-<!-- ══ INFO ══ -->
+<!-- ══ INFO — centrado, card más transparente ══ -->
 <div class="sw reveal">
+  <!-- CAMBIO 2: todo centrado, card transparente -->
   <h2 class="info-title">Cuando un icono de colección cobra vida</h2>
   <div class="info-card">
     <p class="info-text">
@@ -480,6 +485,7 @@ footer {
 </div>
 
 <!-- ══ HERRAMIENTAS ══ -->
+<!-- CAMBIO 3: sombra negra eliminada del icono, solo sombra suave debajo -->
 <div class="tools-section reveal">
   <div class="tools-grid">
     <div class="tool-item">
@@ -502,8 +508,6 @@ footer {
 
 <!-- ══ FOOTER ══ -->
 <footer>
-
-  <!-- "Hot Wheels" en trazado grande en transparencia — igual que "Superboy" -->
   <div class="footer-ghost"><span>Hot Wheels</span></div>
 
   <!-- Car silhouettes -->
@@ -625,7 +629,6 @@ footer {
 
   function makeCar(bodyCol, accentCol){
     const g = new THREE.Group();
-
     const body = [
       new THREE.Vector3(-2.20, -0.40, 0),
       new THREE.Vector3( 2.20, -0.40, 0),
@@ -654,20 +657,15 @@ footer {
     ]), lMat(accentCol, .88)));
 
     const ws = [
-      new THREE.Vector3( 1.10,  0.70, 0),
-      new THREE.Vector3( 1.46,  0.68, 0),
-      new THREE.Vector3( 1.10,  1.20, 0),
-      new THREE.Vector3( 1.10,  0.70, 0),
+      new THREE.Vector3( 1.10,  0.70, 0), new THREE.Vector3( 1.46,  0.68, 0),
+      new THREE.Vector3( 1.10,  1.20, 0), new THREE.Vector3( 1.10,  0.70, 0),
     ];
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(ws), lMat(C_WHITE, .32)));
 
     const sw = [
-      new THREE.Vector3( 1.10,  0.70, 0),
-      new THREE.Vector3(-0.56,  0.72, 0),
-      new THREE.Vector3(-1.28,  1.18, 0),
-      new THREE.Vector3(-0.60,  1.28, 0),
-      new THREE.Vector3( 1.10,  1.20, 0),
-      new THREE.Vector3( 1.10,  0.70, 0),
+      new THREE.Vector3( 1.10,  0.70, 0), new THREE.Vector3(-0.56,  0.72, 0),
+      new THREE.Vector3(-1.28,  1.18, 0), new THREE.Vector3(-0.60,  1.28, 0),
+      new THREE.Vector3( 1.10,  1.20, 0), new THREE.Vector3( 1.10,  0.70, 0),
     ];
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(sw), lMat(C_WHITE, .26)));
 
@@ -686,18 +684,15 @@ footer {
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(tl), lMat(C_RED2, .72)));
 
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([
-      new THREE.Vector3(2.22, -0.38, 0),
-      new THREE.Vector3(2.54, -0.38, 0),
+      new THREE.Vector3(2.22, -0.38, 0), new THREE.Vector3(2.54, -0.38, 0),
     ]), lMat(accentCol, .62)));
 
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([
-      new THREE.Vector3(-1.92, -0.28, 0),
-      new THREE.Vector3( 1.92, -0.28, 0),
+      new THREE.Vector3(-1.92, -0.28, 0), new THREE.Vector3( 1.92, -0.28, 0),
     ]), lMat(accentCol, .28)));
 
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([
-      new THREE.Vector3(-0.08, -0.30, 0),
-      new THREE.Vector3(-0.08,  0.70, 0),
+      new THREE.Vector3(-0.08, -0.30, 0), new THREE.Vector3(-0.08,  0.70, 0),
     ]), lMat(bodyCol, .20)));
 
     [[-1.35, -0.44], [1.35, -0.44]].forEach(([wx, wy])=>{
