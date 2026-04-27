@@ -3,806 +3,1065 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Neeergraphs</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23fff'/%3E%3Ctext x='32' y='46' font-family='Georgia' font-size='44' font-weight='700' text-anchor='middle' fill='url(%23g)'%3EN%3C/text%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ff4da6'/%3E%3Cstop offset='100%25' stop-color='%239333ea'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E">
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
+<title>Neeergraphs — Diseño & Motion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
 <style>
-/* ══════════════════════════════════════════════════
-   RESET & VARS
-══════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════
+   ROOT & RESET
+═══════════════════════════════════════ */
 :root{
-  --ink:#0d0a1a;--white:#fff;--cream:#fef6f0;
-  --pink:#ff3d9a;--pink2:#ff85c2;--pink3:#ffe5f3;
-  --rose:#ff6ec4;--magenta:#e040fb;
-  --blue:#2563ff;--sky:#7eb8ff;
-  --purple:#7c3aed;--lavender:#c4b5fd;
-  --yellow:#ffe135;--gold:#fbbf24;
-  --mint:#10f5a0;--teal:#0ea5e9;
-  --coral:#ff5c57;
+  --black:#0a0a0a;
+  --off-black:#111111;
+  --white:#fafafa;
+  --off-white:#f5f0eb;
+  --purple:#4a1b8c;
+  --purple-mid:#6d35c9;
+  --purple-light:#9b6be8;
+  --purple-pale:#ede4ff;
+  --yellow:#f5d800;
+  --yellow-warm:#ffd60a;
+  --yellow-pale:#fffbe0;
+  --grey-100:#1a1a1a;
+  --grey-200:#2a2a2a;
+  --grey-300:#555;
+  --grey-400:#888;
+  --grey-500:#bbb;
+  --font-display:'Cormorant Garamond',serif;
+  --font-body:'Poppins',sans-serif;
 }
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--ink);color:var(--white);font-family:'Nunito',sans-serif;overflow-x:hidden;cursor:none}
-
-/* ══════════════════════════════════════════════════
-   CURSOR — punto simple con trail de color
-══════════════════════════════════════════════════ */
-#dot{position:fixed;z-index:9999;pointer-events:none;width:8px;height:8px;border-radius:50%;background:var(--pink);transform:translate(-50%,-50%);transition:transform .12s,background .3s;mix-blend-mode:screen}
-.trail{position:fixed;pointer-events:none;z-index:9997;border-radius:50%;mix-blend-mode:screen;transform:translate(-50%,-50%);animation:trFade .6s ease forwards}
-@keyframes trFade{0%{opacity:.9;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(.05)}}
-
-/* ══════════════════════════════════════════════════
-   NAV
-══════════════════════════════════════════════════ */
-.nav{
-  position:fixed;top:0;left:0;right:0;z-index:1000;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:20px 56px;
-}
-.nav-logo{font-family:'Fredoka',sans-serif;font-size:19px;font-weight:700;text-decoration:none;color:var(--white);letter-spacing:.5px;opacity:.9}
-.nav-links{display:flex;gap:10px;list-style:none}
-.nav-links a{
-  font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  color:rgba(255,255,255,.5);text-decoration:none;
-  padding:7px 16px;border-radius:999px;
-  border:1px solid rgba(255,255,255,.1);
-  transition:all .22s;
-}
-.nav-links a:hover{color:var(--white);border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.06)}
-@media(max-width:640px){.nav{padding:14px 20px}.nav-links{display:none}}
-
-/* ══════════════════════════════════════════════════
-   ██████  HERO — ESPECTACULAR  ██████
-══════════════════════════════════════════════════ */
-.hero{
-  min-height:100svh;position:relative;overflow:hidden;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  /* Fondo: degradado onírico que va de noche a amanecer */
-  background:radial-gradient(ellipse 120% 80% at 50% 0%,#2d0045 0%,#0d0a1a 55%,#0d0a1a 100%);
-}
-
-/* Canvas WebGL de fondo */
-#heroGL{position:absolute;inset:0;z-index:0;pointer-events:none}
-
-/* Nebulosa de color — capas de blobs con blur extremo */
-.nebula{position:absolute;pointer-events:none;z-index:1;border-radius:50%;filter:blur(120px)}
-.neb1{width:900px;height:600px;background:radial-gradient(ellipse,rgba(255,61,154,.28) 0%,transparent 65%);top:-200px;left:-200px;animation:nebDrift 20s ease-in-out infinite}
-.neb2{width:700px;height:700px;background:radial-gradient(ellipse,rgba(124,58,237,.22) 0%,transparent 65%);top:-100px;right:-150px;animation:nebDrift 26s ease-in-out infinite reverse;animation-delay:-8s}
-.neb3{width:800px;height:500px;background:radial-gradient(ellipse,rgba(37,99,255,.18) 0%,transparent 65%);bottom:-100px;left:10%;animation:nebDrift 22s ease-in-out infinite;animation-delay:-4s}
-.neb4{width:500px;height:500px;background:radial-gradient(ellipse,rgba(224,64,251,.15) 0%,transparent 65%);bottom:0;right:15%;animation:nebDrift 18s ease-in-out infinite;animation-delay:-12s}
-@keyframes nebDrift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-30px) scale(1.05)}66%{transform:translate(-30px,20px) scale(.97)}}
-
-/* Partículas de estrellas */
-.stars-canvas{position:absolute;inset:0;z-index:1;pointer-events:none}
-
-/* Texto de fondo gigante decorativo */
-.hero-bg-text{
-  position:absolute;z-index:2;pointer-events:none;
-  font-family:'Fredoka',sans-serif;font-size:clamp(120px,25vw,320px);
-  font-weight:700;line-height:.85;
-  color:transparent;
-  -webkit-text-stroke:1px rgba(255,255,255,.04);
-  user-select:none;top:50%;transform:translateY(-50%);
-  white-space:nowrap;letter-spacing:-8px;
-}
-
-/* Contenido central */
-.hero-body{position:relative;z-index:5;text-align:center;padding:0 24px}
-
-/* Pill "role" arriba del título */
-.hero-role{
-  display:inline-flex;align-items:center;gap:10px;
-  font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
-  color:var(--pink2);
-  background:rgba(255,61,154,.1);
-  border:1px solid rgba(255,61,154,.3);
-  border-radius:999px;padding:8px 24px;margin-bottom:32px;
-  animation:fadeU .8s .3s both;
-}
-.role-dot{width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 8px var(--mint);animation:glowPulse 2s infinite}
-@keyframes glowPulse{0%,100%{opacity:1}50%{opacity:.3}}
-
-/* TÍTULO PRINCIPAL — tipografía mixta */
-.hero-title{
-  font-family:'Fredoka',sans-serif;
-  line-height:.82;letter-spacing:-3px;
-  margin-bottom:28px;
-  animation:fadeU .9s .15s both;
-}
-.ht-line1{
-  display:block;
-  font-size:clamp(68px,13vw,170px);
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{
+  background:var(--black);
   color:var(--white);
-  text-shadow:0 0 80px rgba(255,61,154,.2);
-}
-.ht-line2{
-  display:block;
-  font-size:clamp(68px,13vw,170px);
-  /* Gradiente animado neón */
-  background:linear-gradient(90deg,var(--pink) 0%,var(--rose) 20%,var(--yellow) 40%,var(--mint) 60%,var(--sky) 80%,var(--pink) 100%);
-  background-size:300% auto;
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  animation:chromaShift 4s linear infinite;
-}
-@keyframes chromaShift{0%{background-position:0%}100%{background-position:300%}}
-
-/* Subtítulo en italic de diseñador */
-.hero-tagline{
-  font-family:'Playfair Display',serif;font-style:italic;
-  font-size:clamp(16px,2vw,22px);
-  color:rgba(255,255,255,.55);line-height:1.55;
-  max-width:460px;margin:0 auto 36px;
-  animation:fadeU .8s .45s both;
+  font-family:var(--font-body);
+  overflow-x:hidden;
+  cursor:none;
 }
 
-/* CTAs */
-.hero-actions{display:flex;align-items:center;gap:16px;justify-content:center;flex-wrap:wrap;animation:fadeU .8s .6s both}
-.cta-primary{
-  font-family:'Fredoka',sans-serif;font-size:16px;font-weight:600;
-  padding:15px 40px;border-radius:999px;text-decoration:none;
-  background:linear-gradient(135deg,var(--pink),var(--purple));
-  color:#fff;position:relative;overflow:hidden;
-  transition:transform .25s;
-  box-shadow:0 0 40px rgba(255,61,154,.35),0 0 80px rgba(124,58,237,.2);
+/* ═══════════════════════════════════════
+   CURSOR
+═══════════════════════════════════════ */
+#cursor{
+  position:fixed;z-index:9999;pointer-events:none;
+  width:12px;height:12px;border-radius:50%;
+  background:var(--yellow);
+  transform:translate(-50%,-50%);
+  transition:width .25s,height .25s,background .25s,opacity .2s;
+  mix-blend-mode:difference;
 }
-.cta-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transform:translateX(-100%);animation:cta-shim 3s ease-in-out infinite}
-@keyframes cta-shim{0%{transform:translateX(-100%)}50%,100%{transform:translateX(150%)}}
-.cta-primary:hover{transform:scale(1.05) translateY(-2px)}
-.cta-secondary{
-  font-family:'Fredoka',sans-serif;font-size:15px;font-weight:600;
-  padding:14px 32px;border-radius:999px;text-decoration:none;
-  color:rgba(255,255,255,.7);border:1.5px solid rgba(255,255,255,.2);
-  transition:all .25s;
+#cursor-ring{
+  position:fixed;z-index:9998;pointer-events:none;
+  width:40px;height:40px;border-radius:50%;
+  border:1px solid rgba(245,216,0,.4);
+  transform:translate(-50%,-50%);
+  transition:all .12s ease-out;
+  mix-blend-mode:difference;
 }
-.cta-secondary:hover{border-color:rgba(255,255,255,.55);color:var(--white);background:rgba(255,255,255,.06)}
+body.hovering #cursor{width:48px;height:48px;background:var(--purple-light);opacity:.6}
+body.hovering #cursor-ring{opacity:0}
 
-/* Elementos flotantes decorativos — stickers de diseño */
-.float-el{position:absolute;z-index:4;pointer-events:none;animation:floatEl ease-in-out infinite}
-@keyframes floatEl{0%,100%{transform:translateY(0) rotate(var(--rot0))}50%{transform:translateY(var(--ty)) rotate(var(--rot1))}}
-
-.fe-frame{/* Marco de cámara vintage */
-  width:90px;height:72px;top:14%;left:8%;
-  --rot0:-8deg;--rot1:-12deg;--ty:-16px;animation-duration:7s;
+/* ═══════════════════════════════════════
+   NAV
+═══════════════════════════════════════ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:28px 60px;
+  transition:background .4s,padding .4s;
 }
-.fe-frame svg{width:100%;height:100%}
-
-.fe-star{/* Estrella de 6 puntas */
-  width:60px;height:60px;top:20%;right:10%;
-  --rot0:20deg;--rot1:28deg;--ty:-20px;animation-duration:6s;animation-delay:-2s;
-}
-.fe-star svg{width:100%;height:100%}
-
-.fe-lens{/* Lente de cámara */
-  width:80px;height:80px;bottom:22%;left:7%;
-  --rot0:5deg;--rot1:10deg;--ty:-14px;animation-duration:8s;animation-delay:-4s;
-}
-.fe-lens svg{width:100%;height:100%}
-
-.fe-pen{/* Pluma */
-  width:52px;height:52px;bottom:18%;right:9%;
-  --rot0:-15deg;--rot1:-20deg;--ty:-18px;animation-duration:5.5s;animation-delay:-1s;
-}
-.fe-pen svg{width:100%;height:100%}
-
-.fe-play{/* Botón play */
-  width:64px;height:64px;top:55%;left:4%;
-  --rot0:0deg;--rot1:5deg;--ty:-12px;animation-duration:9s;animation-delay:-6s;
-}
-.fe-play svg{width:100%;height:100%}
-
-.fe-diamond{/* Diamante */
-  width:48px;height:48px;top:55%;right:5%;
-  --rot0:15deg;--rot1:20deg;--ty:-16px;animation-duration:6.5s;animation-delay:-3s;
-}
-.fe-diamond svg{width:100%;height:100%}
-
-/* Líneas de scan horizontales — efecto cine */
-.scanlines{position:absolute;inset:0;z-index:3;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px)}
-
-/* Scroll indicator abajo */
-.scroll-ind{
-  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
-  z-index:6;display:flex;flex-direction:column;align-items:center;gap:8px;
-  animation:fadeU 1s 1.5s both;
-}
-.scroll-ind span{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.3)}
-.scroll-line{width:1px;height:52px;background:linear-gradient(180deg,rgba(255,61,154,.6),transparent);animation:scrollPls 2s ease-in-out infinite}
-@keyframes scrollPls{0%,100%{opacity:.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.1)}}
-
-@keyframes fadeU{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-
-/* ══════════════════════════════════════════════════
-   DOBLE BANDA
-══════════════════════════════════════════════════ */
-.bands{position:relative;height:118px;overflow:visible;z-index:2}
-.band{position:absolute;left:-8%;width:116%;padding:12px 0;overflow:hidden;white-space:nowrap}
-.b1{background:linear-gradient(90deg,var(--pink),#ff79c0,var(--pink2),var(--pink));transform:rotate(-1.8deg);top:10px}
-.b2{background:linear-gradient(90deg,var(--purple),var(--blue),var(--lavender),var(--purple));transform:rotate(1.8deg);bottom:10px}
-.bt{display:inline-flex;gap:28px;animation:mq 38s linear infinite}
-.b2 .bt{animation-direction:reverse;animation-duration:46s}
-.bt span{font-family:'Fredoka',sans-serif;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.92);flex-shrink:0}
-.bt .dot{font-size:7px;opacity:.55}
-@keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-
-/* ══════════════════════════════════════════════════
-   SOBRE MÍ — sección limpia, experiencia colapsada
-══════════════════════════════════════════════════ */
-.about{
-  background:var(--cream);padding:100px 56px;
-  position:relative;overflow:hidden;
-}
-@media(max-width:640px){.about{padding:72px 20px}}
-.about::before{content:'NEREA';position:absolute;font-family:'Fredoka',sans-serif;font-size:280px;font-weight:700;color:rgba(255,61,154,.04);top:50%;left:-40px;transform:translateY(-50%);pointer-events:none;white-space:nowrap;line-height:1}
-
-.about-inner{max-width:1100px;margin:0 auto;display:grid;gap:60px;position:relative;z-index:1}
-@media(min-width:820px){.about-inner{grid-template-columns:340px 1fr;align-items:start}}
-
-/* Columna foto */
-.about-photo-col{position:relative}
-.photo-container{
-  position:relative;border-radius:40% 60% 55% 45% / 50% 40% 60% 50%;
-  overflow:hidden;aspect-ratio:3/4;
-  background:linear-gradient(135deg,var(--pink3),#e0d4ff);
-  animation:morphShape 12s ease-in-out infinite;
-  max-width:320px;
-}
-@keyframes morphShape{
-  0%,100%{border-radius:40% 60% 55% 45% / 50% 40% 60% 50%}
-  33%{border-radius:60% 40% 45% 55% / 40% 60% 40% 60%}
-  66%{border-radius:50% 50% 60% 40% / 60% 40% 50% 50%}
-}
-.photo-container img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
-/* Arco de color alrededor */
-.photo-arc{
-  position:absolute;inset:-16px;
-  border-radius:40% 60% 55% 45% / 50% 40% 60% 50%;
-  background:linear-gradient(135deg,var(--pink),var(--purple),var(--sky),var(--mint));
-  background-size:300% 300%;
-  animation:morphShape 12s ease-in-out infinite,gradArc 5s linear infinite;
-  z-index:-1;
-}
-@keyframes gradArc{0%{background-position:0% 50%}100%{background-position:200% 50%}}
-
-.photo-caption{margin-top:20px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(13,10,26,.4)}
-
-/* Stats debajo de la foto */
-.about-stats{display:flex;gap:28px;margin-top:24px}
-.as-num{font-family:'Fredoka',sans-serif;font-size:38px;font-weight:700;line-height:1;background:linear-gradient(90deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.as-lbl{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(13,10,26,.4)}
-
-/* Columna info */
-.about-info-col{display:flex;flex-direction:column;gap:28px}
-.about-ey{font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--pink)}
-.about-hl{font-family:'Fredoka',sans-serif;font-size:clamp(32px,3.5vw,52px);font-weight:700;line-height:1.05;color:var(--ink)}
-.about-hl .pk{color:var(--pink)}
-.about-txt{font-size:15px;line-height:1.85;color:rgba(13,10,26,.65);max-width:500px}
-.about-txt strong{color:var(--ink);font-weight:700}
-
-/* Chips herramientas */
-.chips-row{display:flex;flex-wrap:wrap;gap:7px}
-.chip{font-size:11px;font-weight:700;padding:6px 15px;border-radius:999px;background:rgba(13,10,26,.06);color:rgba(13,10,26,.7);border:1.5px solid rgba(13,10,26,.1);transition:all .22s cubic-bezier(.34,1.56,.64,1);cursor:default}
-.chip:hover{transform:translateY(-3px) rotate(-2deg);background:var(--pink3);color:var(--pink);border-color:rgba(255,61,154,.3)}
-.chip.b:hover{background:#e8f0ff;color:var(--blue)}
-.chip.p:hover{background:#f0e8ff;color:var(--purple)}
-
-/* ── ACCORDION INFO — escondida, con estética creativa ── */
-.info-accordion{display:flex;flex-direction:column;gap:0;margin-top:4px}
-.info-item{border-top:1px solid rgba(13,10,26,.1)}
-.info-item:last-child{border-bottom:1px solid rgba(13,10,26,.1)}
-
-.info-trigger{
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-  padding:16px 0;cursor:none;user-select:none;
-  transition:all .22s;
-}
-.info-trigger:hover .it-label{color:var(--pink)}
-.it-label{font-family:'Fredoka',sans-serif;font-size:18px;font-weight:600;color:var(--ink);transition:color .22s}
-.it-right{display:flex;align-items:center;gap:10px}
-.it-tag{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:999px}
-.it-tag.exp{background:rgba(255,61,154,.1);color:var(--pink)}
-.it-tag.edu{background:rgba(124,58,237,.1);color:var(--purple)}
-.it-tag.cert{background:rgba(37,99,255,.1);color:var(--blue)}
-.it-tag.int{background:rgba(16,245,160,.12);color:#059669}
-.it-arrow{width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(13,10,26,.15);display:flex;align-items:center;justify-content:center;transition:all .3s cubic-bezier(.34,1.56,.64,1);font-size:12px;color:var(--ink)}
-.info-trigger.open .it-arrow{transform:rotate(45deg);background:var(--pink);border-color:var(--pink);color:#fff}
-
-.info-body{overflow:hidden;max-height:0;transition:max-height .5s cubic-bezier(.16,1,.3,1)}
-.info-body.open{max-height:800px}
-.info-body-inner{padding:0 0 20px}
-
-/* EXPERIENCIA — timeline visual */
-.tl{display:flex;flex-direction:column;gap:16px}
-.tl-row{display:flex;gap:14px;align-items:flex-start}
-.tl-left{display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0}
-.tl-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:4px}
-.tl-row:nth-child(1) .tl-dot{background:var(--pink);box-shadow:0 0 8px rgba(255,61,154,.5)}
-.tl-row:nth-child(2) .tl-dot{background:var(--blue);box-shadow:0 0 8px rgba(37,99,255,.4)}
-.tl-row:nth-child(3) .tl-dot{background:var(--purple);box-shadow:0 0 8px rgba(124,58,237,.4)}
-.tl-dash{width:1px;flex:1;min-height:20px;background:rgba(13,10,26,.1);margin-top:4px}
-.tl-content{flex:1}
-.tl-date-pill{display:inline-block;font-size:9px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:2px 10px;border-radius:999px;background:rgba(13,10,26,.06);color:rgba(13,10,26,.5);margin-bottom:5px}
-.tl-co{font-size:15px;font-weight:800;color:var(--ink);margin-bottom:2px}
-.tl-role{font-size:11px;font-weight:700;font-style:italic;margin-bottom:8px}
-.tl-row:nth-child(1) .tl-role{color:var(--pink)}
-.tl-row:nth-child(2) .tl-role{color:var(--blue)}
-.tl-row:nth-child(3) .tl-role{color:var(--purple)}
-.tl-tasks{display:flex;flex-direction:column;gap:4px}
-.tl-task{display:flex;align-items:flex-start;gap:6px;font-size:11px;color:rgba(13,10,26,.6);line-height:1.5}
-.tl-task::before{content:'';width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:6px}
-.tl-row:nth-child(1) .tl-task::before{background:var(--pink)}.tl-row:nth-child(2) .tl-task::before{background:var(--blue)}.tl-row:nth-child(3) .tl-task::before{background:var(--purple)}
-
-/* FORMACIÓN — cards simples */
-.edu-list{display:flex;flex-direction:column;gap:10px}
-.edu-row{display:flex;align-items:flex-start;gap:14px;padding:12px 16px;background:rgba(13,10,26,.04);border-radius:14px;transition:background .2s}
-.edu-row:hover{background:rgba(255,61,154,.06)}
-.edu-year{font-family:'Fredoka',sans-serif;font-size:24px;font-weight:700;background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;min-width:52px;line-height:1.1;flex-shrink:0}
-.edu-t{font-size:12px;font-weight:700;color:var(--ink);line-height:1.35;margin-bottom:2px}
-.edu-p{font-size:11px;color:rgba(13,10,26,.45)}
-
-/* CERTIFICADOS */
-.cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-@media(max-width:440px){.cert-grid{grid-template-columns:1fr}}
-.cert-card{padding:12px 14px;border-radius:14px;background:rgba(13,10,26,.04);transition:background .2s,transform .25s}
-.cert-card:hover{background:rgba(37,99,255,.06);transform:translateY(-2px)}
-.cert-year{font-family:'Fredoka',sans-serif;font-size:18px;font-weight:700;background:linear-gradient(90deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:3px}
-.cert-name{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:1px}
-.cert-place{font-size:10px;color:rgba(13,10,26,.45)}
-
-/* INTERESES — nube */
-.int-wrap{display:flex;flex-wrap:wrap;gap:8px}
-.int-tag{font-size:11px;font-weight:700;padding:7px 16px;border-radius:999px;transition:all .28s cubic-bezier(.34,1.56,.64,1);cursor:default}
-.int-tag.a{background:rgba(37,99,255,.08);color:var(--blue);border:1px solid rgba(37,99,255,.18)}
-.int-tag.b{background:rgba(255,61,154,.08);color:var(--pink);border:1px solid rgba(255,61,154,.18)}
-.int-tag.p{background:rgba(124,58,237,.08);color:var(--purple);border:1px solid rgba(124,58,237,.18)}
-.int-tag:hover{transform:scale(1.1) rotate(-2deg)}
-
-/* ══════════════════════════════════════════════════
-   SERVICIOS
-══════════════════════════════════════════════════ */
-.servicios{
-  padding:100px 56px;
-  background:linear-gradient(160deg,#0d0a1a 0%,#160830 40%,#0a1428 70%,#0d0a1a 100%);
-  position:relative;overflow:hidden;
-}
-@media(max-width:640px){.servicios{padding:72px 20px}}
-
-/* Aurora de fondo */
-.svc-aurora{position:absolute;inset:0;pointer-events:none}
-.svc-aurora::before{content:'';position:absolute;width:800px;height:600px;border-radius:50%;background:radial-gradient(ellipse,rgba(255,61,154,.12),transparent 60%);top:-200px;left:-200px;filter:blur(80px)}
-.svc-aurora::after{content:'';position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(ellipse,rgba(37,99,255,.1),transparent 60%);bottom:-150px;right:-150px;filter:blur(80px)}
-
-.sec-header{max-width:1100px;margin:0 auto 52px;position:relative;z-index:1}
-.sec-ey{font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--pink);margin-bottom:10px}
-.sec-t{font-family:'Fredoka',sans-serif;font-size:clamp(34px,5vw,64px);font-weight:700;line-height:.95;color:var(--white)}
-.sec-t .ac{background:linear-gradient(90deg,var(--pink),var(--sky));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-
-.svcs-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative;z-index:1}
-@media(max-width:860px){.svcs-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:520px){.svcs-grid{grid-template-columns:1fr}}
-
-.svc{
-  border-radius:24px;padding:34px 26px 28px;position:relative;overflow:hidden;
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.1);
-  backdrop-filter:blur(16px);
-  transition:transform .4s cubic-bezier(.34,1.56,.64,1),border-color .3s,background .3s;
-}
-.svc:hover{transform:translateY(-10px) rotate(-1deg);background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)}
-/* Cada tarjeta tiene un acento de color diferente */
-.svc:nth-child(1):hover{border-color:rgba(255,61,154,.5);box-shadow:0 20px 50px rgba(255,61,154,.12)}
-.svc:nth-child(2):hover{border-color:rgba(37,99,255,.5);box-shadow:0 20px 50px rgba(37,99,255,.12)}
-.svc:nth-child(3):hover{border-color:rgba(124,58,237,.5);box-shadow:0 20px 50px rgba(124,58,237,.12)}
-.svc:nth-child(4):hover{border-color:rgba(251,191,36,.5);box-shadow:0 20px 50px rgba(251,191,36,.1)}
-.svc:nth-child(5):hover{border-color:rgba(16,245,160,.4);box-shadow:0 20px 50px rgba(16,245,160,.08)}
-.svc:nth-child(6):hover{border-color:rgba(255,92,87,.4);box-shadow:0 20px 50px rgba(255,92,87,.1)}
-
-.svc-num{position:absolute;top:12px;right:16px;font-family:'Fredoka',sans-serif;font-size:60px;font-weight:700;line-height:1;color:rgba(255,255,255,.05)}
-.svc-ico{
-  width:52px;height:52px;border-radius:16px;
-  display:flex;align-items:center;justify-content:center;margin-bottom:18px;
-  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
-}
-.svc:nth-child(1) .svc-ico{background:linear-gradient(135deg,var(--pink),var(--magenta))}.svc:nth-child(2) .svc-ico{background:linear-gradient(135deg,var(--blue),var(--teal))}.svc:nth-child(3) .svc-ico{background:linear-gradient(135deg,var(--purple),var(--lavender))}.svc:nth-child(4) .svc-ico{background:linear-gradient(135deg,var(--gold),#f59e0b)}.svc:nth-child(5) .svc-ico{background:linear-gradient(135deg,var(--mint),var(--teal))}.svc:nth-child(6) .svc-ico{background:linear-gradient(135deg,var(--coral),var(--rose))}
-.svc:hover .svc-ico{transform:rotate(-8deg) scale(1.1)}
-.svc-ico img{width:24px;filter:brightness(0) invert(1)}
-.svc h3{font-family:'Fredoka',sans-serif;font-size:21px;font-weight:700;color:var(--white);margin-bottom:8px;transition:color .25s}
-.svc p{font-size:12px;color:rgba(255,255,255,.5);line-height:1.7}
-.svc-badge{display:inline-block;margin-top:10px;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:999px;background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff}
-
-/* ══════════════════════════════════════════════════
-   PROYECTOS
-══════════════════════════════════════════════════ */
-.proyectos{padding:100px 56px;background:var(--cream);position:relative;overflow:hidden}
-@media(max-width:640px){.proyectos{padding:72px 20px}}
-.proy-inner{max-width:1100px;margin:0 auto}
-.sec-header.dark .sec-t{color:var(--ink)}
-.sec-header.dark .sec-ey{color:var(--pink)}
-.sec-header.dark .sec-t .ac{color:var(--blue);-webkit-text-fill-color:unset}
-
-/* Bento grid */
-.bento{display:grid;gap:16px;grid-template-columns:repeat(12,1fr);grid-auto-rows:minmax(240px,auto)}
-@media(max-width:900px){.bento{grid-template-columns:repeat(2,1fr);grid-auto-rows:auto}}
-@media(max-width:520px){.bento{grid-template-columns:1fr}}
-.bc1{grid-column:span 7;grid-row:span 2}.bc2{grid-column:span 5}.bc3{grid-column:span 5}.bc4{grid-column:span 4}.bc5{grid-column:span 4}.bc6{grid-column:span 4}
-@media(max-width:900px){.bcard,.bcard-wip{grid-column:span 1!important;grid-row:span 1!important}}
-
-.bcard{border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:transform .4s cubic-bezier(.34,1.56,.64,1);position:relative}
-.bcard:hover{transform:translateY(-7px) rotate(.3deg)}
-.bi{width:100%;flex:1;min-height:200px;background-size:cover;background-position:center;background-color:#f0e8ff;position:relative;overflow:hidden}
-.bc1 .bi{min-height:280px}
-.bi-ov{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,transparent 20%,rgba(13,10,26,.8) 100%);display:flex;align-items:flex-end;padding:20px;opacity:0;transition:opacity .35s}
-.bcard:hover .bi-ov{opacity:1}
-.bi-lnk{font-family:'Fredoka',sans-serif;font-size:14px;font-weight:700;color:#fff;background:rgba(255,255,255,.18);backdrop-filter:blur(8px);padding:7px 20px;border-radius:999px;text-decoration:none;border:1.5px solid rgba(255,255,255,.45)}
-
-.bb{padding:14px 16px 18px}
-.bcard:nth-child(1) .bb{background:linear-gradient(135deg,#ffe0f0,#ffd0e8)}
-.bcard:nth-child(2) .bb{background:linear-gradient(135deg,#dde8ff,#cdd8ff)}
-.bcard:nth-child(3) .bb{background:linear-gradient(135deg,#f3e8ff,#e8d5ff)}
-.bcard:nth-child(4) .bb{background:linear-gradient(135deg,#e0fff6,#caffee)}
-.bcard:nth-child(5) .bb{background:linear-gradient(135deg,#fff3b0,#ffeda0)}
-.bcard:nth-child(6) .bb{background:linear-gradient(135deg,#ffe4ec,#ffd4e2)}
-.bcat{font-size:9px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:4px}
-.bc1 .bcat{color:var(--pink)}.bc2 .bcat{color:var(--blue)}.bc3 .bcat{color:var(--purple)}.bc4 .bcat{color:var(--mint);filter:brightness(.7)}.bc5 .bcat{color:#b8920a}.bc6 .bcat{color:var(--coral)}
-.btitle{font-family:'Fredoka',sans-serif;font-size:20px;font-weight:700;color:var(--ink);line-height:1.1;margin-bottom:3px}
-.bsub{font-size:11px;color:rgba(13,10,26,.5);font-style:italic;margin-bottom:10px}
-.bbtn{display:inline-flex;align-items:center;gap:5px;font-family:'Fredoka',sans-serif;font-size:13px;font-weight:700;text-decoration:none;padding:7px 18px;border-radius:999px;transition:transform .22s;border:2px solid}
-.bbtn:hover{transform:scale(1.05)}
-.bc1 .bbtn{color:var(--pink);border-color:rgba(255,61,154,.4);background:rgba(255,61,154,.1)}.bc2 .bbtn{color:var(--blue);border-color:rgba(37,99,255,.4);background:rgba(37,99,255,.1)}.bc3 .bbtn{color:var(--purple);border-color:rgba(124,58,237,.4);background:rgba(124,58,237,.1)}.bc4 .bbtn{color:var(--green,#059669);border-color:rgba(0,184,148,.4);background:rgba(0,184,148,.1)}.bc5 .bbtn{color:#b8920a;border-color:rgba(184,146,10,.4);background:rgba(184,146,10,.08)}.bc6 .bbtn{color:var(--coral);border-color:rgba(255,92,87,.4);background:rgba(255,92,87,.1)}
-
-/* WIP */
-.wip-bar{margin:30px 0 12px;display:flex;align-items:center;gap:12px;padding:11px 20px;border-radius:14px;background:rgba(251,146,60,.07)}
-.wdot{width:7px;height:7px;border-radius:50%;background:#fb923c;animation:bl 1.5s infinite}
-@keyframes bl{0%,100%{opacity:1}50%{opacity:.3}}
-.wlbl{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#fb923c}
-.wslbl{font-size:11px;color:var(--muted,.6);margin-left:auto;color:rgba(13,10,26,.5)}
-.wip-grid{display:grid;gap:14px;grid-template-columns:repeat(2,1fr)}
-@media(max-width:600px){.wip-grid{grid-template-columns:1fr}}
-.bcard-wip{border-radius:20px;overflow:hidden;display:flex;flex-direction:column;opacity:.56;transition:opacity .3s,transform .3s;position:relative;cursor:not-allowed}
-.bcard-wip:hover{opacity:.74;transform:translateY(-3px)}
-.wip-cover{position:absolute;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.25);backdrop-filter:blur(2px);pointer-events:none}
-.wip-txt{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#fb923c}
-.bcard-wip .bi{filter:grayscale(.6) brightness(.82);min-height:165px;flex:1}
-.bcard-wip .bb{background:linear-gradient(135deg,#fff8f0,#fff0e0);padding:12px 14px}
-
-/* ══════════════════════════════════════════════════
-   FOOTER — puro de diseñadora gráfica
-   Film strip, pantone, regla, todo pensado
-══════════════════════════════════════════════════ */
-.footer-section{
-  background:var(--ink);
-  position:relative;overflow:hidden;
-}
-
-/* Ola de entrada */
-.footer-wave{display:block;width:100%;line-height:0}
-.footer-wave svg{width:100%;height:auto;display:block}
-
-/* Contacto dentro del footer */
-.footer-contact{
-  padding:80px 56px 60px;
-  position:relative;z-index:1;
-}
-@media(max-width:640px){.footer-contact{padding:60px 20px 40px}}
-
-/* Nebulosa footer */
-.footer-neb{position:absolute;inset:0;pointer-events:none}
-.footer-neb::before{content:'';position:absolute;width:700px;height:500px;border-radius:50%;background:radial-gradient(ellipse,rgba(255,61,154,.12),transparent 60%);top:-100px;left:-100px;filter:blur(80px)}
-.footer-neb::after{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(ellipse,rgba(124,58,237,.1),transparent 60%);bottom:-100px;right:5%;filter:blur(80px)}
-
-.ct-grid{display:grid;gap:52px;max-width:1100px;margin:0 auto;align-items:center}
-@media(min-width:820px){.ct-grid{grid-template-columns:1fr 1fr}}
-.ct-ey{font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px}
-.ct-head{font-family:'Fredoka',sans-serif;font-size:clamp(40px,6vw,72px);font-weight:700;line-height:1;color:#fff;margin-bottom:14px}
-.ct-head .grd{background:linear-gradient(90deg,var(--pink2),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.ct-smile{color:var(--yellow)}
-.ct-sub{font-size:15px;color:rgba(255,255,255,.5);line-height:1.7;max-width:340px;margin-bottom:28px}
-.ct-cta{display:inline-flex;align-items:center;gap:8px;font-family:'Fredoka',sans-serif;font-size:17px;font-weight:700;padding:15px 42px;border-radius:999px;text-decoration:none;background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;box-shadow:0 8px 32px rgba(255,61,154,.3);transition:transform .25s}
-.ct-cta:hover{transform:scale(1.04) translateY(-2px)}
-.ct-items{display:flex;flex-direction:column;gap:10px}
-.ct-item{display:flex;align-items:center;gap:18px;padding:16px 20px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);transition:all .3s cubic-bezier(.34,1.56,.64,1)}
-.ct-item:hover{background:rgba(255,255,255,.1);transform:translateX(5px)}
-.ct-ico{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .28s cubic-bezier(.34,1.56,.64,1)}
-.ct-ico img{width:22px}
-.ct-item:nth-child(1) .ct-ico{background:rgba(255,61,154,.25)}.ct-item:nth-child(2) .ct-ico{background:rgba(255,255,255,.15)}.ct-item:nth-child(3) .ct-ico{background:rgba(16,245,160,.2)}
-.ct-item:hover .ct-ico{transform:rotate(-8deg) scale(1.08)}
-.ct-lbl{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:2px}
-.ct-val{font-size:15px;font-weight:600;color:#fff}
-
-/* ── TIRA DE PELÍCULA — film strip decorativo ── */
-.film-strip{
-  position:relative;width:100%;overflow:hidden;
-  border-top:1px solid rgba(255,255,255,.06);
+.nav.scrolled{
+  background:rgba(10,10,10,.92);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  padding:18px 60px;
   border-bottom:1px solid rgba(255,255,255,.06);
-  padding:0;margin:0;
-  display:flex;align-items:center;
-  height:56px;
 }
-.film-holes{
-  position:absolute;top:0;bottom:0;left:0;right:0;
-  display:flex;align-items:center;
-  background:linear-gradient(90deg,rgba(255,255,255,.04) 50%,transparent 50%);
-  background-size:48px 100%;
-  pointer-events:none;
+.nav-logo{
+  font-family:var(--font-display);
+  font-size:22px;font-weight:700;
+  letter-spacing:.05em;
+  color:var(--white);
+  text-decoration:none;
+  display:flex;align-items:center;gap:8px;
 }
-/* Perforaciones del film */
-.film-strip::before,.film-strip::after{
-  content:'';position:absolute;top:8px;bottom:8px;
-  width:100%;background:repeating-linear-gradient(90deg,transparent,transparent 28px,rgba(255,255,255,.08) 28px,rgba(255,255,255,.08) 36px,transparent 36px,transparent 48px);
+.nav-logo .logo-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--yellow);
+  box-shadow:0 0 10px var(--yellow);
+  animation:pulse 2.5s ease-in-out infinite;
 }
-.film-strip::before{top:4px;height:12px}
-.film-strip::after{bottom:4px;top:auto;height:12px}
-.film-text{
-  font-family:'Fredoka',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
-  color:rgba(255,255,255,.25);white-space:nowrap;
-  animation:mq 20s linear infinite;padding:0 20px;
-}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.7}}
 
-/* ── FOOTER BOTTOM ── */
-.footer-bottom{
-  padding:40px 56px 36px;position:relative;z-index:1;
-  max-width:none;
-}
-@media(max-width:640px){.footer-bottom{padding:32px 20px 28px}}
-.footer-bottom-inner{max-width:1100px;margin:0 auto}
-
-/* Nombre gigante — marca de agua creativa */
-.f-watermark{
-  font-family:'Fredoka',sans-serif;
-  font-size:clamp(44px,9vw,110px);
-  font-weight:700;line-height:1;
-  color:transparent;
-  -webkit-text-stroke:1.5px rgba(255,255,255,.12);
-  margin-bottom:32px;display:block;
-  letter-spacing:-2px;
-}
-
-/* Pantone chips — guiño al mundo del diseño */
-.pantone-row{display:flex;gap:0;margin-bottom:32px}
-.pantone-chip{
-  flex:1;height:44px;position:relative;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;
-  transition:transform .25s cubic-bezier(.34,1.56,.64,1);cursor:default;
-}
-.pantone-chip:first-child{border-radius:6px 0 0 6px}
-.pantone-chip:last-child{border-radius:0 6px 6px 0}
-.pantone-chip:hover{transform:translateY(-6px)}
-.pantone-chip span{font-size:8px;font-weight:700;letter-spacing:.5px;color:rgba(255,255,255,.6);white-space:nowrap}
-/* Colores de la paleta del portafolio */
-.pc1{background:#ff3d9a}.pc2{background:#9333ea}.pc3{background:#2563ff}.pc4{background:#0ea5e9}.pc5{background:#10f5a0;}.pc5 span{color:rgba(0,0,0,.5)}.pc6{background:#ffe135;}.pc6 span{color:rgba(0,0,0,.5)}.pc7{background:#ff5c57}.pc8{background:#e040fb}
-
-.f-bottom-row{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px}
-.f-left{display:flex;flex-direction:column;gap:7px}
-.f-avail{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--mint)}
-.f-avail::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 8px var(--mint);animation:bl 2s ease infinite}
-.f-desc{font-size:12px;color:rgba(255,255,255,.3)}
-.f-tools{display:flex;gap:6px;flex-wrap:wrap;align-items:flex-end}
-.f-tag{font-size:10px;font-weight:700;padding:4px 12px;border-radius:999px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.08)}
-
-/* Regla CSS decorativa */
-.f-ruler{
-  width:100%;height:20px;margin-top:28px;margin-bottom:8px;
-  background:repeating-linear-gradient(90deg,rgba(255,255,255,.2) 0px,rgba(255,255,255,.2) 1px,transparent 1px,transparent 9px,rgba(255,255,255,.1) 9px,rgba(255,255,255,.1) 10px,transparent 10px,transparent 19px,rgba(255,255,255,.15) 19px,rgba(255,255,255,.15) 20px,transparent 20px,transparent 39px,rgba(255,255,255,.2) 39px,rgba(255,255,255,.2) 40px,transparent 40px,transparent 49px);
-  border-top:1px solid rgba(255,255,255,.08);
+.nav-links{display:flex;gap:4px;list-style:none;align-items:center}
+.nav-links a{
+  font-family:var(--font-body);font-size:11px;font-weight:500;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,.45);
+  text-decoration:none;
+  padding:8px 16px;border-radius:2px;
+  transition:color .2s;
   position:relative;
 }
-.f-ruler::before{
-  content:'0    10   20   30   40   50   60   70   80   90   100';
-  position:absolute;top:-20px;left:0;font-size:8px;color:rgba(255,255,255,.15);letter-spacing:8px;font-family:monospace
+.nav-links a::after{
+  content:'';position:absolute;bottom:4px;left:50%;
+  width:0;height:1px;background:var(--yellow);
+  transition:width .3s,left .3s;
+}
+.nav-links a:hover{color:var(--white)}
+.nav-links a:hover::after{width:calc(100% - 32px);left:16px}
+.nav-cta{
+  font-family:var(--font-body);font-size:11px;font-weight:600;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--black)!important;
+  background:var(--yellow);
+  padding:10px 24px!important;
+  border-radius:2px;
+  transition:background .25s,transform .2s!important;
+}
+.nav-cta:hover{background:var(--yellow-warm);transform:translateY(-1px)}
+.nav-cta::after{display:none!important}
+@media(max-width:768px){.nav{padding:20px 24px}.nav.scrolled{padding:14px 24px}.nav-links{display:none}}
+
+/* ═══════════════════════════════════════
+   HERO — Editorial, elegante, impactante
+═══════════════════════════════════════ */
+.hero{
+  min-height:100svh;
+  position:relative;
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  justify-content:flex-end;
+  padding:0 60px 80px;
+  background:var(--black);
+}
+@media(max-width:768px){.hero{padding:0 24px 60px}}
+
+/* Fondo con grain + gradiente */
+.hero-bg{
+  position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 70% 60% at 75% 40%, rgba(74,27,140,.35) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 20% 70%, rgba(245,216,0,.05) 0%, transparent 50%),
+    var(--black);
+}
+.hero-grain{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  opacity:.4;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size:200px;
 }
 
-.f-copy{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.18)}
+/* Número grande decorativo */
+.hero-year{
+  position:absolute;top:28%;right:60px;z-index:2;
+  font-family:var(--font-display);
+  font-size:clamp(100px,14vw,200px);
+  font-weight:700;
+  line-height:1;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.06);
+  pointer-events:none;
+  user-select:none;
+  will-change:transform;
+}
 
-/* ══════════════════════════════════════════════════
-   REVEALS
-══════════════════════════════════════════════════ */
-.rv{opacity:0;transform:translateY(28px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
-.rvL{opacity:0;transform:translateX(-28px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
-.rvR{opacity:0;transform:translateX(28px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
-.rv.on,.rvL.on,.rvR.on{opacity:1;transform:none}
+/* Imagen de Nerea — lado derecho, parallax */
+.hero-img-wrap{
+  position:absolute;
+  right:0;top:0;bottom:0;
+  width:45%;
+  z-index:3;
+  overflow:hidden;
+  clip-path:polygon(12% 0, 100% 0, 100% 100%, 0% 100%);
+}
+.hero-img-wrap img{
+  width:100%;height:100%;object-fit:cover;object-position:center top;
+  will-change:transform;
+  transform:scale(1.1);
+  transition:transform .1s linear;
+}
+/* Overlay gradiente sobre la imagen */
+.hero-img-wrap::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg, var(--black) 0%, rgba(10,10,10,.2) 30%, transparent 60%),
+             linear-gradient(0deg, var(--black) 0%, transparent 30%);
+}
+@media(max-width:768px){
+  .hero-img-wrap{width:100%;clip-path:polygon(0 0,100% 0,100% 100%,0 100%);opacity:.2}
+}
+
+/* Contenido del hero */
+.hero-content{position:relative;z-index:5;max-width:700px}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:12px;
+  font-family:var(--font-body);font-size:10px;font-weight:500;
+  letter-spacing:.25em;text-transform:uppercase;
+  color:var(--grey-400);
+  margin-bottom:28px;
+  opacity:0;animation:fadeSlideUp .8s .3s forwards;
+}
+.hero-eyebrow-line{
+  width:32px;height:1px;background:var(--yellow);
+}
+.hero-title{
+  font-family:var(--font-display);
+  font-size:clamp(64px,10vw,140px);
+  font-weight:700;
+  line-height:.88;
+  letter-spacing:-.02em;
+  margin-bottom:32px;
+  opacity:0;animation:fadeSlideUp .9s .1s forwards;
+}
+.hero-title .line1{display:block;color:var(--white)}
+.hero-title .line2{
+  display:block;
+  font-style:italic;font-weight:300;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.6);
+}
+.hero-title .line3{
+  display:block;
+  background:linear-gradient(90deg,var(--yellow) 0%,var(--purple-light) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+
+.hero-desc{
+  font-family:var(--font-body);font-size:14px;font-weight:300;
+  line-height:1.9;color:rgba(255,255,255,.5);
+  max-width:420px;margin-bottom:44px;
+  opacity:0;animation:fadeSlideUp .8s .5s forwards;
+}
+.hero-actions{
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+  opacity:0;animation:fadeSlideUp .8s .65s forwards;
+}
+.btn-primary{
+  font-family:var(--font-body);font-size:11px;font-weight:600;
+  letter-spacing:.15em;text-transform:uppercase;
+  padding:16px 40px;
+  background:var(--yellow);color:var(--black);
+  text-decoration:none;
+  border-radius:2px;
+  transition:background .25s,transform .25s,box-shadow .25s;
+  position:relative;overflow:hidden;
+}
+.btn-primary::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);
+  transform:translateX(-100%);
+  transition:transform .5s;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(245,216,0,.25)}
+.btn-primary:hover::before{transform:translateX(100%)}
+.btn-ghost{
+  font-family:var(--font-body);font-size:11px;font-weight:500;
+  letter-spacing:.15em;text-transform:uppercase;
+  padding:15px 32px;
+  color:rgba(255,255,255,.6);
+  text-decoration:none;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:2px;
+  transition:color .25s,border-color .25s,background .25s;
+}
+.btn-ghost:hover{color:var(--white);border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.05)}
+
+/* Scrolling indicator */
+.hero-scroll{
+  position:absolute;bottom:40px;right:60px;z-index:5;
+  display:flex;align-items:center;gap:12px;
+  opacity:0;animation:fadeSlideUp .8s 1s forwards;
+}
+.scroll-text{font-family:var(--font-body);font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--grey-400)}
+.scroll-arrow{
+  width:36px;height:36px;border:1px solid rgba(255,255,255,.15);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:rgba(255,255,255,.4);
+  animation:bounce 2s ease-in-out infinite;
+}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+@media(max-width:768px){.hero-scroll{right:24px;bottom:28px}}
+
+/* Marquee hero bottom */
+.hero-marquee{
+  position:absolute;bottom:0;left:0;right:0;z-index:5;
+  overflow:hidden;
+  border-top:1px solid rgba(255,255,255,.06);
+  padding:14px 0;
+}
+.marquee-track{
+  display:flex;white-space:nowrap;
+  animation:marqueeScroll 30s linear infinite;
+}
+.marquee-item{
+  flex-shrink:0;
+  font-family:var(--font-display);font-size:13px;font-style:italic;font-weight:300;
+  letter-spacing:.05em;
+  color:rgba(255,255,255,.2);
+  padding:0 32px;
+}
+.marquee-sep{color:var(--yellow);opacity:.5;padding:0 4px}
+@keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══════════════════════════════════════
+   SOBRE MÍ — sección blanca editorial
+═══════════════════════════════════════ */
+.about{
+  background:var(--off-white);
+  padding:120px 60px;
+  position:relative;overflow:hidden;
+}
+@media(max-width:768px){.about{padding:80px 24px}}
+
+.about-inner{
+  max-width:1100px;margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;
+  align-items:start;
+}
+@media(max-width:900px){.about-inner{grid-template-columns:1fr;gap:48px}}
+
+/* Columna izquierda — foto con marco editorial */
+.about-photo-col{position:relative}
+.photo-frame{
+  position:relative;
+  aspect-ratio:3/4;
+  max-width:380px;
+  overflow:hidden;
+}
+.photo-frame img{
+  width:100%;height:100%;object-fit:cover;object-position:center top;
+  display:block;
+  will-change:transform;
+}
+/* Borde editorial amarillo */
+.photo-frame::before{
+  content:'';
+  position:absolute;
+  top:-8px;left:-8px;
+  right:24px;bottom:24px;
+  border:1px solid var(--yellow);
+  z-index:2;pointer-events:none;
+}
+/* Fondo decorativo */
+.photo-frame::after{
+  content:'';
+  position:absolute;
+  bottom:-8px;right:-8px;
+  top:24px;left:24px;
+  background:var(--purple-pale);
+  z-index:-1;
+}
+/* Etiqueta vertical */
+.photo-label{
+  position:absolute;
+  right:-40px;top:50%;
+  transform:translateY(-50%) rotate(90deg);
+  font-family:var(--font-body);font-size:9px;font-weight:500;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--grey-300);
+  white-space:nowrap;
+}
+@media(max-width:900px){.photo-label{display:none}}
+
+.about-stats{
+  display:flex;gap:32px;margin-top:32px;
+}
+.stat-num{
+  font-family:var(--font-display);font-size:48px;font-weight:700;
+  line-height:1;color:var(--black);
+}
+.stat-num span{color:var(--purple-mid);font-style:italic}
+.stat-lbl{
+  font-family:var(--font-body);font-size:10px;font-weight:500;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--grey-300);
+  margin-top:4px;
+}
+
+/* Columna derecha */
+.about-info-col{}
+.section-eyebrow{
+  display:inline-flex;align-items:center;gap:14px;
+  font-family:var(--font-body);font-size:10px;font-weight:500;
+  letter-spacing:.25em;text-transform:uppercase;
+  color:var(--grey-300);margin-bottom:20px;
+}
+.eyebrow-dash{width:28px;height:1px;background:var(--purple-mid)}
+
+.about-title{
+  font-family:var(--font-display);
+  font-size:clamp(38px,4.5vw,58px);
+  font-weight:600;line-height:1.05;
+  letter-spacing:-.01em;
+  color:var(--black);
+  margin-bottom:24px;
+}
+.about-title em{font-style:italic;font-weight:300;color:var(--purple-mid)}
+
+.about-text{
+  font-family:var(--font-body);font-size:14px;font-weight:300;
+  line-height:1.9;color:rgba(0,0,0,.6);
+  margin-bottom:32px;
+}
+.about-text strong{font-weight:600;color:var(--black)}
+
+/* Skills chips — negro sobre blanco */
+.chips-wrap{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.chip{
+  font-family:var(--font-body);font-size:10px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:7px 16px;
+  border-radius:2px;
+  background:transparent;
+  color:var(--grey-300);
+  border:1px solid rgba(0,0,0,.15);
+  transition:all .25s cubic-bezier(.34,1.56,.64,1);cursor:default;
+}
+.chip:hover{
+  background:var(--black);color:var(--yellow);
+  border-color:var(--black);
+  transform:translateY(-2px);
+}
+
+/* Accordion */
+.accordion{margin-top:8px;border-top:1px solid rgba(0,0,0,.1)}
+.acc-item{border-bottom:1px solid rgba(0,0,0,.1)}
+.acc-trigger{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 0;cursor:none;
+  transition:color .2s;
+}
+.acc-trigger:hover .acc-title{color:var(--purple-mid)}
+.acc-title{
+  font-family:var(--font-display);font-size:20px;font-weight:600;
+  color:var(--black);transition:color .2s;
+}
+.acc-meta{display:flex;align-items:center;gap:10px}
+.acc-badge{
+  font-family:var(--font-body);font-size:9px;font-weight:600;
+  letter-spacing:.15em;text-transform:uppercase;
+  padding:4px 12px;border-radius:2px;
+  background:var(--purple-pale);color:var(--purple-mid);
+}
+.acc-icon{
+  width:28px;height:28px;border-radius:50%;
+  border:1px solid rgba(0,0,0,.15);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--black);
+  transition:all .3s cubic-bezier(.34,1.56,.64,1);
+}
+.acc-trigger.open .acc-icon{transform:rotate(45deg);background:var(--yellow);border-color:var(--yellow)}
+.acc-body{overflow:hidden;max-height:0;transition:max-height .5s cubic-bezier(.16,1,.3,1)}
+.acc-body.open{max-height:900px}
+.acc-body-inner{padding:4px 0 24px}
+
+/* Timeline */
+.tl{display:flex;flex-direction:column;gap:20px}
+.tl-item{display:grid;grid-template-columns:80px 1fr;gap:16px}
+.tl-date{
+  font-family:var(--font-display);font-size:13px;font-style:italic;
+  color:var(--grey-300);padding-top:3px;line-height:1.4;
+  border-right:1px solid rgba(0,0,0,.1);
+  padding-right:16px;
+}
+.tl-co{font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--black);margin-bottom:2px}
+.tl-role{font-family:var(--font-body);font-size:11px;font-weight:400;font-style:italic;color:var(--purple-mid);margin-bottom:8px}
+.tl-desc{font-family:var(--font-body);font-size:11px;font-weight:300;color:var(--grey-300);line-height:1.7}
+
+/* Edu rows */
+.edu-list{display:flex;flex-direction:column;gap:14px}
+.edu-item{
+  display:flex;gap:16px;align-items:flex-start;
+  padding:14px 16px;background:rgba(0,0,0,.03);border-radius:2px;
+  border-left:2px solid var(--purple-pale);
+  transition:border-color .25s;
+}
+.edu-item:hover{border-color:var(--purple-mid)}
+.edu-year{
+  font-family:var(--font-display);font-size:26px;font-weight:700;
+  color:var(--purple-mid);min-width:50px;line-height:1;
+}
+.edu-t{font-family:var(--font-body);font-size:12px;font-weight:600;color:var(--black);margin-bottom:2px}
+.edu-p{font-family:var(--font-body);font-size:11px;font-weight:300;color:var(--grey-300)}
+
+/* Cert grid */
+.cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cert-card{
+  padding:14px;background:rgba(0,0,0,.03);border-radius:2px;
+  transition:background .25s,transform .25s;
+}
+.cert-card:hover{background:var(--purple-pale);transform:translateY(-2px)}
+.cert-year{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--purple-mid);margin-bottom:4px}
+.cert-name{font-family:var(--font-body);font-size:11px;font-weight:600;color:var(--black);margin-bottom:2px}
+.cert-place{font-family:var(--font-body);font-size:10px;font-weight:300;color:var(--grey-300)}
+
+/* Int tags */
+.int-tags{display:flex;flex-wrap:wrap;gap:7px}
+.int-tag{
+  font-family:var(--font-body);font-size:10px;font-weight:500;
+  letter-spacing:.05em;
+  padding:6px 14px;border-radius:2px;
+  transition:all .25s cubic-bezier(.34,1.56,.64,1);cursor:default;
+}
+.int-tag.v{background:rgba(74,27,140,.08);color:var(--purple-mid);border:1px solid rgba(74,27,140,.15)}
+.int-tag.y{background:rgba(245,216,0,.12);color:#7a6a00;border:1px solid rgba(245,216,0,.3)}
+.int-tag.n{background:rgba(0,0,0,.05);color:var(--grey-300);border:1px solid rgba(0,0,0,.1)}
+.int-tag:hover{transform:scale(1.06) rotate(-1deg)}
+
+/* ═══════════════════════════════════════
+   SERVICIOS — negro, arquitectónico
+═══════════════════════════════════════ */
+.services{
+  background:var(--black);
+  padding:120px 60px;
+  position:relative;overflow:hidden;
+}
+@media(max-width:768px){.services{padding:80px 24px}}
+
+/* Decoración de fondo */
+.services::before{
+  content:'SERVICIOS';
+  position:absolute;
+  font-family:var(--font-display);font-size:clamp(100px,15vw,220px);
+  font-weight:700;
+  color:rgba(255,255,255,.015);
+  top:50%;right:-20px;transform:translateY(-50%);
+  pointer-events:none;white-space:nowrap;
+  letter-spacing:-.04em;
+}
+
+.services-header{max-width:1100px;margin:0 auto 64px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.section-title{
+  font-family:var(--font-display);
+  font-size:clamp(44px,6vw,80px);
+  font-weight:700;line-height:.92;
+  letter-spacing:-.02em;
+  color:var(--white);
+}
+.section-title em{font-style:italic;font-weight:300;color:rgba(255,255,255,.35)}
+.section-title .ac{color:var(--yellow)}
+
+.services-intro{
+  font-family:var(--font-body);font-size:13px;font-weight:300;
+  line-height:1.8;color:rgba(255,255,255,.35);
+  max-width:300px;
+}
+
+/* Grid servicios — layout asimétrico */
+.services-grid{
+  max-width:1100px;margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.08);
+}
+@media(max-width:860px){.services-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.services-grid{grid-template-columns:1fr}}
+
+.svc-card{
+  background:var(--black);
+  padding:40px 32px;
+  position:relative;overflow:hidden;
+  transition:background .35s;
+  cursor:default;
+}
+.svc-card:hover{background:var(--off-black)}
+.svc-card::before{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--yellow),var(--purple-mid));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .4s cubic-bezier(.16,1,.3,1);
+}
+.svc-card:hover::before{transform:scaleX(1)}
+
+.svc-num{
+  font-family:var(--font-display);font-size:13px;font-style:italic;
+  color:rgba(255,255,255,.2);
+  margin-bottom:24px;display:block;
+}
+.svc-icon{
+  width:44px;height:44px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:24px;font-size:20px;
+  transition:all .3s;
+}
+.svc-card:hover .svc-icon{background:var(--yellow);border-color:var(--yellow);color:var(--black)}
+.svc-name{
+  font-family:var(--font-display);font-size:26px;font-weight:600;
+  line-height:1.1;color:var(--white);margin-bottom:12px;
+  transition:color .25s;
+}
+.svc-desc{
+  font-family:var(--font-body);font-size:12px;font-weight:300;
+  line-height:1.8;color:rgba(255,255,255,.4);
+}
+.svc-badge{
+  display:inline-block;margin-top:16px;
+  font-family:var(--font-body);font-size:9px;font-weight:600;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--yellow);
+  border:1px solid rgba(245,216,0,.3);
+  padding:4px 12px;border-radius:2px;
+}
+
+/* ═══════════════════════════════════════
+   PROYECTOS — blanco, bento elegante
+═══════════════════════════════════════ */
+.projects{
+  background:var(--off-white);
+  padding:120px 60px;
+  position:relative;
+}
+@media(max-width:768px){.projects{padding:80px 24px}}
+.projects-inner{max-width:1100px;margin:0 auto}
+
+.projects-header{margin-bottom:64px}
+.projects-header .section-title{color:var(--black)}
+.projects-header .section-title em{color:rgba(0,0,0,.25)}
+.projects-header .section-title .ac{color:var(--purple-mid)}
+
+/* Bento grid */
+.bento{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  grid-auto-rows:280px;
+  gap:12px;
+}
+@media(max-width:1000px){.bento{grid-template-columns:repeat(2,1fr);grid-auto-rows:auto}}
+@media(max-width:540px){.bento{grid-template-columns:1fr}}
+
+.bcard{
+  position:relative;overflow:hidden;
+  background:var(--white);
+  transition:transform .45s cubic-bezier(.34,1.56,.64,1);
+  cursor:none;
+}
+.bc1{grid-column:span 7;grid-row:span 2}
+.bc2{grid-column:span 5}
+.bc3{grid-column:span 5}
+.bc4{grid-column:span 4}
+.bc5{grid-column:span 4}
+.bc6{grid-column:span 4}
+@media(max-width:1000px){.bcard,.bcard[class*="bc"]{grid-column:span 1!important;grid-row:span 1!important}}
+
+.bcard:hover{transform:scale(.99)}
+.bcard-img{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  transition:transform .5s cubic-bezier(.25,1,.5,1);
+}
+.bcard:hover .bcard-img{transform:scale(1.05)}
+.bcard-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(10,10,10,.85) 0%,rgba(10,10,10,.3) 50%,transparent 100%);
+  opacity:0;transition:opacity .35s;
+}
+.bcard:hover .bcard-overlay{opacity:1}
+.bcard-info{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:24px 20px;
+  transform:translateY(12px);opacity:0;
+  transition:all .35s cubic-bezier(.16,1,.3,1);
+}
+.bcard:hover .bcard-info{transform:translateY(0);opacity:1}
+.bcard-cat{
+  font-family:var(--font-body);font-size:9px;font-weight:600;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--yellow);margin-bottom:6px;
+}
+.bcard-title{
+  font-family:var(--font-display);font-size:22px;font-weight:600;
+  color:var(--white);margin-bottom:12px;line-height:1.15;
+}
+.bcard-link{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-body);font-size:10px;font-weight:600;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--white);text-decoration:none;
+  padding:8px 18px;
+  border:1px solid rgba(255,255,255,.3);
+  border-radius:2px;
+  transition:all .25s;
+}
+.bcard-link:hover{background:var(--yellow);color:var(--black);border-color:var(--yellow)}
+
+/* Label visible siempre en cards más pequeñas */
+.bcard-tag{
+  position:absolute;top:14px;left:14px;
+  font-family:var(--font-body);font-size:9px;font-weight:600;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--white);
+  background:rgba(10,10,10,.6);backdrop-filter:blur(8px);
+  padding:5px 12px;border-radius:2px;
+  transition:opacity .3s;
+}
+.bcard:hover .bcard-tag{opacity:0}
+
+/* WIP section */
+.wip-section{margin-top:40px}
+.wip-label{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--font-body);font-size:10px;font-weight:600;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--grey-300);
+  margin-bottom:20px;
+}
+.wip-dot{width:7px;height:7px;border-radius:50%;background:#fb923c;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.wip-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(max-width:540px){.wip-grid{grid-template-columns:1fr}}
+.wip-card{
+  border:1px solid rgba(0,0,0,.1);
+  border-radius:2px;overflow:hidden;
+  opacity:.6;transition:opacity .3s;
+  cursor:not-allowed;
+}
+.wip-card:hover{opacity:.8}
+.wip-img{height:160px;background-size:cover;background-position:center;filter:grayscale(.5) brightness(.85)}
+.wip-info{padding:14px 16px;background:var(--white)}
+.wip-wip{font-family:var(--font-body);font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#fb923c;margin-bottom:4px}
+.wip-title{font-family:var(--font-display);font-size:18px;font-weight:600;color:var(--black)}
+.wip-sub{font-family:var(--font-body);font-size:11px;font-weight:300;color:var(--grey-300);margin-top:2px}
+
+/* ═══════════════════════════════════════
+   CONTACTO / FOOTER
+═══════════════════════════════════════ */
+.contact{
+  background:var(--black);
+  padding:120px 60px 0;
+  position:relative;overflow:hidden;
+}
+@media(max-width:768px){.contact{padding:80px 24px 0}}
+.contact::before{
+  content:'';position:absolute;
+  width:800px;height:800px;
+  border-radius:50%;
+  background:radial-gradient(ellipse,rgba(74,27,140,.2) 0%,transparent 65%);
+  top:-200px;right:-200px;filter:blur(80px);
+  pointer-events:none;
+}
+
+.contact-inner{max-width:1100px;margin:0 auto}
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;align-items:start;
+  padding-bottom:100px;
+}
+@media(max-width:900px){.contact-grid{grid-template-columns:1fr;gap:48px;padding-bottom:60px}}
+
+.contact-left{}
+.contact-ey{
+  font-family:var(--font-body);font-size:10px;font-weight:500;
+  letter-spacing:.25em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);margin-bottom:20px;
+  display:flex;align-items:center;gap:12px;
+}
+.contact-ey::before{content:'';width:28px;height:1px;background:var(--yellow)}
+.contact-title{
+  font-family:var(--font-display);
+  font-size:clamp(52px,7vw,96px);
+  font-weight:700;line-height:.88;
+  letter-spacing:-.02em;
+  color:var(--white);margin-bottom:20px;
+}
+.contact-title em{font-style:italic;font-weight:300;color:var(--yellow)}
+.contact-sub{
+  font-family:var(--font-body);font-size:14px;font-weight:300;
+  line-height:1.8;color:rgba(255,255,255,.4);
+  max-width:360px;margin-bottom:36px;
+}
+.contact-email-btn{
+  display:inline-flex;align-items:center;gap:12px;
+  font-family:var(--font-display);font-size:18px;font-weight:600;
+  color:var(--white);text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,.2);
+  padding-bottom:8px;
+  transition:color .25s,border-color .25s;
+}
+.contact-email-btn:hover{color:var(--yellow);border-color:var(--yellow)}
+.contact-email-btn .arrow{
+  font-size:22px;
+  transition:transform .25s;
+}
+.contact-email-btn:hover .arrow{transform:translate(4px,-4px)}
+
+.contact-right{padding-top:20px}
+.contact-items{display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(255,255,255,.08)}
+.contact-item{
+  display:flex;align-items:center;gap:20px;
+  padding:22px 0;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  transition:all .3s;
+}
+.contact-item:hover{padding-left:8px}
+.contact-item-icon{
+  width:40px;height:40px;border-radius:2px;
+  border:1px solid rgba(255,255,255,.1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;
+  transition:all .3s;
+}
+.contact-item:hover .contact-item-icon{background:var(--yellow);border-color:var(--yellow)}
+.contact-item-lbl{font-family:var(--font-body);font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px}
+.contact-item-val{font-family:var(--font-body);font-size:14px;font-weight:400;color:rgba(255,255,255,.8)}
+.avail-dot{display:inline-flex;align-items:center;gap:8px}
+.avail-dot::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--yellow);box-shadow:0 0 8px var(--yellow);animation:pulse 2s infinite}
+
+/* ── Film strip decorativo ── */
+.film-strip{
+  border-top:1px solid rgba(255,255,255,.06);
+  padding:16px 0;overflow:hidden;
+  position:relative;
+}
+.film-inner{
+  display:flex;white-space:nowrap;
+  animation:marqueeScroll 25s linear infinite;
+  font-family:var(--font-display);font-size:12px;
+  font-style:italic;letter-spacing:.05em;
+  color:rgba(255,255,255,.15);
+}
+.film-item{flex-shrink:0;padding:0 28px}
+.film-dot{color:var(--yellow);opacity:.3;padding:0}
+
+/* Footer bottom */
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.06);
+  padding:32px 60px;
+}
+@media(max-width:768px){.footer-bottom{padding:24px}}
+.footer-bottom-inner{
+  max-width:1100px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+}
+.footer-logo{
+  font-family:var(--font-display);font-size:20px;font-weight:700;
+  color:rgba(255,255,255,.3);letter-spacing:.03em;
+}
+.footer-copy{
+  font-family:var(--font-body);font-size:10px;font-weight:400;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.2);
+}
+.footer-tools{display:flex;gap:8px;flex-wrap:wrap}
+.f-tag{
+  font-family:var(--font-body);font-size:9px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 10px;border-radius:2px;
+  background:rgba(255,255,255,.05);
+  color:rgba(255,255,255,.3);
+  border:1px solid rgba(255,255,255,.07);
+}
+
+/* ═══════════════════════════════════════
+   BACK TO TOP
+═══════════════════════════════════════ */
+#bTop{
+  position:fixed;bottom:32px;right:32px;z-index:900;
+  width:44px;height:44px;
+  background:var(--yellow);color:var(--black);
+  border:none;border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:700;cursor:none;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s,transform .3s;
+  box-shadow:0 8px 24px rgba(245,216,0,.2);
+}
+#bTop.show{opacity:1;pointer-events:auto}
+#bTop:hover{transform:translateY(-3px)}
+
+/* ═══════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════ */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal-left{opacity:0;transform:translateX(-32px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal-right{opacity:0;transform:translateX(32px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal.visible,.reveal-left.visible,.reveal-right.visible{opacity:1;transform:none}
+.delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}.delay-4{transition-delay:.4s}
+
+/* ═══════════════════════════════════════
+   HORIZONTAL LINE SEPARATORS
+═══════════════════════════════════════ */
+.section-line{
+  width:100%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);
+}
 </style>
 </head>
 <body>
 
-<div id="dot"></div>
-<button id="bTop" style="position:fixed;bottom:28px;right:28px;z-index:900;width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;cursor:none;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;font-size:18px;color:#fff;box-shadow:0 8px 24px rgba(255,61,154,.3)" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<button id="bTop" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <!-- NAV -->
-<nav class="nav">
-  <a class="nav-logo" href="#hero">Neeergraphs</a>
+<nav class="nav" id="mainNav">
+  <a class="nav-logo" href="#hero">
+    <span class="logo-dot"></span>
+    Neeergraphs
+  </a>
   <ul class="nav-links">
     <li><a href="#sobre">Sobre mí</a></li>
     <li><a href="#servicios">Servicios</a></li>
     <li><a href="#proyectos">Proyectos</a></li>
-    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="#contacto" class="nav-cta">Hablemos</a></li>
   </ul>
 </nav>
 
-<!-- ██████  HERO  ██████ -->
+<!-- ██ HERO ██ -->
 <section class="hero" id="hero">
-  <canvas id="heroGL"></canvas>
-  <canvas id="starsC" class="stars-canvas"></canvas>
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
 
-  <!-- Nebulosas -->
-  <div class="nebula neb1"></div>
-  <div class="nebula neb2"></div>
-  <div class="nebula neb3"></div>
-  <div class="nebula neb4"></div>
+  <div class="hero-year" id="heroYear">2026</div>
 
-  <!-- Texto background decorativo -->
-  <div class="hero-bg-text">CREATIVE</div>
-
-  <!-- Stickers flotantes SVG -->
-  <!-- Cámara / visor -->
-  <div class="float-el fe-frame">
-    <svg viewBox="0 0 90 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="2" y="14" width="86" height="56" rx="8" stroke="rgba(255,133,194,.6)" stroke-width="2" fill="rgba(255,61,154,.08)"/>
-      <rect x="28" y="4" width="22" height="14" rx="4" stroke="rgba(255,133,194,.6)" stroke-width="2"/>
-      <circle cx="45" cy="44" r="18" stroke="rgba(255,133,194,.6)" stroke-width="2"/>
-      <circle cx="45" cy="44" r="10" stroke="rgba(255,133,194,.4)" stroke-width="1.5"/>
-      <circle cx="45" cy="44" r="4" fill="rgba(255,61,154,.4)"/>
-      <circle cx="72" cy="26" r="4" fill="rgba(255,133,194,.5)"/>
-    </svg>
+  <!-- Foto -->
+  <div class="hero-img-wrap" id="heroImg">
+    <img src="nerea.ramirez.png" alt="Nerea Ramírez — Diseñadora gráfica">
   </div>
-
-  <!-- Estrella de 6 puntas -->
-  <div class="float-el fe-star">
-    <svg viewBox="0 0 60 60" fill="none">
-      <path d="M30 2 L36 22 L56 16 L42 32 L56 48 L36 42 L30 58 L24 42 L4 48 L18 32 L4 16 L24 22 Z" stroke="rgba(126,184,255,.65)" stroke-width="1.5" fill="rgba(37,99,255,.08)"/>
-      <circle cx="30" cy="30" r="4" fill="rgba(126,184,255,.5)"/>
-    </svg>
-  </div>
-
-  <!-- Lente de cámara -->
-  <div class="float-el fe-lens">
-    <svg viewBox="0 0 80 80" fill="none">
-      <circle cx="40" cy="40" r="36" stroke="rgba(192,132,252,.55)" stroke-width="2" fill="rgba(124,58,237,.08)"/>
-      <circle cx="40" cy="40" r="26" stroke="rgba(192,132,252,.4)" stroke-width="1.5"/>
-      <circle cx="40" cy="40" r="14" stroke="rgba(192,132,252,.3)" stroke-width="1.5"/>
-      <circle cx="40" cy="40" r="5" fill="rgba(192,132,252,.5)"/>
-      <path d="M24 24 L32 32" stroke="rgba(192,132,252,.35)" stroke-width="1.5"/>
-      <path d="M48 48 L56 56" stroke="rgba(192,132,252,.35)" stroke-width="1.5"/>
-    </svg>
-  </div>
-
-  <!-- Pluma Illustrator -->
-  <div class="float-el fe-pen">
-    <svg viewBox="0 0 52 52" fill="none">
-      <path d="M26 4 L36 18 L26 26 L16 18 Z" stroke="rgba(255,225,53,.6)" stroke-width="1.5" fill="rgba(255,225,53,.08)"/>
-      <line x1="26" y1="26" x2="26" y2="46" stroke="rgba(255,225,53,.6)" stroke-width="1.5"/>
-      <circle cx="26" cy="47" r="3" fill="rgba(255,225,53,.6)"/>
-      <line x1="16" y1="18" x2="10" y2="14" stroke="rgba(255,225,53,.35)" stroke-width="1.2"/>
-      <line x1="36" y1="18" x2="42" y2="14" stroke="rgba(255,225,53,.35)" stroke-width="1.2"/>
-      <circle cx="10" cy="13" r="2.5" fill="rgba(255,225,53,.45)"/>
-      <circle cx="42" cy="13" r="2.5" fill="rgba(255,225,53,.45)"/>
-    </svg>
-  </div>
-
-  <!-- Botón Play -->
-  <div class="float-el fe-play">
-    <svg viewBox="0 0 64 64" fill="none">
-      <circle cx="32" cy="32" r="30" stroke="rgba(16,245,160,.5)" stroke-width="1.5" fill="rgba(16,245,160,.06)"/>
-      <path d="M24 20 L48 32 L24 44 Z" stroke="rgba(16,245,160,.6)" stroke-width="1.5" fill="rgba(16,245,160,.2)"/>
-    </svg>
-  </div>
-
-  <!-- Diamante -->
-  <div class="float-el fe-diamond">
-    <svg viewBox="0 0 48 48" fill="none">
-      <path d="M24 4 L44 20 L24 44 L4 20 Z" stroke="rgba(255,92,87,.55)" stroke-width="1.5" fill="rgba(255,92,87,.08)"/>
-      <path d="M4 20 L44 20" stroke="rgba(255,92,87,.35)" stroke-width="1"/>
-      <path d="M14 10 L34 10 L44 20" stroke="rgba(255,92,87,.25)" stroke-width="1"/>
-    </svg>
-  </div>
-
-  <div class="scanlines"></div>
 
   <!-- Contenido -->
-  <div class="hero-body">
-    <div class="hero-role"><div class="role-dot"></div>Diseñadora gráfica · Motion · Vídeo</div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-line"></span>
+      Diseñadora gráfica · Motion · Vídeo
+    </div>
     <h1 class="hero-title">
-      <span class="ht-line1">NEEER</span>
-      <span class="ht-line2">GRAPHS</span>
+      <span class="line1">Nerea</span>
+      <span class="line2">Ramírez</span>
+      <span class="line3">Diseña.</span>
     </h1>
-    <p class="hero-tagline">Del concepto al píxel — sin intermediarios.<br>Imágenes que emocionan y funcionan.</p>
+    <p class="hero-desc">
+      Del concepto al píxel, sin intermediarios.<br>
+      Imágenes que emocionan, narrativas que funcionan,<br>
+      estética que se recuerda.
+    </p>
     <div class="hero-actions">
-      <a href="#proyectos" class="cta-primary">Ver proyectos</a>
-      <a href="#contacto" class="cta-secondary">Hablemos →</a>
+      <a href="#proyectos" class="btn-primary">Ver mi trabajo</a>
+      <a href="#contacto" class="btn-ghost">Escribir →</a>
     </div>
   </div>
 
-  <!-- Marquee inferior -->
-  <div style="position:absolute;bottom:80px;left:0;right:0;overflow:hidden;z-index:5;border-top:1px solid rgba(255,255,255,.06);padding-top:16px">
-    <div style="display:flex;gap:44px;white-space:nowrap;animation:mq 24s linear infinite">
-      <span style="font-family:'Fredoka',sans-serif;font-size:18px;font-weight:600;color:rgba(255,255,255,.28);flex-shrink:0">Diseño gráfico</span><span style="color:rgba(255,61,154,.5);font-size:13px;flex-shrink:0">✦</span>
-      <span style="font-family:'Fredoka',sans-serif;font-size:18px;font-weight:600;color:rgba(255,255,255,.28);flex-shrink:0">Motion graphics</span><span style="color:rgba(255,61,154,.5);font-size:13px;flex-shrink:0">✦</span>
-      <span style="font-family:'Fredoka',sans-serif;font-size:18px;font-weight:600;color:rgba(255,255,255,.28);flex-shrink:0">Edición de vídeo</span><span style="color:rgba(255,61,154,.5);font-size:13px;flex-shrink:0">✦</span>
-      <span style="font-family:'Fredoka',sans-serif;font-size:18px;font-weight:600;color:rgba(255,255,255,.28);flex-shrink:0">Dirección de arte</span><span style="color:rgba(255,61,154,.5);font-size:13px;flex-shrink:0">✦</span>
-      <span style="font-family:'Fredoka',sans-serif;font-size:18px;font-weight:600;color:rgba(255,255,255,.28);flex-shrink:0">IA generativa</span><span style="color:rgba(255,61,154,.5);font-size:13px;flex-shrink:0">✦</span>
-      <span style="font-family:'Fredoka',sans-serif;font-size:18px;font-weight:600;color:rgba(255,255,255,.28);flex-shrink:0">Postproducción</span><span style="color:rgba(255,61,154,.5);font-size:13px;flex-shrink:0">✦</span>
-      <span style="font-family:'Fredoka',sans-serif;font-size:18px;font-weight:600;color:rgba(255,255,255,.28);flex-shrink:0">Diseño gráfico</span><span style="color:rgba(255,61,154,.5);font-size:13px;flex-shrink:0">✦</span>
-      <span style="font-family:'Fredoka',sans-serif;font-size:18px;font-weight:600;color:rgba(255,255,255,.28);flex-shrink:0">Motion graphics</span><span style="color:rgba(255,61,154,.5);font-size:13px;flex-shrink:0">✦</span>
-      <span style="font-family:'Fredoka',sans-serif;font-size:18px;font-weight:600;color:rgba(255,255,255,.28);flex-shrink:0">Edición de vídeo</span><span style="color:rgba(255,61,154,.5);font-size:13px;flex-shrink:0">✦</span>
-      <span style="font-family:'Fredoka',sans-serif;font-size:18px;font-weight:600;color:rgba(255,255,255,.28);flex-shrink:0">Dirección de arte</span><span style="color:rgba(255,61,154,.5);font-size:13px;flex-shrink:0">✦</span>
-      <span style="font-family:'Fredoka',sans-serif;font-size:18px;font-weight:600;color:rgba(255,255,255,.28);flex-shrink:0">IA generativa</span><span style="color:rgba(255,61,154,.5);font-size:13px;flex-shrink:0">✦</span>
-      <span style="font-family:'Fredoka',sans-serif;font-size:18px;font-weight:600;color:rgba(255,255,255,.28);flex-shrink:0">Postproducción</span><span style="color:rgba(255,61,154,.5);font-size:13px;flex-shrink:0">✦</span>
-    </div>
+  <div class="hero-scroll">
+    <span class="scroll-text">Scroll</span>
+    <div class="scroll-arrow">↓</div>
   </div>
 
-  <div class="scroll-ind">
-    <div class="scroll-line"></div>
-    <span>scroll</span>
+  <!-- Marquee -->
+  <div class="hero-marquee">
+    <div class="marquee-track">
+      <span class="marquee-item">Diseño gráfico</span><span class="marquee-sep">✦</span>
+      <span class="marquee-item">Motion graphics</span><span class="marquee-sep">✦</span>
+      <span class="marquee-item">Edición de vídeo</span><span class="marquee-sep">✦</span>
+      <span class="marquee-item">Dirección de arte</span><span class="marquee-sep">✦</span>
+      <span class="marquee-item">IA generativa</span><span class="marquee-sep">✦</span>
+      <span class="marquee-item">Postproducción</span><span class="marquee-sep">✦</span>
+      <span class="marquee-item">Identidad de marca</span><span class="marquee-sep">✦</span>
+      <span class="marquee-item">Grabación in situ</span><span class="marquee-sep">✦</span>
+      <span class="marquee-item">Diseño gráfico</span><span class="marquee-sep">✦</span>
+      <span class="marquee-item">Motion graphics</span><span class="marquee-sep">✦</span>
+      <span class="marquee-item">Edición de vídeo</span><span class="marquee-sep">✦</span>
+      <span class="marquee-item">Dirección de arte</span><span class="marquee-sep">✦</span>
+      <span class="marquee-item">IA generativa</span><span class="marquee-sep">✦</span>
+      <span class="marquee-item">Postproducción</span><span class="marquee-sep">✦</span>
+      <span class="marquee-item">Identidad de marca</span><span class="marquee-sep">✦</span>
+      <span class="marquee-item">Grabación in situ</span><span class="marquee-sep">✦</span>
+    </div>
   </div>
 </section>
 
-<!-- DOBLE BANDA -->
-<div class="bands">
-  <div class="band b1">
-    <div class="bt">
-      <span>Edición de vídeo</span><span class="dot">◆</span><span>After Effects</span><span class="dot">◆</span><span>Motion Graphics</span><span class="dot">◆</span><span>Premiere Pro</span><span class="dot">◆</span><span>Postproducción</span><span class="dot">◆</span><span>Grabación in situ</span><span class="dot">◆</span><span>Vídeo corporativo</span><span class="dot">◆</span><span>Cap Cut</span><span class="dot">◆</span><span>Storytelling visual</span><span class="dot">◆</span><span>Spots publicitarios</span><span class="dot">◆</span>
-      <span>Edición de vídeo</span><span class="dot">◆</span><span>After Effects</span><span class="dot">◆</span><span>Motion Graphics</span><span class="dot">◆</span><span>Premiere Pro</span><span class="dot">◆</span><span>Postproducción</span><span class="dot">◆</span><span>Grabación in situ</span><span class="dot">◆</span><span>Vídeo corporativo</span><span class="dot">◆</span><span>Cap Cut</span><span class="dot">◆</span><span>Storytelling visual</span><span class="dot">◆</span><span>Spots publicitarios</span><span class="dot">◆</span>
-    </div>
-  </div>
-  <div class="band b2">
-    <div class="bt">
-      <span>Diseño gráfico</span><span class="dot">◆</span><span>Photoshop</span><span class="dot">◆</span><span>Illustrator</span><span class="dot">◆</span><span>Identidad de marca</span><span class="dot">◆</span><span>IA Generativa</span><span class="dot">◆</span><span>Dirección de arte</span><span class="dot">◆</span><span>Contenido RRSS</span><span class="dot">◆</span><span>InDesign</span><span class="dot">◆</span><span>Retoque fotográfico</span><span class="dot">◆</span><span>Social media strategy</span><span class="dot">◆</span>
-      <span>Diseño gráfico</span><span class="dot">◆</span><span>Photoshop</span><span class="dot">◆</span><span>Illustrator</span><span class="dot">◆</span><span>Identidad de marca</span><span class="dot">◆</span><span>IA Generativa</span><span class="dot">◆</span><span>Dirección de arte</span><span class="dot">◆</span><span>Contenido RRSS</span><span class="dot">◆</span><span>InDesign</span><span class="dot">◆</span><span>Retoque fotográfico</span><span class="dot">◆</span><span>Social media strategy</span><span class="dot">◆</span>
-    </div>
-  </div>
-</div>
-
-<!-- SOBRE MÍ -->
+<!-- ██ SOBRE MÍ ██ -->
 <section class="about" id="sobre">
   <div class="about-inner">
-    <div class="about-photo-col rvL">
-      <div class="photo-container">
-        <div class="photo-arc"></div>
-        <img src="nerea.ramirez.png" alt="Nerea Ramírez">
+
+    <!-- Foto col -->
+    <div class="about-photo-col reveal-left">
+      <div class="photo-frame">
+        <img src="nerea.ramirez.png" alt="Nerea Ramírez" id="photoParallax">
+        <span class="photo-label">Madrid · España · 2026</span>
       </div>
-      <div class="photo-caption">Madrid, España</div>
       <div class="about-stats">
-        <div><div class="as-num">3+</div><div class="as-lbl">Años</div></div>
-        <div><div class="as-num">∞</div><div class="as-lbl">Creatividad</div></div>
+        <div>
+          <div class="stat-num">3<span>+</span></div>
+          <div class="stat-lbl">Años de<br>experiencia</div>
+        </div>
+        <div>
+          <div class="stat-num" style="font-style:italic;font-size:36px">∞</div>
+          <div class="stat-lbl">Energía<br>creativa</div>
+        </div>
       </div>
-      <div class="chips-row" style="margin-top:20px">
-        <span class="chip">Photoshop</span><span class="chip">Illustrator</span><span class="chip">Premiere</span>
-        <span class="chip">After Effects</span><span class="chip">InDesign</span>
-        <span class="chip b">Sora · GPT · Gemini</span><span class="chip b">Wordpress · Shopify</span>
-        <span class="chip p">Metricool</span><span class="chip p">Meta Business</span>
+      <div class="chips-wrap" style="margin-top:24px">
+        <span class="chip">Photoshop</span>
+        <span class="chip">Illustrator</span>
+        <span class="chip">Premiere Pro</span>
+        <span class="chip">After Effects</span>
+        <span class="chip">InDesign</span>
+        <span class="chip">Sora · GPT · Gemini</span>
+        <span class="chip">Wordpress · Shopify</span>
+        <span class="chip">Metricool</span>
+        <span class="chip">Meta Business</span>
       </div>
     </div>
 
-    <div class="about-info-col rvR">
-      <div>
-        <div class="about-ey">Sobre mí</div>
-        <h2 class="about-hl">Creo imágenes.<br>Cuento <span class="pk">historias</span>.<br>Diseño experiencias.</h2>
-      </div>
-      <p class="about-txt">Del concepto al píxel final — <strong>sin intermediarios</strong>. Motion, vídeo, gráfica e IA: dominio de toda la cadena creativa. Me apasiona el storytelling visual: ese momento en que una pieza cobra vida y el mensaje llega de verdad.</p>
+    <!-- Info col -->
+    <div class="about-info-col reveal-right delay-2">
+      <div class="section-eyebrow"><span class="eyebrow-dash"></span>Sobre mí</div>
+      <h2 class="about-title">
+        Creo imágenes.<br>
+        Cuento <em>historias</em>.<br>
+        Diseño momentos.
+      </h2>
+      <p class="about-text">
+        Del concepto al píxel final — <strong>sin intermediarios</strong>. Motion, vídeo, gráfica e IA: dominio de toda la cadena creativa. Me apasiona el storytelling visual: ese momento en que una pieza cobra vida y el mensaje llega de verdad.
+      </p>
 
-      <!-- ACCORDION INFO ESCONDIDA -->
-      <div class="info-accordion">
+      <div class="accordion">
 
         <!-- Experiencia -->
-        <div class="info-item">
-          <div class="info-trigger" onclick="toggleInfo(this)">
-            <span class="it-label">Experiencia</span>
-            <div class="it-right">
-              <span class="it-tag exp">3 empresas</span>
-              <div class="it-arrow">+</div>
+        <div class="acc-item">
+          <div class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-title">Experiencia</span>
+            <div class="acc-meta">
+              <span class="acc-badge">3 empresas</span>
+              <div class="acc-icon">+</div>
             </div>
           </div>
-          <div class="info-body">
-            <div class="info-body-inner">
+          <div class="acc-body">
+            <div class="acc-body-inner">
               <div class="tl">
-                <div class="tl-row">
-                  <div class="tl-left"><div class="tl-dot"></div><div class="tl-dash"></div></div>
-                  <div class="tl-content"><span class="tl-date-pill">Jun 2024 — Actual</span><div class="tl-co">Ádraba</div><div class="tl-role">Diseñadora gráfica & Community Manager</div><div class="tl-tasks"><div class="tl-task">Producción integral de contenido visual: concepto, diseño, grabación, edición y publicación.</div><div class="tl-task">Gestión y dirección de campañas de marketing digital en RRSS.</div><div class="tl-task">Diseño gráfico e ilustración para campañas digitales.</div><div class="tl-task">Vídeos animados 2D y motion graphics.</div><div class="tl-task">IA generativa para ideación, variaciones y optimización.</div><div class="tl-task">Diseño BTL: flyers, tarjetas, trípticos, spots TV, cartelería.</div></div></div>
+                <div class="tl-item">
+                  <div class="tl-date">Jun 2024<br>Actual</div>
+                  <div>
+                    <div class="tl-co">Ádraba</div>
+                    <div class="tl-role">Diseñadora gráfica & Community Manager</div>
+                    <div class="tl-desc">Producción integral de contenido visual: concepto, diseño, grabación, edición y publicación. Gestión de campañas digitales, vídeos animados 2D, motion graphics, IA generativa y diseño BTL.</div>
+                  </div>
                 </div>
-                <div class="tl-row">
-                  <div class="tl-left"><div class="tl-dot"></div><div class="tl-dash"></div></div>
-                  <div class="tl-content"><span class="tl-date-pill">Jun — Sep 2023</span><div class="tl-co">Lunaro Solutions</div><div class="tl-role">Community Manager</div><div class="tl-tasks"><div class="tl-task">Gestión estratégica de LinkedIn: contenido, calendario y análisis.</div><div class="tl-task">Diseño de piezas visuales y contenido audiovisual orientado a marca.</div></div></div>
+                <div class="tl-item">
+                  <div class="tl-date">Jun–Sep<br>2023</div>
+                  <div>
+                    <div class="tl-co">Lunaro Solutions</div>
+                    <div class="tl-role">Community Manager</div>
+                    <div class="tl-desc">Gestión estratégica de LinkedIn, diseño de piezas visuales y contenido audiovisual orientado a marca.</div>
+                  </div>
                 </div>
-                <div class="tl-row">
-                  <div class="tl-left"><div class="tl-dot"></div></div>
-                  <div class="tl-content"><span class="tl-date-pill">Mar — Jun 2023</span><div class="tl-co">Jastag</div><div class="tl-role">Asistente Diseño y Comunicación Digital</div><div class="tl-tasks"><div class="tl-task">Diseño web y optimización SEO en Wordpress.</div><div class="tl-task">Producción y postproducción de contenidos audiovisuales.</div><div class="tl-task">Diseño de piezas para RRSS y copywriting.</div></div></div>
+                <div class="tl-item">
+                  <div class="tl-date">Mar–Jun<br>2023</div>
+                  <div>
+                    <div class="tl-co">Jastag</div>
+                    <div class="tl-role">Asistente Diseño y Comunicación Digital</div>
+                    <div class="tl-desc">Diseño web y optimización SEO en Wordpress, producción y postproducción audiovisual, diseño para RRSS y copywriting.</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -810,36 +1069,54 @@ body{background:var(--ink);color:var(--white);font-family:'Nunito',sans-serif;ov
         </div>
 
         <!-- Formación -->
-        <div class="info-item">
-          <div class="info-trigger" onclick="toggleInfo(this)">
-            <span class="it-label">Formación</span>
-            <div class="it-right">
-              <span class="it-tag edu">3 títulos</span>
-              <div class="it-arrow">+</div>
+        <div class="acc-item">
+          <div class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-title">Formación</span>
+            <div class="acc-meta">
+              <span class="acc-badge">3 títulos</span>
+              <div class="acc-icon">+</div>
             </div>
           </div>
-          <div class="info-body">
-            <div class="info-body-inner">
+          <div class="acc-body">
+            <div class="acc-body-inner">
               <div class="edu-list">
-                <div class="edu-row"><div class="edu-year">2025</div><div><div class="edu-t">Máster Motion Graphics, VFX, Diseño 3D, 4D y Dirección de arte</div><div class="edu-p">CEI</div></div></div>
-                <div class="edu-row"><div class="edu-year">2023</div><div><div class="edu-t">Máster Diseño Gráfico, Diseño web y Marketing Digital</div><div class="edu-p">CEI</div></div></div>
-                <div class="edu-row"><div class="edu-year">2021</div><div><div class="edu-t">Grado Superior en Marketing y Publicidad</div><div class="edu-p">IES Clara del Rey</div></div></div>
+                <div class="edu-item">
+                  <div class="edu-year">2025</div>
+                  <div>
+                    <div class="edu-t">Máster Motion Graphics, VFX, Diseño 3D, 4D y Dirección de arte</div>
+                    <div class="edu-p">CEI</div>
+                  </div>
+                </div>
+                <div class="edu-item">
+                  <div class="edu-year">2023</div>
+                  <div>
+                    <div class="edu-t">Máster Diseño Gráfico, Diseño web y Marketing Digital</div>
+                    <div class="edu-p">CEI</div>
+                  </div>
+                </div>
+                <div class="edu-item">
+                  <div class="edu-year">2021</div>
+                  <div>
+                    <div class="edu-t">Grado Superior en Marketing y Publicidad</div>
+                    <div class="edu-p">IES Clara del Rey</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Certificados -->
-        <div class="info-item">
-          <div class="info-trigger" onclick="toggleInfo(this)">
-            <span class="it-label">Certificaciones</span>
-            <div class="it-right">
-              <span class="it-tag cert">4 certs</span>
-              <div class="it-arrow">+</div>
+        <!-- Certificaciones -->
+        <div class="acc-item">
+          <div class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-title">Certificaciones</span>
+            <div class="acc-meta">
+              <span class="acc-badge">4 certs</span>
+              <div class="acc-icon">+</div>
             </div>
           </div>
-          <div class="info-body">
-            <div class="info-body-inner">
+          <div class="acc-body">
+            <div class="acc-body-inner">
               <div class="cert-grid">
                 <div class="cert-card"><div class="cert-year">2025</div><div class="cert-name">Elements of AI</div><div class="cert-place">University of Helsinki</div></div>
                 <div class="cert-card"><div class="cert-year">2025</div><div class="cert-name">Diseño Gráfico</div><div class="cert-place">Edutin Academy</div></div>
@@ -851,23 +1128,34 @@ body{background:var(--ink);color:var(--white);font-family:'Nunito',sans-serif;ov
         </div>
 
         <!-- Intereses -->
-        <div class="info-item">
-          <div class="info-trigger" onclick="toggleInfo(this)">
-            <span class="it-label">Intereses</span>
-            <div class="it-right">
-              <span class="it-tag int">Especialidades</span>
-              <div class="it-arrow">+</div>
+        <div class="acc-item">
+          <div class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-title">Especialidades</span>
+            <div class="acc-meta">
+              <span class="acc-badge">Lo que me apasiona</span>
+              <div class="acc-icon">+</div>
             </div>
           </div>
-          <div class="info-body">
-            <div class="info-body-inner">
-              <div class="int-wrap">
-                <span class="int-tag a">Diseño gráfico</span><span class="int-tag b">Motion graphics</span><span class="int-tag p">Dirección de arte</span>
-                <span class="int-tag a">Postproducción</span><span class="int-tag b">Storytelling visual</span><span class="int-tag p">IA generativa</span>
-                <span class="int-tag a">Vídeo corporativo</span><span class="int-tag b">Identidad de marca</span><span class="int-tag p">Fotografía</span>
-                <span class="int-tag a">Diseño 3D</span><span class="int-tag b">Campañas digitales</span><span class="int-tag p">Spots publicitarios</span>
-                <span class="int-tag a">Content creation</span><span class="int-tag b">Gestión RRSS</span><span class="int-tag p">Grabación in situ</span>
-                <span class="int-tag a">Retoque fotográfico</span><span class="int-tag b">Social media strategy</span>
+          <div class="acc-body">
+            <div class="acc-body-inner">
+              <div class="int-tags">
+                <span class="int-tag v">Diseño gráfico</span>
+                <span class="int-tag y">Motion graphics</span>
+                <span class="int-tag n">Dirección de arte</span>
+                <span class="int-tag v">Postproducción</span>
+                <span class="int-tag y">Storytelling visual</span>
+                <span class="int-tag n">IA generativa</span>
+                <span class="int-tag v">Vídeo corporativo</span>
+                <span class="int-tag y">Identidad de marca</span>
+                <span class="int-tag n">Fotografía</span>
+                <span class="int-tag v">Diseño 3D</span>
+                <span class="int-tag y">Campañas digitales</span>
+                <span class="int-tag n">Spots publicitarios</span>
+                <span class="int-tag v">Content creation</span>
+                <span class="int-tag y">Gestión RRSS</span>
+                <span class="int-tag n">Grabación in situ</span>
+                <span class="int-tag v">Retoque fotográfico</span>
+                <span class="int-tag y">Social media strategy</span>
               </div>
             </div>
           </div>
@@ -878,245 +1166,365 @@ body{background:var(--ink);color:var(--white);font-family:'Nunito',sans-serif;ov
   </div>
 </section>
 
-<!-- SERVICIOS -->
-<section class="servicios" id="servicios">
-  <div class="svc-aurora"></div>
-  <div class="sec-header rv">
-    <div class="sec-ey">Servicios</div>
-    <h2 class="sec-t">Qué puedo <span class="ac">hacer</span></h2>
+<!-- ██ SERVICIOS ██ -->
+<section class="services" id="servicios">
+  <div class="services-header reveal">
+    <h2 class="section-title">
+      Qué puedo<br>
+      <span class="ac">hacer</span> por ti
+    </h2>
+    <p class="services-intro">Cada proyecto es un reto nuevo. Llevo la idea desde el primer boceto hasta el píxel final.</p>
   </div>
-  <div class="svcs-grid rv" style="transition-delay:.1s">
-    <div class="svc"><span class="svc-num">01</span><div class="svc-ico"><img src="video.png" alt=""></div><h3>Edición de vídeo</h3><p>Narrativa visual, ritmo y emoción en cada corte. Premiere, After Effects, Cap Cut.</p></div>
-    <div class="svc"><span class="svc-num">02</span><div class="svc-ico"><img src="vector.png" alt=""></div><h3>Diseño gráfico</h3><p>Identidad visual que comunica sin palabras. Photoshop, Illustrator, InDesign.</p></div>
-    <div class="svc"><span class="svc-num">03</span><div class="svc-ico"><img src="rrss.png" alt=""></div><h3>Contenido RRSS</h3><p>Piezas pensadas para enganchar, retener y crecer. Estrategia, diseño y publicación.</p></div>
-    <div class="svc"><span class="svc-num">04</span><div class="svc-ico"><img src="grabacion.png" alt=""></div><h3>Grabación</h3><p>Presencia in situ para capturar el momento real. Eventos, corporativo y producto.</p></div>
-    <div class="svc"><span class="svc-num">05</span><div class="svc-ico"><img src="motion-graphics.png" alt=""></div><h3>Motion Graphics</h3><p>Animaciones 2D, intros, transitions y efectos que dan vida a cualquier pieza.</p></div>
-    <div class="svc"><span class="svc-num">06</span><div class="svc-ico"><img src="3d.png" alt=""></div><h3>Diseño 3D</h3><p>Modelado, render y animación 3D. En evolución continua.</p><span class="svc-badge">En aprendizaje</span></div>
+
+  <div class="services-grid reveal delay-1">
+    <div class="svc-card">
+      <span class="svc-num">01</span>
+      <div class="svc-icon">🎬</div>
+      <div class="svc-name">Edición de vídeo</div>
+      <p class="svc-desc">Narrativa visual, ritmo y emoción en cada corte. Premiere, After Effects, Cap Cut.</p>
+    </div>
+    <div class="svc-card">
+      <span class="svc-num">02</span>
+      <div class="svc-icon">✏️</div>
+      <div class="svc-name">Diseño gráfico</div>
+      <p class="svc-desc">Identidad visual que comunica sin palabras. Photoshop, Illustrator, InDesign.</p>
+    </div>
+    <div class="svc-card">
+      <span class="svc-num">03</span>
+      <div class="svc-icon">📱</div>
+      <div class="svc-name">Contenido RRSS</div>
+      <p class="svc-desc">Piezas pensadas para enganchar, retener y crecer. Estrategia, diseño y publicación.</p>
+    </div>
+    <div class="svc-card">
+      <span class="svc-num">04</span>
+      <div class="svc-icon">🎥</div>
+      <div class="svc-name">Grabación</div>
+      <p class="svc-desc">Presencia in situ para capturar el momento real. Eventos, corporativo y producto.</p>
+    </div>
+    <div class="svc-card">
+      <span class="svc-num">05</span>
+      <div class="svc-icon">⚡</div>
+      <div class="svc-name">Motion Graphics</div>
+      <p class="svc-desc">Animaciones 2D, intros, transitions y efectos que dan vida a cualquier pieza.</p>
+    </div>
+    <div class="svc-card">
+      <span class="svc-num">06</span>
+      <div class="svc-icon">🌐</div>
+      <div class="svc-name">Diseño 3D</div>
+      <p class="svc-desc">Modelado, render y animación 3D. En evolución continua.</p>
+      <span class="svc-badge">En aprendizaje</span>
+    </div>
   </div>
 </section>
 
-<!-- PROYECTOS -->
-<section class="proyectos" id="proyectos">
-  <div class="proy-inner">
-    <div class="sec-header dark rv">
-      <div class="sec-ey">Proyectos</div>
-      <h2 class="sec-t" style="color:var(--ink)">Trabajos <span style="color:var(--blue)">recientes</span></h2>
+<!-- ██ PROYECTOS ██ -->
+<section class="projects" id="proyectos">
+  <div class="projects-inner">
+    <div class="projects-header reveal">
+      <div class="section-eyebrow"><span class="eyebrow-dash" style="background:var(--purple-mid)"></span>Proyectos</div>
+      <h2 class="section-title" style="color:var(--black)">
+        Trabajos <em style="color:rgba(0,0,0,.25)">que</em><br>
+        <span style="color:var(--purple-mid)">hablan</span> por mí
+      </h2>
     </div>
-    <div class="bento rv" style="transition-delay:.08s">
+
+    <div class="bento reveal delay-1">
       <div class="bcard bc1">
-        <div class="bi" style="background-image:url('destacada-magnum-final.png')"><div class="bi-ov"><a href="proyecto-magnum.html" target="_blank" rel="noopener" class="bi-lnk">Ver proyecto</a></div></div>
-        <div class="bb"><div class="bcat">Campaña 360°</div><div class="btitle">Campaña 360 Magnum</div><div class="bsub">Algunos placeres no entienden de estaciones</div><a href="proyecto-magnum.html" target="_blank" rel="noopener" class="bbtn">Ver proyecto →</a></div>
+        <div class="bcard-img" style="background-image:url('destacada-magnum-final.png')"></div>
+        <div class="bcard-overlay"></div>
+        <span class="bcard-tag">Campaña 360°</span>
+        <div class="bcard-info">
+          <div class="bcard-cat">Campaña 360°</div>
+          <div class="bcard-title">Campaña 360 Magnum</div>
+          <a href="proyecto-magnum.html" target="_blank" rel="noopener" class="bcard-link">Ver proyecto →</a>
+        </div>
       </div>
       <div class="bcard bc2">
-        <div class="bi" style="background-image:url('destacadas-dolce-vitta.png')"><div class="bi-ov"><a href="proyecto-dolcevitta.html" target="_blank" rel="noopener" class="bi-lnk">Ver proyecto</a></div></div>
-        <div class="bb"><div class="bcat">Branding & RRSS</div><div class="btitle">Dolce Vitta</div><div class="bsub">Branding y RRSS</div><a href="proyecto-dolcevitta.html" target="_blank" rel="noopener" class="bbtn">Ver proyecto →</a></div>
+        <div class="bcard-img" style="background-image:url('destacadas-dolce-vitta.png')"></div>
+        <div class="bcard-overlay"></div>
+        <span class="bcard-tag">Branding & RRSS</span>
+        <div class="bcard-info">
+          <div class="bcard-cat">Branding & RRSS</div>
+          <div class="bcard-title">Dolce Vitta</div>
+          <a href="proyecto-dolcevitta.html" target="_blank" rel="noopener" class="bcard-link">Ver proyecto →</a>
+        </div>
       </div>
       <div class="bcard bc3">
-        <div class="bi" style="background-image:url('destacadas-HOME.png')"><div class="bi-ov"><a href="proyecto-home.html" target="_blank" rel="noopener" class="bi-lnk">Ver proyecto</a></div></div>
-        <div class="bb"><div class="bcat">After Effects</div><div class="btitle">Vídeo inmersivo Home</div><div class="bsub">After Effects y Premiere</div><a href="proyecto-home.html" target="_blank" rel="noopener" class="bbtn">Ver proyecto →</a></div>
+        <div class="bcard-img" style="background-image:url('destacadas-HOME.png')"></div>
+        <div class="bcard-overlay"></div>
+        <span class="bcard-tag">After Effects</span>
+        <div class="bcard-info">
+          <div class="bcard-cat">After Effects</div>
+          <div class="bcard-title">Vídeo inmersivo Home</div>
+          <a href="proyecto-home.html" target="_blank" rel="noopener" class="bcard-link">Ver proyecto →</a>
+        </div>
       </div>
       <div class="bcard bc4">
-        <div class="bi" style="background-image:url('destacadas-superboy.png')"><div class="bi-ov"><a href="proyecto-superboy.html" target="_blank" rel="noopener" class="bi-lnk">Ver proyecto</a></div></div>
-        <div class="bb"><div class="bcat">VFX</div><div class="btitle">Vídeo simulación Superboy</div><div class="bsub">After Effects y Premiere</div><a href="proyecto-superboy.html" target="_blank" rel="noopener" class="bbtn">Ver proyecto →</a></div>
+        <div class="bcard-img" style="background-image:url('destacadas-superboy.png')"></div>
+        <div class="bcard-overlay"></div>
+        <span class="bcard-tag">VFX</span>
+        <div class="bcard-info">
+          <div class="bcard-cat">VFX</div>
+          <div class="bcard-title">Vídeo simulación Superboy</div>
+          <a href="proyecto-superboy.html" target="_blank" rel="noopener" class="bcard-link">Ver proyecto →</a>
+        </div>
       </div>
       <div class="bcard bc5">
-        <div class="bi" style="background-image:url('destacada-hotwheel.png')"><div class="bi-ov"><a href="proyecto-hotwheels.html" target="_blank" rel="noopener" class="bi-lnk">Ver proyecto</a></div></div>
-        <div class="bb"><div class="bcat">IA Generativa</div><div class="btitle">Vídeo Hot Wheels</div><div class="bsub">IA generativa y Premiere</div><a href="proyecto-hotwheels.html" target="_blank" rel="noopener" class="bbtn">Ver proyecto →</a></div>
+        <div class="bcard-img" style="background-image:url('destacada-hotwheel.png')"></div>
+        <div class="bcard-overlay"></div>
+        <span class="bcard-tag">IA Generativa</span>
+        <div class="bcard-info">
+          <div class="bcard-cat">IA Generativa</div>
+          <div class="bcard-title">Vídeo Hot Wheels</div>
+          <a href="proyecto-hotwheels.html" target="_blank" rel="noopener" class="bcard-link">Ver proyecto →</a>
+        </div>
       </div>
       <div class="bcard bc6">
-        <div class="bi" style="background-image:url('destacada-nextfloor.png')"><div class="bi-ov"><a href="proyecto-nextfloor.html" target="_blank" rel="noopener" class="bi-lnk">Ver proyecto</a></div></div>
-        <div class="bb"><div class="bcat">Infografía RRSS</div><div class="btitle">Coworking Nextfloor</div><div class="bsub">Infografía y diseño para RRSS</div><a href="proyecto-nextfloor.html" target="_blank" rel="noopener" class="bbtn">Ver proyecto →</a></div>
+        <div class="bcard-img" style="background-image:url('destacada-nextfloor.png')"></div>
+        <div class="bcard-overlay"></div>
+        <span class="bcard-tag">Infografía RRSS</span>
+        <div class="bcard-info">
+          <div class="bcard-cat">Infografía RRSS</div>
+          <div class="bcard-title">Coworking Nextfloor</div>
+          <a href="proyecto-nextfloor.html" target="_blank" rel="noopener" class="bcard-link">Ver proyecto →</a>
+        </div>
       </div>
     </div>
-    <div class="wip-bar rv" style="transition-delay:.15s">
-      <div class="wdot"></div><span class="wlbl">Work in progress</span><span class="wslbl">Próximamente</span>
+
+    <!-- WIP -->
+    <div class="wip-section reveal delay-2">
+      <div class="wip-label">
+        <span class="wip-dot"></span>
+        Work in progress — Próximamente
+      </div>
+      <div class="wip-grid">
+        <div class="wip-card">
+          <div class="wip-img" style="background-image:url('destacadas-mueblesboom.png')"></div>
+          <div class="wip-info">
+            <div class="wip-wip">En proceso</div>
+            <div class="wip-title">Rebranding Muebles Boom</div>
+            <div class="wip-sub">Identidad de marca y comunicación visual</div>
+          </div>
+        </div>
+        <div class="wip-card">
+          <div class="wip-img" style="background-image:url('destacadas-camisetas.png')"></div>
+          <div class="wip-info">
+            <div class="wip-wip">En proceso</div>
+            <div class="wip-title">Diseños de camisetas</div>
+            <div class="wip-sub">Diseños personalizados — mi tiempo libre hecho arte</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="wip-grid rv" style="transition-delay:.2s">
-      <div class="bcard-wip"><div class="wip-cover"><span class="wip-txt">En proceso</span></div><div class="bi" style="background-image:url('destacadas-mueblesboom.png');min-height:165px;flex:1"></div><div class="bb" style="background:linear-gradient(135deg,#fff8f0,#fff0e0);padding:12px 14px"><div class="bcat" style="color:#fb923c">Branding</div><div class="btitle" style="font-size:17px">Rebranding Muebles Boom</div><div class="bsub">Identidad de marca y comunicación visual</div></div></div>
-      <div class="bcard-wip"><div class="wip-cover"><span class="wip-txt">En proceso</span></div><div class="bi" style="background-image:url('destacadas-camisetas.png');min-height:165px;flex:1"></div><div class="bb" style="background:linear-gradient(135deg,#fff8f0,#fff0e0);padding:12px 14px"><div class="bcat" style="color:#fb923c">Diseño</div><div class="btitle" style="font-size:17px">Diseños de camisetas</div><div class="bsub">En mi tiempo libre me gusta regalar camisetas personalizadas</div></div></div>
-    </div>
+
   </div>
 </section>
 
-<!-- FOOTER SECTION — puro de diseñadora gráfica -->
-<div class="footer-section" id="contacto">
-  <div class="footer-neb"></div>
-
-  <!-- Ola de transición -->
-  <div class="footer-wave">
-    <svg viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-      <path d="M0,50 C180,100 360,0 540,50 C720,100 900,10 1080,50 C1260,90 1350,30 1440,50 L1440,0 L0,0 Z" fill="#fef6f0"/>
-    </svg>
-  </div>
-
-  <!-- Contacto -->
-  <div class="footer-contact">
-    <div class="ct-grid">
-      <div class="rvL">
-        <div class="ct-ey">Contacto</div>
-        <h2 class="ct-head">Hablemos<span class="ct-smile"> :)</span></h2>
-        <p class="ct-sub">Proyectos, colaboraciones o simplemente un hola — aquí estoy.</p>
-        <a href="mailto:nerearamimarti@gmail.com" class="ct-cta">Escribir ahora</a>
+<!-- ██ CONTACTO & FOOTER ██ -->
+<div class="contact" id="contacto">
+  <div class="contact-inner">
+    <div class="contact-grid">
+      <div class="reveal-left">
+        <div class="contact-ey">Contacto</div>
+        <h2 class="contact-title">
+          Hablemos<br>
+          <em>:)</em>
+        </h2>
+        <p class="contact-sub">
+          Proyectos, colaboraciones o simplemente un hola — aquí estoy.
+        </p>
+        <a href="mailto:nerearamimarti@gmail.com" class="contact-email-btn">
+          nerearamimarti@gmail.com
+          <span class="arrow">→</span>
+        </a>
       </div>
-      <div class="ct-items rvR">
-        <div class="ct-item"><div class="ct-ico"><img src="llamar.png" alt=""></div><div><div class="ct-lbl">Teléfono</div><div class="ct-val">653 607 909</div></div></div>
-        <div class="ct-item"><div class="ct-ico"><img src="correo.png" alt=""></div><div><div class="ct-lbl">Email</div><div class="ct-val">nerearamimarti@gmail.com</div></div></div>
-        <div class="ct-item"><div class="ct-ico"><img src="mapa.png" alt=""></div><div><div class="ct-lbl">Ubicación</div><div class="ct-val">Madrid · San Sebastián de los Reyes</div></div></div>
+
+      <div class="contact-items reveal-right delay-2">
+        <div class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div>
+            <div class="contact-item-lbl">Teléfono</div>
+            <div class="contact-item-val">653 607 909</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">✉️</div>
+          <div>
+            <div class="contact-item-lbl">Email</div>
+            <div class="contact-item-val">nerearamimarti@gmail.com</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div>
+            <div class="contact-item-lbl">Ubicación</div>
+            <div class="contact-item-val">Madrid · San Sebastián de los Reyes</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">⚡</div>
+          <div>
+            <div class="contact-item-lbl">Estado</div>
+            <div class="contact-item-val"><span class="avail-dot">Disponible para proyectos</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Film strip decorativo -->
+  <!-- Film strip -->
   <div class="film-strip">
-    <div class="film-text">
-      NEEERGRAPHS · DISEÑO GRÁFICO · MOTION GRAPHICS · EDICIÓN DE VÍDEO · DIRECCIÓN DE ARTE · IA GENERATIVA · POSTPRODUCCIÓN · NEEERGRAPHS · DISEÑO GRÁFICO · MOTION GRAPHICS · EDICIÓN DE VÍDEO · DIRECCIÓN DE ARTE · IA GENERATIVA · POSTPRODUCCIÓN ·
+    <div class="film-inner">
+      <span class="film-item">NEEERGRAPHS</span><span class="film-dot"> ✦ </span>
+      <span class="film-item">DISEÑO GRÁFICO</span><span class="film-dot"> ✦ </span>
+      <span class="film-item">MOTION GRAPHICS</span><span class="film-dot"> ✦ </span>
+      <span class="film-item">EDICIÓN DE VÍDEO</span><span class="film-dot"> ✦ </span>
+      <span class="film-item">DIRECCIÓN DE ARTE</span><span class="film-dot"> ✦ </span>
+      <span class="film-item">IA GENERATIVA</span><span class="film-dot"> ✦ </span>
+      <span class="film-item">POSTPRODUCCIÓN</span><span class="film-dot"> ✦ </span>
+      <span class="film-item">NEEERGRAPHS</span><span class="film-dot"> ✦ </span>
+      <span class="film-item">DISEÑO GRÁFICO</span><span class="film-dot"> ✦ </span>
+      <span class="film-item">MOTION GRAPHICS</span><span class="film-dot"> ✦ </span>
+      <span class="film-item">EDICIÓN DE VÍDEO</span><span class="film-dot"> ✦ </span>
+      <span class="film-item">DIRECCIÓN DE ARTE</span><span class="film-dot"> ✦ </span>
+      <span class="film-item">IA GENERATIVA</span><span class="film-dot"> ✦ </span>
+      <span class="film-item">POSTPRODUCCIÓN</span><span class="film-dot"> ✦ </span>
     </div>
   </div>
 
   <!-- Footer bottom -->
   <div class="footer-bottom">
     <div class="footer-bottom-inner">
-      <span class="f-watermark">NEEERGRAPHS</span>
-
-      <!-- Chips Pantone — guiño de diseñadora -->
-      <div class="pantone-row">
-        <div class="pantone-chip pc1"><span>185 C</span></div>
-        <div class="pantone-chip pc2"><span>2593 C</span></div>
-        <div class="pantone-chip pc3"><span>2718 C</span></div>
-        <div class="pantone-chip pc4"><span>638 C</span></div>
-        <div class="pantone-chip pc5"><span>345 C</span></div>
-        <div class="pantone-chip pc6"><span>109 C</span></div>
-        <div class="pantone-chip pc7"><span>Warm Red</span></div>
-        <div class="pantone-chip pc8"><span>Purple C</span></div>
+      <span class="footer-logo">Neeergraphs</span>
+      <div class="footer-tools">
+        <span class="f-tag">Premiere Pro</span>
+        <span class="f-tag">After Effects</span>
+        <span class="f-tag">Illustrator</span>
+        <span class="f-tag">Photoshop</span>
+        <span class="f-tag">InDesign</span>
+        <span class="f-tag">IA generativa</span>
       </div>
-
-      <div class="f-bottom-row">
-        <div class="f-left">
-          <div class="f-avail">Disponible para proyectos</div>
-          <div class="f-desc">Diseño gráfico · Motion · Edición de vídeo · Madrid, España</div>
-        </div>
-        <div class="f-tools">
-          <span class="f-tag">Premiere Pro</span>
-          <span class="f-tag">After Effects</span>
-          <span class="f-tag">Illustrator</span>
-          <span class="f-tag">Photoshop</span>
-          <span class="f-tag">InDesign</span>
-          <span class="f-tag">IA generativa</span>
-        </div>
-      </div>
-
-      <!-- Regla tipográfica decorativa -->
-      <div class="f-ruler"></div>
-      <div class="f-copy">
-        <span>© 2026 Neeergraphs — Todos los derechos reservados</span>
-        <span>Madrid, España</span>
-      </div>
+      <span class="footer-copy">© 2026 Neeergraphs · Madrid, España</span>
     </div>
   </div>
 </div>
 
 <script>
-/* ── CURSOR ── */
-const dot=document.getElementById('dot');
-let cx=innerWidth/2,cy=innerHeight/2,pt=0;
-const colors=['#ff3d9a','#ff85c2','#7c3aed','#c4b5fd','#2563ff','#7eb8ff','#10f5a0','#ffe135'];
-let ci=0;
+/* ── CURSOR CUSTOM ── */
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let cursorX = 0, cursorY = 0;
+let ringX = 0, ringY = 0;
 
-document.addEventListener('mousemove',e=>{
-  cx=e.clientX;cy=e.clientY;
-  dot.style.left=cx+'px';dot.style.top=cy+'px';
-  const n=Date.now();
-  if(n-pt>80){
-    pt=n;
-    const tr=document.createElement('div');tr.className='trail';
-    const sz=Math.random()*10+4;
-    tr.style.cssText=`left:${cx}px;top:${cy}px;width:${sz}px;height:${sz}px;background:${colors[ci%colors.length]};border-radius:50%`;
-    ci++;document.body.appendChild(tr);setTimeout(()=>tr.remove(),620);
+document.addEventListener('mousemove', e => {
+  cursorX = e.clientX; cursorY = e.clientY;
+  cursor.style.left = cursorX + 'px';
+  cursor.style.top = cursorY + 'px';
+});
+
+// Ring follows with easing
+function animateRing() {
+  ringX += (cursorX - ringX) * 0.12;
+  ringY += (cursorY - ringY) * 0.12;
+  ring.style.left = ringX + 'px';
+  ring.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button, .svc-card, .bcard, .chip, .acc-trigger, .contact-item, .wip-card').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+});
+
+/* ── NAV SCROLL ── */
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', scrollY > 60);
+}, { passive: true });
+
+/* ── HERO PARALLAX ── */
+const heroImg = document.getElementById('heroImg');
+const heroYear = document.getElementById('heroYear');
+
+window.addEventListener('scroll', () => {
+  const sy = scrollY;
+  if (heroImg) {
+    const imgEl = heroImg.querySelector('img');
+    if (imgEl) imgEl.style.transform = `scale(1.1) translateY(${sy * 0.15}px)`;
   }
-});
-document.querySelectorAll('a,button,.svc,.bcard,.chip,.cert-card,.ct-item,.info-trigger').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{dot.style.transform='translate(-50%,-50%) scale(2.5)';dot.style.background=colors[0]});
-  el.addEventListener('mouseleave',()=>{dot.style.transform='translate(-50%,-50%) scale(1)'});
-});
+  if (heroYear) heroYear.style.transform = `translateY(${sy * 0.25}px)`;
+}, { passive: true });
 
-/* ── ESTRELLAS ── */
-(function(){
-  const c=document.getElementById('starsC');if(!c)return;
-  const ctx=c.getContext('2d');
-  function resize(){c.width=c.parentElement.clientWidth;c.height=c.parentElement.clientHeight;draw()}
-  function draw(){
-    ctx.clearRect(0,0,c.width,c.height);
-    for(let i=0;i<220;i++){
-      const x=Math.random()*c.width,y=Math.random()*c.height;
-      const r=Math.random()*.9+.2;
-      const op=Math.random()*.7+.1;
-      const g=ctx.createRadialGradient(x,y,0,x,y,r*2);
-      g.addColorStop(0,`rgba(255,255,255,${op})`);
-      g.addColorStop(1,'rgba(255,255,255,0)');
-      ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
-    }
-  }
-  resize();window.addEventListener('resize',resize);
-  // Twinkling
-  setInterval(()=>{draw()},3000);
-})();
-
-/* ── PARALLAX HERO ELEMENTOS ── */
-document.addEventListener('mousemove',e=>{
-  const mx=(e.clientX/innerWidth-.5)*2,my=(e.clientY/innerHeight-.5)*2;
-  document.querySelectorAll('.float-el').forEach((el,i)=>{
-    const d=(i+1)*6;
-    el.style.transform=`translateY(${my*d}px) translateX(${mx*d*.5}px)`;
-  });
-  document.querySelectorAll('.nebula').forEach((el,i)=>{
-    const d=(i+1)*12;
-    el.style.transform=`translate(${mx*d*.3}px,${my*d*.3}px)`;
-  });
-  // Tilt del título
-  const ht=document.querySelector('.hero-title');
-  if(ht)ht.style.transform=`skewX(${mx*2.5}deg) skewY(${my*.8}deg)`;
+// Mouse parallax
+document.addEventListener('mousemove', e => {
+  const mx = (e.clientX / innerWidth - 0.5) * 2;
+  const my = (e.clientY / innerHeight - 0.5) * 2;
+  if (heroImg) heroImg.style.transform = `translateX(${mx * 12}px)`;
+  if (heroYear) heroYear.style.transform = `translate(${mx * 20}px, ${my * 10}px)`;
 });
 
-/* ── MAGNETIC BUTTONS ── */
-document.querySelectorAll('.cta-primary,.ct-cta,.cta-secondary').forEach(btn=>{
-  btn.addEventListener('mousemove',e=>{const r=btn.getBoundingClientRect();btn.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.2}px,${(e.clientY-r.top-r.height/2)*.2}px) scale(1.04)`});
-  btn.addEventListener('mouseleave',()=>{btn.style.transform=''});
-});
-
-/* ── ACCORDION ── */
-function toggleInfo(trigger){
-  const body=trigger.nextElementSibling;
-  const isOpen=trigger.classList.contains('open');
-  // Cerrar todos
-  document.querySelectorAll('.info-trigger').forEach(t=>{t.classList.remove('open');t.nextElementSibling.classList.remove('open')});
-  if(!isOpen){trigger.classList.add('open');body.classList.add('open')}
+/* ── ABOUT PHOTO PARALLAX ── */
+const photoParallax = document.getElementById('photoParallax');
+const aboutSection = document.querySelector('.about');
+if (photoParallax && aboutSection) {
+  window.addEventListener('scroll', () => {
+    const rect = aboutSection.getBoundingClientRect();
+    const progress = -rect.top / (rect.height + window.innerHeight);
+    photoParallax.style.transform = `scale(1.08) translateY(${progress * 60}px)`;
+  }, { passive: true });
 }
 
-/* ── SERVICIOS HOVER ── */
-const svcC=['var(--pink)','#2563ff','var(--purple)','var(--gold)','var(--mint)','var(--coral)'];
-document.querySelectorAll('.svc').forEach((s,i)=>{
-  s.addEventListener('mouseenter',()=>{s.querySelector('h3').style.color=svcC[i]});
-  s.addEventListener('mouseleave',()=>{s.querySelector('h3').style.color=''});
-});
+/* ── ACCORDION ── */
+function toggleAcc(trigger) {
+  const body = trigger.nextElementSibling;
+  const isOpen = trigger.classList.contains('open');
+  document.querySelectorAll('.acc-trigger').forEach(t => {
+    t.classList.remove('open');
+    t.nextElementSibling.classList.remove('open');
+  });
+  if (!isOpen) {
+    trigger.classList.add('open');
+    body.classList.add('open');
+  }
+}
 
 /* ── SCROLL REVEAL ── */
-const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')})},{threshold:.07});
-document.querySelectorAll('.rv,.rvL,.rvR').forEach(el=>io.observe(el));
-
-/* ── NAV ACTIVO ── */
-const navAs=document.querySelectorAll('.nav-links a');
-const io2=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){navAs.forEach(a=>a.classList.remove('on'));const l=document.querySelector(`.nav-links a[href="#${e.target.id}"]`);if(l)l.classList.add('on')}})},{threshold:.3});
-document.querySelectorAll('section[id]').forEach(s=>io2.observe(s));
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => io.observe(el));
 
 /* ── BACK TO TOP ── */
-const bTop=document.getElementById('bTop');
-window.addEventListener('scroll',()=>{const show=scrollY>500;bTop.style.opacity=show?'1':'0';bTop.style.pointerEvents=show?'auto':'none'},{passive:true});
+const bTop = document.getElementById('bTop');
+window.addEventListener('scroll', () => {
+  bTop.classList.toggle('show', scrollY > 500);
+}, { passive: true });
 
-/* ── HERO PARALLAX SCROLL (blobs) ── */
-window.addEventListener('scroll',()=>{
-  const sY=scrollY;
-  document.querySelectorAll('.nebula').forEach((n,i)=>{const f=(i+1)*.15;n.style.transform=`translateY(${sY*f}px)`});
-},{passive:true});
+/* ── MAGNETIC BUTTONS ── */
+document.querySelectorAll('.btn-primary, .btn-ghost, .contact-email-btn').forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const r = btn.getBoundingClientRect();
+    const dx = (e.clientX - r.left - r.width / 2) * 0.2;
+    const dy = (e.clientY - r.top - r.height / 2) * 0.2;
+    btn.style.transform = `translate(${dx}px, ${dy}px)`;
+  });
+  btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+});
+
+/* ── NAV ACTIVE ── */
+const sections = document.querySelectorAll('section[id], div[id="contacto"]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const sectionIo = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.style.color = '');
+      const link = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if (link && !link.classList.contains('nav-cta')) link.style.color = 'rgba(255,255,255,.85)';
+    }
+  });
+}, { threshold: 0.35 });
+sections.forEach(s => sectionIo.observe(s));
 </script>
 </body>
 </html>
