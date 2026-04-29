@@ -53,17 +53,28 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
    Punto 1: logo al ras del borde inferior
    Punto 2: corte diagonal — clip-path
 ══════════════════════════════════════ */
+/* PUNTO 2 — wrapper con skewY negativo crea el corte diagonal
+   El wrapper se inclina y el hero dentro contrarresta el skew
+   para que el contenido salga recto */
+.hero-skew-wrap{
+  position:relative;
+  /* Inclinación = misma que la banda b1 */
+  transform:skewY(-2.5deg);
+  transform-origin:top left;
+  margin-bottom:-56px;
+  z-index:1;
+  overflow:hidden;
+}
 .hero{
   min-height:72svh;
   display:flex;flex-direction:column;
   position:relative;overflow:hidden;
   background:#0d0a1a;
-
-  /* PUNTO 2 — corte diagonal igual que la banda b1 (-1.6deg aprox)
-     El triángulo inferior derecho queda recortado creando la diagonal */
-  clip-path:polygon(0 0, 100% 0, 100% calc(100% - 56px), 0 100%);
+  /* Contrarresta el skewY del wrapper para que el contenido no se deforme */
+  transform:skewY(2.5deg);
+  transform-origin:top left;
 }
-@media(max-width:640px){.hero{min-height:62svh;clip-path:polygon(0 0,100% 0,100% calc(100% - 38px),0 100%)}}
+@media(max-width:640px){.hero{min-height:62svh}}
 
 #grainCanvas{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.45}
 .hero-gradient{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 30% 40%,rgba(109,40,217,.38),transparent 65%),radial-gradient(ellipse 60% 50% at 80% 60%,rgba(255,61,154,.12),transparent 65%)}
@@ -87,26 +98,29 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 .cta-outline{font-family:'Fredoka',sans-serif;font-size:15px;font-weight:600;padding:11px 28px;border-radius:999px;text-decoration:none;color:rgba(255,255,255,.7);border:1.5px solid rgba(255,255,255,.25);transition:all .22s}
 .cta-outline:hover{border-color:rgba(255,255,255,.6);color:#fff;background:rgba(255,255,255,.08)}
 
-/* PUNTO 1 — Logo al ras del borde inferior del hero
-   position:absolute bottom:0 — apoyado en la cara de abajo */
+/* PUNTO 1 — Logo ÚNICO apoyado en el borde inferior del hero
+   z-index superior al skew-wrap para que sea visible */
 .hero-logo-ras{
   position:absolute;
+  /* apoyado justo en el borde final — la cara de abajo */
   bottom:0;
   left:52px;right:52px;
-  z-index:4;
-  /* Empuja el logo hacia el borde inferior con padding mínimo */
-  padding-bottom:16px;
+  z-index:10;
+  /* sin padding: el texto toca el borde */
+  padding-bottom:0;
   display:flex;align-items:flex-end;
   pointer-events:none;
+  /* Necesario: corregir el double-skew para que el logo salga recto */
+  transform:skewY(-2.5deg);
+  transform-origin:bottom left;
 }
-@media(max-width:640px){.hero-logo-ras{left:20px;right:20px;padding-bottom:10px}}
+@media(max-width:640px){.hero-logo-ras{left:20px;right:20px}}
 .hero-logo-txt{
   font-family:'Fredoka',sans-serif;
-  /* Grande pero subordinado — ocupa el fondo con transparencia */
-  font-size:clamp(14px,2.6vw,30px);
-  font-weight:700;letter-spacing:-.2px;text-transform:uppercase;
-  /* PUNTO 1 — transparencia en el fondo, se lee pero no protagoniza */
-  color:rgba(255,255,255,.14);
+  font-size:clamp(28px,5.5vw,68px);
+  font-weight:700;letter-spacing:-.5px;text-transform:uppercase;
+  /* Transparente, se lee pero no protagoniza */
+  color:rgba(255,255,255,.13);
   user-select:none;line-height:1;
 }
 
@@ -163,17 +177,16 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 .about-text{display:flex;flex-direction:column;gap:14px}
 .about-greeting{font-family:'Fredoka',sans-serif;font-size:clamp(24px,2.8vw,38px);font-weight:700;line-height:1.1;color:var(--ink)}
 .about-sub{font-family:'Fredoka',sans-serif;font-size:clamp(15px,1.8vw,20px);font-weight:600;color:var(--ink)}
-/* PUNTO 7 — me apasiona pulsante */
+/* PUNTO 7 — me apasiona: pulse de color + subrayado, sin scale que superpone */
 .me-apasiona{
-  color:var(--purple);display:inline-block;
-  animation:apasionaPulse 2.2s ease-in-out infinite;
-  transform-origin:center;
+  color:var(--purple);display:inline;
+  font-weight:800;
+  animation:apasionaGlow 2.4s ease-in-out infinite;
+  position:relative;
 }
-@keyframes apasionaPulse{
-  0%,100%{transform:scale(1)}
-  35%{transform:scale(1.22)}
-  55%{transform:scale(1.14)}
-  75%{transform:scale(1.04)}
+@keyframes apasionaGlow{
+  0%,100%{color:var(--purple);text-shadow:none}
+  50%{color:var(--purple2);text-shadow:0 0 18px rgba(109,40,217,.5),0 0 32px rgba(139,92,246,.25)}
 }
 .about-body{font-size:13.5px;line-height:1.8;color:var(--muted)}
 .about-body strong{color:var(--ink);font-weight:700}
@@ -395,50 +408,104 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 .ct-cta{display:inline-flex;align-items:center;gap:8px;font-family:'Fredoka',sans-serif;font-size:15px;font-weight:700;padding:13px 38px;border-radius:999px;text-decoration:none;background:var(--accent);color:var(--ink);box-shadow:0 8px 28px rgba(240,255,68,.2);transition:transform .25s,box-shadow .25s}
 .ct-cta:hover{transform:scale(1.04) translateY(-2px);box-shadow:0 12px 40px rgba(240,255,68,.35)}
 
-/* PUNTO 6 — Cartelas Pantone */
-.ct-items{display:flex;flex-direction:column;gap:14px}
+/* PUNTO 6 — Cartelas Pantone artísticas y auténticas */
+.ct-items{
+  display:flex;flex-direction:row;gap:16px;
+  flex-wrap:wrap;
+}
+@media(max-width:640px){.ct-items{flex-direction:column}}
+
 .pantone-card{
-  width:100%;border-radius:5px 5px 3px 3px;
+  flex:1;min-width:130px;
+  display:flex;flex-direction:column;
+  /* Proporciones reales de una cartela Pantone */
+  border-radius:4px 4px 3px 3px;
+  overflow:visible; /* para que se vea la sombra */
+  cursor:none;
+  position:relative;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s;
+  /* Sombra de papel real */
+  filter:drop-shadow(0 8px 20px rgba(0,0,0,.55)) drop-shadow(0 2px 6px rgba(0,0,0,.4));
+}
+.pantone-card:hover{
+  transform:translateY(-8px) rotate(1.5deg);
+  filter:drop-shadow(0 16px 32px rgba(0,0,0,.6)) drop-shadow(0 4px 8px rgba(0,0,0,.4));
+}
+.pantone-card:nth-child(2){transform:rotate(-1.2deg)}
+.pantone-card:nth-child(2):hover{transform:translateY(-8px) rotate(-.5deg)}
+.pantone-card:nth-child(3){transform:rotate(.8deg)}
+.pantone-card:nth-child(3):hover{transform:translateY(-8px) rotate(2deg)}
+
+/* Bloque de color — alto generoso */
+.pan-color{
+  height:140px;
+  position:relative;
+  border-radius:4px 4px 0 0;
   overflow:hidden;
-  box-shadow:0 6px 20px rgba(0,0,0,.45),0 2px 6px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.15);
-  transition:transform .3s cubic-bezier(.34,1.56,.64,1);cursor:none;
+}
+.pan-color::after{
+  /* Brillo metálico diagonal */
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.18) 0%,transparent 50%,rgba(0,0,0,.08) 100%);
+}
+.pantone-card:nth-child(1) .pan-color{background:linear-gradient(160deg,#8b5cf6 0%,#7c3aed 40%,#6d28d9 100%)}
+.pantone-card:nth-child(2) .pan-color{background:linear-gradient(160deg,#2e1065 0%,#1a0a2e 50%,#0d0718 100%)}
+.pantone-card:nth-child(3) .pan-color{background:linear-gradient(160deg,#10b981 0%,#059669 50%,#047857 100%)}
+
+/* Agujero arriba centrado — exacto como una cartela real */
+.pan-hole{
+  position:absolute;
+  top:12px;left:50%;transform:translateX(-50%);
+  width:14px;height:14px;border-radius:50%;
+  background:#1a0a2e;
+  box-shadow:inset 0 2px 5px rgba(0,0,0,.8),0 0 0 2px rgba(255,255,255,.06);
+  z-index:2;
+}
+
+/* Parte blanca inferior — papel Pantone */
+.pan-white{
+  background:#f2ede6; /* papel ligeramente cálido */
+  padding:10px 12px 14px;
+  border-radius:0 0 4px 4px;
+  border-top:1px solid rgba(0,0,0,.08);
   position:relative;
 }
-.pantone-card:hover{transform:translateY(-4px) rotate(.4deg)}
-
-/* Bloque de color con agujero */
-.pantone-color{
-  height:56px;position:relative;
-  display:flex;align-items:flex-end;
-  padding:0 12px 8px;
+/* Línea decorativa fina arriba de la parte blanca */
+.pan-white::before{
+  content:'';position:absolute;top:0;left:12px;right:12px;height:1px;
+  background:rgba(0,0,0,.06);
 }
-.pantone-card:nth-child(1) .pantone-color{background:linear-gradient(135deg,#7c3aed 0%,#9333ea 100%)}
-.pantone-card:nth-child(2) .pantone-color{background:linear-gradient(135deg,#1a0a2e 0%,#2e1065 100%)}
-.pantone-card:nth-child(3) .pantone-color{background:linear-gradient(135deg,#059669 0%,#10b981 100%)}
-
-/* Agujero tipo cartela Pantone arriba centrado */
-.pantone-color::before{
-  content:'';position:absolute;
-  top:8px;left:50%;transform:translateX(-50%);
-  width:11px;height:11px;border-radius:50%;
-  background:rgba(0,0,0,.3);
-  box-shadow:inset 0 2px 4px rgba(0,0,0,.5);
+/* Número de referencia Pantone */
+.pan-ref{
+  font-family:'Courier New',monospace;font-size:11px;font-weight:700;
+  letter-spacing:.5px;color:rgba(26,10,46,.85);
+  margin-bottom:5px;line-height:1;
 }
-/* Pequeño texto de código en el bloque de color */
-.pantone-code-block{
-  font-family:monospace;font-size:7.5px;font-weight:700;
+/* Nombre del color */
+.pan-name{
+  font-family:'Courier New',monospace;font-size:7.5px;font-weight:400;
   letter-spacing:1.5px;text-transform:uppercase;
-  color:rgba(255,255,255,.55);
+  color:rgba(26,10,46,.45);margin-bottom:10px;
 }
-
-/* Parte blanca de la cartela */
-.pantone-white{
-  background:#f6f3ed;
-  padding:8px 12px 10px;
-  border-top:1px solid rgba(0,0,0,.06);
+/* Separador */
+.pan-sep{height:1px;background:rgba(26,10,46,.1);margin:0 0 8px}
+/* Label categoría */
+.pan-lbl{
+  font-size:7px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(26,10,46,.4);margin-bottom:4px;
 }
-.pantone-lbl{font-size:8.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(26,10,46,.45);margin-bottom:4px}
-.pantone-val{font-size:13px;font-weight:700;color:var(--ink);line-height:1.2}
+/* Valor de contacto */
+.pan-val{
+  font-family:'Nunito',sans-serif;font-size:12.5px;font-weight:700;
+  color:rgba(26,10,46,.85);line-height:1.3;word-break:break-all;
+}
+/* Logo Pantone® mini abajo */
+.pan-logo{
+  margin-top:8px;
+  font-family:'Courier New',monospace;font-size:8px;font-weight:700;
+  letter-spacing:1px;color:rgba(26,10,46,.2);
+  text-align:right;
+}
 
 /* Tribute */
 .design-tribute{position:relative;z-index:2;border-top:1px solid rgba(255,255,255,.07);padding:40px 56px;overflow:hidden}
@@ -506,7 +573,8 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
   </div>
 </nav>
 
-<!-- ══ HERO ══ -->
+<!-- ══ HERO con corte diagonal — punto 2 ══ -->
+<div class="hero-skew-wrap">
 <section class="hero" id="hero">
   <canvas id="grainCanvas"></canvas>
   <div class="hero-gradient"></div>
@@ -521,11 +589,12 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
     </div>
   </div>
 
-  <!-- PUNTO 1: Logo único al ras del borde inferior -->
+  <!-- PUNTO 1: Logo único apoyado al ras del borde inferior -->
   <div class="hero-logo-ras">
     <span class="hero-logo-txt">NEEERGRAPHS</span>
   </div>
 </section>
+</div>
 
 <!-- BANDAS — cubren el corte diagonal -->
 <div class="bands-wrapper">
@@ -692,34 +761,46 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
       <a href="mailto:nerearamimarti@gmail.com" class="ct-cta">Escribir ahora</a>
     </div>
     <div class="ct-items rvR">
-      <!-- Cartela Pantone — Teléfono -->
+      <!-- Cartela Pantone — Teléfono — PANTONE 267 C -->
       <div class="pantone-card">
-        <div class="pantone-color">
-          <div class="pantone-code-block">PANTONE® 267 C</div>
+        <div class="pan-color">
+          <div class="pan-hole"></div>
         </div>
-        <div class="pantone-white">
-          <div class="pantone-lbl">Teléfono</div>
-          <div class="pantone-val">653 607 909</div>
+        <div class="pan-white">
+          <div class="pan-ref">PANTONE® 267 C</div>
+          <div class="pan-name">Neeergraphs Purple</div>
+          <div class="pan-sep"></div>
+          <div class="pan-lbl">Teléfono</div>
+          <div class="pan-val">653 607 909</div>
+          <div class="pan-logo">Pantone®</div>
         </div>
       </div>
-      <!-- Cartela Pantone — Email -->
+      <!-- Cartela Pantone — Email — PANTONE 2766 C -->
       <div class="pantone-card">
-        <div class="pantone-color">
-          <div class="pantone-code-block">PANTONE® 2766 C</div>
+        <div class="pan-color">
+          <div class="pan-hole"></div>
         </div>
-        <div class="pantone-white">
-          <div class="pantone-lbl">Email</div>
-          <div class="pantone-val" style="font-size:11.5px">nerearamimarti@gmail.com</div>
+        <div class="pan-white">
+          <div class="pan-ref">PANTONE® 2766 C</div>
+          <div class="pan-name">Deep Ink</div>
+          <div class="pan-sep"></div>
+          <div class="pan-lbl">Email</div>
+          <div class="pan-val" style="font-size:10.5px">nerearamimarti@gmail.com</div>
+          <div class="pan-logo">Pantone®</div>
         </div>
       </div>
-      <!-- Cartela Pantone — Ubicación -->
+      <!-- Cartela Pantone — Ubicación — PANTONE 3395 C -->
       <div class="pantone-card">
-        <div class="pantone-color">
-          <div class="pantone-code-block">PANTONE® 3395 C</div>
+        <div class="pan-color">
+          <div class="pan-hole"></div>
         </div>
-        <div class="pantone-white">
-          <div class="pantone-lbl">Ubicación</div>
-          <div class="pantone-val">Madrid · SSReyes</div>
+        <div class="pan-white">
+          <div class="pan-ref">PANTONE® 3395 C</div>
+          <div class="pan-name">Madrid Mint</div>
+          <div class="pan-sep"></div>
+          <div class="pan-lbl">Ubicación</div>
+          <div class="pan-val">Madrid · SSReyes</div>
+          <div class="pan-logo">Pantone®</div>
         </div>
       </div>
     </div>
