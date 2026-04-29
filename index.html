@@ -4,11 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Neeergraphs — Diseñadora Gráfica & Motion</title>
-<!-- Favicon con N rounded — punto 5 -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%236d28d9'/%3E%3Ctext x='32' y='46' font-family='Fredoka%2C Arial%20Rounded%20MT%20Bold%2C sans-serif' font-size='40' font-weight='700' text-anchor='middle' fill='white'%3EN%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%236d28d9'/%3E%3Ctext x='32' y='46' font-family='Fredoka%2C sans-serif' font-size='40' font-weight='700' text-anchor='middle' fill='white'%3EN%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <style>
-/* ══════ VARS ══════ */
+/* ══ VARS ══ */
 :root{
   --white:#fff;--off:#fafaf8;
   --purple:#6d28d9;--purple2:#7c3aed;--purple3:#8b5cf6;
@@ -22,194 +21,126 @@
 html{overflow-x:hidden;scroll-behavior:smooth}
 body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;overflow-x:hidden;cursor:none}
 
-/* ══════════════════════════════════════
-   CURSOR — play / pause + trail visible
-══════════════════════════════════════ */
+/* ══ CURSOR — play/pause + trail muy visible — punto 7 ══ */
 #vid-cur{
   position:fixed;z-index:9999;pointer-events:none;
-  transform:translate(-50%,-50%);
-  will-change:transform;
-  transition:transform .12s cubic-bezier(.34,1.56,.64,1);
+  transform:translate(-50%,-50%);will-change:transform;
 }
 #vid-cur.paused .ic-play{display:none}
 #vid-cur.paused .ic-pause{display:block}
 .ic-pause{display:none}
 
-/* Trail: pequeños puntos de colores que se desvanecen rápido — punto 2 */
+/* Trail: partículas grandes, muy visibles — punto 7 */
 .cur-trail{
-  position:fixed;z-index:9990;pointer-events:none;
-  border-radius:50%;
+  position:fixed;z-index:9990;pointer-events:none;border-radius:50%;
   transform:translate(-50%,-50%);
-  animation:trailDot .4s ease forwards;
-  will-change:opacity,transform;
+  animation:trailGo .5s ease forwards;
 }
-@keyframes trailDot{
-  0%{opacity:.85;transform:translate(-50%,-50%) scale(1)}
-  100%{opacity:0;transform:translate(-50%,-50%) scale(.1)}
+@keyframes trailGo{
+  0%{opacity:.95;transform:translate(-50%,-50%) scale(1)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(.08)}
 }
 
-/* ══════════════════════════════════════
-   NAV — cristal visible, acorde con estética — punto 4
-══════════════════════════════════════ */
-.nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  padding:14px 48px;
-}
-@media(max-width:640px){.nav{padding:10px 16px}}
+/* ══ NAV ══ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:12px 48px}
+@media(max-width:640px){.nav{padding:8px 16px}}
 .nav-inner{
   display:flex;align-items:center;justify-content:space-between;
-  background:rgba(13,10,26,.55);
+  background:rgba(13,10,26,.6);
   backdrop-filter:blur(24px) saturate(1.6);
   -webkit-backdrop-filter:blur(24px) saturate(1.6);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:16px;padding:10px 22px;
-  position:relative;overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);border-radius:14px;
+  padding:9px 22px;position:relative;overflow:hidden;
   transition:background .4s,border-color .4s;
   box-shadow:0 4px 24px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.08);
 }
-/* Brillo superior */
-.nav-inner::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent)}
-
-/* Nav claro — sobre secciones blancas */
-.nav.light .nav-inner{
-  background:rgba(255,255,255,.7);
-  border-color:rgba(109,40,217,.18);
-  box-shadow:0 4px 24px rgba(109,40,217,.08),inset 0 1px 0 rgba(255,255,255,1);
-}
-.nav.light .nav-inner::before{background:linear-gradient(90deg,transparent,rgba(109,40,217,.15),transparent)}
+.nav-inner::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent)}
+.nav.light .nav-inner{background:rgba(255,255,255,.75);border-color:rgba(109,40,217,.18);box-shadow:0 4px 24px rgba(109,40,217,.08),inset 0 1px 0 rgba(255,255,255,1)}
 .nav.light .nav-logo-nav{color:var(--ink)}
 .nav.light .nav-links a{color:rgba(26,10,46,.5)}
 .nav.light .nav-links a:hover{color:var(--purple);background:rgba(109,40,217,.07)}
-
-/* Logo nav — siempre NEEERGRAPHS, Fredoka mayúsculas — punto 9 */
-.nav-logo-nav{
-  font-family:'Fredoka',sans-serif;font-size:16px;font-weight:700;
-  text-decoration:none;letter-spacing:2px;text-transform:uppercase;
-  color:rgba(255,255,255,.8);transition:color .25s;
-}
+.nav-logo-nav{font-family:'Fredoka',sans-serif;font-size:15px;font-weight:700;text-decoration:none;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.8);transition:color .25s}
 .nav-logo-nav:hover{color:var(--accent)}
-.nav.light .nav-logo-nav:hover{color:var(--purple)}
-
 .nav-links{display:flex;gap:4px;list-style:none}
-.nav-links a{
-  font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  color:rgba(255,255,255,.5);text-decoration:none;
-  padding:7px 14px;border-radius:12px;
-  transition:all .22s;position:relative;
-}
+.nav-links a{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;padding:6px 13px;border-radius:10px;transition:all .2s}
 .nav-links a:hover{color:#fff;background:rgba(255,255,255,.1)}
 @media(max-width:640px){.nav-links{display:none}}
 
 /* Back to top */
-#btt{
-  position:fixed;bottom:32px;right:32px;z-index:300;
-  width:48px;height:48px;border-radius:50%;
-  background:linear-gradient(135deg,var(--purple),var(--purple2));
-  border:none;cursor:none;display:flex;align-items:center;justify-content:center;
-  color:#fff;font-size:18px;
-  opacity:0;pointer-events:none;transition:opacity .35s;
-  box-shadow:0 8px 24px rgba(109,40,217,.35);
-  animation:floatBtt 3s ease-in-out infinite;
-}
+#btt{position:fixed;bottom:30px;right:30px;z-index:300;width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--purple2));border:none;cursor:none;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;opacity:0;pointer-events:none;transition:opacity .35s;box-shadow:0 8px 24px rgba(109,40,217,.35);animation:floatBtt 3s ease-in-out infinite}
 #btt.show{opacity:1;pointer-events:auto}
-#btt:hover{transform:scale(1.12)}
 @keyframes floatBtt{0%,100%{box-shadow:0 8px 24px rgba(109,40,217,.35),0 0 0 0 rgba(109,40,217,.15)}50%{box-shadow:0 12px 32px rgba(109,40,217,.45),0 0 0 10px rgba(109,40,217,.06)}}
 
-/* ══════════════════════════════════════
-   HERO — dots de libreta + logo único abajo
-══════════════════════════════════════ */
+/* ══════════════════════════════════════════
+   HERO — punto 1+2: más bajo, logo al ras de las bandas
+══════════════════════════════════════════ */
 .hero{
-  min-height:88svh;
+  /* Más bajo — punto 1 */
+  min-height:72svh;
   display:flex;flex-direction:column;
   position:relative;overflow:hidden;
   background:#0d0a1a;
-  /* Sin margen inferior — las bandas lo cubren — punto 1 */
-  margin-bottom:0;
+  padding:0;
 }
-@media(max-width:640px){.hero{min-height:80svh}}
+@media(max-width:640px){.hero{min-height:62svh}}
 
-/* Canvas grain sutil */
 #grainCanvas{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.45}
-
-/* Aurora de color */
-.hero-gradient{
-  position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:
-    radial-gradient(ellipse 80% 60% at 30% 40%,rgba(109,40,217,.38),transparent 65%),
-    radial-gradient(ellipse 60% 50% at 80% 60%,rgba(255,61,154,.12),transparent 65%),
-    radial-gradient(ellipse 50% 40% at 50% 90%,rgba(240,255,68,.06),transparent 65%);
-}
-
-/* PUNTITOS tipo libreta — punto 3 */
-.hero-dots{
-  position:absolute;inset:0;z-index:2;pointer-events:none;
-  background-image:radial-gradient(circle,rgba(255,255,255,.12) 1px,transparent 1px);
-  background-size:28px 28px;
-}
-
+.hero-gradient{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 30% 40%,rgba(109,40,217,.38),transparent 65%),radial-gradient(ellipse 60% 50% at 80% 60%,rgba(255,61,154,.12),transparent 65%),radial-gradient(ellipse 50% 40% at 50% 90%,rgba(240,255,68,.06),transparent 65%)}
+/* Puntitos libreta */
+.hero-dots{position:absolute;inset:0;z-index:2;pointer-events:none;background-image:radial-gradient(circle,rgba(255,255,255,.11) 1px,transparent 1px);background-size:28px 28px}
 .hero-scanlines{position:absolute;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.04) 2px,rgba(0,0,0,.04) 4px)}
+.hero-bg-name{position:absolute;z-index:1;pointer-events:none;font-family:'Fredoka',sans-serif;font-size:clamp(80px,17vw,220px);font-weight:700;letter-spacing:-4px;color:rgba(180,160,220,.1);top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;user-select:none;will-change:transform}
 
-/* NEEERGRAPHS de fondo */
-.hero-bg-name{
-  position:absolute;z-index:1;pointer-events:none;
-  font-family:'Fredoka',sans-serif;font-size:clamp(80px,17vw,220px);font-weight:700;
-  letter-spacing:-4px;color:rgba(180,160,220,.1);
-  top:50%;left:50%;transform:translate(-50%,-50%);
-  white-space:nowrap;user-select:none;will-change:transform;
-}
-
-/* Contenido centro — punto 3: typing arriba, botones, luego logo abajo */
+/* Contenido central */
 .hero-main{
-  position:relative;z-index:5;
-  flex:1;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  text-align:center;padding:90px 52px 24px;
+  position:relative;z-index:5;flex:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:80px 52px 16px;
 }
-@media(max-width:640px){.hero-main{padding:90px 24px 20px}}
+@media(max-width:640px){.hero-main{padding:80px 24px 12px}}
 
 /* Typing */
-.hero-typing-wrap{
-  min-height:clamp(52px,9vw,96px);
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:24px;
-}
-.hero-typing{
-  font-family:'Fredoka',sans-serif;
-  font-size:clamp(42px,8.5vw,92px);
-  font-weight:700;line-height:.9;color:#fff;letter-spacing:-1px;
-}
+.hero-typing-wrap{min-height:clamp(50px,9vw,90px);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.hero-typing{font-family:'Fredoka',sans-serif;font-size:clamp(38px,8vw,86px);font-weight:700;line-height:.9;color:#fff;letter-spacing:-1px}
 .hero-typing::after{content:'|';display:inline-block;margin-left:4px;animation:blink .75s step-end infinite;color:var(--accent);font-weight:300}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
 .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-.cta-fill{font-family:'Fredoka',sans-serif;font-size:16px;font-weight:600;padding:13px 36px;border-radius:999px;text-decoration:none;background:var(--purple);color:#fff;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s;box-shadow:0 6px 24px rgba(109,40,217,.35)}
+.cta-fill{font-family:'Fredoka',sans-serif;font-size:15px;font-weight:600;padding:12px 34px;border-radius:999px;text-decoration:none;background:var(--purple);color:#fff;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s;box-shadow:0 6px 24px rgba(109,40,217,.35)}
 .cta-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);transform:translateX(-100%);animation:shim 3s ease-in-out infinite}
 @keyframes shim{0%{transform:translateX(-100%)}55%,100%{transform:translateX(150%)}}
 .cta-fill:hover{transform:scale(1.05) translateY(-2px);box-shadow:0 10px 32px rgba(109,40,217,.5)}
-.cta-outline{font-family:'Fredoka',sans-serif;font-size:16px;font-weight:600;padding:12px 30px;border-radius:999px;text-decoration:none;color:rgba(255,255,255,.7);border:1.5px solid rgba(255,255,255,.25);transition:all .22s}
+.cta-outline{font-family:'Fredoka',sans-serif;font-size:15px;font-weight:600;padding:11px 28px;border-radius:999px;text-decoration:none;color:rgba(255,255,255,.7);border:1.5px solid rgba(255,255,255,.25);transition:all .22s}
 .cta-outline:hover{border-color:rgba(255,255,255,.6);color:#fff;background:rgba(255,255,255,.08)}
 
-/* Logo único abajo — punto 1 y 3 */
-.hero-bottom-bar{
-  position:relative;z-index:5;
-  padding:20px 52px 22px;
-  display:flex;align-items:flex-end;justify-content:flex-start;
+/* Logo al ras de las bandas — punto 1: posición absolute al fondo */
+.hero-logo-ras{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  z-index:5;
+  padding:0 52px 10px;
+  display:flex;align-items:flex-end;
+  /* Apoyado justo donde empiezan las bandas */
 }
-@media(max-width:640px){.hero-bottom-bar{padding:14px 20px 18px}}
-.hero-logo-bottom{
+@media(max-width:640px){.hero-logo-ras{padding:0 20px 8px}}
+.hero-logo-txt{
   font-family:'Fredoka',sans-serif;
-  font-size:clamp(20px,3.5vw,38px);
+  font-size:clamp(18px,3.2vw,36px);
   font-weight:700;letter-spacing:-0.5px;text-transform:uppercase;
-  color:rgba(255,255,255,.14);
+  /* Color gris transparente visible */
+  color:rgba(255,255,255,.18);
   user-select:none;line-height:1;
 }
 
-/* ══════ BANDAS — punto 1: pegadas al hero, sobre fondo purple5 ══════ */
-.bands{
-  position:relative;height:114px;overflow:visible;z-index:10;
-  background:var(--purple5); /* mismo fondo que "sobre mí" — punto 1 */
-  margin-top:0;
+/* ══ BANDAS — punto 2: ocultan el corte entre hero y about
+   Están SOBRE el hero con z-index alto, mismo bg que about ══ */
+.bands-wrapper{
+  position:relative;z-index:15;
+  /* Fondo igual que la sección about — el about empieza aquí visualmente */
+  background:var(--purple5);
+  margin-top:-4px; /* pega perfectamente sin hueco */
 }
+.bands{position:relative;height:110px;overflow:visible}
 .band{position:absolute;left:-8%;width:116%;padding:11px 0;overflow:hidden;white-space:nowrap}
 .b1{background:var(--purple);transform:rotate(-1.6deg);top:10px;box-shadow:0 4px 20px rgba(109,40,217,.25)}
 .b2{background:var(--ink);transform:rotate(1.6deg);bottom:10px}
@@ -219,9 +150,9 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 .bt span{font-family:'Fredoka',sans-serif;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.85);flex-shrink:0}
 .bt .dot{font-size:7px;opacity:.5;color:var(--accent)}
 
-/* ══════════════════════════════════════
-   SOBRE MÍ — layout: foto | texto+chips | accordeon una línea
-══════════════════════════════════════ */
+/* ══════════════════════════════════════════
+   SOBRE MÍ — punto 3: foto oval abstracta, layout correcto
+══════════════════════════════════════════ */
 .about{
   padding:80px 56px 100px;
   background:var(--purple5);
@@ -232,151 +163,121 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 
 .about-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1}
 
-/* Fila superior: foto + texto + chips — punto 6 */
-.about-top{
-  display:grid;gap:40px;margin-bottom:40px;
-  align-items:start;
+/* Layout: foto | texto | chips — en una sola línea — punto 3 */
+.about-row{
+  display:grid;
+  gap:36px;align-items:start;
 }
-@media(min-width:820px){.about-top{grid-template-columns:180px 1fr auto}}
-@media(max-width:820px){.about-top{grid-template-columns:1fr}}
+@media(min-width:820px){
+  .about-row{grid-template-columns:170px 1fr 200px}
+}
+@media(max-width:820px){
+  .about-row{grid-template-columns:1fr}
+}
 
-/* Foto — punto 6: forma más abstracta, menos blur */
-.photo-wrap{position:relative;width:160px;height:160px;flex-shrink:0}
+/* FOTO — punto 3: óvalo deformado abstracto, poco blur */
+.photo-col{display:flex;flex-direction:column;align-items:center;gap:16px}
+.photo-wrap{position:relative;width:160px;height:195px;flex-shrink:0}
 
-/* Círculo abstracto detrás */
-.abstract-ring{position:absolute;inset:-28px;z-index:0}
+/* Anillo abstracto SVG */
+.abstract-ring{position:absolute;inset:-32px;z-index:0}
 #morphRingSvg{width:100%;height:100%;overflow:visible}
 
-.photo-trigger{
-  position:relative;width:160px;height:160px;cursor:none;z-index:1;
-  /* Forma más abstracta — clip-path orgánico */
-  clip-path:polygon(50% 0%,85% 10%,100% 40%,90% 80%,60% 100%,20% 95%,0% 65%,10% 20%);
-  transition:clip-path .6s ease;
+.photo-frame{
+  position:absolute;inset:0;z-index:1;
+  overflow:hidden;
+  /* Óvalo deformado abstracto — punto 3 */
+  border-radius:62% 38% 55% 45% / 58% 48% 52% 42%;
+  animation:morphFrame 10s ease-in-out infinite;
+  transition:border-radius .6s ease;
 }
-.photo-trigger:hover{clip-path:polygon(45% 0%,90% 8%,100% 45%,88% 85%,55% 100%,15% 92%,0% 60%,12% 18%)}
-
-.photo-mirror{position:absolute;inset:0;overflow:hidden}
-.photo-mirror img{
+@keyframes morphFrame{
+  0%,100%{border-radius:62% 38% 55% 45% / 58% 48% 52% 42%}
+  25%{border-radius:45% 55% 40% 60% / 52% 62% 38% 48%}
+  50%{border-radius:55% 45% 62% 38% / 45% 55% 60% 40%}
+  75%{border-radius:40% 60% 48% 52% / 60% 42% 55% 45%}
+}
+.photo-frame img{
   width:100%;height:100%;object-fit:cover;object-position:center top;display:block;
-  filter:blur(3px) saturate(1.2) brightness(.78); /* blur mínimo — punto 6 */
-  transform:scale(1.06);
+  /* Blur mínimo — punto 3: que se diferencie la cara */
+  filter:blur(2px) saturate(1.1) brightness(.8);
+  transform:scale(1.05);
+  transition:filter .45s ease;
 }
-.photo-mirror-overlay{
+/* Overlay cristal */
+.photo-frame-ov{
   position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(109,40,217,.1));
+  background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(109,40,217,.08));
   border:2px solid rgba(255,255,255,.3);z-index:1;
 }
-.photo-mirror-icon{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;transition:opacity .4s}
-.photo-mirror-label{font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.8)}
-.photo-real{position:absolute;inset:0;overflow:hidden;z-index:3;opacity:0;transform:scale(.9);transition:opacity .45s cubic-bezier(.34,1.56,.64,1),transform .45s cubic-bezier(.34,1.56,.64,1)}
+/* Icono cámara */
+.photo-icon{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;transition:opacity .4s}
+.photo-icon-lbl{font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.8)}
+/* Foto real */
+.photo-real{position:absolute;inset:0;z-index:3;overflow:hidden;border-radius:62% 38% 55% 45% / 58% 48% 52% 42%;animation:morphFrame 10s ease-in-out infinite;opacity:0;transform:scale(.9);transition:opacity .45s cubic-bezier(.34,1.56,.64,1),transform .45s cubic-bezier(.34,1.56,.64,1);border:2.5px solid var(--purple2)}
 .photo-real img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
-.photo-flash{position:absolute;inset:0;background:rgba(255,255,255,.85);opacity:0;pointer-events:none;z-index:10;transition:opacity .08s}
-.photo-trigger:hover .photo-mirror-icon{opacity:0}
-.photo-trigger:hover .photo-real{opacity:1;transform:scale(1)}
+.photo-flash{position:absolute;inset:0;border-radius:50%;background:rgba(255,255,255,.85);opacity:0;pointer-events:none;z-index:10;transition:opacity .08s}
 
-/* Stats */
-.about-stats{display:flex;gap:16px;margin-top:14px;justify-content:center}
+.photo-wrap:hover .photo-icon{opacity:0}
+.photo-wrap:hover .photo-frame img{filter:blur(0px) saturate(1) brightness(1)}
+.photo-wrap:hover .photo-real{opacity:1;transform:scale(1)}
+
+/* Stats bajo foto */
+.about-stats{display:flex;gap:16px;justify-content:center}
 .st-item{text-align:center}
-.st-n{font-family:'Fredoka',sans-serif;font-size:28px;font-weight:700;line-height:1;color:var(--purple)}
-.st-l{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted2)}
+.st-n{font-family:'Fredoka',sans-serif;font-size:26px;font-weight:700;line-height:1;color:var(--purple)}
+.st-l{font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted2)}
 
-/* Columna texto central */
-.about-text-col{display:flex;flex-direction:column;gap:16px}
-.about-greeting{font-family:'Fredoka',sans-serif;font-size:clamp(26px,3vw,42px);font-weight:700;line-height:1.1;color:var(--ink)}
-.about-sub{font-family:'Fredoka',sans-serif;font-size:clamp(17px,2vw,22px);font-weight:600;color:var(--ink)}
+/* Texto central */
+.about-text{display:flex;flex-direction:column;gap:14px}
+.about-greeting{font-family:'Fredoka',sans-serif;font-size:clamp(24px,2.8vw,38px);font-weight:700;line-height:1.1;color:var(--ink)}
+.about-sub{font-family:'Fredoka',sans-serif;font-size:clamp(15px,1.8vw,20px);font-weight:600;color:var(--ink)}
 .about-sub .pk{color:var(--purple)}
-.about-body{font-size:14px;line-height:1.8;color:var(--muted);max-width:480px}
+.about-body{font-size:13.5px;line-height:1.8;color:var(--muted)}
 .about-body strong{color:var(--ink);font-weight:700}
 
-/* Brainstorming chips — al lado del texto — punto 6 */
-.brainstorm-col{min-width:200px}
+/* Brainstorming chips — columna derecha, más pequeña — punto 3 */
+.brainstorm-col{min-width:0}
 .brainstorm-wrap{
-  position:relative;padding:14px 14px 16px;
+  position:relative;padding:12px 12px 14px;
   background:rgba(255,255,255,.55);backdrop-filter:blur(12px);
-  border:1.5px solid var(--lavender);border-radius:18px;
-  overflow:hidden;
+  border:1.5px solid var(--lavender);border-radius:16px;overflow:hidden;
 }
-.brainstorm-wrap::before{
-  content:'herramientas';position:absolute;top:7px;left:10px;
-  font-size:7px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--purple3);opacity:.7;
-}
-.brainstorm-wrap::after{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(rgba(109,40,217,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(109,40,217,.04) 1px,transparent 1px);
-  background-size:18px 18px;border-radius:18px;
-}
-.brainstorm-inner{display:flex;flex-wrap:wrap;gap:6px;margin-top:20px;position:relative;z-index:1}
-.bchip{
-  font-size:10px;font-weight:700;padding:4px 11px;border-radius:999px;
-  background:rgba(255,255,255,.8);color:var(--purple2);
-  border:1.5px solid var(--lavender);
-  transition:all .22s cubic-bezier(.34,1.56,.64,1);cursor:default;
-  position:relative;
-}
-.bchip:nth-child(odd){transform:rotate(-1.5deg)}
-.bchip:nth-child(even){transform:rotate(1.5deg)}
-.bchip:nth-child(3n){transform:rotate(.5deg)}
+.brainstorm-wrap::before{content:'tools';position:absolute;top:6px;left:9px;font-size:7px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--purple3);opacity:.7}
+.brainstorm-wrap::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(109,40,217,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(109,40,217,.04) 1px,transparent 1px);background-size:16px 16px;border-radius:16px}
+.brainstorm-inner{display:flex;flex-wrap:wrap;gap:5px;margin-top:18px;position:relative;z-index:1}
+.bchip{font-size:9px;font-weight:700;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.8);color:var(--purple2);border:1.5px solid var(--lavender);transition:all .22s cubic-bezier(.34,1.56,.64,1);cursor:default;position:relative}
+.bchip:nth-child(odd){transform:rotate(-1.2deg)}
+.bchip:nth-child(even){transform:rotate(1.2deg)}
 .bchip:hover{transform:scale(1.08) rotate(0deg);background:var(--purple);color:#fff;border-color:var(--purple)}
 
-/* Accordion en UNA LÍNEA horizontal — punto 6 */
-.acc-section{
-  background:rgba(255,255,255,.5);
-  backdrop-filter:blur(16px);
-  border:1.5px solid var(--lavender);
-  border-radius:20px;
-  overflow:hidden;
-}
-/* Cabeceras en fila */
-.acc-tabs{
-  display:grid;grid-template-columns:repeat(4,1fr);
-}
-.acc-tab{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:14px 16px;
-  border-right:1px solid var(--lavender);
-  cursor:none;user-select:none;
-  transition:background .22s;
-  background:transparent;
-}
+/* Accordion horizontal — UNA LÍNEA */
+.acc-section{background:rgba(255,255,255,.5);backdrop-filter:blur(16px);border:1.5px solid var(--lavender);border-radius:18px;overflow:hidden;margin-top:32px}
+.acc-tabs{display:grid;grid-template-columns:repeat(4,1fr)}
+@media(max-width:640px){.acc-tabs{grid-template-columns:1fr 1fr}}
+.acc-tab{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;border-right:1px solid var(--lavender);cursor:none;user-select:none;transition:background .22s;background:transparent}
 .acc-tab:last-child{border-right:none}
 .acc-tab:hover{background:rgba(109,40,217,.05)}
 .acc-tab.open{background:rgba(109,40,217,.08)}
-.acc-tab-label{
-  font-family:'Fredoka',sans-serif;font-size:14px;font-weight:600;
-  color:var(--ink);transition:color .2s;
-}
+.acc-tab-label{font-family:'Fredoka',sans-serif;font-size:13px;font-weight:600;color:var(--ink);transition:color .2s}
 .acc-tab.open .acc-tab-label,.acc-tab:hover .acc-tab-label{color:var(--purple)}
-.acc-tab-right{display:flex;align-items:center;gap:6px}
-.acc-tab-tag{font-size:8px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:2px 8px;border-radius:999px;background:var(--purple4);color:var(--purple);white-space:nowrap}
-/* Flecha — punto 6 */
-.acc-arrow{
-  width:22px;height:22px;border-radius:50%;border:1.5px solid var(--lavender);
-  display:flex;align-items:center;justify-content:center;
-  transition:all .32s cubic-bezier(.34,1.56,.64,1);flex-shrink:0;
-}
+.acc-tab-right{display:flex;align-items:center;gap:5px}
+.acc-tab-tag{font-size:7px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:var(--purple4);color:var(--purple);white-space:nowrap}
+.acc-arrow{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--lavender);display:flex;align-items:center;justify-content:center;transition:all .32s cubic-bezier(.34,1.56,.64,1);flex-shrink:0}
 .acc-arrow svg{transition:transform .32s cubic-bezier(.34,1.56,.64,1)}
 .acc-tab.open .acc-arrow{background:var(--purple);border-color:var(--purple)}
 .acc-tab.open .acc-arrow svg{transform:rotate(180deg)}
 .acc-tab.open .acc-arrow svg path{stroke:#fff}
-
-/* Paneles que se despliegan hacia abajo bajo la barra de tabs */
 .acc-panels{border-top:1px solid var(--lavender)}
-.acc-panel{
-  display:none;padding:20px;
-  animation:panelFade .3s ease;
-}
+.acc-panel{display:none;padding:18px;animation:panelFade .3s ease}
 .acc-panel.open{display:block}
-@keyframes panelFade{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-@media(max-width:640px){.acc-tabs{grid-template-columns:1fr 1fr}.acc-tab{border-bottom:1px solid var(--lavender)}}
+@keyframes panelFade{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
 
-/* Timeline */
 .tl{display:flex;flex-direction:column;gap:12px}
 .tl-row{display:flex;gap:12px;align-items:flex-start}
 .tl-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
 .tl-dot{width:10px;height:10px;border-radius:50%;margin-top:4px;flex-shrink:0}
-.tl-row:nth-child(1) .tl-dot{background:var(--purple2);box-shadow:0 0 8px rgba(124,58,237,.4)}
-.tl-row:nth-child(2) .tl-dot{background:var(--accent2)}
-.tl-row:nth-child(3) .tl-dot{background:var(--accent);filter:brightness(.8)}
+.tl-row:nth-child(1) .tl-dot{background:var(--purple2);box-shadow:0 0 8px rgba(124,58,237,.4)}.tl-row:nth-child(2) .tl-dot{background:var(--accent2)}.tl-row:nth-child(3) .tl-dot{background:var(--accent);filter:brightness(.8)}
 .tl-dash{width:1.5px;flex:1;min-height:16px;background:rgba(109,40,217,.1);margin-top:4px}
 .tl-c{flex:1}
 .tl-pill{display:inline-block;font-size:9px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:2px 9px;border-radius:999px;background:var(--purple4);color:var(--purple);margin-bottom:5px}
@@ -404,31 +305,21 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 .itag.c{background:rgba(255,61,154,.08);color:var(--accent2);border:1px solid rgba(255,61,154,.18)}
 .itag:hover{transform:scale(1.08) rotate(-1.5deg)}
 
-/* ══════════════════════════════════════
-   SERVICIOS — punto 7: icono grande en hover, sin mini-título
-══════════════════════════════════════ */
-.servicios{padding:100px 56px;position:relative;overflow:hidden;background:#0d0a1a}
+/* ══ SERVICIOS ══ */
+.servicios{padding:90px 56px;position:relative;overflow:hidden;background:#0d0a1a}
 @media(max-width:640px){.servicios{padding:72px 20px}}
-#grainCanvas2{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.3}
+#grainCanvas2{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.28}
 .svc-aurora{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 70% 60% at 15% 25%,rgba(109,40,217,.28),transparent 60%),radial-gradient(ellipse 55% 50% at 85% 75%,rgba(255,61,154,.14),transparent 60%),radial-gradient(ellipse 45% 40% at 55% 50%,rgba(240,255,68,.07),transparent 60%),radial-gradient(ellipse 35% 30% at 75% 20%,rgba(16,245,160,.06),transparent 60%)}
-.svc-dots{position:absolute;inset:0;z-index:1;pointer-events:none;background-image:radial-gradient(circle,rgba(139,92,246,.14) 1px,transparent 1px);background-size:30px 30px;opacity:.55}
+.svc-dots{position:absolute;inset:0;z-index:1;pointer-events:none;background-image:radial-gradient(circle,rgba(139,92,246,.13) 1px,transparent 1px);background-size:30px 30px;opacity:.55}
 .svc-scanlines{position:absolute;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.04) 2px,rgba(0,0,0,.04) 4px)}
-
-.sec-hd{max-width:1100px;margin:0 auto 48px;position:relative;z-index:3}
-.sec-title{font-family:'Fredoka',sans-serif;font-size:clamp(32px,5vw,62px);font-weight:700;line-height:.95;color:var(--white)}
+.sec-hd{max-width:1100px;margin:0 auto 44px;position:relative;z-index:3}
+.sec-title{font-family:'Fredoka',sans-serif;font-size:clamp(30px,5vw,60px);font-weight:700;line-height:.95;color:var(--white)}
 .sec-title .hi{color:var(--accent)}
 .sec-title.dk{color:var(--ink)}.sec-title.dk .hi{color:var(--purple)}
-
 .svcs-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative;z-index:3}
 @media(max-width:860px){.svcs-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.svcs-grid{grid-template-columns:1fr}}
-
-.svc{
-  padding:30px 24px 26px;border-radius:20px;
-  position:relative;overflow:hidden;
-  transition:transform .4s cubic-bezier(.34,1.56,.64,1);
-  border:1.5px solid rgba(255,255,255,.1);
-}
+.svc{padding:28px 22px 24px;border-radius:18px;position:relative;overflow:hidden;transition:transform .4s cubic-bezier(.34,1.56,.64,1);border:1.5px solid rgba(255,255,255,.1)}
 .svc:hover{transform:translateY(-8px)}
 .svc:nth-child(1){background:linear-gradient(145deg,rgba(139,92,246,.22),rgba(109,40,217,.15))}
 .svc:nth-child(2){background:linear-gradient(145deg,rgba(240,255,68,.15),rgba(180,160,30,.1))}
@@ -442,179 +333,136 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 .svc:nth-child(4):hover{border-color:rgba(16,245,160,.45);box-shadow:0 20px 50px rgba(16,245,160,.1)}
 .svc:nth-child(5):hover{border-color:rgba(14,165,233,.55);box-shadow:0 20px 50px rgba(14,165,233,.15)}
 .svc:nth-child(6):hover{border-color:rgba(251,191,36,.45);box-shadow:0 20px 50px rgba(251,191,36,.1)}
-
-/* Icono grande de fondo en hover — punto 7 */
-.svc-bg-icon{
-  position:absolute;right:-10px;bottom:-10px;z-index:0;
-  font-size:90px;opacity:0;
-  transition:opacity .35s,transform .35s;
-  transform:scale(.7) rotate(-10deg);
-  pointer-events:none;
-  filter:blur(1px);
-}
+.svc-bg-icon{position:absolute;right:-8px;bottom:-8px;z-index:0;font-size:88px;opacity:0;transition:opacity .35s,transform .35s;transform:scale(.7) rotate(-10deg);pointer-events:none;filter:blur(1px)}
 .svc:hover .svc-bg-icon{opacity:.12;transform:scale(1) rotate(-5deg)}
-
-.svc-num{position:absolute;top:10px;right:14px;font-family:'Fredoka',sans-serif;font-size:58px;font-weight:700;line-height:1;color:rgba(255,255,255,.06);transition:opacity .3s}
+.svc-num{position:absolute;top:10px;right:12px;font-family:'Fredoka',sans-serif;font-size:54px;font-weight:700;line-height:1;color:rgba(255,255,255,.06);transition:opacity .3s}
 .svc:hover .svc-num{opacity:0}
-.svc-ico{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;transition:transform .35s cubic-bezier(.34,1.56,.64,1);position:relative;z-index:1}
+.svc-ico{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:13px;transition:transform .35s cubic-bezier(.34,1.56,.64,1);position:relative;z-index:1}
 .svc:nth-child(1) .svc-ico{background:linear-gradient(135deg,var(--purple2),var(--purple3))}.svc:nth-child(2) .svc-ico{background:linear-gradient(135deg,#a16207,#ca8a04)}.svc:nth-child(3) .svc-ico{background:linear-gradient(135deg,var(--accent2),#ff85c2)}.svc:nth-child(4) .svc-ico{background:linear-gradient(135deg,#059669,#10b981)}.svc:nth-child(5) .svc-ico{background:linear-gradient(135deg,#0284c7,#38bdf8)}.svc:nth-child(6) .svc-ico{background:linear-gradient(135deg,#d97706,#f59e0b)}
 .svc:hover .svc-ico{transform:rotate(-7deg) scale(1.08)}
-.svc-ico img{width:22px;filter:brightness(0) invert(1)}
-.svc h3{font-family:'Fredoka',sans-serif;font-size:20px;font-weight:700;color:var(--white);margin-bottom:7px;transition:color .25s;position:relative;z-index:1}
+.svc-ico img{width:21px;filter:brightness(0) invert(1)}
+.svc h3{font-family:'Fredoka',sans-serif;font-size:19px;font-weight:700;color:var(--white);margin-bottom:6px;transition:color .25s;position:relative;z-index:1}
 .svc p{font-size:12px;color:rgba(255,255,255,.55);line-height:1.7;position:relative;z-index:1}
-.svc-badge{display:inline-block;margin-top:9px;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:3px 11px;border-radius:999px;background:var(--accent);color:var(--ink);position:relative;z-index:1}
+.svc-badge{display:inline-block;margin-top:8px;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:3px 11px;border-radius:999px;background:var(--accent);color:var(--ink);position:relative;z-index:1}
 
-/* ══════════════════════════════════════
-   PROYECTOS — punto 7: sin mini-título
-══════════════════════════════════════ */
-.proyectos{padding:100px 56px;background:var(--white);position:relative;overflow:hidden}
-@media(max-width:640px){.proyectos{padding:72px 20px}}
+/* ══ PROYECTOS — punto 4: solo 1 botón ══ */
+.proyectos{padding:90px 56px;background:var(--white);position:relative;overflow:hidden}
+@media(max-width:640px){.proyectos{padding:70px 20px}}
 .proyectos::before{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(ellipse,rgba(109,40,217,.04),transparent 65%);top:-80px;right:-60px;filter:blur(60px);pointer-events:none}
 .proy-inner{max-width:1100px;margin:0 auto}
-
 .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 @media(max-width:900px){.proj-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.proj-grid{grid-template-columns:1fr}}
-
-.pcard{
-  border-radius:18px;overflow:hidden;display:flex;flex-direction:column;
-  transition:transform .4s cubic-bezier(.34,1.56,.64,1);
-  border:1.5px solid rgba(109,40,217,.1);
-  /* Sombra pequeña precisa */
-  box-shadow:0 2px 6px rgba(109,40,217,.1),0 1px 3px rgba(26,10,46,.07);
-}
-.pcard:hover{transform:translateY(-6px);box-shadow:0 8px 20px rgba(109,40,217,.16),0 2px 6px rgba(26,10,46,.09)}
+.pcard{border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:transform .4s cubic-bezier(.34,1.56,.64,1);border:1.5px solid rgba(109,40,217,.1);box-shadow:0 2px 6px rgba(109,40,217,.1),0 1px 3px rgba(26,10,46,.06)}
+.pcard:hover{transform:translateY(-6px);box-shadow:0 8px 20px rgba(109,40,217,.16),0 2px 6px rgba(26,10,46,.08)}
 .pcard-img{width:100%;aspect-ratio:16/9;background-size:cover;background-position:center;background-color:var(--purple5);position:relative;overflow:hidden;flex-shrink:0}
 .pcard-wash{position:absolute;inset:0;z-index:1;opacity:0;transition:opacity .4s}
 .pcard:hover .pcard-wash{opacity:1}
 .pcard:nth-child(1) .pcard-wash{background:linear-gradient(135deg,rgba(109,40,217,.28),transparent)}.pcard:nth-child(2) .pcard-wash{background:linear-gradient(135deg,rgba(240,255,68,.22),transparent)}.pcard:nth-child(3) .pcard-wash{background:linear-gradient(135deg,rgba(255,61,154,.22),transparent)}.pcard:nth-child(4) .pcard-wash{background:linear-gradient(135deg,rgba(16,245,160,.2),transparent)}.pcard:nth-child(5) .pcard-wash{background:linear-gradient(135deg,rgba(14,165,233,.2),transparent)}.pcard:nth-child(6) .pcard-wash{background:linear-gradient(135deg,rgba(251,191,36,.2),transparent)}
-.pcard-img-ov{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,transparent 25%,rgba(26,10,46,.82) 100%);display:flex;align-items:flex-end;padding:16px;opacity:0;transition:opacity .35s}
-.pcard:hover .pcard-img-ov{opacity:1}
-.pcard-lnk{font-family:'Fredoka',sans-serif;font-size:13px;font-weight:700;color:#fff;background:rgba(255,255,255,.18);backdrop-filter:blur(8px);padding:7px 18px;border-radius:999px;text-decoration:none;border:1.5px solid rgba(255,255,255,.35)}
+/* Punto 4: SIN hover-overlay con botón — eliminado */
 .pcard-body{padding:14px 16px 18px}
 .pcard:nth-child(1) .pcard-body{background:linear-gradient(135deg,#f0ebff,#e8ddff)}.pcard:nth-child(2) .pcard-body{background:linear-gradient(135deg,#fffde7,#fef9c3)}.pcard:nth-child(3) .pcard-body{background:linear-gradient(135deg,#fce7f3,#fbcfe8)}.pcard:nth-child(4) .pcard-body{background:linear-gradient(135deg,#ecfdf5,#d1fae5)}.pcard:nth-child(5) .pcard-body{background:linear-gradient(135deg,#eff6ff,#dbeafe)}.pcard:nth-child(6) .pcard-body{background:linear-gradient(135deg,#fffbeb,#fef3c7)}
 .pcard-cat{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
 .pcard:nth-child(1) .pcard-cat{color:var(--purple)}.pcard:nth-child(2) .pcard-cat{color:#a16207}.pcard:nth-child(3) .pcard-cat{color:var(--accent2)}.pcard:nth-child(4) .pcard-cat{color:#059669}.pcard:nth-child(5) .pcard-cat{color:#0284c7}.pcard:nth-child(6) .pcard-cat{color:#d97706}
-.pcard-title{font-family:'Fredoka',sans-serif;font-size:19px;font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:3px}
-.pcard-sub{font-size:11px;color:var(--muted2);font-style:italic;margin-bottom:11px}
-.pcard-btn{display:inline-flex;align-items:center;gap:5px;font-family:'Fredoka',sans-serif;font-size:12px;font-weight:700;text-decoration:none;padding:6px 16px;border-radius:999px;transition:transform .22s;border:2px solid;background:transparent}
+.pcard-title{font-family:'Fredoka',sans-serif;font-size:18px;font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:3px}
+.pcard-sub{font-size:11px;color:var(--muted2);font-style:italic;margin-bottom:10px}
+/* Solo 1 botón — punto 4 */
+.pcard-btn{display:inline-flex;align-items:center;gap:5px;font-family:'Fredoka',sans-serif;font-size:12px;font-weight:700;text-decoration:none;padding:6px 15px;border-radius:999px;transition:transform .22s;border:2px solid;background:transparent}
 .pcard-btn:hover{transform:scale(1.05)}
 .pcard:nth-child(1) .pcard-btn{color:var(--purple);border-color:rgba(109,40,217,.3)}.pcard:nth-child(2) .pcard-btn{color:#a16207;border-color:rgba(161,98,7,.3)}.pcard:nth-child(3) .pcard-btn{color:var(--accent2);border-color:rgba(255,61,154,.3)}.pcard:nth-child(4) .pcard-btn{color:#059669;border-color:rgba(5,150,105,.3)}.pcard:nth-child(5) .pcard-btn{color:#0284c7;border-color:rgba(2,132,199,.3)}.pcard:nth-child(6) .pcard-btn{color:#d97706;border-color:rgba(217,119,6,.3)}
 
-/* WIP — efecto magnetismo/neon en vez de glitch — punto 8 */
-.wip-section{margin-top:40px}
-.wip-header{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.wip-dot{width:8px;height:8px;border-radius:50%;background:var(--purple3);animation:wipPulse 2s ease-in-out infinite}
-@keyframes wipPulse{0%,100%{box-shadow:0 0 0 0 rgba(109,40,217,.4)}50%{box-shadow:0 0 0 6px rgba(109,40,217,.0)}}
-.wip-label{font-family:'Fredoka',sans-serif;font-size:13px;font-weight:700;color:var(--purple);letter-spacing:3px;text-transform:uppercase}
-
-.wip-grid{display:grid;gap:14px;grid-template-columns:repeat(2,1fr)}
+/* WIP — punto 5: más pequeñas */
+.wip-section{margin-top:36px}
+.wip-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.wip-dot{width:7px;height:7px;border-radius:50%;background:var(--purple3);animation:wipPulse 2s ease-in-out infinite}
+@keyframes wipPulse{0%,100%{box-shadow:0 0 0 0 rgba(109,40,217,.4)}50%{box-shadow:0 0 0 5px rgba(109,40,217,.0)}}
+.wip-lbl{font-family:'Fredoka',sans-serif;font-size:12px;font-weight:700;color:var(--purple);letter-spacing:3px;text-transform:uppercase}
+.wip-grid{display:grid;gap:12px;grid-template-columns:repeat(2,1fr)}
 @media(max-width:600px){.wip-grid{grid-template-columns:1fr}}
+/* Más pequeñas — punto 5 */
+.wcard{border-radius:12px;overflow:hidden;display:flex;flex-direction:row;position:relative;cursor:not-allowed;border:1.5px solid rgba(109,40,217,.18);animation:neonPulse 3s ease-in-out infinite;max-height:80px}
+@keyframes neonPulse{0%,100%{box-shadow:0 0 4px rgba(109,40,217,.12),0 1px 4px rgba(109,40,217,.08);border-color:rgba(109,40,217,.2)}50%{box-shadow:0 0 14px rgba(109,40,217,.32),0 0 28px rgba(109,40,217,.1);border-color:rgba(109,40,217,.52)}}
+.wcard-cover{position:absolute;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(245,243,255,.32);backdrop-filter:blur(2px);pointer-events:none}
+.wcard-lock{font-size:18px;animation:lockFloat 2.5s ease-in-out infinite;filter:drop-shadow(0 3px 8px rgba(109,40,217,.4))}
+@keyframes lockFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.wcard-cover-txt{font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--purple)}
+/* Imagen pequeña a la izquierda */
+.wcard-img{width:120px;flex-shrink:0;aspect-ratio:unset;height:80px;background-size:cover;background-position:center;filter:grayscale(.55) brightness(.82)}
+.wcard-body{padding:10px 12px;display:flex;flex-direction:column;justify-content:center;background:var(--purple5);flex:1}
+.wcard-cat{font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--purple3);margin-bottom:2px}
+.wcard-title{font-family:'Fredoka',sans-serif;font-size:13px;font-weight:700;color:var(--ink);line-height:1.2}
+.wcard-sub{font-size:9px;color:var(--muted2);font-style:italic;margin-top:2px}
 
-/* Efecto: desaturado con borde neón que pulsa — punto 8 */
-.wcard{
-  border-radius:14px;overflow:hidden;display:flex;flex-direction:column;
-  position:relative;cursor:not-allowed;
-  border:1.5px solid rgba(109,40,217,.2);
-  box-shadow:0 2px 6px rgba(109,40,217,.08);
-  animation:neonPulse 3s ease-in-out infinite;
-}
-@keyframes neonPulse{
-  0%,100%{box-shadow:0 0 4px rgba(109,40,217,.15),0 2px 6px rgba(109,40,217,.08);border-color:rgba(109,40,217,.2)}
-  50%{box-shadow:0 0 16px rgba(109,40,217,.35),0 0 32px rgba(109,40,217,.12);border-color:rgba(109,40,217,.55)}
-}
-.wcard-cover{
-  position:absolute;inset:0;z-index:10;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
-  background:rgba(245,243,255,.35);backdrop-filter:blur(3px);pointer-events:none;
-}
-.wcard-lock{font-size:26px;animation:lockFloat 2.5s ease-in-out infinite;filter:drop-shadow(0 4px 10px rgba(109,40,217,.4))}
-@keyframes lockFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-.wcard-cover-txt{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--purple)}
-.wcard-img{width:100%;aspect-ratio:16/9;background-size:cover;background-position:center;filter:grayscale(.55) brightness(.82) saturate(.7)}
-.wcard-body{background:var(--purple5);padding:10px 12px;border-top:1px solid var(--lavender)}
-.wcard-cat{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--purple3);margin-bottom:2px}
-.wcard-title{font-family:'Fredoka',sans-serif;font-size:15px;font-weight:700;color:var(--ink)}
-.wcard-sub{font-size:10px;color:var(--muted2);font-style:italic}
-
-/* ══════════════════════════════════════
-   FOOTER — punto 9: sin línea morada
-   punto 10: sin mini-título, :) al lado
-══════════════════════════════════════ */
-.footer{
-  background:#0d0a1a;
-  position:relative;overflow:hidden;
-  /* Sin border-top morado — punto 9 */
-}
+/* ══════════════════════════════════════════
+   FOOTER — punto 6: ola animada, sin rectángulo raro
+══════════════════════════════════════════ */
+.footer{background:#0d0a1a;position:relative;overflow:hidden}
 #grainCanvas3{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.2}
 .footer-gradient{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 20% 30%,rgba(109,40,217,.15),transparent 65%),radial-gradient(ellipse 40% 40% at 80% 70%,rgba(240,255,68,.06),transparent 65%)}
-.foot-wave{display:block;width:100%;line-height:0;position:relative;z-index:2}
-.foot-wave svg{width:100%;height:auto;display:block}
 
-.contact-sec{
-  padding:72px 56px 52px;position:relative;z-index:2;
-  max-width:1100px;margin:0 auto;
-  display:grid;gap:56px;align-items:center;
+/* Ola animada SVG — punto 6: en movimiento */
+.foot-wave-wrap{
+  position:relative;z-index:2;line-height:0;overflow:hidden;
+  /* Sin rectángulo: el wave se conecta directamente con el about blanco */
+  background:var(--purple5); /* mismo fondo que about — sin corte */
 }
+.foot-wave-wrap svg{display:block;width:100%;height:auto}
+
+.contact-sec{padding:68px 56px 48px;position:relative;z-index:2;max-width:1100px;margin:0 auto;display:grid;gap:52px;align-items:center}
 @media(min-width:820px){.contact-sec{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.contact-sec{padding:52px 20px 40px}}
+@media(max-width:640px){.contact-sec{padding:48px 20px 36px}}
 
-/* Punto 10: título sin mini-label, :) al lado inline */
-.ct-head{
-  font-family:'Fredoka',sans-serif;
-  font-size:clamp(36px,5vw,64px);font-weight:700;line-height:1;
-  color:#fff;margin-bottom:14px;
-  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
-}
-.ct-smile{
-  font-family:'Fredoka',sans-serif;font-size:clamp(28px,4vw,52px);
-  color:var(--accent);font-weight:700;
-}
-.ct-sub{font-size:15px;color:rgba(255,255,255,.45);line-height:1.7;max-width:340px;margin-bottom:28px}
-.ct-cta{display:inline-flex;align-items:center;gap:8px;font-family:'Fredoka',sans-serif;font-size:16px;font-weight:700;padding:14px 40px;border-radius:999px;text-decoration:none;background:var(--accent);color:var(--ink);box-shadow:0 8px 28px rgba(240,255,68,.2);transition:transform .25s,box-shadow .25s}
+/* Punto 10: sin mini-título, :) al lado */
+.ct-head{font-family:'Fredoka',sans-serif;font-size:clamp(34px,5vw,62px);font-weight:700;line-height:1;color:#fff;margin-bottom:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.ct-smile{font-family:'Fredoka',sans-serif;font-size:clamp(26px,4vw,50px);color:var(--accent);font-weight:700}
+.ct-sub{font-size:14px;color:rgba(255,255,255,.45);line-height:1.7;max-width:340px;margin-bottom:26px}
+.ct-cta{display:inline-flex;align-items:center;gap:8px;font-family:'Fredoka',sans-serif;font-size:15px;font-weight:700;padding:13px 38px;border-radius:999px;text-decoration:none;background:var(--accent);color:var(--ink);box-shadow:0 8px 28px rgba(240,255,68,.2);transition:transform .25s,box-shadow .25s}
 .ct-cta:hover{transform:scale(1.04) translateY(-2px);box-shadow:0 12px 40px rgba(240,255,68,.35)}
-
 .ct-items{display:flex;flex-direction:column;gap:10px}
-.ct-item{display:flex;align-items:center;gap:18px;padding:16px 20px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);transition:all .28s}
+.ct-item{display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);transition:all .28s}
 .ct-item:hover{background:rgba(255,255,255,.1);transform:translateX(5px)}
-.ct-ico{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .28s}
-.ct-ico img{width:20px}
+.ct-ico{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .28s}
+.ct-ico img{width:19px}
 .ct-item:nth-child(1) .ct-ico{background:rgba(109,40,217,.3)}.ct-item:nth-child(2) .ct-ico{background:rgba(255,255,255,.12)}.ct-item:nth-child(3) .ct-ico{background:rgba(16,245,160,.2)}
 .ct-item:hover .ct-ico{transform:rotate(-7deg) scale(1.08)}
 .ct-lbl{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:2px}
-.ct-val{font-size:14px;font-weight:600;color:#fff}
+.ct-val{font-size:13px;font-weight:600;color:#fff}
 
-/* Diseño tribute */
-.design-tribute{position:relative;z-index:2;border-top:1px solid rgba(255,255,255,.07);padding:48px 56px;overflow:hidden}
-@media(max-width:640px){.design-tribute{padding:36px 20px}}
+/* Tribute — punto 6.1: Itten girando, 6.2: paleta simplificada */
+.design-tribute{position:relative;z-index:2;border-top:1px solid rgba(255,255,255,.07);padding:44px 56px;overflow:hidden}
+@media(max-width:640px){.design-tribute{padding:32px 20px}}
 .tribute-inner{max-width:1100px;margin:0 auto}
 .tribute-label{font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:28px}
-.tribute-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;align-items:center}
+.tribute-grid{display:grid;grid-template-columns:auto 1fr auto;gap:48px;align-items:center}
 @media(max-width:640px){.tribute-grid{grid-template-columns:1fr}}
-.itten-wheel{display:flex;align-items:center;justify-content:center;position:relative;width:140px;height:140px;margin:0 auto}
+
+/* Itten girando lentamente — punto 6.1 */
+.itten-wheel{position:relative;width:130px;height:130px;flex-shrink:0;animation:ittenSpin 30s linear infinite}
+@keyframes ittenSpin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
 .itten-ring{position:absolute;border-radius:50%;display:flex;align-items:center;justify-content:center}
-.ir1{width:140px;height:140px;background:conic-gradient(#ff3d9a 0deg,#ff7700 51deg,#f0ff44 102deg,#00e676 153deg,#2563ff 204deg,#9333ea 255deg,#e040fb 306deg,#ff3d9a 360deg)}
-.ir2{width:90px;height:90px;background:conic-gradient(#ff85c2 0deg,#ffb347 51deg,#fff176 102deg,#69f0ae 153deg,#7eb8ff 204deg,#c084fc 255deg,#f48fb1 306deg,#ff85c2 360deg)}
-.ir3{width:48px;height:48px;background:#0d0a1a;border:2px solid rgba(255,255,255,.08)}
-.itten-label{position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);white-space:nowrap}
+.ir1{inset:0;background:conic-gradient(#ff3d9a 0deg,#ff7700 51deg,#f0ff44 102deg,#00e676 153deg,#2563ff 204deg,#9333ea 255deg,#e040fb 306deg,#ff3d9a 360deg)}
+.ir2{inset:22px;background:conic-gradient(#ff85c2 0deg,#ffb347 51deg,#fff176 102deg,#69f0ae 153deg,#7eb8ff 204deg,#c084fc 255deg,#f48fb1 306deg,#ff85c2 360deg)}
+.ir3{inset:44px;background:#0d0a1a;border:2px solid rgba(255,255,255,.08)}
+
+/* Escala tipográfica */
 .typo-scale{display:flex;flex-direction:column;gap:4px}
 .ts-row{display:flex;align-items:baseline;gap:8px;border-bottom:1px solid rgba(255,255,255,.04);padding-bottom:4px}
-.ts-size{font-size:9px;color:rgba(255,255,255,.2);font-family:monospace;min-width:36px}
+.ts-size{font-size:9px;color:rgba(255,255,255,.2);font-family:monospace;min-width:32px}
 .ts-sample{font-family:'Fredoka',sans-serif;color:rgba(255,255,255,.7);line-height:1;font-weight:700}
-.palette-col{display:flex;flex-direction:column;gap:8px}
-.pal-row{display:flex;align-items:center;gap:10px}
-.pal-swatch{width:28px;height:28px;border-radius:6px;flex-shrink:0;border:1px solid rgba(255,255,255,.1);transition:transform .25s cubic-bezier(.34,1.56,.64,1)}
-.pal-swatch:hover{transform:scale(1.2) rotate(-5deg)}
-.pal-info{display:flex;flex-direction:column}
-.pal-name{font-size:10px;font-weight:700;color:rgba(255,255,255,.6)}
-.pal-hex{font-size:9px;color:rgba(255,255,255,.3);font-family:monospace}
 
-.film-strip{border-top:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.2);height:40px;display:flex;align-items:center;overflow:hidden;position:relative;z-index:2}
+/* Paleta simplificada — punto 6.2: 1 morado, solo hex, sin nombre */
+.palette-col{display:flex;flex-direction:column;gap:8px;flex-shrink:0}
+.pal-row{display:flex;align-items:center;gap:10px}
+.pal-swatch{width:26px;height:26px;border-radius:6px;flex-shrink:0;border:1px solid rgba(255,255,255,.1);transition:transform .25s cubic-bezier(.34,1.56,.64,1)}
+.pal-swatch:hover{transform:scale(1.2) rotate(-5deg)}
+.pal-hex{font-size:9px;color:rgba(255,255,255,.45);font-family:monospace;font-weight:700}
+
+.film-strip{border-top:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.2);height:38px;display:flex;align-items:center;overflow:hidden;position:relative;z-index:2}
 .film-strip::before,.film-strip::after{content:'';position:absolute;left:0;right:0;height:7px;background:repeating-linear-gradient(90deg,transparent,transparent 20px,rgba(255,255,255,.07) 20px,rgba(255,255,255,.07) 26px,transparent 26px,transparent 36px)}
 .film-strip::before{top:3px}.film-strip::after{bottom:3px}
 .film-text{font-family:'Fredoka',sans-serif;font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.16);white-space:nowrap;animation:mq 18s linear infinite;padding:0 20px;position:relative;z-index:1}
-.foot-copy{padding:12px 56px;background:rgba(0,0,0,.15);border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.15);position:relative;z-index:2}
-@media(max-width:640px){.foot-copy{padding:12px 20px}}
+.foot-copy{padding:10px 56px;background:rgba(0,0,0,.15);border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.15);position:relative;z-index:2}
+@media(max-width:640px){.foot-copy{padding:10px 20px}}
 .foot-avail{display:inline-flex;align-items:center;gap:7px;color:rgba(255,255,255,.28)}
 .foot-avail::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 8px rgba(16,245,160,.5);animation:bl 2s ease infinite}
 @keyframes bl{0%,100%{opacity:1}50%{opacity:.3}}
@@ -628,22 +476,22 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 </head>
 <body>
 
-<!-- CURSOR — play/pause con trail — punto 2 -->
+<!-- CURSOR play/pause — punto 2 -->
 <div id="vid-cur">
   <svg class="ic-play" width="34" height="34" viewBox="0 0 34 34" fill="none">
-    <circle cx="17" cy="17" r="15" fill="rgba(109,40,217,.18)" stroke="rgba(139,92,246,.7)" stroke-width="1.5"/>
-    <path d="M14 11L24 17L14 23Z" fill="rgba(139,92,246,.9)"/>
+    <circle cx="17" cy="17" r="15" fill="rgba(109,40,217,.2)" stroke="rgba(139,92,246,.8)" stroke-width="1.5"/>
+    <path d="M14 11L24 17L14 23Z" fill="rgba(139,92,246,.95)"/>
   </svg>
   <svg class="ic-pause" width="34" height="34" viewBox="0 0 34 34" fill="none">
-    <circle cx="17" cy="17" r="15" fill="rgba(255,61,154,.18)" stroke="rgba(255,61,154,.7)" stroke-width="1.5"/>
-    <rect x="12" y="11" width="3.5" height="12" rx="1.5" fill="rgba(255,61,154,.9)"/>
-    <rect x="18.5" y="11" width="3.5" height="12" rx="1.5" fill="rgba(255,61,154,.9)"/>
+    <circle cx="17" cy="17" r="15" fill="rgba(255,61,154,.2)" stroke="rgba(255,61,154,.8)" stroke-width="1.5"/>
+    <rect x="12" y="11" width="3.5" height="12" rx="1.5" fill="rgba(255,61,154,.95)"/>
+    <rect x="18.5" y="11" width="3.5" height="12" rx="1.5" fill="rgba(255,61,154,.95)"/>
   </svg>
 </div>
 
 <button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-<!-- NAV — punto 4: visible y con contraste -->
+<!-- NAV -->
 <nav class="nav" id="mainNav">
   <div class="nav-inner">
     <a class="nav-logo-nav" href="#hero">NEEERGRAPHS</a>
@@ -656,7 +504,7 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
   </div>
 </nav>
 
-<!-- ══ HERO — punto 3: dots de libreta, typing, botones, logo abajo ══ -->
+<!-- ══ HERO — punto 1: logo al ras de las bandas (absolute bottom) ══ -->
 <section class="hero" id="hero">
   <canvas id="grainCanvas"></canvas>
   <div class="hero-gradient"></div>
@@ -664,7 +512,7 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
   <div class="hero-scanlines"></div>
   <div class="hero-bg-name" id="bgName">NEEERGRAPHS</div>
 
-  <!-- Centro: typing + botones -->
+  <!-- Contenido central: typing + botones -->
   <div class="hero-main" id="heroMain">
     <div class="hero-typing-wrap">
       <span class="hero-typing" id="typingEl"></span>
@@ -675,53 +523,52 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
     </div>
   </div>
 
-  <!-- Logo único abajo — punto 1: solo aparece aquí, no en el centro -->
-  <div class="hero-bottom-bar">
-    <span class="hero-logo-bottom">NEEERGRAPHS</span>
+  <!-- Logo al ras justo encima de las bandas — punto 1 -->
+  <div class="hero-logo-ras">
+    <span class="hero-logo-txt">NEEERGRAPHS</span>
   </div>
 </section>
 
-<!-- DOBLE BANDA — sobre fondo purple5 igual que "sobre mí" — punto 1 -->
-<div class="bands">
-  <div class="band b1">
-    <div class="bt">
-      <span>Edición de vídeo</span><span class="dot">◆</span><span>After Effects</span><span class="dot">◆</span><span>Motion Graphics</span><span class="dot">◆</span><span>Premiere Pro</span><span class="dot">◆</span><span>Postproducción</span><span class="dot">◆</span><span>Grabación in situ</span><span class="dot">◆</span><span>Vídeo corporativo</span><span class="dot">◆</span><span>Cap Cut</span><span class="dot">◆</span><span>Storytelling visual</span><span class="dot">◆</span>
-      <span>Edición de vídeo</span><span class="dot">◆</span><span>After Effects</span><span class="dot">◆</span><span>Motion Graphics</span><span class="dot">◆</span><span>Premiere Pro</span><span class="dot">◆</span><span>Postproducción</span><span class="dot">◆</span><span>Grabación in situ</span><span class="dot">◆</span><span>Vídeo corporativo</span><span class="dot">◆</span><span>Cap Cut</span><span class="dot">◆</span><span>Storytelling visual</span><span class="dot">◆</span>
+<!-- BANDAS — punto 2: ocultan el corte, sobre fondo purple5 para transición -->
+<div class="bands-wrapper">
+  <div class="bands">
+    <div class="band b1">
+      <div class="bt">
+        <span>Edición de vídeo</span><span class="dot">◆</span><span>After Effects</span><span class="dot">◆</span><span>Motion Graphics</span><span class="dot">◆</span><span>Premiere Pro</span><span class="dot">◆</span><span>Postproducción</span><span class="dot">◆</span><span>Grabación in situ</span><span class="dot">◆</span><span>Vídeo corporativo</span><span class="dot">◆</span><span>Cap Cut</span><span class="dot">◆</span><span>Storytelling visual</span><span class="dot">◆</span>
+        <span>Edición de vídeo</span><span class="dot">◆</span><span>After Effects</span><span class="dot">◆</span><span>Motion Graphics</span><span class="dot">◆</span><span>Premiere Pro</span><span class="dot">◆</span><span>Postproducción</span><span class="dot">◆</span><span>Grabación in situ</span><span class="dot">◆</span><span>Vídeo corporativo</span><span class="dot">◆</span><span>Cap Cut</span><span class="dot">◆</span><span>Storytelling visual</span><span class="dot">◆</span>
+      </div>
     </div>
-  </div>
-  <div class="band b2">
-    <div class="bt">
-      <span>Diseño gráfico</span><span class="dot">◆</span><span>Photoshop</span><span class="dot">◆</span><span>Illustrator</span><span class="dot">◆</span><span>Identidad de marca</span><span class="dot">◆</span><span>IA Generativa</span><span class="dot">◆</span><span>Dirección de arte</span><span class="dot">◆</span><span>Contenido RRSS</span><span class="dot">◆</span><span>InDesign</span><span class="dot">◆</span><span>Spots publicitarios</span><span class="dot">◆</span>
-      <span>Diseño gráfico</span><span class="dot">◆</span><span>Photoshop</span><span class="dot">◆</span><span>Illustrator</span><span class="dot">◆</span><span>Identidad de marca</span><span class="dot">◆</span><span>IA Generativa</span><span class="dot">◆</span><span>Dirección de arte</span><span class="dot">◆</span><span>Contenido RRSS</span><span class="dot">◆</span><span>InDesign</span><span class="dot">◆</span><span>Spots publicitarios</span><span class="dot">◆</span>
+    <div class="band b2">
+      <div class="bt">
+        <span>Diseño gráfico</span><span class="dot">◆</span><span>Photoshop</span><span class="dot">◆</span><span>Illustrator</span><span class="dot">◆</span><span>Identidad de marca</span><span class="dot">◆</span><span>IA Generativa</span><span class="dot">◆</span><span>Dirección de arte</span><span class="dot">◆</span><span>Contenido RRSS</span><span class="dot">◆</span><span>InDesign</span><span class="dot">◆</span><span>Spots publicitarios</span><span class="dot">◆</span>
+        <span>Diseño gráfico</span><span class="dot">◆</span><span>Photoshop</span><span class="dot">◆</span><span>Illustrator</span><span class="dot">◆</span><span>Identidad de marca</span><span class="dot">◆</span><span>IA Generativa</span><span class="dot">◆</span><span>Dirección de arte</span><span class="dot">◆</span><span>Contenido RRSS</span><span class="dot">◆</span><span>InDesign</span><span class="dot">◆</span><span>Spots publicitarios</span><span class="dot">◆</span>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- ══ SOBRE MÍ ══ -->
+<!-- ══ SOBRE MÍ — punto 3: foto oval, layout 3 col ══ -->
 <section class="about" id="sobre">
   <div class="about-inner">
-    <!-- Fila superior: foto | texto + chips — punto 6 -->
-    <div class="about-top">
-      <!-- Foto con círculo abstracto -->
-      <div style="display:flex;flex-direction:column;align-items:center;gap:16px" class="rvL">
+    <div class="about-row">
+      <!-- Foto -->
+      <div class="photo-col rvL">
         <div class="photo-wrap">
           <div class="abstract-ring">
-            <svg id="morphRingSvg" viewBox="0 0 216 216" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg id="morphRingSvg" viewBox="0 0 224 259" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path id="morphPath" stroke-width="2.5" fill="none" stroke-linecap="round"/>
             </svg>
           </div>
-          <div class="photo-trigger" id="photoTrigger">
-            <div class="photo-mirror">
-              <img src="nerea.ramirez.png" alt="">
-              <div class="photo-mirror-overlay"></div>
-            </div>
-            <div class="photo-mirror-icon">
-              <svg width="34" height="34" viewBox="0 0 40 40" fill="none"><rect x="2" y="10" width="36" height="24" rx="5" stroke="rgba(255,255,255,.7)" stroke-width="1.5" fill="rgba(255,255,255,.08)"/><circle cx="20" cy="22" r="7" stroke="rgba(255,255,255,.7)" stroke-width="1.5"/><circle cx="20" cy="22" r="3.5" fill="rgba(255,255,255,.22)"/><rect x="14" y="6" width="8" height="6" rx="2" stroke="rgba(255,255,255,.7)" stroke-width="1.5"/></svg>
-              <span class="photo-mirror-label">Ver foto</span>
-            </div>
-            <div class="photo-real"><img src="nerea.ramirez.png" alt="Nerea Ramírez"></div>
-            <div class="photo-flash" id="photoFlash"></div>
+          <div class="photo-frame" id="photoFrame">
+            <img src="nerea.ramirez.png" alt="">
+            <div class="photo-frame-ov"></div>
           </div>
+          <div class="photo-icon" id="photoIcon">
+            <svg width="30" height="30" viewBox="0 0 40 40" fill="none"><rect x="2" y="10" width="36" height="24" rx="5" stroke="rgba(255,255,255,.7)" stroke-width="1.5" fill="rgba(255,255,255,.08)"/><circle cx="20" cy="22" r="7" stroke="rgba(255,255,255,.7)" stroke-width="1.5"/><circle cx="20" cy="22" r="3.5" fill="rgba(255,255,255,.22)"/><rect x="14" y="6" width="8" height="6" rx="2" stroke="rgba(255,255,255,.7)" stroke-width="1.5"/></svg>
+            <span class="photo-icon-lbl">Ver foto</span>
+          </div>
+          <div class="photo-real" id="photoReal"><img src="nerea.ramirez.png" alt="Nerea Ramírez"></div>
+          <div class="photo-flash" id="photoFlash"></div>
         </div>
         <div class="about-stats">
           <div class="st-item"><div class="st-n">3+</div><div class="st-l">Años</div></div>
@@ -730,15 +577,15 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
       </div>
 
       <!-- Texto -->
-      <div class="about-text-col rvR">
+      <div class="about-text rvR">
         <h2 class="about-greeting">Hola, soy Nerea :)</h2>
         <p class="about-sub">Y <span class="pk">me apasiona</span> lo que hago.</p>
         <p class="about-body">
-          Grabo, edito, diseño y animo — todo en el mismo espacio creativo. <strong>Tomo un brief en blanco y lo convierto en una pieza que comunica de verdad:</strong> desde motion graphics hasta campañas completas de RRSS, identidad de marca, postproducción y vídeo. Me muevo entre disciplinas sin perder el hilo, y eso se nota en el resultado.
+          Grabo, edito, diseño y animo — todo en el mismo espacio creativo. <strong>Tomo un brief en blanco y lo convierto en una pieza que comunica de verdad:</strong> motion graphics, campañas de RRSS, identidad de marca, postproducción y vídeo. Me muevo entre disciplinas sin perder el hilo, y eso se nota en el resultado.
         </p>
       </div>
 
-      <!-- Brainstorming herramientas al lado del texto — punto 6 -->
+      <!-- Brainstorming chips — punto 3: al lado del texto -->
       <div class="brainstorm-col rvR" style="transition-delay:.08s">
         <div class="brainstorm-wrap">
           <div class="brainstorm-inner">
@@ -759,41 +606,13 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
       </div>
     </div>
 
-    <!-- Accordion en UNA LÍNEA — punto 6 -->
-    <div class="acc-section rv" style="transition-delay:.12s">
+    <!-- Accordion una línea -->
+    <div class="acc-section rv" style="transition-delay:.1s">
       <div class="acc-tabs">
-        <!-- Tab Experiencia -->
-        <div class="acc-tab" onclick="toggleTab(this,'exp')">
-          <span class="acc-tab-label">Experiencia</span>
-          <div class="acc-tab-right">
-            <span class="acc-tab-tag">3 años</span>
-            <div class="acc-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          </div>
-        </div>
-        <!-- Tab Formación -->
-        <div class="acc-tab" onclick="toggleTab(this,'edu')">
-          <span class="acc-tab-label">Formación</span>
-          <div class="acc-tab-right">
-            <span class="acc-tab-tag">3 títulos</span>
-            <div class="acc-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          </div>
-        </div>
-        <!-- Tab Certificaciones -->
-        <div class="acc-tab" onclick="toggleTab(this,'cert')">
-          <span class="acc-tab-label">Certificaciones</span>
-          <div class="acc-tab-right">
-            <span class="acc-tab-tag">4 certs</span>
-            <div class="acc-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          </div>
-        </div>
-        <!-- Tab Habilidades -->
-        <div class="acc-tab" onclick="toggleTab(this,'hab')">
-          <span class="acc-tab-label">Habilidades</span>
-          <div class="acc-tab-right">
-            <span class="acc-tab-tag">Especialidades</span>
-            <div class="acc-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          </div>
-        </div>
+        <div class="acc-tab" onclick="toggleTab(this,'exp')"><span class="acc-tab-label">Experiencia</span><div class="acc-tab-right"><span class="acc-tab-tag">3 años</span><div class="acc-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
+        <div class="acc-tab" onclick="toggleTab(this,'edu')"><span class="acc-tab-label">Formación</span><div class="acc-tab-right"><span class="acc-tab-tag">3 títulos</span><div class="acc-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
+        <div class="acc-tab" onclick="toggleTab(this,'cert')"><span class="acc-tab-label">Certificaciones</span><div class="acc-tab-right"><span class="acc-tab-tag">4 certs</span><div class="acc-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
+        <div class="acc-tab" onclick="toggleTab(this,'hab')"><span class="acc-tab-label">Habilidades</span><div class="acc-tab-right"><span class="acc-tab-tag">Especialidades</span><div class="acc-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
       </div>
       <div class="acc-panels">
         <div class="acc-panel" id="panel-exp">
@@ -832,16 +651,13 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
   </div>
 </section>
 
-<!-- ══ SERVICIOS — punto 7: sin mini-título ══ -->
+<!-- ══ SERVICIOS ══ -->
 <section class="servicios" id="servicios">
   <canvas id="grainCanvas2"></canvas>
   <div class="svc-aurora"></div>
   <div class="svc-dots"></div>
   <div class="svc-scanlines"></div>
-  <div class="sec-hd rv">
-    <!-- Sin mini-título "Servicios" — punto 7 -->
-    <h2 class="sec-title">¿Qué puedo <span class="hi">hacer?</span></h2>
-  </div>
+  <div class="sec-hd rv"><h2 class="sec-title">¿Qué puedo <span class="hi">hacer?</span></h2></div>
   <div class="svcs-grid rv" style="transition-delay:.09s">
     <div class="svc"><span class="svc-num">01</span><div class="svc-bg-icon">🎬</div><div class="svc-ico"><img src="video.png" alt=""></div><h3>Edición de vídeo</h3><p>Narrativa visual, ritmo y emoción en cada corte. Premiere, After Effects, Cap Cut.</p></div>
     <div class="svc"><span class="svc-num">02</span><div class="svc-bg-icon">✏️</div><div class="svc-ico"><img src="vector.png" alt=""></div><h3>Diseño gráfico</h3><p>Identidad visual que comunica sin palabras. Photoshop, Illustrator, InDesign.</p></div>
@@ -852,23 +668,23 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
   </div>
 </section>
 
-<!-- ══ PROYECTOS ══ -->
+<!-- ══ PROYECTOS — punto 4: solo 1 botón por card ══ -->
 <section class="proyectos" id="proyectos">
   <div class="proy-inner">
-    <div class="rv" style="max-width:1100px;margin:0 auto 44px">
+    <div class="rv" style="max-width:1100px;margin:0 auto 40px">
       <h2 class="sec-title dk">Proyectos <span class="hi">recientes</span></h2>
     </div>
     <div class="proj-grid rv" style="transition-delay:.08s">
-      <div class="pcard"><div class="pcard-img" style="background-image:url('destacada-magnum-final.png')"><div class="pcard-wash"></div><div class="pcard-img-ov"><a href="proyecto-magnum.html" target="_blank" rel="noopener" class="pcard-lnk">Ver proyecto</a></div></div><div class="pcard-body"><div class="pcard-cat">Campaña 360°</div><div class="pcard-title">Campaña 360 Magnum</div><div class="pcard-sub">Algunos placeres no entienden de estaciones</div><a href="proyecto-magnum.html" target="_blank" rel="noopener" class="pcard-btn">Ver proyecto →</a></div></div>
-      <div class="pcard"><div class="pcard-img" style="background-image:url('destacadas-dolce-vitta.png')"><div class="pcard-wash"></div><div class="pcard-img-ov"><a href="proyecto-dolcevitta.html" target="_blank" rel="noopener" class="pcard-lnk">Ver proyecto</a></div></div><div class="pcard-body"><div class="pcard-cat">Branding & RRSS</div><div class="pcard-title">Dolce Vitta</div><div class="pcard-sub">Branding y RRSS</div><a href="proyecto-dolcevitta.html" target="_blank" rel="noopener" class="pcard-btn">Ver proyecto →</a></div></div>
-      <div class="pcard"><div class="pcard-img" style="background-image:url('destacadas-HOME.png')"><div class="pcard-wash"></div><div class="pcard-img-ov"><a href="proyecto-home.html" target="_blank" rel="noopener" class="pcard-lnk">Ver proyecto</a></div></div><div class="pcard-body"><div class="pcard-cat">After Effects</div><div class="pcard-title">Vídeo inmersivo Home</div><div class="pcard-sub">After Effects y Premiere</div><a href="proyecto-home.html" target="_blank" rel="noopener" class="pcard-btn">Ver proyecto →</a></div></div>
-      <div class="pcard"><div class="pcard-img" style="background-image:url('destacadas-superboy.png')"><div class="pcard-wash"></div><div class="pcard-img-ov"><a href="proyecto-superboy.html" target="_blank" rel="noopener" class="pcard-lnk">Ver proyecto</a></div></div><div class="pcard-body"><div class="pcard-cat">VFX</div><div class="pcard-title">Vídeo simulación Superboy</div><div class="pcard-sub">After Effects y Premiere</div><a href="proyecto-superboy.html" target="_blank" rel="noopener" class="pcard-btn">Ver proyecto →</a></div></div>
-      <div class="pcard"><div class="pcard-img" style="background-image:url('destacada-hotwheel.png')"><div class="pcard-wash"></div><div class="pcard-img-ov"><a href="proyecto-hotwheels.html" target="_blank" rel="noopener" class="pcard-lnk">Ver proyecto</a></div></div><div class="pcard-body"><div class="pcard-cat">IA Generativa</div><div class="pcard-title">Vídeo Hot Wheels</div><div class="pcard-sub">IA generativa y Premiere</div><a href="proyecto-hotwheels.html" target="_blank" rel="noopener" class="pcard-btn">Ver proyecto →</a></div></div>
-      <div class="pcard"><div class="pcard-img" style="background-image:url('destacada-nextfloor.png')"><div class="pcard-wash"></div><div class="pcard-img-ov"><a href="proyecto-nextfloor.html" target="_blank" rel="noopener" class="pcard-lnk">Ver proyecto</a></div></div><div class="pcard-body"><div class="pcard-cat">Infografía RRSS</div><div class="pcard-title">Coworking Nextfloor</div><div class="pcard-sub">Infografía y diseño para RRSS</div><a href="proyecto-nextfloor.html" target="_blank" rel="noopener" class="pcard-btn">Ver proyecto →</a></div></div>
+      <div class="pcard"><div class="pcard-img" style="background-image:url('destacada-magnum-final.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">Campaña 360°</div><div class="pcard-title">Campaña 360 Magnum</div><div class="pcard-sub">Algunos placeres no entienden de estaciones</div><a href="proyecto-magnum.html" target="_blank" rel="noopener" class="pcard-btn">Ver proyecto →</a></div></div>
+      <div class="pcard"><div class="pcard-img" style="background-image:url('destacadas-dolce-vitta.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">Branding & RRSS</div><div class="pcard-title">Dolce Vitta</div><div class="pcard-sub">Branding y RRSS</div><a href="proyecto-dolcevitta.html" target="_blank" rel="noopener" class="pcard-btn">Ver proyecto →</a></div></div>
+      <div class="pcard"><div class="pcard-img" style="background-image:url('destacadas-HOME.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">After Effects</div><div class="pcard-title">Vídeo inmersivo Home</div><div class="pcard-sub">After Effects y Premiere</div><a href="proyecto-home.html" target="_blank" rel="noopener" class="pcard-btn">Ver proyecto →</a></div></div>
+      <div class="pcard"><div class="pcard-img" style="background-image:url('destacadas-superboy.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">VFX</div><div class="pcard-title">Vídeo simulación Superboy</div><div class="pcard-sub">After Effects y Premiere</div><a href="proyecto-superboy.html" target="_blank" rel="noopener" class="pcard-btn">Ver proyecto →</a></div></div>
+      <div class="pcard"><div class="pcard-img" style="background-image:url('destacada-hotwheel.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">IA Generativa</div><div class="pcard-title">Vídeo Hot Wheels</div><div class="pcard-sub">IA generativa y Premiere</div><a href="proyecto-hotwheels.html" target="_blank" rel="noopener" class="pcard-btn">Ver proyecto →</a></div></div>
+      <div class="pcard"><div class="pcard-img" style="background-image:url('destacada-nextfloor.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">Infografía RRSS</div><div class="pcard-title">Coworking Nextfloor</div><div class="pcard-sub">Infografía y diseño para RRSS</div><a href="proyecto-nextfloor.html" target="_blank" rel="noopener" class="pcard-btn">Ver proyecto →</a></div></div>
     </div>
-    <!-- WIP — neon pulse, candado flotante — punto 8 -->
+    <!-- WIP pequeñas — punto 5 -->
     <div class="wip-section rv" style="transition-delay:.13s">
-      <div class="wip-header"><div class="wip-dot"></div><span class="wip-label">En proceso</span></div>
+      <div class="wip-header"><div class="wip-dot"></div><span class="wip-lbl">En proceso</span></div>
       <div class="wip-grid">
         <div class="wcard"><div class="wcard-cover"><span class="wcard-lock">🔒</span><span class="wcard-cover-txt">Próximamente</span></div><div class="wcard-img" style="background-image:url('destacadas-mueblesboom.png')"></div><div class="wcard-body"><div class="wcard-cat">Branding</div><div class="wcard-title">Rebranding Muebles Boom</div><div class="wcard-sub">Identidad de marca y comunicación visual</div></div></div>
         <div class="wcard"><div class="wcard-cover"><span class="wcard-lock">🔒</span><span class="wcard-cover-txt">Próximamente</span></div><div class="wcard-img" style="background-image:url('destacadas-camisetas.png')"></div><div class="wcard-body"><div class="wcard-cat">Diseño</div><div class="wcard-title">Diseños de camisetas</div><div class="wcard-sub">Camisetas personalizadas de autor</div></div></div>
@@ -877,14 +693,20 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
   </div>
 </section>
 
-<!-- ══ FOOTER — punto 9: sin línea morada ══ -->
+<!-- ══ FOOTER — punto 6: ola animada en movimiento ══ -->
 <div class="footer" id="contacto">
   <canvas id="grainCanvas3"></canvas>
   <div class="footer-gradient"></div>
-  <div class="foot-wave"><svg viewBox="0 0 1440 90" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,45 C240,90 480,0 720,45 C960,90 1200,10 1440,45 L1440,0 L0,0 Z" fill="#f5f3ff"/></svg></div>
+
+  <!-- Ola animada — punto 6: desde fondo purple5 a oscuro -->
+  <div class="foot-wave-wrap">
+    <svg id="wavesvg" viewBox="0 0 1440 90" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;height:auto">
+      <path id="wavePath" fill="#0d0a1a"/>
+    </svg>
+  </div>
+
   <div class="contact-sec">
     <div class="rvL">
-      <!-- Punto 10: sin mini-título "Contacto", :) al lado de Hablemos -->
       <div class="ct-head">Hablemos<span class="ct-smile">:)</span></div>
       <p class="ct-sub">¿Tienes algo en mente? Me encantaría escucharte. Ya sea un proyecto, una idea loca o simplemente presentarte — escríbeme sin miedo.</p>
       <a href="mailto:nerearamimarti@gmail.com" class="ct-cta">Escribir ahora</a>
@@ -895,66 +717,83 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
       <div class="ct-item"><div class="ct-ico"><img src="mapa.png" alt=""></div><div><div class="ct-lbl">Ubicación</div><div class="ct-val">Madrid · San Sebastián de los Reyes</div></div></div>
     </div>
   </div>
+
+  <!-- Tribute — Itten girando + escala tipo + paleta simplificada -->
   <div class="design-tribute rv">
     <div class="tribute-inner">
       <div class="tribute-label">Historia del diseño · Itten · Bauhaus · Tipografía</div>
       <div class="tribute-grid">
-        <div style="display:flex;flex-direction:column;align-items:center"><div class="itten-wheel"><div class="itten-ring ir1"></div><div class="itten-ring ir2"></div><div class="itten-ring ir3"></div><span class="itten-label">Círculo de Itten · 1961</span></div></div>
-        <div class="typo-scale">
-          <div class="ts-row"><span class="ts-size">72pt</span><span class="ts-sample" style="font-size:36px">Neeer</span></div>
-          <div class="ts-row"><span class="ts-size">48pt</span><span class="ts-sample" style="font-size:28px">Diseño</span></div>
-          <div class="ts-row"><span class="ts-size">32pt</span><span class="ts-sample" style="font-size:22px">Motion</span></div>
-          <div class="ts-row"><span class="ts-size">18pt</span><span class="ts-sample" style="font-size:16px">Vídeo</span></div>
-          <div class="ts-row"><span class="ts-size">12pt</span><span class="ts-sample" style="font-size:12px">Creatividad</span></div>
-          <div class="ts-row"><span class="ts-size">8pt</span><span class="ts-sample" style="font-size:9px">NEEERGRAPHS · MADRID · 2026</span></div>
+        <!-- Itten girando — punto 6.1 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:16px">
+          <div class="itten-wheel">
+            <div class="itten-ring ir1"></div>
+            <div class="itten-ring ir2"></div>
+            <div class="itten-ring ir3"></div>
+          </div>
+          <span style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.2);white-space:nowrap">Círculo de Itten · 1961</span>
         </div>
+        <!-- Escala tipográfica -->
+        <div class="typo-scale">
+          <div class="ts-row"><span class="ts-size">72pt</span><span class="ts-sample" style="font-size:34px">Neeer</span></div>
+          <div class="ts-row"><span class="ts-size">48pt</span><span class="ts-sample" style="font-size:26px">Diseño</span></div>
+          <div class="ts-row"><span class="ts-size">32pt</span><span class="ts-sample" style="font-size:20px">Motion</span></div>
+          <div class="ts-row"><span class="ts-size">18pt</span><span class="ts-sample" style="font-size:15px">Vídeo</span></div>
+          <div class="ts-row"><span class="ts-size">12pt</span><span class="ts-sample" style="font-size:11px">Creatividad</span></div>
+          <div class="ts-row"><span class="ts-size">8pt</span><span class="ts-sample" style="font-size:8px">NEEERGRAPHS · MADRID · 2026</span></div>
+        </div>
+        <!-- Paleta simplificada — punto 6.2: 1 morado, solo hex -->
         <div class="palette-col">
-          <div class="pal-row"><div class="pal-swatch" style="background:#6d28d9"></div><div class="pal-info"><span class="pal-name">Violet Deep</span><span class="pal-hex">#6D28D9</span></div></div>
-          <div class="pal-row"><div class="pal-swatch" style="background:#7c3aed"></div><div class="pal-info"><span class="pal-name">Amethyst</span><span class="pal-hex">#7C3AED</span></div></div>
-          <div class="pal-row"><div class="pal-swatch" style="background:#8b5cf6"></div><div class="pal-info"><span class="pal-name">Lavanda</span><span class="pal-hex">#8B5CF6</span></div></div>
-          <div class="pal-row"><div class="pal-swatch" style="background:#f0ff44"></div><div class="pal-info"><span class="pal-name">Acid Yellow</span><span class="pal-hex">#F0FF44</span></div></div>
-          <div class="pal-row"><div class="pal-swatch" style="background:#ff3d9a"></div><div class="pal-info"><span class="pal-name">Hot Pink</span><span class="pal-hex">#FF3D9A</span></div></div>
-          <div class="pal-row"><div class="pal-swatch" style="background:#10f5a0"></div><div class="pal-info"><span class="pal-name">Mint Electric</span><span class="pal-hex">#10F5A0</span></div></div>
+          <div class="pal-row"><div class="pal-swatch" style="background:#7c3aed"></div><span class="pal-hex">#7C3AED</span></div>
+          <div class="pal-row"><div class="pal-swatch" style="background:#f0ff44"></div><span class="pal-hex">#F0FF44</span></div>
+          <div class="pal-row"><div class="pal-swatch" style="background:#ff3d9a"></div><span class="pal-hex">#FF3D9A</span></div>
+          <div class="pal-row"><div class="pal-swatch" style="background:#10f5a0"></div><span class="pal-hex">#10F5A0</span></div>
+          <div class="pal-row"><div class="pal-swatch" style="background:#ffffff;border-color:rgba(255,255,255,.2)"></div><span class="pal-hex">#FFFFFF</span></div>
+          <div class="pal-row"><div class="pal-swatch" style="background:#1a0a2e"></div><span class="pal-hex">#1A0A2E</span></div>
         </div>
       </div>
     </div>
   </div>
+
   <div class="film-strip"><div class="film-text">NEEERGRAPHS · DISEÑO GRÁFICO · MOTION GRAPHICS · EDICIÓN DE VÍDEO · DIRECCIÓN DE ARTE · IA GENERATIVA · POSTPRODUCCIÓN · MADRID 2026 · NEEERGRAPHS · DISEÑO GRÁFICO · MOTION GRAPHICS · EDICIÓN DE VÍDEO · DIRECCIÓN DE ARTE · IA GENERATIVA · POSTPRODUCCIÓN · MADRID 2026 ·&nbsp;&nbsp;&nbsp;</div></div>
   <div class="foot-copy"><span>© 2026 NEEERGRAPHS</span><span class="foot-avail">Disponible para proyectos</span><span>Madrid, España</span></div>
 </div>
 
 <script>
 /* ══ GRAIN ══ */
-function initGrain(id,op=210){
+function initGrain(id,op=200){
   const c=document.getElementById(id);if(!c)return;
   const ctx=c.getContext('2d');let f=0;
   function resize(){c.width=c.parentElement.clientWidth||innerWidth;c.height=c.parentElement.clientHeight||innerHeight}
   resize();window.addEventListener('resize',resize,{passive:true});
-  function draw(){f++;const w=c.width,h=c.height;const img=ctx.createImageData(w,h);const d=img.data;for(let i=0;i<d.length;i+=4){const v=Math.random()*op|0;d[i]=v;d[i+1]=v;d[i+2]=v;d[i+3]=Math.random()*36|0}ctx.putImageData(img,0,0);if(f%8===0){const y=Math.random()*h|0;ctx.fillStyle=`rgba(${Math.random()>.5?'160,80,255':'80,160,255'},.04)`;ctx.fillRect(0,y,w,Math.random()*2+1)}requestAnimationFrame(draw)}
+  function draw(){f++;const w=c.width,h=c.height;const img=ctx.createImageData(w,h);const d=img.data;for(let i=0;i<d.length;i+=4){const v=Math.random()*op|0;d[i]=v;d[i+1]=v;d[i+2]=v;d[i+3]=Math.random()*35|0}ctx.putImageData(img,0,0);if(f%8===0){const y=Math.random()*h|0;ctx.fillStyle=`rgba(${Math.random()>.5?'160,80,255':'80,160,255'},.04)`;ctx.fillRect(0,y,w,Math.random()*2+1)}requestAnimationFrame(draw)}
   draw();
 }
-initGrain('grainCanvas',200);initGrain('grainCanvas2',165);initGrain('grainCanvas3',145);
+initGrain('grainCanvas',195);initGrain('grainCanvas2',160);initGrain('grainCanvas3',140);
 
-/* ══ CURSOR — play/pause + trail pequeño y visible — punto 2 ══ */
+/* ══ CURSOR play/pause + trail muy visible — punto 7 ══ */
 const vidCur=document.getElementById('vid-cur');
-let cx=0,cy=0,trailT=0;
-const trailColors=['rgba(109,40,217,.8)','rgba(255,61,154,.8)','rgba(240,255,68,.9)','rgba(139,92,246,.85)'];
-let trailCI=0;
+let cx=0,cy=0,trailT=0,trailCI=0;
+const trailColors=[
+  'rgba(139,92,246,.95)','rgba(255,61,154,.9)',
+  'rgba(240,255,68,.95)','rgba(109,40,217,.9)',
+  'rgba(16,245,160,.85)','rgba(255,133,194,.9)'
+];
 
 document.addEventListener('mousemove',e=>{
   cx=e.clientX;cy=e.clientY;
   vidCur.style.left=cx+'px';vidCur.style.top=cy+'px';
   const now=Date.now();
-  if(now-trailT>45){ // trail más rápido y frecuente
+  if(now-trailT>30){ // muy frecuente — punto 7
     trailT=now;
     const t=document.createElement('div');
     t.className='cur-trail';
-    const sz=Math.random()*8+5; // pequeño 5-13px
+    // Tamaño variado pero notable: 10-20px — punto 7
+    const sz=Math.random()*12+10;
     const col=trailColors[trailCI%trailColors.length];
     trailCI++;
     t.style.cssText=`left:${cx}px;top:${cy}px;width:${sz}px;height:${sz}px;background:${col};`;
     document.body.appendChild(t);
-    setTimeout(()=>t.remove(),420);
+    setTimeout(()=>t.remove(),500);
   }
 });
 document.addEventListener('mousedown',()=>vidCur.classList.add('paused'));
@@ -972,42 +811,61 @@ function typeStep(){
 setTimeout(typeStep,500);
 
 /* ══ PARALLAX ══ */
-const bgName=document.getElementById('bgName');
-const heroMain=document.getElementById('heroMain');
+const bgName=document.getElementById('bgName'),heroMain=document.getElementById('heroMain');
 document.addEventListener('mousemove',e=>{
   const mx=(e.clientX/innerWidth-.5)*2,my=(e.clientY/innerHeight-.5)*2;
   if(bgName)bgName.style.transform=`translate(-50%,-50%) translate(${mx*14}px,${my*9}px)`;
   if(heroMain)heroMain.style.transform=`translate(${mx*3}px,${my*2}px)`;
 });
 
+/* ══ OLA ANIMADA — punto 6 ══ */
+(function animWave(){
+  const path=document.getElementById('wavePath');if(!path)return;
+  let t=0;
+  function draw(){
+    t+=.015;
+    const w=1440,amp=22;
+    let d=`M0,90 `;
+    for(let x=0;x<=w;x+=12){
+      const y=45+Math.sin((x/w)*Math.PI*4+t)*amp+Math.sin((x/w)*Math.PI*6+t*1.3)*(amp*.5);
+      d+=`L${x},${y} `;
+    }
+    d+=`L${w},90 Z`;
+    path.setAttribute('d',d);
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
 /* ══ CÍRCULO MORPH ══ */
 (function(){
   const path=document.getElementById('morphPath');if(!path)return;
-  const cx=108,cy=108,r=90;
+  const pcx=112,pcy=130,rx=88,ry=105; // elipse vertical
   const colors=['#6d28d9','#ff3d9a','#f0ff44','#10f5a0','#7c3aed','#ff85c2'];
   let t=0,ci=0,ni=1,progress=0;
   function lerpColor(c1,c2,p){const h=s=>parseInt(s,16);const r1=h(c1.slice(1,3)),g1=h(c1.slice(3,5)),b1=h(c1.slice(5,7));const r2=h(c2.slice(1,3)),g2=h(c2.slice(3,5)),b2=h(c2.slice(5,7));return`rgb(${Math.round(r1+(r2-r1)*p)},${Math.round(g1+(g2-g1)*p)},${Math.round(b1+(b2-b1)*p)})`}
-  function buildPath(t){const pts=[];const N=64;for(let i=0;i<=N;i++){const a=(i/N)*Math.PI*2;const rr=r+Math.sin(a*3+t*1.2)*12+Math.sin(a*5-t*.8)*7+Math.sin(a*7+t*.5)*4+Math.cos(a*2+t*1.8)*9;pts.push({x:cx+Math.cos(a)*rr,y:cy+Math.sin(a)*rr})}let d=`M ${pts[0].x} ${pts[0].y}`;for(let i=1;i<pts.length;i++){const pr=pts[i-1],cu=pts[i];const mx=(pr.x+cu.x)/2,my=(pr.y+cu.y)/2;d+=` Q ${pr.x} ${pr.y} ${mx} ${my}`}return d+'Z'}
-  function animate(){
-    t+=.018;path.setAttribute('d',buildPath(t));
-    progress+=.007;if(progress>=1){progress=0;ci=ni;ni=(ni+1)%colors.length}
-    const col=lerpColor(colors[ci],colors[ni],progress);
-    path.setAttribute('stroke',col);
-    const glow=.45+Math.sin(t*2)*.3;
-    path.setAttribute('stroke-opacity',glow.toFixed(2));
-    path.setAttribute('filter',`drop-shadow(0 0 ${5+Math.sin(t*3)*4}px ${col})`);
-    requestAnimationFrame(animate);
-  }
+  function buildPath(t){const pts=[];const N=64;for(let i=0;i<=N;i++){const a=(i/N)*Math.PI*2;const rr1=rx+Math.sin(a*3+t*1.2)*14+Math.sin(a*5-t*.8)*8+Math.sin(a*7+t*.5)*4;const rr2=ry+Math.cos(a*3+t*1.2)*12+Math.cos(a*5-t*.8)*7+Math.cos(a*7+t*.5)*3;pts.push({x:pcx+Math.cos(a)*rr1,y:pcy+Math.sin(a)*rr2})}let d=`M ${pts[0].x} ${pts[0].y}`;for(let i=1;i<pts.length;i++){const pr=pts[i-1],cu=pts[i];const mx=(pr.x+cu.x)/2,my=(pr.y+cu.y)/2;d+=` Q ${pr.x} ${pr.y} ${mx} ${my}`}return d+'Z'}
+  function animate(){t+=.018;path.setAttribute('d',buildPath(t));progress+=.007;if(progress>=1){progress=0;ci=ni;ni=(ni+1)%colors.length}const col=lerpColor(colors[ci],colors[ni],progress);path.setAttribute('stroke',col);const glow=.45+Math.sin(t*2)*.3;path.setAttribute('stroke-opacity',glow.toFixed(2));path.setAttribute('filter',`drop-shadow(0 0 ${5+Math.sin(t*3)*4}px ${col})`);requestAnimationFrame(animate)}
   animate();
 })();
 
 /* ══ FOTO HOVER ══ */
-const photoTrigger=document.getElementById('photoTrigger');
+const photoWrap=document.getElementById('photoFrame');
+const photoIcon=document.getElementById('photoIcon');
+const photoReal=document.getElementById('photoReal');
 const photoFlash=document.getElementById('photoFlash');
-if(photoTrigger){
+if(photoWrap){
   let flashed=false;
-  photoTrigger.addEventListener('mouseenter',()=>{if(!flashed){flashed=true;photoFlash.style.opacity='1';setTimeout(()=>{photoFlash.style.transition='opacity .35s';photoFlash.style.opacity='0'},90);setTimeout(()=>{flashed=false;photoFlash.style.transition=''},600)}});
-  photoTrigger.addEventListener('click',()=>{const real=photoTrigger.querySelector('.photo-real');const showing=real.style.opacity==='1';real.style.opacity=showing?'0':'1';real.style.transform=showing?'scale(.9)':'scale(1)';photoTrigger.querySelector('.photo-mirror-icon').style.opacity=showing?'1':'0'});
+  const trigger=photoWrap.parentElement;
+  trigger.style.cursor='none';
+  trigger.addEventListener('mouseenter',()=>{
+    if(!flashed){flashed=true;photoFlash.style.opacity='1';setTimeout(()=>{photoFlash.style.transition='opacity .35s';photoFlash.style.opacity='0'},90);setTimeout(()=>{flashed=false;photoFlash.style.transition=''},600)}
+  });
+  trigger.addEventListener('click',()=>{
+    const showing=photoReal.style.opacity==='1';
+    photoReal.style.opacity=showing?'0':'1';photoReal.style.transform=showing?'scale(.9)':'scale(1)';
+    photoIcon.style.opacity=showing?'1':'0';
+  });
 }
 
 /* ══ SVC HOVER ══ */
@@ -1016,23 +874,18 @@ document.querySelectorAll('.svc').forEach((s,i)=>{s.addEventListener('mouseenter
 
 /* ══ NAV ADAPTATIVO ══ */
 const mainNav=document.getElementById('mainNav');
-const lightIds=['sobre','proyectos']; // secciones claras
-const navObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const isLight=lightIds.includes(e.target.id);mainNav.classList.toggle('light',isLight)}})},{threshold:.3,rootMargin:'-60px 0px 0px 0px'});
+const lightIds=['sobre','proyectos'];
+const navObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){mainNav.classList.toggle('light',lightIds.includes(e.target.id))}})},{threshold:.3,rootMargin:'-60px 0px 0px 0px'});
 document.querySelectorAll('section[id]').forEach(s=>navObs.observe(s));
 
-/* ══ ACCORDION EN LÍNEA — punto 6 ══ */
+/* ══ ACCORDION TABS ══ */
 function toggleTab(tab,panelId){
   const allTabs=document.querySelectorAll('.acc-tab');
   const allPanels=document.querySelectorAll('.acc-panel');
   const isOpen=tab.classList.contains('open');
-  // Cerrar todo
   allTabs.forEach(t=>t.classList.remove('open'));
   allPanels.forEach(p=>p.classList.remove('open'));
-  // Abrir si no estaba abierto
-  if(!isOpen){
-    tab.classList.add('open');
-    document.getElementById('panel-'+panelId).classList.add('open');
-  }
+  if(!isOpen){tab.classList.add('open');document.getElementById('panel-'+panelId).classList.add('open')}
 }
 
 /* ══ MAGNETIC BTNS ══ */
