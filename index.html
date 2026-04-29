@@ -7,9 +7,8 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%236d28d9'/%3E%3Ctext x='32' y='46' font-family='Fredoka%2C sans-serif' font-size='40' font-weight='700' text-anchor='middle' fill='white'%3EN%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <style>
-/* ══ VARS ══ */
 :root{
-  --white:#fff;
+  --white:#fff;--off:#fafaf8;
   --purple:#6d28d9;--purple2:#7c3aed;--purple3:#8b5cf6;
   --purple4:#ede9fe;--purple5:#f5f3ff;--lavender:#ddd6fe;
   --ink:#1a0a2e;--ink2:#2e1065;
@@ -21,46 +20,21 @@
 html{overflow-x:hidden;scroll-behavior:smooth}
 body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;overflow-x:hidden;cursor:none}
 
-/* ══════════════════════════════════════
-   CURSOR — opaco, sin transparencia — punto 7
-══════════════════════════════════════ */
-#vid-cur{
-  position:fixed;z-index:9999;pointer-events:none;
-  transform:translate(-50%,-50%);will-change:transform;
-}
+/* ══ CURSOR ══ */
+#vid-cur{position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%);will-change:transform}
 #vid-cur.paused .ic-play{display:none}
 #vid-cur.paused .ic-pause{display:block}
 .ic-pause{display:none}
-
-/* Trail: partículas opacas que aparecen DETRÁS del cursor, no encima — punto 7 */
-.cur-trail{
-  position:fixed;z-index:9988;pointer-events:none;border-radius:50%;
-  transform:translate(-50%,-50%);
-  animation:trailOp .5s ease-out forwards;
-}
-@keyframes trailOp{
-  0%{opacity:1;transform:translate(-50%,-50%) scale(1)}
-  100%{opacity:0;transform:translate(-50%,-50%) scale(.05)}
-}
+.cur-trail{position:fixed;z-index:9988;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%);animation:trailOp .5s ease-out forwards}
+@keyframes trailOp{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(.05)}}
 
 /* ══ NAV ══ */
 .nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:12px 48px}
 @media(max-width:640px){.nav{padding:8px 16px}}
-.nav-inner{
-  display:flex;align-items:center;justify-content:space-between;
-  background:rgba(13,10,26,.62);
-  backdrop-filter:blur(24px) saturate(1.6);
-  -webkit-backdrop-filter:blur(24px) saturate(1.6);
-  border:1px solid rgba(255,255,255,.12);border-radius:14px;
-  padding:9px 22px;position:relative;overflow:hidden;
-  transition:background .4s,border-color .4s;
-  box-shadow:0 4px 24px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.08);
-}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;background:rgba(13,10,26,.62);backdrop-filter:blur(24px) saturate(1.6);-webkit-backdrop-filter:blur(24px) saturate(1.6);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:9px 22px;position:relative;overflow:hidden;transition:background .4s,border-color .4s;box-shadow:0 4px 24px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.08)}
 .nav-inner::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent)}
 .nav.light .nav-inner{background:rgba(255,255,255,.78);border-color:rgba(109,40,217,.18);box-shadow:0 4px 24px rgba(109,40,217,.08),inset 0 1px 0 rgba(255,255,255,1)}
-.nav.light .nav-logo-nav{color:var(--ink)}
-.nav.light .nav-links a{color:rgba(26,10,46,.5)}
-.nav.light .nav-links a:hover{color:var(--purple);background:rgba(109,40,217,.07)}
+.nav.light .nav-logo-nav{color:var(--ink)}.nav.light .nav-links a{color:rgba(26,10,46,.5)}.nav.light .nav-links a:hover{color:var(--purple);background:rgba(109,40,217,.07)}
 .nav-logo-nav{font-family:'Fredoka',sans-serif;font-size:15px;font-weight:700;text-decoration:none;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.8);transition:color .25s}
 .nav-logo-nav:hover{color:var(--accent)}
 .nav-links{display:flex;gap:4px;list-style:none}
@@ -68,62 +42,38 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 .nav-links a:hover{color:#fff;background:rgba(255,255,255,.1)}
 @media(max-width:640px){.nav-links{display:none}}
 
-/* ══ BACK TO TOP — flotante con hover ampliado — punto 6 ══ */
-#btt{
-  position:fixed;bottom:30px;right:30px;z-index:300;
-  width:48px;height:48px;border-radius:50%;
-  background:linear-gradient(135deg,var(--purple),var(--purple2));
-  border:none;cursor:none;display:flex;align-items:center;justify-content:center;
-  color:#fff;font-size:18px;
-  opacity:0;pointer-events:none;
-  transition:opacity .35s,transform .3s cubic-bezier(.34,1.56,.64,1);
-  box-shadow:0 8px 24px rgba(109,40,217,.4);
-  /* Flotando — punto 6 */
-  animation:floatUp 3s ease-in-out infinite;
-}
+/* ══ BTT ══ */
+#btt{position:fixed;bottom:30px;right:30px;z-index:300;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--purple2));border:none;cursor:none;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;opacity:0;pointer-events:none;transition:opacity .35s,transform .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 8px 24px rgba(109,40,217,.4);animation:floatUp 3s ease-in-out infinite}
 #btt.show{opacity:1;pointer-events:auto}
-/* Hover ampliado — punto 6 */
-#btt:hover{transform:scale(1.25) !important}
-@keyframes floatUp{
-  0%,100%{transform:translateY(0);box-shadow:0 8px 24px rgba(109,40,217,.4),0 0 0 0 rgba(109,40,217,.15)}
-  50%{transform:translateY(-8px);box-shadow:0 16px 32px rgba(109,40,217,.5),0 0 0 10px rgba(109,40,217,.06)}
-}
+#btt:hover{transform:scale(1.25)!important}
+@keyframes floatUp{0%,100%{transform:translateY(0);box-shadow:0 8px 24px rgba(109,40,217,.4),0 0 0 0 rgba(109,40,217,.15)}50%{transform:translateY(-8px);box-shadow:0 16px 32px rgba(109,40,217,.5),0 0 0 10px rgba(109,40,217,.06)}}
 
 /* ══════════════════════════════════════
-   HERO — punto 1+2: logo al ras, corte diagonal
+   HERO
+   Punto 1: logo al ras del borde inferior
+   Punto 2: corte diagonal — clip-path
 ══════════════════════════════════════ */
 .hero{
-  min-height:70svh;
+  min-height:72svh;
   display:flex;flex-direction:column;
   position:relative;overflow:hidden;
   background:#0d0a1a;
-  padding:0;
-  /* Corte diagonal en el borde inferior — punto 2 */
-  clip-path:polygon(0 0, 100% 0, 100% calc(100% - 52px), 0 100%);
-  /* El clip diagonal hace que el final del hero sea una línea diagonal
-     que coincide con el ángulo de la banda morada (-1.6deg) */
+
+  /* PUNTO 2 — corte diagonal igual que la banda b1 (-1.6deg aprox)
+     El triángulo inferior derecho queda recortado creando la diagonal */
+  clip-path:polygon(0 0, 100% 0, 100% calc(100% - 56px), 0 100%);
 }
-@media(max-width:640px){.hero{min-height:60svh;clip-path:polygon(0 0,100% 0,100% calc(100% - 36px),0 100%)}}
+@media(max-width:640px){.hero{min-height:62svh;clip-path:polygon(0 0,100% 0,100% calc(100% - 38px),0 100%)}}
 
 #grainCanvas{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.45}
-.hero-gradient{position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:radial-gradient(ellipse 80% 60% at 30% 40%,rgba(109,40,217,.38),transparent 65%),
-    radial-gradient(ellipse 60% 50% at 80% 60%,rgba(255,61,154,.12),transparent 65%),
-    radial-gradient(ellipse 50% 40% at 50% 90%,rgba(240,255,68,.06),transparent 65%)}
+.hero-gradient{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 30% 40%,rgba(109,40,217,.38),transparent 65%),radial-gradient(ellipse 60% 50% at 80% 60%,rgba(255,61,154,.12),transparent 65%)}
 .hero-dots{position:absolute;inset:0;z-index:2;pointer-events:none;background-image:radial-gradient(circle,rgba(255,255,255,.11) 1px,transparent 1px);background-size:28px 28px}
 .hero-scanlines{position:absolute;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.04) 2px,rgba(0,0,0,.04) 4px)}
 
-/* Contenido: typing + botones, centrados pero más arriba */
-.hero-main{
-  position:relative;z-index:5;flex:1;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;
-  /* Deja espacio abajo para que el logo quede visible al ras — punto 1 */
-  padding:80px 52px 80px;
-}
-@media(max-width:640px){.hero-main{padding:80px 24px 70px}}
+/* Centro: typing + botones */
+.hero-main{position:relative;z-index:5;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 52px 90px}
+@media(max-width:640px){.hero-main{padding:80px 24px 80px}}
 
-/* Typing */
 .hero-typing-wrap{min-height:clamp(48px,8.5vw,88px);display:flex;align-items:center;justify-content:center;margin-bottom:22px}
 .hero-typing{font-family:'Fredoka',sans-serif;font-size:clamp(36px,7.5vw,84px);font-weight:700;line-height:.9;color:#fff;letter-spacing:-1px}
 .hero-typing::after{content:'|';display:inline-block;margin-left:4px;animation:blink .75s step-end infinite;color:var(--accent);font-weight:300}
@@ -137,42 +87,37 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 .cta-outline{font-family:'Fredoka',sans-serif;font-size:15px;font-weight:600;padding:11px 28px;border-radius:999px;text-decoration:none;color:rgba(255,255,255,.7);border:1.5px solid rgba(255,255,255,.25);transition:all .22s}
 .cta-outline:hover{border-color:rgba(255,255,255,.6);color:#fff;background:rgba(255,255,255,.08)}
 
-/* ══ LOGO ÚNICO AL RAS — punto 1 ══
-   Posición absoluta pegada al fondo del hero,
-   ZOrden por debajo de las bandas.
-   Solo aparece AQUÍ — prohibido en otro lugar. */
+/* PUNTO 1 — Logo al ras del borde inferior del hero
+   position:absolute bottom:0 — apoyado en la cara de abajo */
 .hero-logo-ras{
   position:absolute;
-  /* Al ras del fondo: sin bottom, pegado a la parte inferior visible
-     antes del clip diagonal */
-  bottom:12px;
+  bottom:0;
   left:52px;right:52px;
   z-index:4;
+  /* Empuja el logo hacia el borde inferior con padding mínimo */
+  padding-bottom:16px;
   display:flex;align-items:flex-end;
-  /* Que el texto esté apoyado en la parte baja del hero */
   pointer-events:none;
 }
-@media(max-width:640px){.hero-logo-ras{left:20px;right:20px;bottom:8px}}
+@media(max-width:640px){.hero-logo-ras{left:20px;right:20px;padding-bottom:10px}}
 .hero-logo-txt{
   font-family:'Fredoka',sans-serif;
-  font-size:clamp(16px,3vw,34px);
-  font-weight:700;letter-spacing:-0.3px;text-transform:uppercase;
-  /* Gris transparente — se lee pero no protagoniza */
-  color:rgba(255,255,255,.17);
+  /* Grande pero subordinado — ocupa el fondo con transparencia */
+  font-size:clamp(14px,2.6vw,30px);
+  font-weight:700;letter-spacing:-.2px;text-transform:uppercase;
+  /* PUNTO 1 — transparencia en el fondo, se lee pero no protagoniza */
+  color:rgba(255,255,255,.14);
   user-select:none;line-height:1;
 }
 
-/* ══ BANDAS — encima del hero diagonal ══
-   margin-top negativo para que la banda
-   tape el borde diagonal del hero — punto 2 */
+/* ══ BANDAS — margen negativo para encajar sobre el corte diagonal ══ */
 .bands-wrapper{
-  position:relative;
-  z-index:15;
-  background:var(--purple5);
-  /* Negativo para que la banda morada cubra el corte */
-  margin-top:-54px;
+  position:relative;z-index:15;
+  background:var(--purple5); /* mismo fondo que about */
+  /* Sube las bandas para cubrir el espacio del clip-path diagonal */
+  margin-top:-58px;
 }
-@media(max-width:640px){.bands-wrapper{margin-top:-38px}}
+@media(max-width:640px){.bands-wrapper{margin-top:-40px}}
 .bands{position:relative;height:110px;overflow:visible}
 .band{position:absolute;left:-8%;width:116%;padding:11px 0;overflow:hidden;white-space:nowrap}
 .b1{background:var(--purple);transform:rotate(-1.6deg);top:10px;box-shadow:0 4px 20px rgba(109,40,217,.25)}
@@ -183,19 +128,12 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 .bt span{font-family:'Fredoka',sans-serif;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.85);flex-shrink:0}
 .bt .dot{font-size:7px;opacity:.5;color:var(--accent)}
 
-/* ══════════════════════════════════════
-   SOBRE MÍ
-══════════════════════════════════════ */
+/* ══ SOBRE MÍ ══ */
 .about{padding:80px 56px 100px;background:var(--purple5);position:relative;overflow:hidden}
 @media(max-width:640px){.about{padding:60px 20px 80px}}
 .about::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(ellipse,rgba(109,40,217,.07),transparent 65%);top:-80px;right:-80px;filter:blur(80px);pointer-events:none}
-
 .about-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1}
-
-/* 3 columnas: foto | texto | herramientas */
-.about-row{
-  display:grid;gap:36px;align-items:start;
-}
+.about-row{display:grid;gap:36px;align-items:start}
 @media(min-width:820px){.about-row{grid-template-columns:170px 1fr 210px}}
 @media(max-width:820px){.about-row{grid-template-columns:1fr}}
 
@@ -204,17 +142,8 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 .photo-wrap{position:relative;width:160px;height:195px;flex-shrink:0}
 .abstract-ring{position:absolute;inset:-32px;z-index:0}
 #morphRingSvg{width:100%;height:100%;overflow:visible}
-.photo-frame{
-  position:absolute;inset:0;z-index:1;overflow:hidden;
-  border-radius:62% 38% 55% 45% / 58% 48% 52% 42%;
-  animation:morphFrame 10s ease-in-out infinite;
-}
-@keyframes morphFrame{
-  0%,100%{border-radius:62% 38% 55% 45% / 58% 48% 52% 42%}
-  25%{border-radius:45% 55% 40% 60% / 52% 62% 38% 48%}
-  50%{border-radius:55% 45% 62% 38% / 45% 55% 60% 40%}
-  75%{border-radius:40% 60% 48% 52% / 60% 42% 55% 45%}
-}
+.photo-frame{position:absolute;inset:0;z-index:1;overflow:hidden;border-radius:62% 38% 55% 45% / 58% 48% 52% 42%;animation:morphFrame 10s ease-in-out infinite}
+@keyframes morphFrame{0%,100%{border-radius:62% 38% 55% 45% / 58% 48% 52% 42%}25%{border-radius:45% 55% 40% 60% / 52% 62% 38% 48%}50%{border-radius:55% 45% 62% 38% / 45% 55% 60% 40%}75%{border-radius:40% 60% 48% 52% / 60% 42% 55% 45%}}
 .photo-frame img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;filter:blur(2px) saturate(1.1) brightness(.8);transform:scale(1.05)}
 .photo-frame-ov{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(109,40,217,.08));border:2px solid rgba(255,255,255,.3);z-index:1}
 .photo-icon{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;transition:opacity .4s}
@@ -225,7 +154,6 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 .photo-wrap:hover .photo-icon{opacity:0}
 .photo-wrap:hover .photo-frame img{filter:blur(0) saturate(1) brightness(1)}
 .photo-wrap:hover .photo-real{opacity:1;transform:scale(1)}
-
 .about-stats{display:flex;gap:16px;justify-content:center}
 .st-item{text-align:center}
 .st-n{font-family:'Fredoka',sans-serif;font-size:26px;font-weight:700;line-height:1;color:var(--purple)}
@@ -235,37 +163,36 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 .about-text{display:flex;flex-direction:column;gap:14px}
 .about-greeting{font-family:'Fredoka',sans-serif;font-size:clamp(24px,2.8vw,38px);font-weight:700;line-height:1.1;color:var(--ink)}
 .about-sub{font-family:'Fredoka',sans-serif;font-size:clamp(15px,1.8vw,20px);font-weight:600;color:var(--ink)}
-.about-sub .pk{color:var(--purple)}
+/* PUNTO 7 — me apasiona pulsante */
+.me-apasiona{
+  color:var(--purple);display:inline-block;
+  animation:apasionaPulse 2.2s ease-in-out infinite;
+  transform-origin:center;
+}
+@keyframes apasionaPulse{
+  0%,100%{transform:scale(1)}
+  35%{transform:scale(1.22)}
+  55%{transform:scale(1.14)}
+  75%{transform:scale(1.04)}
+}
 .about-body{font-size:13.5px;line-height:1.8;color:var(--muted)}
 .about-body strong{color:var(--ink);font-weight:700}
 
-/* Brainstorming — punto 3: "Herramientas", chips centradas */
+/* Brainstorming */
 .brainstorm-col{min-width:0}
-.brainstorm-wrap{
-  position:relative;padding:12px 12px 14px;
-  background:rgba(255,255,255,.55);backdrop-filter:blur(12px);
-  border:1.5px solid var(--lavender);border-radius:16px;overflow:hidden;
-}
-/* Punto 3: "Herramientas" (no "tools") */
-.brainstorm-wrap::before{
-  content:'Herramientas';
-  position:absolute;top:6px;left:50%;transform:translateX(-50%);
-  font-size:7px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
-  color:var(--purple3);opacity:.75;white-space:nowrap;
-}
+.brainstorm-wrap{position:relative;padding:12px 12px 14px;background:rgba(255,255,255,.55);backdrop-filter:blur(12px);border:1.5px solid var(--lavender);border-radius:16px;overflow:hidden}
+.brainstorm-wrap::before{content:'Herramientas';position:absolute;top:6px;left:50%;transform:translateX(-50%);font-size:7px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--purple3);opacity:.75;white-space:nowrap}
 .brainstorm-wrap::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(109,40,217,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(109,40,217,.04) 1px,transparent 1px);background-size:16px 16px;border-radius:16px}
-/* Punto 3: chips centradas */
 .brainstorm-inner{display:flex;flex-wrap:wrap;gap:5px;margin-top:20px;position:relative;z-index:1;justify-content:center}
 .bchip{font-size:9px;font-weight:700;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.8);color:var(--purple2);border:1.5px solid var(--lavender);transition:all .22s cubic-bezier(.34,1.56,.64,1);cursor:default}
-.bchip:nth-child(odd){transform:rotate(-1.2deg)}
-.bchip:nth-child(even){transform:rotate(1.2deg)}
+.bchip:nth-child(odd){transform:rotate(-1.2deg)}.bchip:nth-child(even){transform:rotate(1.2deg)}
 .bchip:hover{transform:scale(1.08) rotate(0deg);background:var(--purple);color:#fff;border-color:var(--purple)}
 
-/* Accordion horizontal */
+/* Accordion */
 .acc-section{background:rgba(255,255,255,.5);backdrop-filter:blur(16px);border:1.5px solid var(--lavender);border-radius:18px;overflow:hidden;margin-top:32px}
 .acc-tabs{display:grid;grid-template-columns:repeat(4,1fr)}
 @media(max-width:640px){.acc-tabs{grid-template-columns:1fr 1fr}}
-.acc-tab{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;border-right:1px solid var(--lavender);cursor:none;user-select:none;transition:background .22s;background:transparent}
+.acc-tab{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;border-right:1px solid var(--lavender);cursor:none;user-select:none;transition:background .22s}
 .acc-tab:last-child{border-right:none}
 .acc-tab:hover{background:rgba(109,40,217,.05)}
 .acc-tab.open{background:rgba(109,40,217,.08)}
@@ -282,7 +209,6 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 .acc-panel{display:none;padding:18px;animation:panelFade .3s ease}
 .acc-panel.open{display:block}
 @keyframes panelFade{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
-
 .tl{display:flex;flex-direction:column;gap:12px}
 .tl-row{display:flex;gap:12px;align-items:flex-start}
 .tl-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
@@ -315,11 +241,11 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 .itag.c{background:rgba(255,61,154,.08);color:var(--accent2);border:1px solid rgba(255,61,154,.18)}
 .itag:hover{transform:scale(1.08) rotate(-1.5deg)}
 
-/* ══ HABILIDADES (servicios) — punto 8 ══ */
+/* ══ HABILIDADES ══ */
 .servicios{padding:90px 56px;position:relative;overflow:hidden;background:#0d0a1a}
 @media(max-width:640px){.servicios{padding:72px 20px}}
 #grainCanvas2{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.28}
-.svc-aurora{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 70% 60% at 15% 25%,rgba(109,40,217,.28),transparent 60%),radial-gradient(ellipse 55% 50% at 85% 75%,rgba(255,61,154,.14),transparent 60%),radial-gradient(ellipse 45% 40% at 55% 50%,rgba(240,255,68,.07),transparent 60%),radial-gradient(ellipse 35% 30% at 75% 20%,rgba(16,245,160,.06),transparent 60%)}
+.svc-aurora{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 70% 60% at 15% 25%,rgba(109,40,217,.28),transparent 60%),radial-gradient(ellipse 55% 50% at 85% 75%,rgba(255,61,154,.14),transparent 60%),radial-gradient(ellipse 45% 40% at 55% 50%,rgba(240,255,68,.07),transparent 60%)}
 .svc-dots{position:absolute;inset:0;z-index:1;pointer-events:none;background-image:radial-gradient(circle,rgba(139,92,246,.13) 1px,transparent 1px);background-size:30px 30px;opacity:.55}
 .svc-scanlines{position:absolute;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.04) 2px,rgba(0,0,0,.04) 4px)}
 .sec-hd{max-width:1100px;margin:0 auto 44px;position:relative;z-index:3}
@@ -369,72 +295,98 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 .pcard-btn:hover{transform:scale(1.05)}
 .pcard:nth-child(1) .pcard-btn{color:var(--purple);border-color:rgba(109,40,217,.3)}.pcard:nth-child(2) .pcard-btn{color:#a16207;border-color:rgba(161,98,7,.3)}.pcard:nth-child(3) .pcard-btn{color:var(--accent2);border-color:rgba(255,61,154,.3)}.pcard:nth-child(4) .pcard-btn{color:#059669;border-color:rgba(5,150,105,.3)}.pcard:nth-child(5) .pcard-btn{color:#0284c7;border-color:rgba(2,132,199,.3)}.pcard:nth-child(6) .pcard-btn{color:#d97706;border-color:rgba(217,119,6,.3)}
 
-/* WIP — punto 4: arreglado, pequeñas pero completas */
+/* ═══════════════════════════════════════
+   WIP — PUNTO 3: textos borrosos debajo,
+   DENTRO de la imagen con overlay blur
+═══════════════════════════════════════ */
 .wip-section{margin-top:36px}
 .wip-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
 .wip-dot{width:7px;height:7px;border-radius:50%;background:var(--purple3);animation:wipPulse 2s ease-in-out infinite}
-@keyframes wipPulse{0%,100%{box-shadow:0 0 0 0 rgba(109,40,217,.4)}50%{box-shadow:0 0 0 5px rgba(109,40,217,.0)}}
+@keyframes wipPulse{0%,100%{box-shadow:0 0 0 0 rgba(109,40,217,.4)}50%{box-shadow:0 0 0 5px rgba(109,40,217,0)}}
 .wip-lbl{font-family:'Fredoka',sans-serif;font-size:12px;font-weight:700;color:var(--purple);letter-spacing:3px;text-transform:uppercase}
-.wip-grid{display:grid;gap:12px;grid-template-columns:repeat(2,1fr)}
+.wip-grid{display:grid;gap:16px;grid-template-columns:repeat(2,1fr)}
 @media(max-width:600px){.wip-grid{grid-template-columns:1fr}}
 
-/* Punto 4: cards WIP como fila, bien estructuradas */
 .wcard{
-  border-radius:14px;overflow:hidden;
-  display:flex;flex-direction:row;
+  border-radius:16px;overflow:hidden;
   position:relative;cursor:not-allowed;
   border:1.5px solid rgba(109,40,217,.2);
   box-shadow:0 2px 8px rgba(109,40,217,.1);
   animation:neonPulse 3s ease-in-out infinite;
-  background:var(--purple5);
-  min-height:0;height:90px;
+  /* Imagen como base — aspect-ratio para que tenga altura */
+  aspect-ratio:16/9;
+  background-size:cover;background-position:center;
 }
 @keyframes neonPulse{0%,100%{box-shadow:0 0 4px rgba(109,40,217,.12),0 1px 4px rgba(109,40,217,.08);border-color:rgba(109,40,217,.2)}50%{box-shadow:0 0 14px rgba(109,40,217,.32),0 0 28px rgba(109,40,217,.1);border-color:rgba(109,40,217,.52)}}
+
+/* Imagen de fondo desaturada */
+.wcard-bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  filter:grayscale(.55) brightness(.68) blur(1px);
+}
+
+/* Candado flotante centrado */
 .wcard-cover{
   position:absolute;inset:0;z-index:10;
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  background:rgba(245,243,255,.38);backdrop-filter:blur(3px);pointer-events:none;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  /* Fondo semitransparente SOLO en la mitad superior */
+  background:linear-gradient(to bottom,rgba(245,243,255,.42) 0%,transparent 60%);
+  backdrop-filter:blur(1px);pointer-events:none;
 }
-.wcard-lock{font-size:20px;animation:lockFloat 2.5s ease-in-out infinite;filter:drop-shadow(0 3px 8px rgba(109,40,217,.4))}
+.wcard-lock{font-size:24px;animation:lockFloat 2.5s ease-in-out infinite;filter:drop-shadow(0 3px 8px rgba(109,40,217,.4))}
 @keyframes lockFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.wcard-cover-txt{font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--purple)}
-/* Imagen lado izquierdo */
-.wcard-img{
-  width:130px;height:90px;flex-shrink:0;
-  background-size:cover;background-position:center;
-  filter:grayscale(.5) brightness(.82);
-}
-/* Texto lado derecho */
-.wcard-body{
-  flex:1;padding:10px 12px;
-  display:flex;flex-direction:column;justify-content:center;
-  border-left:1px solid var(--lavender);
-}
-.wcard-cat{font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--purple3);margin-bottom:3px}
-.wcard-title{font-family:'Fredoka',sans-serif;font-size:13px;font-weight:700;color:var(--ink);line-height:1.2}
-.wcard-sub{font-size:9px;color:var(--muted2);font-style:italic;margin-top:2px}
+.wcard-cover-txt{font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(109,40,217,.9)}
 
-/* ══════════════════════════════════════
-   FOOTER — punto 5: ola doble + aleta tiburón, sin línea rara
-══════════════════════════════════════ */
+/* PUNTO 3 — Textos borrosos en la parte INFERIOR de la imagen */
+.wcard-body-blur{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  z-index:8;
+  padding:10px 14px 12px;
+  /* Glassmorphism sobre la imagen */
+  background:rgba(245,243,255,.45);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-top:1px solid rgba(255,255,255,.5);
+}
+.wcard-cat-b{
+  font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+  color:var(--purple3);margin-bottom:3px;
+  /* Texto ligeramente borroso — punto 3 */
+  filter:blur(.5px);
+}
+.wcard-title-b{
+  font-family:'Fredoka',sans-serif;font-size:15px;font-weight:700;
+  color:var(--ink);line-height:1.2;
+  filter:blur(.5px);
+}
+.wcard-sub-b{
+  font-size:9px;color:var(--muted2);font-style:italic;margin-top:2px;
+  filter:blur(.5px);
+}
+
+/* ════════════════════════════════════
+   FOOTER
+   Punto 4: solo onda oscura, sin cajas lilas
+   Punto 5: sin título Itten, Itten más rápido
+   Punto 6: cartelas Pantone
+════════════════════════════════════ */
 .footer{background:#0d0a1a;position:relative;overflow:hidden}
 #grainCanvas3{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.2}
 .footer-gradient{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 20% 30%,rgba(109,40,217,.15),transparent 65%),radial-gradient(ellipse 40% 40% at 80% 70%,rgba(240,255,68,.06),transparent 65%)}
 
-/* Contenedor de transición — punto 5: sin ninguna línea ni rectángulo */
+/* PUNTO 4 — Solo onda oscura, sin nada lila */
 .foot-wave-wrap{
   position:relative;
-  /* Fondo lila (mismo que about) para que no haya corte visual */
-  background:var(--purple5);
-  overflow:hidden;
-  /* Punto 5: quitar cualquier border o separador */
-  border:none;outline:none;
+  /* Fondo blanco debajo (viene de proyectos) */
+  background:var(--white);
+  line-height:0;overflow:hidden;
 }
-/* Canvas de la ola doble animada */
-#waveCanvas{display:block;width:100%;pointer-events:none}
+#waveCanvas{display:block;width:100%}
 
 /* Contacto */
-.contact-sec{padding:60px 56px 48px;position:relative;z-index:2;max-width:1100px;margin:0 auto;display:grid;gap:52px;align-items:center}
+.contact-sec{padding:60px 56px 48px;position:relative;z-index:2;max-width:1100px;margin:0 auto;display:grid;gap:52px;align-items:start}
 @media(min-width:820px){.contact-sec{grid-template-columns:1fr 1fr}}
 @media(max-width:640px){.contact-sec{padding:48px 20px 36px}}
 .ct-head{font-family:'Fredoka',sans-serif;font-size:clamp(34px,5vw,62px);font-weight:700;line-height:1;color:#fff;margin-bottom:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
@@ -442,24 +394,61 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 .ct-sub{font-size:14px;color:rgba(255,255,255,.45);line-height:1.7;max-width:340px;margin-bottom:26px}
 .ct-cta{display:inline-flex;align-items:center;gap:8px;font-family:'Fredoka',sans-serif;font-size:15px;font-weight:700;padding:13px 38px;border-radius:999px;text-decoration:none;background:var(--accent);color:var(--ink);box-shadow:0 8px 28px rgba(240,255,68,.2);transition:transform .25s,box-shadow .25s}
 .ct-cta:hover{transform:scale(1.04) translateY(-2px);box-shadow:0 12px 40px rgba(240,255,68,.35)}
-.ct-items{display:flex;flex-direction:column;gap:10px}
-.ct-item{display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);transition:all .28s}
-.ct-item:hover{background:rgba(255,255,255,.1);transform:translateX(5px)}
-.ct-ico{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .28s}
-.ct-ico img{width:19px}
-.ct-item:nth-child(1) .ct-ico{background:rgba(109,40,217,.3)}.ct-item:nth-child(2) .ct-ico{background:rgba(255,255,255,.12)}.ct-item:nth-child(3) .ct-ico{background:rgba(16,245,160,.2)}
-.ct-item:hover .ct-ico{transform:rotate(-7deg) scale(1.08)}
-.ct-lbl{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:2px}
-.ct-val{font-size:13px;font-weight:600;color:#fff}
 
-/* Tribute — Itten girando, paleta simplificada */
+/* PUNTO 6 — Cartelas Pantone */
+.ct-items{display:flex;flex-direction:column;gap:14px}
+.pantone-card{
+  width:100%;border-radius:5px 5px 3px 3px;
+  overflow:hidden;
+  box-shadow:0 6px 20px rgba(0,0,0,.45),0 2px 6px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.15);
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1);cursor:none;
+  position:relative;
+}
+.pantone-card:hover{transform:translateY(-4px) rotate(.4deg)}
+
+/* Bloque de color con agujero */
+.pantone-color{
+  height:56px;position:relative;
+  display:flex;align-items:flex-end;
+  padding:0 12px 8px;
+}
+.pantone-card:nth-child(1) .pantone-color{background:linear-gradient(135deg,#7c3aed 0%,#9333ea 100%)}
+.pantone-card:nth-child(2) .pantone-color{background:linear-gradient(135deg,#1a0a2e 0%,#2e1065 100%)}
+.pantone-card:nth-child(3) .pantone-color{background:linear-gradient(135deg,#059669 0%,#10b981 100%)}
+
+/* Agujero tipo cartela Pantone arriba centrado */
+.pantone-color::before{
+  content:'';position:absolute;
+  top:8px;left:50%;transform:translateX(-50%);
+  width:11px;height:11px;border-radius:50%;
+  background:rgba(0,0,0,.3);
+  box-shadow:inset 0 2px 4px rgba(0,0,0,.5);
+}
+/* Pequeño texto de código en el bloque de color */
+.pantone-code-block{
+  font-family:monospace;font-size:7.5px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;
+  color:rgba(255,255,255,.55);
+}
+
+/* Parte blanca de la cartela */
+.pantone-white{
+  background:#f6f3ed;
+  padding:8px 12px 10px;
+  border-top:1px solid rgba(0,0,0,.06);
+}
+.pantone-lbl{font-size:8.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(26,10,46,.45);margin-bottom:4px}
+.pantone-val{font-size:13px;font-weight:700;color:var(--ink);line-height:1.2}
+
+/* Tribute */
 .design-tribute{position:relative;z-index:2;border-top:1px solid rgba(255,255,255,.07);padding:40px 56px;overflow:hidden}
 @media(max-width:640px){.design-tribute{padding:28px 20px}}
 .tribute-inner{max-width:1100px;margin:0 auto}
-.tribute-label{font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:24px}
+/* PUNTO 5: sin título */
 .tribute-grid{display:grid;grid-template-columns:auto 1fr auto;gap:48px;align-items:center}
 @media(max-width:640px){.tribute-grid{grid-template-columns:1fr}}
-.itten-wheel{position:relative;width:120px;height:120px;flex-shrink:0;animation:ittenSpin 30s linear infinite}
+/* PUNTO 5: Itten más rápido — 8s */
+.itten-wheel{position:relative;width:120px;height:120px;flex-shrink:0;animation:ittenSpin 8s linear infinite}
 @keyframes ittenSpin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
 .itten-ring{position:absolute;border-radius:50%}
 .ir1{inset:0;background:conic-gradient(#ff3d9a 0deg,#ff7700 51deg,#f0ff44 102deg,#00e676 153deg,#2563ff 204deg,#9333ea 255deg,#e040fb 306deg,#ff3d9a 360deg)}
@@ -483,8 +472,6 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 .foot-avail{display:inline-flex;align-items:center;gap:7px;color:rgba(255,255,255,.28)}
 .foot-avail::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 8px rgba(16,245,160,.5);animation:bl 2s ease infinite}
 @keyframes bl{0%,100%{opacity:1}50%{opacity:.3}}
-
-/* REVEALS */
 .rv{opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
 .rvL{opacity:0;transform:translateX(-26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
 .rvR{opacity:0;transform:translateX(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
@@ -493,7 +480,6 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 </head>
 <body>
 
-<!-- CURSOR play/pause — punto 7: icono opaco -->
 <div id="vid-cur">
   <svg class="ic-play" width="32" height="32" viewBox="0 0 34 34" fill="none">
     <circle cx="17" cy="17" r="15" fill="#6d28d9" stroke="#8b5cf6" stroke-width="1.5"/>
@@ -508,7 +494,6 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 
 <button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-<!-- NAV — punto 8: Habilidades en vez de Servicios -->
 <nav class="nav" id="mainNav">
   <div class="nav-inner">
     <a class="nav-logo-nav" href="#hero">NEEERGRAPHS</a>
@@ -521,31 +506,28 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
   </div>
 </nav>
 
-<!-- ══ HERO — punto 1+2 ══ -->
+<!-- ══ HERO ══ -->
 <section class="hero" id="hero">
   <canvas id="grainCanvas"></canvas>
   <div class="hero-gradient"></div>
   <div class="hero-dots"></div>
   <div class="hero-scanlines"></div>
 
-  <!-- Contenido central: typing + botones -->
   <div class="hero-main" id="heroMain">
-    <div class="hero-typing-wrap">
-      <span class="hero-typing" id="typingEl"></span>
-    </div>
+    <div class="hero-typing-wrap"><span class="hero-typing" id="typingEl"></span></div>
     <div class="hero-ctas">
       <a href="#proyectos" class="cta-fill">Ver proyectos</a>
       <a href="#sobre" class="cta-outline">Más sobre mí</a>
     </div>
   </div>
 
-  <!-- Logo ÚNICO al ras del fondo — punto 1: prohibido en otro sitio -->
+  <!-- PUNTO 1: Logo único al ras del borde inferior -->
   <div class="hero-logo-ras">
     <span class="hero-logo-txt">NEEERGRAPHS</span>
   </div>
 </section>
 
-<!-- BANDAS — punto 2: cubren el corte diagonal -->
+<!-- BANDAS — cubren el corte diagonal -->
 <div class="bands-wrapper">
   <div class="bands">
     <div class="band b1">
@@ -567,7 +549,6 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 <section class="about" id="sobre">
   <div class="about-inner">
     <div class="about-row">
-      <!-- Foto -->
       <div class="photo-col rvL">
         <div class="photo-wrap">
           <div class="abstract-ring">
@@ -575,7 +556,7 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
               <path id="morphPath" stroke-width="2.5" fill="none" stroke-linecap="round"/>
             </svg>
           </div>
-          <div class="photo-frame" id="photoFrame">
+          <div class="photo-frame">
             <img src="nerea.ramirez.png" alt="">
             <div class="photo-frame-ov"></div>
           </div>
@@ -592,37 +573,27 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
         </div>
       </div>
 
-      <!-- Texto -->
       <div class="about-text rvR">
         <h2 class="about-greeting">Hola, soy Nerea :)</h2>
-        <p class="about-sub">Y <span class="pk">me apasiona</span> lo que hago.</p>
+        <!-- PUNTO 7: me apasiona con animación pulse -->
+        <p class="about-sub">Y <span class="me-apasiona">me apasiona</span> lo que hago.</p>
         <p class="about-body">
           Grabo, edito, diseño y animo — todo en el mismo espacio creativo. <strong>Tomo un brief en blanco y lo convierto en una pieza que comunica de verdad:</strong> motion graphics, campañas de RRSS, identidad de marca, postproducción y vídeo. Me muevo entre disciplinas sin perder el hilo.
         </p>
       </div>
 
-      <!-- Herramientas brainstorming — punto 3: centradas, "Herramientas" -->
       <div class="brainstorm-col rvR" style="transition-delay:.08s">
         <div class="brainstorm-wrap">
           <div class="brainstorm-inner">
-            <span class="bchip">Photoshop</span>
-            <span class="bchip">Illustrator</span>
-            <span class="bchip">Premiere</span>
-            <span class="bchip">After Effects</span>
-            <span class="bchip">InDesign</span>
-            <span class="bchip">Cap Cut</span>
-            <span class="bchip">Sora AI</span>
-            <span class="bchip">ChatGPT</span>
-            <span class="bchip">Gemini</span>
-            <span class="bchip">Metricool</span>
-            <span class="bchip">Meta Ads</span>
-            <span class="bchip">Wordpress</span>
+            <span class="bchip">Photoshop</span><span class="bchip">Illustrator</span><span class="bchip">Premiere</span>
+            <span class="bchip">After Effects</span><span class="bchip">InDesign</span><span class="bchip">Cap Cut</span>
+            <span class="bchip">Sora AI</span><span class="bchip">ChatGPT</span><span class="bchip">Gemini</span>
+            <span class="bchip">Metricool</span><span class="bchip">Meta Ads</span><span class="bchip">Wordpress</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Accordion una línea -->
     <div class="acc-section rv" style="transition-delay:.1s">
       <div class="acc-tabs">
         <div class="acc-tab" onclick="toggleTab(this,'exp')"><span class="acc-tab-label">Experiencia</span><div class="acc-tab-right"><span class="acc-tab-tag">3 años</span><div class="acc-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
@@ -631,13 +602,7 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
         <div class="acc-tab" onclick="toggleTab(this,'hab')"><span class="acc-tab-label">Habilidades</span><div class="acc-tab-right"><span class="acc-tab-tag">Especialidades</span><div class="acc-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
       </div>
       <div class="acc-panels">
-        <div class="acc-panel" id="panel-exp">
-          <div class="tl">
-            <div class="tl-row"><div class="tl-left"><div class="tl-dot"></div><div class="tl-dash"></div></div><div class="tl-c"><span class="tl-pill">Jun 2024 — Actual</span><div class="tl-co">Ádraba</div><div class="tl-role">Diseñadora gráfica & Community Manager</div><div class="tl-tasks"><div class="tl-task">Producción integral de contenido visual: concepto, diseño, grabación, edición y publicación.</div><div class="tl-task">Gestión y dirección de campañas de marketing digital en RRSS.</div><div class="tl-task">Diseño gráfico e ilustración para campañas digitales.</div><div class="tl-task">Vídeos animados 2D y motion graphics.</div><div class="tl-task">IA generativa para ideación, variaciones y optimización.</div><div class="tl-task">Diseño BTL: flyers, tarjetas, trípticos, spots TV, cartelería.</div></div></div></div>
-            <div class="tl-row"><div class="tl-left"><div class="tl-dot"></div><div class="tl-dash"></div></div><div class="tl-c"><span class="tl-pill">Jun — Sep 2023</span><div class="tl-co">Lunaro Solutions</div><div class="tl-role">Community Manager</div><div class="tl-tasks"><div class="tl-task">Gestión estratégica LinkedIn: contenido, calendario y análisis.</div><div class="tl-task">Diseño de piezas visuales y contenido audiovisual orientado a marca.</div></div></div></div>
-            <div class="tl-row"><div class="tl-left"><div class="tl-dot"></div></div><div class="tl-c"><span class="tl-pill">Mar — Jun 2023</span><div class="tl-co">Jastag</div><div class="tl-role">Asistente Diseño y Comunicación Digital</div><div class="tl-tasks"><div class="tl-task">Diseño web y optimización SEO en Wordpress.</div><div class="tl-task">Producción y postproducción de contenidos audiovisuales.</div><div class="tl-task">Diseño de piezas para RRSS y copywriting.</div></div></div></div>
-          </div>
-        </div>
+        <div class="acc-panel" id="panel-exp"><div class="tl"><div class="tl-row"><div class="tl-left"><div class="tl-dot"></div><div class="tl-dash"></div></div><div class="tl-c"><span class="tl-pill">Jun 2024 — Actual</span><div class="tl-co">Ádraba</div><div class="tl-role">Diseñadora gráfica & Community Manager</div><div class="tl-tasks"><div class="tl-task">Producción integral de contenido visual: concepto, diseño, grabación, edición y publicación.</div><div class="tl-task">Gestión y dirección de campañas de marketing digital en RRSS.</div><div class="tl-task">Diseño gráfico e ilustración para campañas digitales.</div><div class="tl-task">Vídeos animados 2D y motion graphics.</div><div class="tl-task">IA generativa para ideación, variaciones y optimización.</div><div class="tl-task">Diseño BTL: flyers, tarjetas, trípticos, spots TV, cartelería.</div></div></div></div><div class="tl-row"><div class="tl-left"><div class="tl-dot"></div><div class="tl-dash"></div></div><div class="tl-c"><span class="tl-pill">Jun — Sep 2023</span><div class="tl-co">Lunaro Solutions</div><div class="tl-role">Community Manager</div><div class="tl-tasks"><div class="tl-task">Gestión estratégica LinkedIn: contenido, calendario y análisis.</div><div class="tl-task">Diseño de piezas visuales y contenido audiovisual orientado a marca.</div></div></div></div><div class="tl-row"><div class="tl-left"><div class="tl-dot"></div></div><div class="tl-c"><span class="tl-pill">Mar — Jun 2023</span><div class="tl-co">Jastag</div><div class="tl-role">Asistente Diseño y Comunicación Digital</div><div class="tl-tasks"><div class="tl-task">Diseño web y optimización SEO en Wordpress.</div><div class="tl-task">Producción y postproducción de contenidos audiovisuales.</div><div class="tl-task">Diseño de piezas para RRSS y copywriting.</div></div></div></div></div></div>
         <div class="acc-panel" id="panel-edu"><div class="edu-list"><div class="edu-row"><div class="edu-yr">2025</div><div><div class="edu-t">Máster Motion Graphics, VFX, Diseño 3D, 4D y Dirección de arte</div><div class="edu-p">CEI</div></div></div><div class="edu-row"><div class="edu-yr">2023</div><div><div class="edu-t">Máster Diseño Gráfico, Diseño web y Marketing Digital</div><div class="edu-p">CEI</div></div></div><div class="edu-row"><div class="edu-yr">2021</div><div><div class="edu-t">Grado Superior en Marketing y Publicidad</div><div class="edu-p">IES Clara del Rey</div></div></div></div></div>
         <div class="acc-panel" id="panel-cert"><div class="cert-grid"><div class="cert-c"><div class="cert-yr">2025</div><div class="cert-n">Elements of AI</div><div class="cert-e">University of Helsinki</div></div><div class="cert-c"><div class="cert-yr">2025</div><div class="cert-n">Diseño Gráfico</div><div class="cert-e">Edutin Academy</div></div><div class="cert-c"><div class="cert-yr">2024</div><div class="cert-n">Inbound Marketing</div><div class="cert-e">Hubspot Academy</div></div><div class="cert-c"><div class="cert-yr">2024</div><div class="cert-n">Marketing Digital</div><div class="cert-e">Google Actívate</div></div></div></div>
         <div class="acc-panel" id="panel-hab"><div class="int-wrap"><span class="itag a">Diseño gráfico</span><span class="itag b">Motion graphics</span><span class="itag a">Dirección de arte</span><span class="itag c">Storytelling visual</span><span class="itag a">IA generativa</span><span class="itag b">Vídeo corporativo</span><span class="itag c">Identidad de marca</span><span class="itag a">Postproducción</span><span class="itag b">Fotografía</span><span class="itag a">Diseño 3D</span><span class="itag c">Campañas digitales</span><span class="itag b">Spots publicitarios</span><span class="itag a">Content creation</span><span class="itag c">Gestión RRSS</span><span class="itag b">Grabación in situ</span></div></div>
@@ -646,12 +611,10 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
   </div>
 </section>
 
-<!-- ══ HABILIDADES (punto 8: renombrado) ══ -->
+<!-- ══ HABILIDADES ══ -->
 <section class="servicios" id="servicios">
   <canvas id="grainCanvas2"></canvas>
-  <div class="svc-aurora"></div>
-  <div class="svc-dots"></div>
-  <div class="svc-scanlines"></div>
+  <div class="svc-aurora"></div><div class="svc-dots"></div><div class="svc-scanlines"></div>
   <div class="sec-hd rv"><h2 class="sec-title light">¿Qué puedo <span class="hi">hacer?</span></h2></div>
   <div class="svcs-grid rv" style="transition-delay:.09s">
     <div class="svc"><span class="svc-num">01</span><div class="svc-bg-icon">🎬</div><div class="svc-ico"><img src="video.png" alt=""></div><h3>Edición de vídeo</h3><p>Narrativa visual, ritmo y emoción en cada corte. Premiere, After Effects, Cap Cut.</p></div>
@@ -675,35 +638,53 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
       <div class="pcard"><div class="pcard-img" style="background-image:url('destacada-hotwheel.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">IA Generativa</div><div class="pcard-title">Vídeo Hot Wheels</div><div class="pcard-sub">IA generativa y Premiere</div><a href="proyecto-hotwheels.html" target="_blank" rel="noopener" class="pcard-btn">Ver proyecto →</a></div></div>
       <div class="pcard"><div class="pcard-img" style="background-image:url('destacada-nextfloor.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">Infografía RRSS</div><div class="pcard-title">Coworking Nextfloor</div><div class="pcard-sub">Infografía y diseño para RRSS</div><a href="proyecto-nextfloor.html" target="_blank" rel="noopener" class="pcard-btn">Ver proyecto →</a></div></div>
     </div>
-    <!-- WIP — punto 4: bien estructuradas -->
+
+    <!-- PUNTO 3 — WIP: textos borrosos DEBAJO de la imagen, dentro de ella -->
     <div class="wip-section rv" style="transition-delay:.13s">
       <div class="wip-header"><div class="wip-dot"></div><span class="wip-lbl">En proceso</span></div>
       <div class="wip-grid">
-        <div class="wcard">
-          <div class="wcard-cover"><span class="wcard-lock">🔒</span><span class="wcard-cover-txt">Próximamente</span></div>
-          <div class="wcard-img" style="background-image:url('destacadas-mueblesboom.png')"></div>
-          <div class="wcard-body"><div class="wcard-cat">Branding</div><div class="wcard-title">Rebranding Muebles Boom</div><div class="wcard-sub">Identidad de marca</div></div>
+        <!-- Card WIP 1 -->
+        <div class="wcard" style="background-image:url('destacadas-mueblesboom.png')">
+          <div class="wcard-bg" style="background-image:url('destacadas-mueblesboom.png')"></div>
+          <div class="wcard-cover">
+            <span class="wcard-lock">🔒</span>
+            <span class="wcard-cover-txt">Próximamente</span>
+          </div>
+          <div class="wcard-body-blur">
+            <div class="wcard-cat-b">Branding</div>
+            <div class="wcard-title-b">Rebranding Muebles Boom</div>
+            <div class="wcard-sub-b">Identidad de marca y comunicación visual</div>
+          </div>
         </div>
-        <div class="wcard">
-          <div class="wcard-cover"><span class="wcard-lock">🔒</span><span class="wcard-cover-txt">Próximamente</span></div>
-          <div class="wcard-img" style="background-image:url('destacadas-camisetas.png')"></div>
-          <div class="wcard-body"><div class="wcard-cat">Diseño</div><div class="wcard-title">Diseños de camisetas</div><div class="wcard-sub">Camisetas personalizadas</div></div>
+        <!-- Card WIP 2 -->
+        <div class="wcard" style="background-image:url('destacadas-camisetas.png')">
+          <div class="wcard-bg" style="background-image:url('destacadas-camisetas.png')"></div>
+          <div class="wcard-cover">
+            <span class="wcard-lock">🔒</span>
+            <span class="wcard-cover-txt">Próximamente</span>
+          </div>
+          <div class="wcard-body-blur">
+            <div class="wcard-cat-b">Diseño</div>
+            <div class="wcard-title-b">Diseños de camisetas</div>
+            <div class="wcard-sub-b">Camisetas personalizadas de autor</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══ FOOTER — punto 5: ola doble animada + aleta tiburón ══ -->
+<!-- ══ FOOTER ══ -->
 <div class="footer" id="contacto">
   <canvas id="grainCanvas3"></canvas>
   <div class="footer-gradient"></div>
 
-  <!-- Ola doble animada + aleta tiburón — punto 5 -->
+  <!-- PUNTO 4: Solo onda oscura, sin lilas ni tiburón -->
   <div class="foot-wave-wrap">
-    <canvas id="waveCanvas" height="120"></canvas>
+    <canvas id="waveCanvas" height="100"></canvas>
   </div>
 
+  <!-- PUNTO 6: Pantone cards -->
   <div class="contact-sec">
     <div class="rvL">
       <div class="ct-head">Hablemos<span class="ct-smile">:)</span></div>
@@ -711,15 +692,42 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
       <a href="mailto:nerearamimarti@gmail.com" class="ct-cta">Escribir ahora</a>
     </div>
     <div class="ct-items rvR">
-      <div class="ct-item"><div class="ct-ico"><img src="llamar.png" alt=""></div><div><div class="ct-lbl">Teléfono</div><div class="ct-val">653 607 909</div></div></div>
-      <div class="ct-item"><div class="ct-ico"><img src="correo.png" alt=""></div><div><div class="ct-lbl">Email</div><div class="ct-val">nerearamimarti@gmail.com</div></div></div>
-      <div class="ct-item"><div class="ct-ico"><img src="mapa.png" alt=""></div><div><div class="ct-lbl">Ubicación</div><div class="ct-val">Madrid · San Sebastián de los Reyes</div></div></div>
+      <!-- Cartela Pantone — Teléfono -->
+      <div class="pantone-card">
+        <div class="pantone-color">
+          <div class="pantone-code-block">PANTONE® 267 C</div>
+        </div>
+        <div class="pantone-white">
+          <div class="pantone-lbl">Teléfono</div>
+          <div class="pantone-val">653 607 909</div>
+        </div>
+      </div>
+      <!-- Cartela Pantone — Email -->
+      <div class="pantone-card">
+        <div class="pantone-color">
+          <div class="pantone-code-block">PANTONE® 2766 C</div>
+        </div>
+        <div class="pantone-white">
+          <div class="pantone-lbl">Email</div>
+          <div class="pantone-val" style="font-size:11.5px">nerearamimarti@gmail.com</div>
+        </div>
+      </div>
+      <!-- Cartela Pantone — Ubicación -->
+      <div class="pantone-card">
+        <div class="pantone-color">
+          <div class="pantone-code-block">PANTONE® 3395 C</div>
+        </div>
+        <div class="pantone-white">
+          <div class="pantone-lbl">Ubicación</div>
+          <div class="pantone-val">Madrid · SSReyes</div>
+        </div>
+      </div>
     </div>
   </div>
 
+  <!-- Tribute — PUNTO 5: sin título, Itten 8s -->
   <div class="design-tribute rv">
     <div class="tribute-inner">
-      <div class="tribute-label">Historia del diseño · Itten · Bauhaus · Tipografía</div>
       <div class="tribute-grid">
         <div style="display:flex;flex-direction:column;align-items:center;gap:14px">
           <div class="itten-wheel"><div class="itten-ring ir1"></div><div class="itten-ring ir2"></div><div class="itten-ring ir3"></div></div>
@@ -744,13 +752,14 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
       </div>
     </div>
   </div>
-  <div class="film-strip"><div class="film-text">NEEERGRAPHS · DISEÑO GRÁFICO · MOTION GRAPHICS · EDICIÓN DE VÍDEO · DIRECCIÓN DE ARTE · IA GENERATIVA · POSTPRODUCCIÓN · MADRID 2026 · NEEERGRAPHS · DISEÑO GRÁFICO · MOTION GRAPHICS · EDICIÓN DE VÍDEO · DIRECCIÓN DE ARTE · IA GENERATIVA · POSTPRODUCCIÓN ·&nbsp;&nbsp;&nbsp;</div></div>
+
+  <div class="film-strip"><div class="film-text">NEEERGRAPHS · DISEÑO GRÁFICO · MOTION GRAPHICS · EDICIÓN DE VÍDEO · DIRECCIÓN DE ARTE · IA GENERATIVA · POSTPRODUCCIÓN · MADRID 2026 · NEEERGRAPHS · DISEÑO GRÁFICO · MOTION GRAPHICS · EDICIÓN DE VÍDEO · DIRECCIÓN DE ARTE · POSTPRODUCCIÓN ·&nbsp;&nbsp;&nbsp;</div></div>
   <div class="foot-copy"><span>© 2026 NEEERGRAPHS</span><span class="foot-avail">Disponible para proyectos</span><span>Madrid, España</span></div>
 </div>
 
 <script>
-/* ══ GRAIN ══ */
-function initGrain(id,op=200){
+/* GRAIN */
+function initGrain(id,op){
   const c=document.getElementById(id);if(!c)return;
   const ctx=c.getContext('2d');let f=0;
   function resize(){c.width=c.parentElement.clientWidth||innerWidth;c.height=c.parentElement.clientHeight||innerHeight}
@@ -760,35 +769,28 @@ function initGrain(id,op=200){
 }
 initGrain('grainCanvas',195);initGrain('grainCanvas2',158);initGrain('grainCanvas3',138);
 
-/* ══ CURSOR — opaco, trail opaco detrás — punto 7 ══ */
+/* CURSOR */
 const vidCur=document.getElementById('vid-cur');
 let cx=0,cy=0,trailT=0,trailCI=0;
-/* Colores opacos para el trail — punto 7 */
-const trailColors=['#8b5cf6','#ff3d9a','#f0ff44','#6d28d9','#10f5a0','#ff85c2'];
-
+const tcols=['#8b5cf6','#ff3d9a','#f0ff44','#6d28d9','#10f5a0','#ff85c2'];
 document.addEventListener('mousemove',e=>{
   cx=e.clientX;cy=e.clientY;
   vidCur.style.left=cx+'px';vidCur.style.top=cy+'px';
   const now=Date.now();
   if(now-trailT>30){
     trailT=now;
-    const t=document.createElement('div');
-    t.className='cur-trail';
-    const sz=Math.random()*14+8; /* 8-22px visible */
-    const col=trailColors[trailCI%trailColors.length];
-    trailCI++;
-    /* Offset: aparece ligeramente detrás del cursor, no encima — punto 7 */
-    const offsetX=(Math.random()-.5)*12;
-    const offsetY=(Math.random()-.5)*12;
-    t.style.cssText=`left:${cx+offsetX}px;top:${cy+offsetY}px;width:${sz}px;height:${sz}px;background:${col};`;
-    document.body.appendChild(t);
-    setTimeout(()=>t.remove(),520);
+    const t=document.createElement('div');t.className='cur-trail';
+    const sz=Math.random()*14+8;
+    const col=tcols[trailCI%tcols.length];trailCI++;
+    const ox=(Math.random()-.5)*12,oy=(Math.random()-.5)*12;
+    t.style.cssText=`left:${cx+ox}px;top:${cy+oy}px;width:${sz}px;height:${sz}px;background:${col};`;
+    document.body.appendChild(t);setTimeout(()=>t.remove(),520);
   }
 });
 document.addEventListener('mousedown',()=>vidCur.classList.add('paused'));
 document.addEventListener('mouseup',()=>vidCur.classList.remove('paused'));
 
-/* ══ TYPING ══ */
+/* TYPING */
 const phrases=['Diseño gráfico.','Motion graphics.','Edición reels y TikToks.','Dirección de arte.','Storytelling visual.','IA generativa.'];
 const typingEl=document.getElementById('typingEl');
 let pIdx=0,cIdx=0,deleting=false;
@@ -799,89 +801,40 @@ function typeStep(){
 }
 setTimeout(typeStep,500);
 
-/* ══ PARALLAX ══ */
-const bgName=document.querySelector('.hero-bg-name');
-const heroMain=document.getElementById('heroMain');
+/* PARALLAX */
 document.addEventListener('mousemove',e=>{
   const mx=(e.clientX/innerWidth-.5)*2,my=(e.clientY/innerHeight-.5)*2;
-  if(heroMain)heroMain.style.transform=`translate(${mx*3}px,${my*2}px)`;
+  const hm=document.getElementById('heroMain');
+  if(hm)hm.style.transform=`translate(${mx*3}px,${my*2}px)`;
 });
 
-/* ══ OLA DOBLE + ALETA TIBURÓN — punto 5 ══ */
+/* PUNTO 4 — Onda oscura única sobre fondo blanco */
 (function(){
-  const canvas=document.getElementById('waveCanvas');
-  if(!canvas)return;
+  const canvas=document.getElementById('waveCanvas');if(!canvas)return;
   const ctx=canvas.getContext('2d');
   let t=0;
-
-  function resize(){
-    canvas.width=canvas.parentElement.clientWidth||innerWidth;
-    canvas.height=120;
-  }
-  resize();
-  window.addEventListener('resize',resize,{passive:true});
-
-  // Posición de la aleta
-  let sharkX=canvas.width*0.6;
-  let sharkDir=1;
-  const sharkSpeed=0.8;
-
+  function resize(){canvas.width=canvas.parentElement.clientWidth||innerWidth;canvas.height=100}
+  resize();window.addEventListener('resize',resize,{passive:true});
   function draw(){
-    t+=.018;
-    const w=canvas.width,h=120;
+    t+=.016;
+    const w=canvas.width,h=100;
     ctx.clearRect(0,0,w,h);
-
-    /* Ola 1 — lila (purple5) */
-    ctx.beginPath();
-    ctx.moveTo(0,h);
-    for(let x=0;x<=w;x+=6){
-      const y=55+Math.sin((x/w)*Math.PI*3.5+t)*20+Math.sin((x/w)*Math.PI*6+t*1.4)*9;
+    /* Fondo blanco = color de la sección proyectos */
+    ctx.fillStyle='#ffffff';ctx.fillRect(0,0,w,h);
+    /* Onda oscura única, suave y lenta */
+    ctx.beginPath();ctx.moveTo(0,h);
+    for(let x=0;x<=w;x+=8){
+      const y=46+Math.sin((x/w)*Math.PI*3.5+t)*20+Math.sin((x/w)*Math.PI*5.8+t*1.25)*9;
       ctx.lineTo(x,y);
     }
     ctx.lineTo(w,h);ctx.lineTo(0,h);ctx.closePath();
-    ctx.fillStyle='#f5f3ff';
-    ctx.fill();
-
-    /* Ola 2 — un poco más oscura, ligeramente desfasada */
-    ctx.beginPath();
-    ctx.moveTo(0,h);
-    for(let x=0;x<=w;x+=6){
-      const y=65+Math.sin((x/w)*Math.PI*3.5+t+1.1)*16+Math.sin((x/w)*Math.PI*5+t*1.2)*7;
-      ctx.lineTo(x,y);
-    }
-    ctx.lineTo(w,h);ctx.lineTo(0,h);ctx.closePath();
-    ctx.fillStyle='#ede9fe';
-    ctx.fill();
-
-    /* Aleta de tiburón — punto 5 */
-    // Actualizar posición X
-    sharkX += sharkDir * sharkSpeed;
-    if(sharkX > w+40)sharkX=-40;
-    if(sharkX < -40)sharkX=w+40;
-
-    // Altura de la aleta en la ola 1 (misma función que ola 1)
-    const sharkXrel=sharkX/w;
-    const sharkY=55+Math.sin(sharkXrel*Math.PI*3.5+t)*20+Math.sin(sharkXrel*Math.PI*6+t*1.4)*9;
-
-    // Dibujar aleta
-    ctx.beginPath();
-    ctx.moveTo(sharkX-18,sharkY+4);    // base izquierda
-    ctx.lineTo(sharkX-2,sharkY-24);   // punta
-    ctx.lineTo(sharkX+8,sharkY+2);    // base derecha (con cola)
-    ctx.quadraticCurveTo(sharkX+18,sharkY+6,sharkX+24,sharkY+4);
-    ctx.closePath();
-    ctx.fillStyle='rgba(109,40,217,.45)';
-    ctx.fill();
-    ctx.strokeStyle='rgba(109,40,217,.7)';
-    ctx.lineWidth=1.2;
-    ctx.stroke();
-
+    ctx.fillStyle='#0d0a1a';ctx.fill();
     requestAnimationFrame(draw);
   }
   draw();
 })();
 
-/* ══ CÍRCULO MORPH ══ */
+/* MORPH RING */
 (function(){
   const path=document.getElementById('morphPath');if(!path)return;
   const pcx=112,pcy=130,rx=88,ry=105;
@@ -893,29 +846,29 @@ document.addEventListener('mousemove',e=>{
   animate();
 })();
 
-/* ══ FOTO HOVER ══ */
+/* FOTO HOVER */
 (function(){
-  const photoWrapEl=document.querySelector('.photo-wrap');
-  const photoIcon=document.getElementById('photoIcon');
-  const photoReal=document.getElementById('photoReal');
-  const photoFlash=document.getElementById('photoFlash');
-  if(!photoWrapEl)return;
+  const pw=document.querySelector('.photo-wrap');
+  const pi=document.getElementById('photoIcon');
+  const pr=document.getElementById('photoReal');
+  const pf=document.getElementById('photoFlash');
+  if(!pw)return;
   let flashed=false;
-  photoWrapEl.addEventListener('mouseenter',()=>{if(!flashed){flashed=true;photoFlash.style.opacity='1';setTimeout(()=>{photoFlash.style.transition='opacity .35s';photoFlash.style.opacity='0'},90);setTimeout(()=>{flashed=false;photoFlash.style.transition=''},600)}});
-  photoWrapEl.addEventListener('click',()=>{const showing=photoReal.style.opacity==='1';photoReal.style.opacity=showing?'0':'1';photoReal.style.transform=showing?'scale(.9)':'scale(1)';photoIcon.style.opacity=showing?'1':'0'});
+  pw.addEventListener('mouseenter',()=>{if(!flashed){flashed=true;pf.style.opacity='1';setTimeout(()=>{pf.style.transition='opacity .35s';pf.style.opacity='0'},90);setTimeout(()=>{flashed=false;pf.style.transition=''},600)}});
+  pw.addEventListener('click',()=>{const s=pr.style.opacity==='1';pr.style.opacity=s?'0':'1';pr.style.transform=s?'scale(.9)':'scale(1)';pi.style.opacity=s?'1':'0'});
 })();
 
-/* ══ SVC HOVER ══ */
+/* SVC HOVER */
 const sc=['#8b5cf6','#d4b800','#ff3d9a','#10f5a0','#0ea5e9','#fbbf24'];
 document.querySelectorAll('.svc').forEach((s,i)=>{s.addEventListener('mouseenter',()=>{s.querySelector('h3').style.color=sc[i]});s.addEventListener('mouseleave',()=>{s.querySelector('h3').style.color=''})});
 
-/* ══ NAV ADAPTATIVO ══ */
+/* NAV */
 const mainNav=document.getElementById('mainNav');
 const lightIds=['sobre','proyectos'];
 const navObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){mainNav.classList.toggle('light',lightIds.includes(e.target.id))}})},{threshold:.3,rootMargin:'-60px 0px 0px 0px'});
 document.querySelectorAll('section[id]').forEach(s=>navObs.observe(s));
 
-/* ══ ACCORDION TABS ══ */
+/* ACCORDION */
 function toggleTab(tab,panelId){
   const allTabs=document.querySelectorAll('.acc-tab');
   const allPanels=document.querySelectorAll('.acc-panel');
@@ -925,14 +878,14 @@ function toggleTab(tab,panelId){
   if(!isOpen){tab.classList.add('open');document.getElementById('panel-'+panelId).classList.add('open')}
 }
 
-/* ══ MAGNETIC BTNS ══ */
+/* MAGNETIC */
 document.querySelectorAll('.cta-fill,.ct-cta,.cta-outline').forEach(btn=>{btn.addEventListener('mousemove',e=>{const r=btn.getBoundingClientRect();btn.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.18}px,${(e.clientY-r.top-r.height/2)*.18}px) scale(1.04)`});btn.addEventListener('mouseleave',()=>{btn.style.transform=''})});
 
-/* ══ SCROLL REVEAL ══ */
+/* REVEAL */
 const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')})},{threshold:.07});
 document.querySelectorAll('.rv,.rvL,.rvR').forEach(el=>io.observe(el));
 
-/* ══ BACK TO TOP ══ */
+/* BTT */
 const btt=document.getElementById('btt');
 window.addEventListener('scroll',()=>{const show=scrollY>400;btt.style.opacity=show?'1':'0';btt.style.pointerEvents=show?'auto':'none'},{passive:true});
 btt.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
