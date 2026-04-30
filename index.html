@@ -3,1380 +3,973 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Neeergraphs — Nerea Ramírez</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='0' fill='%237C3AED'/%3E%3Ctext x='32' y='47' font-family='Poppins%2Csans-serif' font-size='36' font-weight='900' text-anchor='middle' fill='white'%3EN%3C/text%3E%3C/svg%3E">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,700&display=swap" rel="stylesheet">
+<title>Neeergraphs — Diseñadora Gráfica & Motion</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%236d28d9'/%3E%3Ctext x='32' y='46' font-family='Fredoka%2C sans-serif' font-size='40' font-weight='700' text-anchor='middle' fill='white'%3EN%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <style>
-/* ──────────────────────────────────────
-   NEEERGRAPHS 2026
-   Negro · Blanco · #7C3AED
-   Editorial oscura × Arte × Streetwear
-   Tipografía: Poppins display
-   Concepto: El diseño es actitud.
-────────────────────────────────────── */
-:root {
-  --bg:     #0a0a0a;
-  --bg2:    #111111;
-  --white:  #f0ece6;   /* blanco cálido, como papel */
-  --purple: #7C3AED;
-  --purple-light: #a78bfa;
-  --muted:  rgba(240,236,230,.38);
-  --border: rgba(240,236,230,.1);
+:root{
+  --white:#fff;--off:#fafaf8;
+  --purple:#6d28d9;--purple2:#7c3aed;--purple3:#8b5cf6;
+  --purple4:#ede9fe;--purple5:#f5f3ff;--lavender:#ddd6fe;
+  --ink:#1a0a2e;--ink2:#2e1065;
+  --accent:#f0ff44;--accent2:#ff3d9a;
+  --muted:rgba(26,10,46,.5);--muted2:rgba(26,10,46,.28);
+  --mint:#10f5a0;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:hidden;scroll-behavior:smooth}
+body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;overflow-x:hidden;cursor:none}
+
+/* ══ CURSOR ══ */
+#vid-cur{position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%);will-change:transform}
+#vid-cur.paused .ic-play{display:none}
+#vid-cur.paused .ic-pause{display:block}
+.ic-pause{display:none}
+.cur-trail{position:fixed;z-index:9988;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%);animation:trailOp .5s ease-out forwards}
+@keyframes trailOp{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(.05)}}
+
+/* ══ NAV ══ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:12px 48px}
+@media(max-width:640px){.nav{padding:8px 16px}}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;background:rgba(13,10,26,.62);backdrop-filter:blur(24px) saturate(1.6);-webkit-backdrop-filter:blur(24px) saturate(1.6);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:9px 22px;position:relative;overflow:hidden;transition:background .4s,border-color .4s;box-shadow:0 4px 24px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.08)}
+.nav-inner::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent)}
+.nav.light .nav-inner{background:rgba(255,255,255,.78);border-color:rgba(109,40,217,.18);box-shadow:0 4px 24px rgba(109,40,217,.08),inset 0 1px 0 rgba(255,255,255,1)}
+.nav.light .nav-logo-nav{color:var(--ink)}.nav.light .nav-links a{color:rgba(26,10,46,.5)}.nav.light .nav-links a:hover{color:var(--purple);background:rgba(109,40,217,.07)}
+.nav-logo-nav{font-family:'Fredoka',sans-serif;font-size:15px;font-weight:700;text-decoration:none;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.8);transition:color .25s}
+.nav-logo-nav:hover{color:var(--accent)}
+.nav-links{display:flex;gap:4px;list-style:none}
+.nav-links a{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;padding:6px 13px;border-radius:10px;transition:all .2s}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.1)}
+@media(max-width:640px){.nav-links{display:none}}
+
+/* ══ BTT ══ */
+#btt{position:fixed;bottom:30px;right:30px;z-index:300;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--purple2));border:none;cursor:none;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;opacity:0;pointer-events:none;transition:opacity .35s,transform .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 8px 24px rgba(109,40,217,.4);animation:floatUp 3s ease-in-out infinite}
+#btt.show{opacity:1;pointer-events:auto}
+#btt:hover{transform:scale(1.25)!important}
+@keyframes floatUp{0%,100%{transform:translateY(0);box-shadow:0 8px 24px rgba(109,40,217,.4),0 0 0 0 rgba(109,40,217,.15)}50%{transform:translateY(-8px);box-shadow:0 16px 32px rgba(109,40,217,.5),0 0 0 10px rgba(109,40,217,.06)}}
+
+/* ══════════════════════════════════════
+   HERO
+   Punto 1: logo al ras del borde inferior
+   Punto 2: corte diagonal — clip-path
+══════════════════════════════════════ */
+/* PUNTO 2 — wrapper con skewY negativo crea el corte diagonal
+   El wrapper se inclina y el hero dentro contrarresta el skew
+   para que el contenido salga recto */
+.hero-skew-wrap{
+  position:relative;
+  /* Inclinación = misma que la banda b1 */
+  transform:skewY(-2.5deg);
+  transform-origin:top left;
+  margin-bottom:-56px;
+  z-index:1;
+  overflow:hidden;
+}
+.hero{
+  min-height:72svh;
+  display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+  background:#0d0a1a;
+  /* Contrarresta el skewY del wrapper para que el contenido no se deforme */
+  transform:skewY(2.5deg);
+  transform-origin:top left;
+}
+@media(max-width:640px){.hero{min-height:62svh}}
+
+#grainCanvas{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.45}
+.hero-gradient{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 30% 40%,rgba(109,40,217,.38),transparent 65%),radial-gradient(ellipse 60% 50% at 80% 60%,rgba(255,61,154,.12),transparent 65%)}
+.hero-dots{position:absolute;inset:0;z-index:2;pointer-events:none;background-image:radial-gradient(circle,rgba(255,255,255,.11) 1px,transparent 1px);background-size:28px 28px}
+.hero-scanlines{position:absolute;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.04) 2px,rgba(0,0,0,.04) 4px)}
+
+/* Centro: typing + botones */
+.hero-main{position:relative;z-index:5;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 52px 90px}
+@media(max-width:640px){.hero-main{padding:80px 24px 80px}}
+
+.hero-typing-wrap{min-height:clamp(48px,8.5vw,88px);display:flex;align-items:center;justify-content:center;margin-bottom:22px}
+.hero-typing{font-family:'Fredoka',sans-serif;font-size:clamp(36px,7.5vw,84px);font-weight:700;line-height:.9;color:#fff;letter-spacing:-1px}
+.hero-typing::after{content:'|';display:inline-block;margin-left:4px;animation:blink .75s step-end infinite;color:var(--accent);font-weight:300}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.cta-fill{font-family:'Fredoka',sans-serif;font-size:15px;font-weight:600;padding:12px 34px;border-radius:999px;text-decoration:none;background:var(--purple);color:#fff;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s;box-shadow:0 6px 24px rgba(109,40,217,.35)}
+.cta-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);transform:translateX(-100%);animation:shim 3s ease-in-out infinite}
+@keyframes shim{0%{transform:translateX(-100%)}55%,100%{transform:translateX(150%)}}
+.cta-fill:hover{transform:scale(1.05) translateY(-2px);box-shadow:0 10px 32px rgba(109,40,217,.5)}
+.cta-outline{font-family:'Fredoka',sans-serif;font-size:15px;font-weight:600;padding:11px 28px;border-radius:999px;text-decoration:none;color:rgba(255,255,255,.7);border:1.5px solid rgba(255,255,255,.25);transition:all .22s}
+.cta-outline:hover{border-color:rgba(255,255,255,.6);color:#fff;background:rgba(255,255,255,.08)}
+
+/* PUNTO 1 — Logo ÚNICO apoyado en el borde inferior del hero
+   z-index superior al skew-wrap para que sea visible */
+.hero-logo-ras{
+  position:absolute;
+  /* apoyado justo en el borde final — la cara de abajo */
+  bottom:0;
+  left:52px;right:52px;
+  z-index:10;
+  /* sin padding: el texto toca el borde */
+  padding-bottom:0;
+  display:flex;align-items:flex-end;
+  pointer-events:none;
+  /* Necesario: corregir el double-skew para que el logo salga recto */
+  transform:skewY(-2.5deg);
+  transform-origin:bottom left;
+}
+@media(max-width:640px){.hero-logo-ras{left:20px;right:20px}}
+.hero-logo-txt{
+  font-family:'Fredoka',sans-serif;
+  font-size:clamp(28px,5.5vw,68px);
+  font-weight:700;letter-spacing:-.5px;text-transform:uppercase;
+  /* Transparente, se lee pero no protagoniza */
+  color:rgba(255,255,255,.13);
+  user-select:none;line-height:1;
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; overflow-x: hidden; }
-body {
-  font-family: 'Poppins', sans-serif;
-  background: var(--bg);
-  color: var(--white);
-  overflow-x: hidden;
-  cursor: none;
+/* ══ BANDAS — margen negativo para encajar sobre el corte diagonal ══ */
+.bands-wrapper{
+  position:relative;z-index:15;
+  background:var(--purple5); /* mismo fondo que about */
+  /* Sube las bandas para cubrir el espacio del clip-path diagonal */
+  margin-top:-58px;
+}
+@media(max-width:640px){.bands-wrapper{margin-top:-40px}}
+.bands{position:relative;height:110px;overflow:visible}
+.band{position:absolute;left:-8%;width:116%;padding:11px 0;overflow:hidden;white-space:nowrap}
+.b1{background:var(--purple);transform:rotate(-1.6deg);top:10px;box-shadow:0 4px 20px rgba(109,40,217,.25)}
+.b2{background:var(--ink);transform:rotate(1.6deg);bottom:10px}
+.bt{display:inline-flex;gap:28px;animation:mq 36s linear infinite}
+.b2 .bt{animation-direction:reverse;animation-duration:44s}
+@keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.bt span{font-family:'Fredoka',sans-serif;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.85);flex-shrink:0}
+.bt .dot{font-size:7px;opacity:.5;color:var(--accent)}
+
+/* ══ SOBRE MÍ ══ */
+.about{padding:80px 56px 100px;background:var(--purple5);position:relative;overflow:hidden}
+@media(max-width:640px){.about{padding:60px 20px 80px}}
+.about::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(ellipse,rgba(109,40,217,.07),transparent 65%);top:-80px;right:-80px;filter:blur(80px);pointer-events:none}
+.about-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.about-row{display:grid;gap:36px;align-items:start}
+@media(min-width:820px){.about-row{grid-template-columns:170px 1fr 210px}}
+@media(max-width:820px){.about-row{grid-template-columns:1fr}}
+
+/* Foto */
+.photo-col{display:flex;flex-direction:column;align-items:center;gap:16px}
+.photo-wrap{position:relative;width:160px;height:195px;flex-shrink:0}
+.abstract-ring{position:absolute;inset:-32px;z-index:0}
+#morphRingSvg{width:100%;height:100%;overflow:visible}
+.photo-frame{position:absolute;inset:0;z-index:1;overflow:hidden;border-radius:62% 38% 55% 45% / 58% 48% 52% 42%;animation:morphFrame 10s ease-in-out infinite}
+@keyframes morphFrame{0%,100%{border-radius:62% 38% 55% 45% / 58% 48% 52% 42%}25%{border-radius:45% 55% 40% 60% / 52% 62% 38% 48%}50%{border-radius:55% 45% 62% 38% / 45% 55% 60% 40%}75%{border-radius:40% 60% 48% 52% / 60% 42% 55% 45%}}
+.photo-frame img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;filter:blur(2px) saturate(1.1) brightness(.8);transform:scale(1.05)}
+.photo-frame-ov{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(109,40,217,.08));border:2px solid rgba(255,255,255,.3);z-index:1}
+.photo-icon{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;transition:opacity .4s}
+.photo-icon-lbl{font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.8)}
+.photo-real{position:absolute;inset:0;z-index:3;overflow:hidden;border-radius:62% 38% 55% 45% / 58% 48% 52% 42%;animation:morphFrame 10s ease-in-out infinite;opacity:0;transform:scale(.9);transition:opacity .45s cubic-bezier(.34,1.56,.64,1),transform .45s cubic-bezier(.34,1.56,.64,1);border:2.5px solid var(--purple2)}
+.photo-real img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.photo-flash{position:absolute;inset:0;border-radius:50%;background:rgba(255,255,255,.85);opacity:0;pointer-events:none;z-index:10;transition:opacity .08s}
+.photo-wrap:hover .photo-icon{opacity:0}
+.photo-wrap:hover .photo-frame img{filter:blur(0) saturate(1) brightness(1)}
+.photo-wrap:hover .photo-real{opacity:1;transform:scale(1)}
+.about-stats{display:flex;gap:16px;justify-content:center}
+.st-item{text-align:center}
+.st-n{font-family:'Fredoka',sans-serif;font-size:26px;font-weight:700;line-height:1;color:var(--purple)}
+.st-l{font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted2)}
+
+/* Texto */
+.about-text{display:flex;flex-direction:column;gap:14px}
+.about-greeting{font-family:'Fredoka',sans-serif;font-size:clamp(24px,2.8vw,38px);font-weight:700;line-height:1.1;color:var(--ink)}
+.about-sub{font-family:'Fredoka',sans-serif;font-size:clamp(15px,1.8vw,20px);font-weight:600;color:var(--ink)}
+/* PUNTO 7 — me apasiona: pulse de color + subrayado, sin scale que superpone */
+.me-apasiona{
+  color:var(--purple);display:inline;
+  font-weight:800;
+  animation:apasionaGlow 2.4s ease-in-out infinite;
+  position:relative;
+}
+@keyframes apasionaGlow{
+  0%,100%{color:var(--purple);text-shadow:none}
+  50%{color:var(--purple2);text-shadow:0 0 18px rgba(109,40,217,.5),0 0 32px rgba(139,92,246,.25)}
+}
+.about-body{font-size:13.5px;line-height:1.8;color:var(--muted)}
+.about-body strong{color:var(--ink);font-weight:700}
+
+/* Brainstorming */
+.brainstorm-col{min-width:0}
+.brainstorm-wrap{position:relative;padding:12px 12px 14px;background:rgba(255,255,255,.55);backdrop-filter:blur(12px);border:1.5px solid var(--lavender);border-radius:16px;overflow:hidden}
+.brainstorm-wrap::before{content:'Herramientas';position:absolute;top:6px;left:50%;transform:translateX(-50%);font-size:7px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--purple3);opacity:.75;white-space:nowrap}
+.brainstorm-wrap::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(109,40,217,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(109,40,217,.04) 1px,transparent 1px);background-size:16px 16px;border-radius:16px}
+.brainstorm-inner{display:flex;flex-wrap:wrap;gap:5px;margin-top:20px;position:relative;z-index:1;justify-content:center}
+.bchip{font-size:9px;font-weight:700;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.8);color:var(--purple2);border:1.5px solid var(--lavender);transition:all .22s cubic-bezier(.34,1.56,.64,1);cursor:default}
+.bchip:nth-child(odd){transform:rotate(-1.2deg)}.bchip:nth-child(even){transform:rotate(1.2deg)}
+.bchip:hover{transform:scale(1.08) rotate(0deg);background:var(--purple);color:#fff;border-color:var(--purple)}
+
+/* Accordion */
+.acc-section{background:rgba(255,255,255,.5);backdrop-filter:blur(16px);border:1.5px solid var(--lavender);border-radius:18px;overflow:hidden;margin-top:32px}
+.acc-tabs{display:grid;grid-template-columns:repeat(4,1fr)}
+@media(max-width:640px){.acc-tabs{grid-template-columns:1fr 1fr}}
+.acc-tab{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;border-right:1px solid var(--lavender);cursor:none;user-select:none;transition:background .22s}
+.acc-tab:last-child{border-right:none}
+.acc-tab:hover{background:rgba(109,40,217,.05)}
+.acc-tab.open{background:rgba(109,40,217,.08)}
+.acc-tab-label{font-family:'Fredoka',sans-serif;font-size:13px;font-weight:600;color:var(--ink);transition:color .2s}
+.acc-tab.open .acc-tab-label,.acc-tab:hover .acc-tab-label{color:var(--purple)}
+.acc-tab-right{display:flex;align-items:center;gap:5px}
+.acc-tab-tag{font-size:7px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:var(--purple4);color:var(--purple);white-space:nowrap}
+.acc-arrow{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--lavender);display:flex;align-items:center;justify-content:center;transition:all .32s cubic-bezier(.34,1.56,.64,1);flex-shrink:0}
+.acc-arrow svg{transition:transform .32s cubic-bezier(.34,1.56,.64,1)}
+.acc-tab.open .acc-arrow{background:var(--purple);border-color:var(--purple)}
+.acc-tab.open .acc-arrow svg{transform:rotate(180deg)}
+.acc-tab.open .acc-arrow svg path{stroke:#fff}
+.acc-panels{border-top:1px solid var(--lavender)}
+.acc-panel{display:none;padding:18px;animation:panelFade .3s ease}
+.acc-panel.open{display:block}
+@keyframes panelFade{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.tl{display:flex;flex-direction:column;gap:12px}
+.tl-row{display:flex;gap:12px;align-items:flex-start}
+.tl-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.tl-dot{width:10px;height:10px;border-radius:50%;margin-top:4px;flex-shrink:0}
+.tl-row:nth-child(1) .tl-dot{background:var(--purple2);box-shadow:0 0 8px rgba(124,58,237,.4)}.tl-row:nth-child(2) .tl-dot{background:var(--accent2)}.tl-row:nth-child(3) .tl-dot{background:var(--accent);filter:brightness(.8)}
+.tl-dash{width:1.5px;flex:1;min-height:16px;background:rgba(109,40,217,.1);margin-top:4px}
+.tl-c{flex:1}
+.tl-pill{display:inline-block;font-size:9px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:2px 9px;border-radius:999px;background:var(--purple4);color:var(--purple);margin-bottom:5px}
+.tl-co{font-size:13px;font-weight:800;color:var(--ink);margin-bottom:2px}
+.tl-role{font-size:11px;font-weight:700;font-style:italic;margin-bottom:7px}
+.tl-row:nth-child(1) .tl-role{color:var(--purple)}.tl-row:nth-child(2) .tl-role{color:var(--accent2)}.tl-row:nth-child(3) .tl-role{color:#92400e}
+.tl-tasks{display:flex;flex-direction:column;gap:3px}
+.tl-task{display:flex;align-items:flex-start;gap:6px;font-size:11px;color:var(--muted);line-height:1.5}
+.tl-task::before{content:'';width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:6px;background:var(--purple3)}
+.edu-list{display:flex;flex-direction:column;gap:8px}
+.edu-row{display:flex;align-items:flex-start;gap:12px;padding:10px 12px;background:rgba(255,255,255,.6);border-radius:12px;border:1px solid var(--lavender)}
+.edu-yr{font-family:'Fredoka',sans-serif;font-size:20px;font-weight:700;color:var(--purple);min-width:44px;line-height:1.1;flex-shrink:0}
+.edu-t{font-size:12px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:2px}
+.edu-p{font-size:10px;color:var(--muted2)}
+.cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cert-c{padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.6);border:1px solid var(--lavender);transition:border-color .2s}
+.cert-c:hover{border-color:var(--purple3)}
+.cert-yr{font-family:'Fredoka',sans-serif;font-size:16px;font-weight:700;color:var(--purple);margin-bottom:3px}
+.cert-n{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:1px}
+.cert-e{font-size:10px;color:var(--muted2)}
+.int-wrap{display:flex;flex-wrap:wrap;gap:7px}
+.itag{font-size:11px;font-weight:700;padding:6px 14px;border-radius:999px;transition:all .25s cubic-bezier(.34,1.56,.64,1);cursor:default}
+.itag.a{background:rgba(109,40,217,.08);color:var(--purple2);border:1px solid rgba(109,40,217,.18)}
+.itag.b{background:rgba(240,255,68,.15);color:#78700a;border:1px solid rgba(240,255,68,.4)}
+.itag.c{background:rgba(255,61,154,.08);color:var(--accent2);border:1px solid rgba(255,61,154,.18)}
+.itag:hover{transform:scale(1.08) rotate(-1.5deg)}
+
+/* ══ HABILIDADES ══ */
+.servicios{padding:90px 56px;position:relative;overflow:hidden;background:#0d0a1a}
+@media(max-width:640px){.servicios{padding:72px 20px}}
+#grainCanvas2{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.28}
+.svc-aurora{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 70% 60% at 15% 25%,rgba(109,40,217,.28),transparent 60%),radial-gradient(ellipse 55% 50% at 85% 75%,rgba(255,61,154,.14),transparent 60%),radial-gradient(ellipse 45% 40% at 55% 50%,rgba(240,255,68,.07),transparent 60%)}
+.svc-dots{position:absolute;inset:0;z-index:1;pointer-events:none;background-image:radial-gradient(circle,rgba(139,92,246,.13) 1px,transparent 1px);background-size:30px 30px;opacity:.55}
+.svc-scanlines{position:absolute;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.04) 2px,rgba(0,0,0,.04) 4px)}
+.sec-hd{max-width:1100px;margin:0 auto 44px;position:relative;z-index:3}
+.sec-title{font-family:'Fredoka',sans-serif;font-size:clamp(30px,5vw,60px);font-weight:700;line-height:.95}
+.sec-title.light{color:var(--white)}.sec-title .hi{color:var(--accent)}
+.sec-title.dk{color:var(--ink)}.sec-title.dk .hi{color:var(--purple)}
+.svcs-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative;z-index:3}
+@media(max-width:860px){.svcs-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.svcs-grid{grid-template-columns:1fr}}
+.svc{padding:28px 22px 24px;border-radius:18px;position:relative;overflow:hidden;transition:transform .4s cubic-bezier(.34,1.56,.64,1);border:1.5px solid rgba(255,255,255,.1)}
+.svc:hover{transform:translateY(-8px)}
+.svc:nth-child(1){background:linear-gradient(145deg,rgba(139,92,246,.22),rgba(109,40,217,.15))}.svc:nth-child(2){background:linear-gradient(145deg,rgba(240,255,68,.15),rgba(180,160,30,.1))}.svc:nth-child(3){background:linear-gradient(145deg,rgba(255,61,154,.18),rgba(200,30,120,.12))}.svc:nth-child(4){background:linear-gradient(145deg,rgba(16,245,160,.15),rgba(5,150,100,.1))}.svc:nth-child(5){background:linear-gradient(145deg,rgba(14,165,233,.18),rgba(2,100,180,.12))}.svc:nth-child(6){background:linear-gradient(145deg,rgba(251,191,36,.15),rgba(200,140,10,.1))}
+.svc:nth-child(1):hover{border-color:rgba(139,92,246,.55);box-shadow:0 20px 50px rgba(139,92,246,.2)}.svc:nth-child(2):hover{border-color:rgba(240,255,68,.45);box-shadow:0 20px 50px rgba(240,255,68,.1)}.svc:nth-child(3):hover{border-color:rgba(255,61,154,.55);box-shadow:0 20px 50px rgba(255,61,154,.18)}.svc:nth-child(4):hover{border-color:rgba(16,245,160,.45);box-shadow:0 20px 50px rgba(16,245,160,.1)}.svc:nth-child(5):hover{border-color:rgba(14,165,233,.55);box-shadow:0 20px 50px rgba(14,165,233,.15)}.svc:nth-child(6):hover{border-color:rgba(251,191,36,.45);box-shadow:0 20px 50px rgba(251,191,36,.1)}
+.svc-bg-icon{position:absolute;right:-8px;bottom:-8px;z-index:0;font-size:88px;opacity:0;transition:opacity .35s,transform .35s;transform:scale(.7) rotate(-10deg);pointer-events:none;filter:blur(1px)}
+.svc:hover .svc-bg-icon{opacity:.12;transform:scale(1) rotate(-5deg)}
+.svc-num{position:absolute;top:10px;right:12px;font-family:'Fredoka',sans-serif;font-size:54px;font-weight:700;line-height:1;color:rgba(255,255,255,.06);transition:opacity .3s}
+.svc:hover .svc-num{opacity:0}
+.svc-ico{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:13px;transition:transform .35s cubic-bezier(.34,1.56,.64,1);position:relative;z-index:1}
+.svc:nth-child(1) .svc-ico{background:linear-gradient(135deg,var(--purple2),var(--purple3))}.svc:nth-child(2) .svc-ico{background:linear-gradient(135deg,#a16207,#ca8a04)}.svc:nth-child(3) .svc-ico{background:linear-gradient(135deg,var(--accent2),#ff85c2)}.svc:nth-child(4) .svc-ico{background:linear-gradient(135deg,#059669,#10b981)}.svc:nth-child(5) .svc-ico{background:linear-gradient(135deg,#0284c7,#38bdf8)}.svc:nth-child(6) .svc-ico{background:linear-gradient(135deg,#d97706,#f59e0b)}
+.svc:hover .svc-ico{transform:rotate(-7deg) scale(1.08)}
+.svc-ico img{width:21px;filter:brightness(0) invert(1)}
+.svc h3{font-family:'Fredoka',sans-serif;font-size:19px;font-weight:700;color:var(--white);margin-bottom:6px;transition:color .25s;position:relative;z-index:1}
+.svc p{font-size:12px;color:rgba(255,255,255,.55);line-height:1.7;position:relative;z-index:1}
+.svc-badge{display:inline-block;margin-top:8px;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:3px 11px;border-radius:999px;background:var(--accent);color:var(--ink);position:relative;z-index:1}
+
+/* ══ PROYECTOS ══ */
+.proyectos{padding:90px 56px;background:var(--white);position:relative;overflow:hidden}
+@media(max-width:640px){.proyectos{padding:70px 20px}}
+.proyectos::before{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(ellipse,rgba(109,40,217,.04),transparent 65%);top:-80px;right:-60px;filter:blur(60px);pointer-events:none}
+.proy-inner{max-width:1100px;margin:0 auto}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:900px){.proj-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.proj-grid{grid-template-columns:1fr}}
+.pcard{border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:transform .4s cubic-bezier(.34,1.56,.64,1);border:1.5px solid rgba(109,40,217,.1);box-shadow:0 2px 6px rgba(109,40,217,.1),0 1px 3px rgba(26,10,46,.06)}
+.pcard:hover{transform:translateY(-6px);box-shadow:0 8px 20px rgba(109,40,217,.16),0 2px 6px rgba(26,10,46,.08)}
+.pcard-img{width:100%;aspect-ratio:16/9;background-size:cover;background-position:center;background-color:var(--purple5);position:relative;overflow:hidden;flex-shrink:0}
+.pcard-wash{position:absolute;inset:0;z-index:1;opacity:0;transition:opacity .4s}
+.pcard:hover .pcard-wash{opacity:1}
+.pcard:nth-child(1) .pcard-wash{background:linear-gradient(135deg,rgba(109,40,217,.28),transparent)}.pcard:nth-child(2) .pcard-wash{background:linear-gradient(135deg,rgba(240,255,68,.22),transparent)}.pcard:nth-child(3) .pcard-wash{background:linear-gradient(135deg,rgba(255,61,154,.22),transparent)}.pcard:nth-child(4) .pcard-wash{background:linear-gradient(135deg,rgba(16,245,160,.2),transparent)}.pcard:nth-child(5) .pcard-wash{background:linear-gradient(135deg,rgba(14,165,233,.2),transparent)}.pcard:nth-child(6) .pcard-wash{background:linear-gradient(135deg,rgba(251,191,36,.2),transparent)}
+.pcard-body{padding:14px 16px 18px}
+.pcard:nth-child(1) .pcard-body{background:linear-gradient(135deg,#f0ebff,#e8ddff)}.pcard:nth-child(2) .pcard-body{background:linear-gradient(135deg,#fffde7,#fef9c3)}.pcard:nth-child(3) .pcard-body{background:linear-gradient(135deg,#fce7f3,#fbcfe8)}.pcard:nth-child(4) .pcard-body{background:linear-gradient(135deg,#ecfdf5,#d1fae5)}.pcard:nth-child(5) .pcard-body{background:linear-gradient(135deg,#eff6ff,#dbeafe)}.pcard:nth-child(6) .pcard-body{background:linear-gradient(135deg,#fffbeb,#fef3c7)}
+.pcard-cat{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.pcard:nth-child(1) .pcard-cat{color:var(--purple)}.pcard:nth-child(2) .pcard-cat{color:#a16207}.pcard:nth-child(3) .pcard-cat{color:var(--accent2)}.pcard:nth-child(4) .pcard-cat{color:#059669}.pcard:nth-child(5) .pcard-cat{color:#0284c7}.pcard:nth-child(6) .pcard-cat{color:#d97706}
+.pcard-title{font-family:'Fredoka',sans-serif;font-size:18px;font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:3px}
+.pcard-sub{font-size:11px;color:var(--muted2);font-style:italic;margin-bottom:10px}
+.pcard-btn{display:inline-flex;align-items:center;gap:5px;font-family:'Fredoka',sans-serif;font-size:12px;font-weight:700;text-decoration:none;padding:6px 15px;border-radius:999px;transition:transform .22s;border:2px solid;background:transparent}
+.pcard-btn:hover{transform:scale(1.05)}
+.pcard:nth-child(1) .pcard-btn{color:var(--purple);border-color:rgba(109,40,217,.3)}.pcard:nth-child(2) .pcard-btn{color:#a16207;border-color:rgba(161,98,7,.3)}.pcard:nth-child(3) .pcard-btn{color:var(--accent2);border-color:rgba(255,61,154,.3)}.pcard:nth-child(4) .pcard-btn{color:#059669;border-color:rgba(5,150,105,.3)}.pcard:nth-child(5) .pcard-btn{color:#0284c7;border-color:rgba(2,132,199,.3)}.pcard:nth-child(6) .pcard-btn{color:#d97706;border-color:rgba(217,119,6,.3)}
+
+/* ═══════════════════════════════════════
+   WIP — PUNTO 3: textos borrosos debajo,
+   DENTRO de la imagen con overlay blur
+═══════════════════════════════════════ */
+.wip-section{margin-top:36px}
+.wip-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.wip-dot{width:7px;height:7px;border-radius:50%;background:var(--purple3);animation:wipPulse 2s ease-in-out infinite}
+@keyframes wipPulse{0%,100%{box-shadow:0 0 0 0 rgba(109,40,217,.4)}50%{box-shadow:0 0 0 5px rgba(109,40,217,0)}}
+.wip-lbl{font-family:'Fredoka',sans-serif;font-size:12px;font-weight:700;color:var(--purple);letter-spacing:3px;text-transform:uppercase}
+.wip-grid{display:grid;gap:16px;grid-template-columns:repeat(2,1fr)}
+@media(max-width:600px){.wip-grid{grid-template-columns:1fr}}
+
+.wcard{
+  border-radius:16px;overflow:hidden;
+  position:relative;cursor:not-allowed;
+  border:1.5px solid rgba(109,40,217,.2);
+  box-shadow:0 2px 8px rgba(109,40,217,.1);
+  animation:neonPulse 3s ease-in-out infinite;
+  /* Imagen como base — aspect-ratio para que tenga altura */
+  aspect-ratio:16/9;
+  background-size:cover;background-position:center;
+}
+@keyframes neonPulse{0%,100%{box-shadow:0 0 4px rgba(109,40,217,.12),0 1px 4px rgba(109,40,217,.08);border-color:rgba(109,40,217,.2)}50%{box-shadow:0 0 14px rgba(109,40,217,.32),0 0 28px rgba(109,40,217,.1);border-color:rgba(109,40,217,.52)}}
+
+/* Imagen de fondo desaturada */
+.wcard-bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  filter:grayscale(.55) brightness(.68) blur(1px);
 }
 
-/* ── CURSOR ── */
-#cursor-dot {
-  position: fixed; z-index: 9999; pointer-events: none;
-  width: 10px; height: 10px; border-radius: 50%;
-  background: var(--purple);
-  transform: translate(-50%,-50%);
-  transition: transform .15s, width .3s, height .3s, background .3s;
-  mix-blend-mode: screen;
+/* Candado flotante centrado */
+.wcard-cover{
+  position:absolute;inset:0;z-index:10;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  /* Fondo semitransparente SOLO en la mitad superior */
+  background:linear-gradient(to bottom,rgba(245,243,255,.42) 0%,transparent 60%);
+  backdrop-filter:blur(1px);pointer-events:none;
 }
-#cursor-ring {
-  position: fixed; z-index: 9998; pointer-events: none;
-  width: 36px; height: 36px; border-radius: 50%;
-  border: 1.5px solid rgba(124,58,237,.5);
-  transform: translate(-50%,-50%);
-  transition: width .4s cubic-bezier(.34,1.56,.64,1),
-              height .4s cubic-bezier(.34,1.56,.64,1),
-              opacity .3s;
+.wcard-lock{font-size:24px;animation:lockFloat 2.5s ease-in-out infinite;filter:drop-shadow(0 3px 8px rgba(109,40,217,.4))}
+@keyframes lockFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.wcard-cover-txt{font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(109,40,217,.9)}
+
+/* PUNTO 3 — Textos borrosos en la parte INFERIOR de la imagen */
+.wcard-body-blur{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  z-index:8;
+  padding:10px 14px 12px;
+  /* Glassmorphism sobre la imagen */
+  background:rgba(245,243,255,.45);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-top:1px solid rgba(255,255,255,.5);
 }
-body:has(a:hover) #cursor-ring,
-body:has(button:hover) #cursor-ring,
-body:has(.pcard:hover) #cursor-ring {
-  width: 60px; height: 60px;
-  border-color: var(--purple);
+.wcard-cat-b{
+  font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+  color:var(--purple3);margin-bottom:3px;
+  /* Texto ligeramente borroso — punto 3 */
+  filter:blur(.5px);
+}
+.wcard-title-b{
+  font-family:'Fredoka',sans-serif;font-size:15px;font-weight:700;
+  color:var(--ink);line-height:1.2;
+  filter:blur(.5px);
+}
+.wcard-sub-b{
+  font-size:9px;color:var(--muted2);font-style:italic;margin-top:2px;
+  filter:blur(.5px);
 }
 
-/* ── GRAIN ── */
-.grain-overlay {
-  position: fixed; inset: 0; z-index: 1000; pointer-events: none;
-  opacity: .032;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 256px 256px;
-  animation: grainShift 0.5s steps(1) infinite;
+/* ════════════════════════════════════
+   FOOTER
+   Punto 4: solo onda oscura, sin cajas lilas
+   Punto 5: sin título Itten, Itten más rápido
+   Punto 6: cartelas Pantone
+════════════════════════════════════ */
+.footer{background:#0d0a1a;position:relative;overflow:hidden}
+#grainCanvas3{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.2}
+.footer-gradient{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 20% 30%,rgba(109,40,217,.15),transparent 65%),radial-gradient(ellipse 40% 40% at 80% 70%,rgba(240,255,68,.06),transparent 65%)}
+
+/* PUNTO 4 — Solo onda oscura, sin nada lila */
+.foot-wave-wrap{
+  position:relative;
+  /* Fondo blanco debajo (viene de proyectos) */
+  background:var(--white);
+  line-height:0;overflow:hidden;
 }
-@keyframes grainShift {
-  0%{background-position:0 0}25%{background-position:-64px -64px}
-  50%{background-position:64px 32px}75%{background-position:-32px 64px}
+#waveCanvas{display:block;width:100%}
+
+/* Contacto */
+.contact-sec{padding:60px 56px 48px;position:relative;z-index:2;max-width:1100px;margin:0 auto;display:grid;gap:52px;align-items:start}
+@media(min-width:820px){.contact-sec{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.contact-sec{padding:48px 20px 36px}}
+.ct-head{font-family:'Fredoka',sans-serif;font-size:clamp(34px,5vw,62px);font-weight:700;line-height:1;color:#fff;margin-bottom:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.ct-smile{font-family:'Fredoka',sans-serif;font-size:clamp(26px,4vw,50px);color:var(--accent);font-weight:700}
+.ct-sub{font-size:14px;color:rgba(255,255,255,.45);line-height:1.7;max-width:340px;margin-bottom:26px}
+.ct-cta{display:inline-flex;align-items:center;gap:8px;font-family:'Fredoka',sans-serif;font-size:15px;font-weight:700;padding:13px 38px;border-radius:999px;text-decoration:none;background:var(--accent);color:var(--ink);box-shadow:0 8px 28px rgba(240,255,68,.2);transition:transform .25s,box-shadow .25s}
+.ct-cta:hover{transform:scale(1.04) translateY(-2px);box-shadow:0 12px 40px rgba(240,255,68,.35)}
+
+/* PUNTO 6 — Cartelas Pantone artísticas y auténticas */
+.ct-items{
+  display:flex;flex-direction:row;gap:16px;
+  flex-wrap:wrap;
+}
+@media(max-width:640px){.ct-items{flex-direction:column}}
+
+.pantone-card{
+  flex:1;min-width:130px;
+  display:flex;flex-direction:column;
+  /* Proporciones reales de una cartela Pantone */
+  border-radius:4px 4px 3px 3px;
+  overflow:visible; /* para que se vea la sombra */
+  cursor:none;
+  position:relative;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s;
+  /* Sombra de papel real */
+  filter:drop-shadow(0 8px 20px rgba(0,0,0,.55)) drop-shadow(0 2px 6px rgba(0,0,0,.4));
+}
+.pantone-card:hover{
+  transform:translateY(-8px) rotate(1.5deg);
+  filter:drop-shadow(0 16px 32px rgba(0,0,0,.6)) drop-shadow(0 4px 8px rgba(0,0,0,.4));
+}
+.pantone-card:nth-child(2){transform:rotate(-1.2deg)}
+.pantone-card:nth-child(2):hover{transform:translateY(-8px) rotate(-.5deg)}
+.pantone-card:nth-child(3){transform:rotate(.8deg)}
+.pantone-card:nth-child(3):hover{transform:translateY(-8px) rotate(2deg)}
+
+/* Bloque de color — alto generoso */
+.pan-color{
+  height:140px;
+  position:relative;
+  border-radius:4px 4px 0 0;
+  overflow:hidden;
+}
+.pan-color::after{
+  /* Brillo metálico diagonal */
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.18) 0%,transparent 50%,rgba(0,0,0,.08) 100%);
+}
+.pantone-card:nth-child(1) .pan-color{background:linear-gradient(160deg,#8b5cf6 0%,#7c3aed 40%,#6d28d9 100%)}
+.pantone-card:nth-child(2) .pan-color{background:linear-gradient(160deg,#2e1065 0%,#1a0a2e 50%,#0d0718 100%)}
+.pantone-card:nth-child(3) .pan-color{background:linear-gradient(160deg,#10b981 0%,#059669 50%,#047857 100%)}
+
+/* Agujero arriba centrado — exacto como una cartela real */
+.pan-hole{
+  position:absolute;
+  top:12px;left:50%;transform:translateX(-50%);
+  width:14px;height:14px;border-radius:50%;
+  background:#1a0a2e;
+  box-shadow:inset 0 2px 5px rgba(0,0,0,.8),0 0 0 2px rgba(255,255,255,.06);
+  z-index:2;
 }
 
-/* ── NAV ── */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
-  padding: 24px 52px;
-  display: flex; align-items: center; justify-content: space-between;
-  mix-blend-mode: normal;
-  transition: background .4s;
+/* Parte blanca inferior — papel Pantone */
+.pan-white{
+  background:#f2ede6; /* papel ligeramente cálido */
+  padding:10px 12px 14px;
+  border-radius:0 0 4px 4px;
+  border-top:1px solid rgba(0,0,0,.08);
+  position:relative;
 }
-.nav.scrolled {
-  background: rgba(10,10,10,.85);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
+/* Línea decorativa fina arriba de la parte blanca */
+.pan-white::before{
+  content:'';position:absolute;top:0;left:12px;right:12px;height:1px;
+  background:rgba(0,0,0,.06);
 }
-@media(max-width:640px){ .nav { padding: 20px 24px; } }
-.nav-logo {
-  font-size: 11px; font-weight: 700; letter-spacing: 4px;
-  text-transform: uppercase; text-decoration: none;
-  color: var(--white); opacity: .8;
-  transition: opacity .2s;
+/* Número de referencia Pantone */
+.pan-ref{
+  font-family:'Courier New',monospace;font-size:11px;font-weight:700;
+  letter-spacing:.5px;color:rgba(26,10,46,.85);
+  margin-bottom:5px;line-height:1;
 }
-.nav-logo:hover { opacity: 1; }
-.nav-links { display: flex; gap: 6px; list-style: none; }
-.nav-links a {
-  font-size: 10px; font-weight: 500; letter-spacing: 2px;
-  text-transform: uppercase; text-decoration: none;
-  color: var(--muted); padding: 6px 14px;
-  border-radius: 999px;
-  transition: color .2s, background .2s;
+/* Nombre del color */
+.pan-name{
+  font-family:'Courier New',monospace;font-size:7.5px;font-weight:400;
+  letter-spacing:1.5px;text-transform:uppercase;
+  color:rgba(26,10,46,.45);margin-bottom:10px;
 }
-.nav-links a:hover { color: var(--white); background: rgba(124,58,237,.15); }
-@media(max-width:640px){ .nav-links { display: none; } }
-
-/* ── BTT ── */
-#btt {
-  position: fixed; bottom: 28px; right: 28px; z-index: 400;
-  width: 48px; height: 48px; border-radius: 50%;
-  background: var(--purple); border: none; cursor: none;
-  color: #fff; font-size: 18px; font-family: 'Poppins', sans-serif;
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none;
-  transition: opacity .3s, transform .3s cubic-bezier(.34,1.56,.64,1);
-  animation: bttFloat 3s ease-in-out infinite;
+/* Separador */
+.pan-sep{height:1px;background:rgba(26,10,46,.1);margin:0 0 8px}
+/* Label categoría */
+.pan-lbl{
+  font-size:7px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(26,10,46,.4);margin-bottom:4px;
 }
-#btt.show { opacity: 1; pointer-events: auto; }
-#btt:hover { transform: scale(1.2) !important; }
-@keyframes bttFloat {
-  0%,100%{ transform: translateY(0); }
-  50%{ transform: translateY(-7px); }
+/* Valor de contacto */
+.pan-val{
+  font-family:'Nunito',sans-serif;font-size:12.5px;font-weight:700;
+  color:rgba(26,10,46,.85);line-height:1.3;word-break:break-all;
+}
+/* Logo Pantone® mini abajo */
+.pan-logo{
+  margin-top:8px;
+  font-family:'Courier New',monospace;font-size:8px;font-weight:700;
+  letter-spacing:1px;color:rgba(26,10,46,.2);
+  text-align:right;
 }
 
-/* ══════════════════════════════════════════
-   HERO — Abanico de tarjetas 3D
-   Inspirado en la imagen de referencia:
-   tarjetas en perspectiva, la central desenfocada,
-   las de atrás rotadas y visibles.
-══════════════════════════════════════════ */
-.hero {
-  min-height: 100svh;
-  display: grid;
-  grid-template-rows: 1fr auto;
-  position: relative; overflow: hidden;
-  background: var(--bg);
-}
-
-/* Fondo con gradiente radial suave — profundidad */
-.hero-bg-glow {
-  position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background:
-    radial-gradient(ellipse 70% 60% at 50% 55%, rgba(124,58,237,.18) 0%, transparent 65%),
-    radial-gradient(ellipse 40% 40% at 20% 20%, rgba(124,58,237,.07) 0%, transparent 55%);
-}
-
-/* Grid de puntos de fondo */
-.hero-dots-bg {
-  position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background-image: radial-gradient(circle, rgba(240,236,230,.07) 1px, transparent 1px);
-  background-size: 36px 36px;
-}
-
-/* ── LAYOUT PRINCIPAL ──
-   Izquierda: texto + typing + CTAs
-   Derecha: abanico de tarjetas 3D */
-.hero-body {
-  position: relative; z-index: 3;
-  flex: 1;
-  display: grid;
-  gap: 40px;
-  align-items: center;
-  padding: 110px 52px 40px;
-  max-width: 1300px; margin: 0 auto; width: 100%;
-}
-@media(min-width:820px){ .hero-body { grid-template-columns: 1fr 1fr; } }
-@media(max-width:820px){ .hero-body { padding: 100px 24px 36px; } }
-
-/* Columna izquierda */
-.hero-left { display: flex; flex-direction: column; gap: 28px; }
-
-.hero-eye {
-  font-size: 10px; font-weight: 600; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--purple-light);
-  display: flex; align-items: center; gap: 12px;
-}
-.hero-eye::before { content: ''; width: 28px; height: 1px; background: var(--purple); }
-
-.hero-h1 {
-  font-size: clamp(52px, 7vw, 110px);
-  font-weight: 900; line-height: .88;
-  letter-spacing: -3px; color: var(--white);
-}
-.hero-h1 .purple { color: var(--purple); }
-.hero-h1 .italic { font-style: italic; font-weight: 300; color: rgba(240,236,230,.45); }
-
-.hero-typing-row {
-  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-  min-height: 32px;
-}
-.hero-typing-prefix {
-  font-size: 15px; font-weight: 300;
-  color: var(--muted);
-}
-.hero-typing-text {
-  font-size: 16px; font-weight: 600; color: var(--white);
-}
-.hero-cursor-bar {
-  display: inline-block; width: 2px; height: 1.1em;
-  background: var(--purple); margin-left: 2px;
-  vertical-align: middle;
-  animation: cursorBlink .75s step-end infinite;
-}
-@keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-.hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
-.cta-main {
-  font-family: 'Poppins', sans-serif;
-  font-size: 12px; font-weight: 700; letter-spacing: 2px;
-  text-transform: uppercase; text-decoration: none;
-  color: var(--bg); background: var(--white);
-  padding: 15px 36px;
-  transition: background .25s, transform .25s;
-  display: inline-block;
-}
-.cta-main:hover { background: var(--purple-light); transform: translateY(-2px); }
-.cta-sec {
-  font-size: 11px; font-weight: 500; letter-spacing: 2px;
-  text-transform: uppercase; text-decoration: none;
-  color: var(--muted); display: flex; align-items: center; gap: 8px;
-  transition: color .2s;
-}
-.cta-sec:hover { color: var(--white); }
-.cta-sec::after { content: '↗'; }
-
-/* ── ABANICO DE TARJETAS 3D — columna derecha ── */
-.hero-right {
-  position: relative;
-  display: flex; align-items: center; justify-content: center;
-  min-height: 480px;
-  /* Perspectiva 3D para todo el grupo */
-  perspective: 1200px;
-}
-@media(max-width:820px){ .hero-right { min-height: 360px; } }
-
-.cards-fan {
-  position: relative;
-  width: 260px; height: 360px;
-  /* Ligeramente inclinado hacia el espectador */
-  transform-style: preserve-3d;
-  animation: fanFloat 5s ease-in-out infinite;
-}
-@keyframes fanFloat {
-  0%,100%{ transform: translateY(0) rotateX(2deg); }
-  50%{ transform: translateY(-14px) rotateX(4deg); }
-}
-
-/* Base para cada tarjeta */
-.fan-card {
-  position: absolute;
-  width: 200px; height: 280px;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 24px 60px rgba(0,0,0,.7), 0 8px 20px rgba(0,0,0,.5);
-  transform-origin: center bottom;
-  transition: transform .4s cubic-bezier(.34,1.56,.64,1);
-  top: 50%; left: 50%;
-  margin-left: -100px; margin-top: -140px;
-}
-.fan-card img {
-  width: 100%; height: 100%;
-  object-fit: cover; object-position: center;
-  display: block;
-  pointer-events: none;
-}
-
-/* Posiciones del abanico — 7 tarjetas como en la referencia */
-/* Tarjeta 0: izquierda extrema */
-.fan-card:nth-child(1){
-  transform: rotate(-32deg) translate(-180px, 30px) scale(.82);
-  z-index: 1;
-  filter: brightness(.65);
-}
-/* Tarjeta 1: izquierda media */
-.fan-card:nth-child(2){
-  transform: rotate(-20deg) translate(-110px, 12px) scale(.88);
-  z-index: 2;
-  filter: brightness(.75);
-}
-/* Tarjeta 2: izquierda suave */
-.fan-card:nth-child(3){
-  transform: rotate(-10deg) translate(-50px, 4px) scale(.94);
-  z-index: 3;
-  filter: brightness(.85);
-}
-/* Tarjeta 3: CENTRAL — grande, delantera, borrosa */
-.fan-card:nth-child(4){
-  transform: rotate(0deg) translate(0px, 0px) scale(1);
-  z-index: 10;
-  /* Blur central como en la referencia */
-  filter: blur(6px) brightness(.9) saturate(.8);
-  box-shadow: 0 32px 80px rgba(0,0,0,.8), 0 12px 32px rgba(124,58,237,.2);
-}
-/* Tarjeta 4: derecha suave */
-.fan-card:nth-child(5){
-  transform: rotate(10deg) translate(50px, 4px) scale(.94);
-  z-index: 3;
-  filter: brightness(.85);
-}
-/* Tarjeta 5: derecha media */
-.fan-card:nth-child(6){
-  transform: rotate(20deg) translate(110px, 12px) scale(.88);
-  z-index: 2;
-  filter: brightness(.75);
-}
-/* Tarjeta 6: derecha extrema */
-.fan-card:nth-child(7){
-  transform: rotate(32deg) translate(180px, 30px) scale(.82);
-  z-index: 1;
-  filter: brightness(.65);
-}
-
-/* Hover en el abanico — las tarjetas se abren más */
-.cards-fan:hover .fan-card:nth-child(1){ transform: rotate(-36deg) translate(-200px, 40px) scale(.82); }
-.cards-fan:hover .fan-card:nth-child(2){ transform: rotate(-22deg) translate(-125px, 18px) scale(.88); }
-.cards-fan:hover .fan-card:nth-child(3){ transform: rotate(-11deg) translate(-58px, 6px) scale(.94); }
-.cards-fan:hover .fan-card:nth-child(4){ filter: blur(4px) brightness(.95) saturate(.9); transform: rotate(0) translate(0,0) scale(1.03); }
-.cards-fan:hover .fan-card:nth-child(5){ transform: rotate(11deg) translate(58px, 6px) scale(.94); }
-.cards-fan:hover .fan-card:nth-child(6){ transform: rotate(22deg) translate(125px, 18px) scale(.88); }
-.cards-fan:hover .fan-card:nth-child(7){ transform: rotate(36deg) translate(200px, 40px) scale(.82); }
-
-/* Ticker base del hero */
-.hero-ticker-wrap {
-  position: relative; z-index: 3;
-  border-top: 1px solid var(--border);
-  overflow: hidden; padding: 14px 0;
-}
-.hero-ticker {
-  display: flex; gap: 48px; white-space: nowrap;
-  animation: ticker 30s linear infinite;
-}
-.hero-ticker span {
-  font-size: 10px; font-weight: 600; letter-spacing: 3px;
-  text-transform: uppercase; color: rgba(240,236,230,.2); flex-shrink: 0;
-}
-.hero-ticker .dot { color: var(--purple); opacity: .6; }
-@keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-
-/* ══════════════════════════════════════════
-   SOBRE MÍ — fondo blanco, respiro
-   La foto como obra, no como perfil.
-   Texto con tamaño y jerarquía.
-══════════════════════════════════════════ */
-.about {
-  background: var(--white);
-  color: var(--bg);
-  padding: 100px 52px 120px;
-  position: relative; overflow: hidden;
-}
-@media(max-width:640px){ .about { padding: 72px 24px 80px; } }
-
-/* Número decorativo */
-.s-num {
-  position: absolute; right: 40px; top: 32px;
-  font-size: 200px; font-weight: 900; letter-spacing: -8px;
-  color: rgba(10,10,10,.04); line-height: 1;
-  pointer-events: none; user-select: none;
-}
-
-.about-wrap {
-  max-width: 1200px; margin: 0 auto;
-  display: grid; gap: 72px;
-}
-@media(min-width:900px){ .about-wrap { grid-template-columns: 340px 1fr; align-items: start; } }
-
-/* FOTO — con shape abstracto detrás */
-.photo-col { position: relative; }
-.photo-abstract {
-  position: absolute; top: -40px; left: -40px;
-  width: 300px; height: 300px; z-index: 0;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(124,58,237,.15) 0%, transparent 70%);
-  animation: abstractPulse 6s ease-in-out infinite;
-}
-@keyframes abstractPulse {
-  0%,100%{ transform: scale(1) rotate(0deg); opacity: .8; }
-  50%{ transform: scale(1.15) rotate(180deg); opacity: .4; }
-}
-/* Círculo de línea que orbita — forma orgánica */
-.photo-orbit {
-  position: absolute; top: -50px; left: -50px;
-  width: calc(100% + 100px); height: calc(100% + 100px);
-  z-index: 0; pointer-events: none;
-}
-#orbitPath { animation: orbitSpin 20s linear infinite; transform-origin: center; }
-@keyframes orbitSpin { to { transform: rotate(360deg); } }
-
-.photo-img-frame {
-  position: relative; z-index: 2;
-  overflow: hidden;
-  /* Forma orgánica usando clip-path */
-  clip-path: polygon(
-    8% 0%, 92% 0%, 100% 8%,
-    100% 92%, 92% 100%, 8% 100%,
-    0% 92%, 0% 8%
-  );
-  transition: clip-path .6s ease;
-}
-.photo-img-frame:hover {
-  clip-path: polygon(
-    0% 0%, 100% 0%, 100% 0%,
-    100% 100%, 100% 100%, 0% 100%,
-    0% 100%, 0% 0%
-  );
-}
-.photo-img-frame img {
-  width: 100%; aspect-ratio: 3/4;
-  object-fit: cover; object-position: center top;
-  display: block;
-  filter: contrast(1.05) saturate(.9);
-  transition: filter .5s, transform .6s;
-}
-.photo-img-frame:hover img {
-  filter: contrast(1) saturate(1);
-  transform: scale(1.04);
-}
-
-/* Leyenda bajo la foto */
-.photo-caption {
-  margin-top: 16px;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.photo-caption-name {
-  font-size: 11px; font-weight: 700; letter-spacing: 3px;
-  text-transform: uppercase; color: rgba(10,10,10,.5);
-}
-.photo-caption-hint {
-  font-size: 9px; font-weight: 400; font-style: italic;
-  color: rgba(10,10,10,.3);
-}
-
-/* Stats */
-.about-stats {
-  display: flex; gap: 24px; margin-top: 24px;
-}
-.stat {
-  display: flex; flex-direction: column;
-  border-top: 2px solid rgba(10,10,10,.1);
-  padding-top: 8px;
-}
-.stat-n { font-size: 36px; font-weight: 900; color: var(--bg); line-height: 1; }
-.stat-l {
-  font-size: 9px; font-weight: 600; letter-spacing: 2px;
-  text-transform: uppercase; color: rgba(10,10,10,.4);
-}
-
-/* Columna de texto */
-.about-text { display: flex; flex-direction: column; gap: 36px; }
-
-.sec-label {
-  font-size: 10px; font-weight: 700; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--purple);
-  display: flex; align-items: center; gap: 10px;
-}
-.sec-label::before { content: ''; width: 20px; height: 2px; background: var(--purple); }
-
-.about-h2 {
-  font-size: clamp(40px, 5.5vw, 80px);
-  font-weight: 800; line-height: .9;
-  letter-spacing: -2px; color: var(--bg);
-}
-.about-h2 .purple { color: var(--purple); }
-.about-h2 .italic { font-style: italic; font-weight: 300; }
-
-.about-intro {
-  font-size: 16px; font-weight: 300; line-height: 1.9;
-  color: rgba(10,10,10,.6); max-width: 480px;
-}
-.about-intro strong { color: var(--bg); font-weight: 600; }
-
-/* Herramientas — como tags de moda */
-.tools-label {
-  font-size: 10px; font-weight: 700; letter-spacing: 3px;
-  text-transform: uppercase; color: rgba(10,10,10,.35);
-  margin-bottom: 10px;
-}
-.tools-wrap { display: flex; flex-wrap: wrap; gap: 7px; }
-.tool-tag {
-  font-size: 10px; font-weight: 600; letter-spacing: 1px;
-  padding: 5px 14px;
-  border: 1px solid rgba(10,10,10,.15);
-  color: rgba(10,10,10,.55);
-  transition: all .2s;
-  cursor: default;
-}
-.tool-tag:hover { border-color: var(--purple); color: var(--purple); background: rgba(124,58,237,.05); }
-
-/* Acordeón limpio */
-.accordion { border-top: 1px solid rgba(10,10,10,.1); }
-.acc-row { border-bottom: 1px solid rgba(10,10,10,.1); }
-.acc-trigger {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 0; cursor: none; user-select: none; gap: 12px;
-}
-.acc-trigger:hover .acc-label { color: var(--purple); }
-.acc-label { font-size: 15px; font-weight: 600; color: var(--bg); transition: color .2s; }
-.acc-right { display: flex; align-items: center; gap: 10px; }
-.acc-pill {
-  font-size: 9px; font-weight: 700; letter-spacing: 1.5px;
-  text-transform: uppercase; padding: 3px 10px;
-  background: rgba(124,58,237,.08); color: var(--purple);
-}
-.acc-arr {
-  width: 26px; height: 26px; border-radius: 50%;
-  border: 1.5px solid rgba(10,10,10,.2);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px; color: var(--purple);
-  transition: all .32s cubic-bezier(.34,1.56,.64,1);
-}
-.acc-row.open .acc-arr {
-  transform: rotate(45deg);
-  background: var(--purple); border-color: var(--purple); color: #fff;
-}
-.acc-body { overflow: hidden; max-height: 0; transition: max-height .5s cubic-bezier(.16,1,.3,1); }
-.acc-body.open { max-height: 700px; }
-.acc-body-in { padding: 4px 0 20px; }
-
-.tl { display: flex; flex-direction: column; gap: 16px; }
-.tl-item { display: flex; gap: 14px; }
-.tl-bullet { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; margin-top: 4px; }
-.tl-dot { width: 8px; height: 8px; border-radius: 50%; }
-.tl-item:nth-child(1) .tl-dot { background: var(--purple); }
-.tl-item:nth-child(2) .tl-dot { background: rgba(124,58,237,.5); }
-.tl-item:nth-child(3) .tl-dot { background: rgba(124,58,237,.25); }
-.tl-line { width: 1px; flex: 1; background: rgba(10,10,10,.08); margin-top: 4px; min-height: 12px; }
-.tl-content { flex: 1; }
-.tl-period { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(10,10,10,.35); margin-bottom: 2px; }
-.tl-co { font-size: 14px; font-weight: 700; color: var(--bg); }
-.tl-role { font-size: 11px; font-style: italic; color: var(--purple); margin-bottom: 8px; }
-.tl-points { display: flex; flex-direction: column; gap: 4px; }
-.tl-point { font-size: 12px; color: rgba(10,10,10,.5); line-height: 1.5; padding-left: 12px; position: relative; }
-.tl-point::before { content: '–'; position: absolute; left: 0; color: var(--purple); }
-
-.edu-list { display: flex; flex-direction: column; gap: 10px; }
-.edu-item {
-  display: flex; align-items: flex-start; gap: 16px;
-  padding: 12px 14px; border-left: 2px solid var(--purple);
-  background: rgba(124,58,237,.04);
-}
-.edu-yr { font-size: 22px; font-weight: 900; color: var(--purple); min-width: 40px; line-height: 1; }
-.edu-t { font-size: 12px; font-weight: 600; color: var(--bg); }
-.edu-p { font-size: 10px; color: rgba(10,10,10,.4); }
-
-.cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.cert-item { padding: 10px 12px; border: 1px solid rgba(10,10,10,.1); transition: border-color .2s; }
-.cert-item:hover { border-color: var(--purple); }
-.cert-yr { font-size: 20px; font-weight: 900; color: var(--purple); line-height: 1; }
-.cert-n { font-size: 12px; font-weight: 600; color: var(--bg); }
-.cert-e { font-size: 10px; color: rgba(10,10,10,.4); }
-
-.hab-flex { display: flex; flex-wrap: wrap; gap: 7px; }
-.htag {
-  font-size: 11px; font-weight: 500; padding: 5px 14px; cursor: default;
-  transition: all .2s;
-}
-.htag.a { background: rgba(124,58,237,.08); color: var(--purple); border: 1px solid rgba(124,58,237,.2); }
-.htag.b { background: rgba(240,236,230,.06); color: rgba(10,10,10,.6); border: 1px solid rgba(10,10,10,.12); }
-.htag:hover { transform: translateY(-2px); }
-
-/* ══════════════════════════════════════════
-   HABILIDADES — negro, el contraste necesario
-══════════════════════════════════════════ */
-.services {
-  background: var(--bg2);
-  padding: 100px 52px;
-  position: relative; overflow: hidden;
-}
-@media(max-width:640px){ .services { padding: 72px 24px; } }
-
-/* Texto decorativo gigante de fondo */
-.svc-bg-text {
-  position: absolute; bottom: -40px; right: -20px;
-  font-size: 280px; font-weight: 900; line-height: 1;
-  color: transparent; -webkit-text-stroke: 1px rgba(240,236,230,.03);
-  pointer-events: none; user-select: none; letter-spacing: -10px;
-}
-
-.svc-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
-.svc-header {
-  display: flex; align-items: flex-end; justify-content: space-between;
-  margin-bottom: 60px; gap: 20px; flex-wrap: wrap;
-}
-.svc-hl {
-  font-size: clamp(48px, 7.5vw, 110px); font-weight: 900;
-  line-height: .88; letter-spacing: -3px; color: var(--white);
-}
-.svc-hl em { font-style: italic; font-weight: 300; color: rgba(240,236,230,.4); }
-.svc-hl .purple { color: var(--purple); }
-.svc-sub { font-size: 12px; font-weight: 400; color: var(--muted); max-width: 180px; line-height: 1.6; text-align: right; }
-
-/* Grid de servicios — líneas como rejilla editorial */
-.svc-grid {
-  display: grid; grid-template-columns: repeat(3,1fr);
-  border: 1px solid var(--border);
-}
-@media(max-width:860px){ .svc-grid { grid-template-columns: repeat(2,1fr); } }
-@media(max-width:520px){ .svc-grid { grid-template-columns: 1fr; } }
-
-.svc-item {
-  padding: 40px 32px 36px;
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  position: relative; overflow: hidden;
-  transition: background .35s; cursor: none;
-}
-.svc-item:hover { background: rgba(124,58,237,.07); }
-/* Línea de color en hover */
-.svc-item::after {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: var(--purple); transform: scaleX(0); transform-origin: left;
-  transition: transform .4s cubic-bezier(.16,1,.3,1);
-}
-.svc-item:hover::after { transform: scaleX(1); }
-
-.svc-num {
-  font-size: 10px; font-weight: 700; letter-spacing: 2px;
-  text-transform: uppercase; color: rgba(240,236,230,.2);
-  margin-bottom: 24px; display: block;
-}
-.svc-ico { width: 42px; height: 42px; margin-bottom: 24px; filter: brightness(0) invert(.5); transition: filter .3s; }
-.svc-item:hover .svc-ico { filter: brightness(0) invert(.75); }
-.svc-name { font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 10px; line-height: 1.1; }
-.svc-desc { font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.7; }
-.svc-badge {
-  display: inline-block; margin-top: 12px;
-  font-size: 9px; font-weight: 700; letter-spacing: 1.5px;
-  text-transform: uppercase; padding: 3px 10px;
-  border: 1px solid var(--purple); color: var(--purple);
-}
-
-/* ══════════════════════════════════════════
-   PROYECTOS — fondo bg, fotos en todo su esplendor
-══════════════════════════════════════════ */
-.projects {
-  background: var(--bg);
-  padding: 100px 52px;
-}
-@media(max-width:640px){ .projects { padding: 72px 24px; } }
-
-.proj-header {
-  max-width: 1200px; margin: 0 auto 64px;
-  display: flex; align-items: baseline; justify-content: space-between;
-  gap: 20px; flex-wrap: wrap;
-}
-.proj-hl {
-  font-size: clamp(48px, 7.5vw, 110px); font-weight: 900;
-  line-height: .88; letter-spacing: -3px; color: var(--white);
-}
-.proj-hl .italic { font-style: italic; font-weight: 300; color: rgba(240,236,230,.4); }
-.proj-hl .purple { color: var(--purple); }
-.proj-counter { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
-
-/* Grid asimétrico — como layout de revista */
-.proj-grid {
-  max-width: 1200px; margin: 0 auto;
-  display: grid; gap: 3px;
-  grid-template-columns: repeat(12,1fr);
-}
-@media(max-width:900px){ .proj-grid { grid-template-columns: 1fr 1fr; gap: 3px; } }
-@media(max-width:520px){ .proj-grid { grid-template-columns: 1fr; } }
-
-.pcard { position: relative; overflow: hidden; cursor: none; background: #111; }
-.pcard:nth-child(1){ grid-column: span 8; }
-.pcard:nth-child(2){ grid-column: span 4; }
-.pcard:nth-child(3){ grid-column: span 4; }
-.pcard:nth-child(4){ grid-column: span 8; }
-.pcard:nth-child(5){ grid-column: span 6; }
-.pcard:nth-child(6){ grid-column: span 6; }
-@media(max-width:900px){ .pcard { grid-column: span 1 !important; } }
-
-.pcard img {
-  width: 100%; aspect-ratio: 16/9; display: block; object-fit: cover;
-  transition: transform .7s cubic-bezier(.16,1,.3,1), filter .5s;
-  filter: brightness(.8) saturate(.9);
-}
-.pcard:hover img { transform: scale(1.07); filter: brightness(1) saturate(1); }
-
-.pcard-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(10,10,10,.92) 0%, transparent 55%);
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 24px 22px 22px;
-}
-.pcard-cat {
-  font-size: 9px; font-weight: 700; letter-spacing: 2.5px;
-  text-transform: uppercase; color: var(--purple-light); margin-bottom: 5px;
-}
-.pcard-title {
-  font-size: clamp(15px,2.5vw,26px); font-weight: 700; line-height: 1.1;
-  color: var(--white); margin-bottom: 3px;
-}
-.pcard-sub {
-  font-size: 12px; font-weight: 300; font-style: italic;
-  color: rgba(240,236,230,.5); margin-bottom: 14px;
-  opacity: 0; transform: translateY(6px);
-  transition: opacity .3s, transform .3s;
-}
-.pcard:hover .pcard-sub { opacity: 1; transform: none; }
-.pcard-cta {
-  font-size: 10px; font-weight: 700; letter-spacing: 2px;
-  text-transform: uppercase; text-decoration: none;
-  color: var(--purple-light);
-  display: inline-flex; align-items: center; gap: 6px;
-  opacity: 0; transform: translateY(6px);
-  transition: opacity .3s .04s, transform .3s .04s;
-}
-.pcard:hover .pcard-cta { opacity: 1; transform: none; }
-.pcard-cta::after { content: '→'; }
-
-/* WIP */
-.wip-wrap {
-  max-width: 1200px; margin: 48px auto 0;
-  border-top: 1px solid var(--border); padding-top: 36px;
-}
-.wip-head { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
-.wip-pulse {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--purple);
-  animation: wipPulse 2s ease-in-out infinite;
-}
-@keyframes wipPulse { 0%,100%{box-shadow: 0 0 0 0 rgba(124,58,237,.4)} 50%{box-shadow: 0 0 0 6px rgba(124,58,237,0)} }
-.wip-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
-.wip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
-@media(max-width:600px){ .wip-grid { grid-template-columns: 1fr; } }
-
-.wcard { position: relative; overflow: hidden; cursor: not-allowed; aspect-ratio: 16/9; background: #111; }
-.wcard img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.6) brightness(.55); transition: filter .4s; }
-.wcard:hover img { filter: grayscale(.4) brightness(.6); }
-.wcard-overlay {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 8px; background: rgba(10,10,10,.35);
-}
-.wcard-lock { font-size: 22px; animation: lockBob 2.5s ease-in-out infinite; }
-@keyframes lockBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
-.wcard-soon { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
-.wcard-info {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 10px 16px; background: rgba(10,10,10,.7); backdrop-filter: blur(6px);
-}
-.wcard-cat { font-size: 8px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--purple-light); margin-bottom: 2px; }
-.wcard-name { font-size: 14px; font-weight: 600; color: var(--white); filter: blur(.5px); }
-
-/* ══════════════════════════════════════════
-   CONTACTO — el cierre. Dramático.
-══════════════════════════════════════════ */
-.contact-wrap { background: var(--bg); }
-.wave-wrap { background: var(--white); overflow: hidden; line-height: 0; }
-#waveCanvas { display: block; width: 100%; }
-
-.contact {
-  background: var(--bg);
-  padding: 80px 52px 60px;
-  position: relative; overflow: hidden;
-}
-@media(max-width:640px){ .contact { padding: 60px 24px 40px; } }
-
-/* Círculo decorativo de fondo */
-.contact-blob {
-  position: absolute; bottom: -100px; left: -100px;
-  width: 500px; height: 500px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(124,58,237,.12) 0%, transparent 65%);
-  pointer-events: none;
-}
-
-.contact-inner {
-  max-width: 1200px; margin: 0 auto;
-  display: grid; gap: 80px; align-items: start;
-  position: relative; z-index: 1;
-}
-@media(min-width:820px){ .contact-inner { grid-template-columns: 1fr 1fr; } }
-
-.contact-left {}
-.contact-hl {
-  font-size: clamp(56px, 9vw, 130px);
-  font-weight: 900; line-height: .85;
-  letter-spacing: -4px; color: var(--white);
-  margin-bottom: 28px;
-}
-.contact-hl .purple { color: var(--purple); }
-.contact-hl .italic { font-style: italic; font-weight: 300; color: rgba(240,236,230,.4); }
-.contact-sub {
-  font-size: 15px; font-weight: 300; color: var(--muted);
-  line-height: 1.8; max-width: 360px; margin-bottom: 40px;
-}
-.contact-btn {
-  font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 700;
-  letter-spacing: 2px; text-transform: uppercase;
-  text-decoration: none; padding: 17px 40px;
-  background: var(--purple); color: #fff; display: inline-block;
-  transition: transform .25s, background .25s;
-}
-.contact-btn:hover { transform: translateY(-3px); background: var(--purple-light); }
-
-/* PANTONE CARDS — el detalle que grita diseñadora */
-.pantone-set {
-  display: flex; gap: 18px; flex-wrap: wrap; align-items: flex-start;
-}
-.pan {
-  width: 136px; display: flex; flex-direction: column;
-  cursor: none;
-  filter: drop-shadow(0 12px 32px rgba(0,0,0,.6)) drop-shadow(0 4px 10px rgba(0,0,0,.5));
-  transition: transform .4s cubic-bezier(.34,1.56,.64,1), filter .4s;
-}
-.pan:nth-child(1){ transform: rotate(-2deg); }
-.pan:nth-child(2){ transform: rotate(1.2deg); margin-top: 22px; }
-.pan:nth-child(3){ transform: rotate(-1deg); margin-top: 12px; }
-.pan:hover{ transform: rotate(0) translateY(-14px) !important; filter: drop-shadow(0 20px 44px rgba(0,0,0,.7)); }
-
-.pan-swatch {
-  height: 160px; position: relative; border-radius: 2px 2px 0 0; overflow: hidden;
-}
-.pan:nth-child(1) .pan-swatch { background: linear-gradient(160deg, #9333ea, #7c3aed 45%, #6d28d9); }
-.pan:nth-child(2) .pan-swatch { background: linear-gradient(160deg, #1a1a1a, #0d0d0d 50%, #050505); }
-.pan:nth-child(3) .pan-swatch { background: linear-gradient(160deg, #10b981, #059669 50%, #047857); }
-.pan-swatch::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,.18) 0%, transparent 35%, rgba(0,0,0,.12) 100%);
-}
-.pan-hole {
-  position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
-  width: 13px; height: 13px; border-radius: 50%; z-index: 2;
-  background: rgba(0,0,0,.6);
-  box-shadow: inset 0 2px 6px rgba(0,0,0,.9), 0 0 0 1.5px rgba(255,255,255,.04);
-}
-.pan-body {
-  background: #ede9df; padding: 9px 11px 13px;
-  border-radius: 0 0 2px 2px;
-}
-.pan-code {
-  font-family: 'Courier New', monospace; font-size: 10px; font-weight: 700;
-  color: rgba(15,10,5,.85); margin-bottom: 2px; letter-spacing: .2px;
-}
-.pan-cname {
-  font-family: 'Courier New', monospace; font-size: 7px; letter-spacing: 1.5px;
-  text-transform: uppercase; color: rgba(15,10,5,.38); margin-bottom: 8px;
-}
-.pan-rule { height: 1px; background: rgba(15,10,5,.1); margin-bottom: 8px; }
-.pan-lbl {
-  font-family: 'Courier New', monospace; font-size: 7px; letter-spacing: 1.5px;
-  text-transform: uppercase; color: rgba(15,10,5,.38); margin-bottom: 4px;
-}
-.pan-val {
-  font-family: 'Courier New', monospace; font-size: 11px; font-weight: 700;
-  color: rgba(15,10,5,.85); line-height: 1.4; word-break: break-all;
-}
-.pan-brand { margin-top: 9px; text-align: right; font-family: 'Courier New', monospace; font-size: 8px; color: rgba(15,10,5,.18); }
-
-/* ── FOOTER ── */
-.footer-bar {
-  background: var(--bg);
-  border-top: 1px solid var(--border);
-  padding: 20px 52px;
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 10px;
-  position: relative; z-index: 1;
-}
-@media(max-width:640px){ .footer-bar { padding: 16px 24px; } }
-.footer-copy { font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(240,236,230,.18); }
-.footer-avail { display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(240,236,230,.28); }
-.footer-avail::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #10f5a0; box-shadow: 0 0 8px rgba(16,245,160,.5); animation: liveDot 2s ease-in-out infinite; }
-@keyframes liveDot { 0%,100%{opacity:1} 50%{opacity:.3} }
-
-/* ── REVEALS ── */
-.rv { opacity: 0; transform: translateY(30px); transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s; }
-.rvL { opacity: 0; transform: translateX(-30px); transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s; }
-.rvR { opacity: 0; transform: translateX(30px); transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s; }
-.rv.on, .rvL.on, .rvR.on { opacity: 1; transform: none; }
-.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
-.d4{transition-delay:.32s}.d5{transition-delay:.40s}.d6{transition-delay:.48s}
+/* Tribute */
+.design-tribute{position:relative;z-index:2;border-top:1px solid rgba(255,255,255,.07);padding:40px 56px;overflow:hidden}
+@media(max-width:640px){.design-tribute{padding:28px 20px}}
+.tribute-inner{max-width:1100px;margin:0 auto}
+/* PUNTO 5: sin título */
+.tribute-grid{display:grid;grid-template-columns:auto 1fr auto;gap:48px;align-items:center}
+@media(max-width:640px){.tribute-grid{grid-template-columns:1fr}}
+/* PUNTO 5: Itten más rápido — 8s */
+.itten-wheel{position:relative;width:120px;height:120px;flex-shrink:0;animation:ittenSpin 8s linear infinite}
+@keyframes ittenSpin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.itten-ring{position:absolute;border-radius:50%}
+.ir1{inset:0;background:conic-gradient(#ff3d9a 0deg,#ff7700 51deg,#f0ff44 102deg,#00e676 153deg,#2563ff 204deg,#9333ea 255deg,#e040fb 306deg,#ff3d9a 360deg)}
+.ir2{inset:22px;background:conic-gradient(#ff85c2 0deg,#ffb347 51deg,#fff176 102deg,#69f0ae 153deg,#7eb8ff 204deg,#c084fc 255deg,#f48fb1 306deg,#ff85c2 360deg)}
+.ir3{inset:44px;background:#0d0a1a;border:2px solid rgba(255,255,255,.08)}
+.typo-scale{display:flex;flex-direction:column;gap:4px}
+.ts-row{display:flex;align-items:baseline;gap:8px;border-bottom:1px solid rgba(255,255,255,.04);padding-bottom:4px}
+.ts-size{font-size:9px;color:rgba(255,255,255,.2);font-family:monospace;min-width:32px}
+.ts-sample{font-family:'Fredoka',sans-serif;color:rgba(255,255,255,.7);line-height:1;font-weight:700}
+.palette-col{display:flex;flex-direction:column;gap:8px;flex-shrink:0}
+.pal-row{display:flex;align-items:center;gap:10px}
+.pal-swatch{width:26px;height:26px;border-radius:6px;flex-shrink:0;border:1px solid rgba(255,255,255,.1);transition:transform .25s cubic-bezier(.34,1.56,.64,1)}
+.pal-swatch:hover{transform:scale(1.2) rotate(-5deg)}
+.pal-hex{font-size:9px;color:rgba(255,255,255,.45);font-family:monospace;font-weight:700}
+.film-strip{border-top:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.2);height:38px;display:flex;align-items:center;overflow:hidden;position:relative;z-index:2}
+.film-strip::before,.film-strip::after{content:'';position:absolute;left:0;right:0;height:7px;background:repeating-linear-gradient(90deg,transparent,transparent 20px,rgba(255,255,255,.07) 20px,rgba(255,255,255,.07) 26px,transparent 26px,transparent 36px)}
+.film-strip::before{top:3px}.film-strip::after{bottom:3px}
+.film-text{font-family:'Fredoka',sans-serif;font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.16);white-space:nowrap;animation:mq 18s linear infinite;padding:0 20px;position:relative;z-index:1}
+.foot-copy{padding:10px 56px;background:rgba(0,0,0,.15);border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.15);position:relative;z-index:2}
+@media(max-width:640px){.foot-copy{padding:10px 20px}}
+.foot-avail{display:inline-flex;align-items:center;gap:7px;color:rgba(255,255,255,.28)}
+.foot-avail::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 8px rgba(16,245,160,.5);animation:bl 2s ease infinite}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.3}}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
+.rvL{opacity:0;transform:translateX(-26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
+.rvR{opacity:0;transform:translateX(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
+.rv.on,.rvL.on,.rvR.on{opacity:1;transform:none}
 </style>
 </head>
 <body>
 
-<div class="grain-overlay"></div>
-<div id="cursor-dot"></div>
-<div id="cursor-ring"></div>
+<div id="vid-cur">
+  <svg class="ic-play" width="32" height="32" viewBox="0 0 34 34" fill="none">
+    <circle cx="17" cy="17" r="15" fill="#6d28d9" stroke="#8b5cf6" stroke-width="1.5"/>
+    <path d="M14 11L24 17L14 23Z" fill="white"/>
+  </svg>
+  <svg class="ic-pause" width="32" height="32" viewBox="0 0 34 34" fill="none">
+    <circle cx="17" cy="17" r="15" fill="#ff3d9a" stroke="#ff85c2" stroke-width="1.5"/>
+    <rect x="12" y="11" width="3.5" height="12" rx="1.5" fill="white"/>
+    <rect x="18.5" y="11" width="3.5" height="12" rx="1.5" fill="white"/>
+  </svg>
+</div>
+
 <button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-<!-- ── NAV ── -->
 <nav class="nav" id="mainNav">
-  <a class="nav-logo" href="#hero">Neeergraphs</a>
-  <ul class="nav-links">
-    <li><a href="#sobre">Sobre</a></li>
-    <li><a href="#servicios">Habilidades</a></li>
-    <li><a href="#proyectos">Proyectos</a></li>
-    <li><a href="#contacto">Contacto</a></li>
-  </ul>
+  <div class="nav-inner">
+    <a class="nav-logo-nav" href="#hero">NEEERGRAPHS</a>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre mí</a></li>
+      <li><a href="#servicios">Habilidades</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </div>
 </nav>
 
-<!-- ══ HERO — Abanico 3D ══ -->
+<!-- ══ HERO con corte diagonal — punto 2 ══ -->
+<div class="hero-skew-wrap">
 <section class="hero" id="hero">
-  <div class="hero-bg-glow"></div>
-  <div class="hero-dots-bg"></div>
+  <canvas id="grainCanvas"></canvas>
+  <div class="hero-gradient"></div>
+  <div class="hero-dots"></div>
+  <div class="hero-scanlines"></div>
 
-  <div class="hero-body">
-    <!-- Texto izquierda -->
-    <div class="hero-left">
-      <div class="hero-eye">Diseñadora Gráfica & Motion · Madrid 2026</div>
-
-      <h1 class="hero-h1">
-        NEREA<br>
-        <span class="purple">RAMÍREZ</span><br>
-        <span class="italic">diseña.</span>
-      </h1>
-
-      <div class="hero-typing-row">
-        <span class="hero-typing-prefix">Especialista en</span>
-        <span class="hero-typing-text" id="typingEl"></span><span class="hero-cursor-bar"></span>
-      </div>
-
-      <div class="hero-ctas">
-        <a href="#proyectos" class="cta-main">Ver proyectos</a>
-        <a href="#sobre" class="cta-sec">Más sobre mí</a>
-      </div>
-    </div>
-
-    <!-- Abanico de tarjetas 3D derecha -->
-    <div class="hero-right">
-      <div class="cards-fan">
-        <!-- 7 tarjetas con tus imágenes de proyectos reales -->
-        <div class="fan-card">
-          <img src="destacadas-superboy.png" alt="Superboy VFX">
-        </div>
-        <div class="fan-card">
-          <img src="destacadas-dolce-vitta.png" alt="Dolce Vitta">
-        </div>
-        <div class="fan-card">
-          <img src="destacada-hotwheel.png" alt="Hot Wheels">
-        </div>
-        <!-- Tarjeta central — borrosa, la más grande -->
-        <div class="fan-card">
-          <img src="destacada-magnum-final.png" alt="Campaña Magnum">
-        </div>
-        <div class="fan-card">
-          <img src="destacadas-HOME.png" alt="Vídeo Home">
-        </div>
-        <div class="fan-card">
-          <img src="destacada-nextfloor.png" alt="Nextfloor">
-        </div>
-        <div class="fan-card">
-          <img src="destacadas-mueblesboom.png" alt="Muebles Boom">
-        </div>
-      </div>
+  <div class="hero-main" id="heroMain">
+    <div class="hero-typing-wrap"><span class="hero-typing" id="typingEl"></span></div>
+    <div class="hero-ctas">
+      <a href="#proyectos" class="cta-fill">Ver proyectos</a>
+      <a href="#sobre" class="cta-outline">Más sobre mí</a>
     </div>
   </div>
 
-  <div class="hero-ticker-wrap">
-    <div class="hero-ticker">
-      <span>After Effects</span><span class="dot"> · </span>
-      <span>Motion Graphics</span><span class="dot"> · </span>
-      <span>Premiere Pro</span><span class="dot"> · </span>
-      <span>Diseño Gráfico</span><span class="dot"> · </span>
-      <span>IA Generativa</span><span class="dot"> · </span>
-      <span>Dirección de Arte</span><span class="dot"> · </span>
-      <span>Identidad de Marca</span><span class="dot"> · </span>
-      <span>Postproducción</span><span class="dot"> · </span>
-      <span>After Effects</span><span class="dot"> · </span>
-      <span>Motion Graphics</span><span class="dot"> · </span>
-      <span>Premiere Pro</span><span class="dot"> · </span>
-      <span>Diseño Gráfico</span><span class="dot"> · </span>
-      <span>IA Generativa</span><span class="dot"> · </span>
-      <span>Dirección de Arte</span><span class="dot"> · </span>
-      <span>Identidad de Marca</span><span class="dot"> · </span>
-      <span>Postproducción</span><span class="dot"> · </span>
-    </div>
+  <!-- PUNTO 1: Logo único apoyado al ras del borde inferior -->
+  <div class="hero-logo-ras">
+    <span class="hero-logo-txt">NEEERGRAPHS</span>
   </div>
 </section>
+</div>
+
+<!-- BANDAS — cubren el corte diagonal -->
+<div class="bands-wrapper">
+  <div class="bands">
+    <div class="band b1">
+      <div class="bt">
+        <span>Edición de vídeo</span><span class="dot">◆</span><span>After Effects</span><span class="dot">◆</span><span>Motion Graphics</span><span class="dot">◆</span><span>Premiere Pro</span><span class="dot">◆</span><span>Postproducción</span><span class="dot">◆</span><span>Grabación in situ</span><span class="dot">◆</span><span>Vídeo corporativo</span><span class="dot">◆</span><span>Cap Cut</span><span class="dot">◆</span><span>Storytelling visual</span><span class="dot">◆</span>
+        <span>Edición de vídeo</span><span class="dot">◆</span><span>After Effects</span><span class="dot">◆</span><span>Motion Graphics</span><span class="dot">◆</span><span>Premiere Pro</span><span class="dot">◆</span><span>Postproducción</span><span class="dot">◆</span><span>Grabación in situ</span><span class="dot">◆</span><span>Vídeo corporativo</span><span class="dot">◆</span><span>Cap Cut</span><span class="dot">◆</span><span>Storytelling visual</span><span class="dot">◆</span>
+      </div>
+    </div>
+    <div class="band b2">
+      <div class="bt">
+        <span>Diseño gráfico</span><span class="dot">◆</span><span>Photoshop</span><span class="dot">◆</span><span>Illustrator</span><span class="dot">◆</span><span>Identidad de marca</span><span class="dot">◆</span><span>IA Generativa</span><span class="dot">◆</span><span>Dirección de arte</span><span class="dot">◆</span><span>Contenido RRSS</span><span class="dot">◆</span><span>InDesign</span><span class="dot">◆</span><span>Spots publicitarios</span><span class="dot">◆</span>
+        <span>Diseño gráfico</span><span class="dot">◆</span><span>Photoshop</span><span class="dot">◆</span><span>Illustrator</span><span class="dot">◆</span><span>Identidad de marca</span><span class="dot">◆</span><span>IA Generativa</span><span class="dot">◆</span><span>Dirección de arte</span><span class="dot">◆</span><span>Contenido RRSS</span><span class="dot">◆</span><span>InDesign</span><span class="dot">◆</span><span>Spots publicitarios</span><span class="dot">◆</span>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ══ SOBRE MÍ ══ -->
 <section class="about" id="sobre">
-  <div class="s-num">02</div>
-  <div class="about-wrap">
-
-    <!-- Foto -->
-    <div class="photo-col rvL">
-      <!-- Círculo orgánico animado detrás -->
-      <div class="photo-abstract"></div>
-      <svg class="photo-orbit" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path id="orbitPath"
-          d="M50,5 C72,5 95,28 95,50 C95,72 72,95 50,95 C28,95 5,72 5,50 C5,28 28,5 50,5"
-          stroke="rgba(124,58,237,.15)" stroke-width=".5" stroke-dasharray="4 6"/>
-      </svg>
-
-      <div class="photo-img-frame">
-        <img src="nerea.ramirez.png" alt="Nerea Ramírez — Diseñadora Gráfica & Motion">
-      </div>
-      <div class="photo-caption">
-        <span class="photo-caption-name">Nerea Ramírez</span>
-        <span class="photo-caption-hint">pasa el cursor ↑</span>
-      </div>
-
-      <div class="about-stats">
-        <div class="stat">
-          <span class="stat-n">3+</span>
-          <span class="stat-l">Años</span>
+  <div class="about-inner">
+    <div class="about-row">
+      <div class="photo-col rvL">
+        <div class="photo-wrap">
+          <div class="abstract-ring">
+            <svg id="morphRingSvg" viewBox="0 0 224 259" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path id="morphPath" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="photo-frame">
+            <img src="nerea.ramirez.png" alt="">
+            <div class="photo-frame-ov"></div>
+          </div>
+          <div class="photo-icon" id="photoIcon">
+            <svg width="30" height="30" viewBox="0 0 40 40" fill="none"><rect x="2" y="10" width="36" height="24" rx="5" stroke="rgba(255,255,255,.7)" stroke-width="1.5" fill="rgba(255,255,255,.08)"/><circle cx="20" cy="22" r="7" stroke="rgba(255,255,255,.7)" stroke-width="1.5"/><circle cx="20" cy="22" r="3.5" fill="rgba(255,255,255,.22)"/><rect x="14" y="6" width="8" height="6" rx="2" stroke="rgba(255,255,255,.7)" stroke-width="1.5"/></svg>
+            <span class="photo-icon-lbl">Ver foto</span>
+          </div>
+          <div class="photo-real" id="photoReal"><img src="nerea.ramirez.png" alt="Nerea Ramírez"></div>
+          <div class="photo-flash" id="photoFlash"></div>
         </div>
-        <div class="stat">
-          <span class="stat-n">∞</span>
-          <span class="stat-l">Creatividad</span>
+        <div class="about-stats">
+          <div class="st-item"><div class="st-n">3+</div><div class="st-l">Años</div></div>
+          <div class="st-item"><div class="st-n">∞</div><div class="st-l">Creatividad</div></div>
         </div>
       </div>
 
-      <div>
-        <div class="tools-label">Herramientas</div>
-        <div class="tools-wrap">
-          <span class="tool-tag">Photoshop</span>
-          <span class="tool-tag">Illustrator</span>
-          <span class="tool-tag">Premiere</span>
-          <span class="tool-tag">After Effects</span>
-          <span class="tool-tag">InDesign</span>
-          <span class="tool-tag">Cap Cut</span>
-          <span class="tool-tag">Sora AI</span>
-          <span class="tool-tag">ChatGPT</span>
-          <span class="tool-tag">Gemini</span>
-          <span class="tool-tag">Metricool</span>
-          <span class="tool-tag">Meta Ads</span>
-          <span class="tool-tag">Wordpress</span>
+      <div class="about-text rvR">
+        <h2 class="about-greeting">Hola, soy Nerea :)</h2>
+        <!-- PUNTO 7: me apasiona con animación pulse -->
+        <p class="about-sub">Y <span class="me-apasiona">me apasiona</span> lo que hago.</p>
+        <p class="about-body">
+          Grabo, edito, diseño y animo — todo en el mismo espacio creativo. <strong>Tomo un brief en blanco y lo convierto en una pieza que comunica de verdad:</strong> motion graphics, campañas de RRSS, identidad de marca, postproducción y vídeo. Me muevo entre disciplinas sin perder el hilo.
+        </p>
+      </div>
+
+      <div class="brainstorm-col rvR" style="transition-delay:.08s">
+        <div class="brainstorm-wrap">
+          <div class="brainstorm-inner">
+            <span class="bchip">Photoshop</span><span class="bchip">Illustrator</span><span class="bchip">Premiere</span>
+            <span class="bchip">After Effects</span><span class="bchip">InDesign</span><span class="bchip">Cap Cut</span>
+            <span class="bchip">Sora AI</span><span class="bchip">ChatGPT</span><span class="bchip">Gemini</span>
+            <span class="bchip">Metricool</span><span class="bchip">Meta Ads</span><span class="bchip">Wordpress</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Texto -->
-    <div class="about-text rvR">
-      <div class="sec-label">Sobre mí</div>
-
-      <h2 class="about-h2">
-        Hola,<br>
-        soy <span class="purple">Nerea</span><br>
-        <span class="italic">:)</span>
-      </h2>
-
-      <p class="about-intro">
-        Y <strong>me apasiona</strong> lo que hago.
-        Grabo, edito, diseño y animo — todo en el mismo espacio creativo,
-        sin perder el hilo entre disciplinas.
-        <strong>Tomo un brief en blanco y lo convierto en una pieza
-        que comunica de verdad.</strong>
-      </p>
-
-      <div class="accordion">
-        <div class="acc-row">
-          <div class="acc-trigger" onclick="toggleAcc(this)">
-            <span class="acc-label">Experiencia</span>
-            <div class="acc-right">
-              <span class="acc-pill">3 años</span>
-              <div class="acc-arr">+</div>
-            </div>
-          </div>
-          <div class="acc-body">
-            <div class="acc-body-in">
-              <div class="tl">
-                <div class="tl-item">
-                  <div class="tl-bullet"><div class="tl-dot"></div><div class="tl-line"></div></div>
-                  <div class="tl-content">
-                    <div class="tl-period">Jun 2024 — Actual</div>
-                    <div class="tl-co">Ádraba</div>
-                    <div class="tl-role">Diseñadora Gráfica & Community Manager</div>
-                    <div class="tl-points">
-                      <div class="tl-point">Producción integral: concepto, diseño, grabación, edición y publicación.</div>
-                      <div class="tl-point">Campañas de marketing digital y gestión de RRSS.</div>
-                      <div class="tl-point">Vídeos animados 2D y motion graphics.</div>
-                      <div class="tl-point">IA generativa para ideación y optimización.</div>
-                      <div class="tl-point">Diseño BTL: flyers, cartelería, spots TV.</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tl-item">
-                  <div class="tl-bullet"><div class="tl-dot"></div><div class="tl-line"></div></div>
-                  <div class="tl-content">
-                    <div class="tl-period">Jun — Sep 2023</div>
-                    <div class="tl-co">Lunaro Solutions</div>
-                    <div class="tl-role">Community Manager</div>
-                    <div class="tl-points">
-                      <div class="tl-point">Gestión estratégica LinkedIn: contenido y análisis.</div>
-                      <div class="tl-point">Piezas visuales y contenido audiovisual.</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tl-item">
-                  <div class="tl-bullet"><div class="tl-dot"></div></div>
-                  <div class="tl-content">
-                    <div class="tl-period">Mar — Jun 2023</div>
-                    <div class="tl-co">Jastag</div>
-                    <div class="tl-role">Asistente Diseño y Comunicación Digital</div>
-                    <div class="tl-points">
-                      <div class="tl-point">Diseño web y SEO en Wordpress.</div>
-                      <div class="tl-point">Postproducción y piezas para RRSS.</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="acc-row">
-          <div class="acc-trigger" onclick="toggleAcc(this)">
-            <span class="acc-label">Formación</span>
-            <div class="acc-right"><span class="acc-pill">3 títulos</span><div class="acc-arr">+</div></div>
-          </div>
-          <div class="acc-body"><div class="acc-body-in">
-            <div class="edu-list">
-              <div class="edu-item"><div class="edu-yr">25</div><div><div class="edu-t">Máster Motion Graphics, VFX, Diseño 3D, 4D y Dirección de arte</div><div class="edu-p">CEI</div></div></div>
-              <div class="edu-item"><div class="edu-yr">23</div><div><div class="edu-t">Máster Diseño Gráfico, Diseño web y Marketing Digital</div><div class="edu-p">CEI</div></div></div>
-              <div class="edu-item"><div class="edu-yr">21</div><div><div class="edu-t">Grado Superior en Marketing y Publicidad</div><div class="edu-p">IES Clara del Rey</div></div></div>
-            </div>
-          </div></div>
-        </div>
-
-        <div class="acc-row">
-          <div class="acc-trigger" onclick="toggleAcc(this)">
-            <span class="acc-label">Certificaciones</span>
-            <div class="acc-right"><span class="acc-pill">4 certs</span><div class="acc-arr">+</div></div>
-          </div>
-          <div class="acc-body"><div class="acc-body-in">
-            <div class="cert-grid">
-              <div class="cert-item"><div class="cert-yr">25</div><div class="cert-n">Elements of AI</div><div class="cert-e">University of Helsinki</div></div>
-              <div class="cert-item"><div class="cert-yr">25</div><div class="cert-n">Diseño Gráfico</div><div class="cert-e">Edutin Academy</div></div>
-              <div class="cert-item"><div class="cert-yr">24</div><div class="cert-n">Inbound Marketing</div><div class="cert-e">Hubspot Academy</div></div>
-              <div class="cert-item"><div class="cert-yr">24</div><div class="cert-n">Marketing Digital</div><div class="cert-e">Google Actívate</div></div>
-            </div>
-          </div></div>
-        </div>
-
-        <div class="acc-row">
-          <div class="acc-trigger" onclick="toggleAcc(this)">
-            <span class="acc-label">Habilidades</span>
-            <div class="acc-right"><span class="acc-pill">Especialidades</span><div class="acc-arr">+</div></div>
-          </div>
-          <div class="acc-body"><div class="acc-body-in">
-            <div class="hab-flex">
-              <span class="htag a">Diseño gráfico</span><span class="htag b">Motion graphics</span><span class="htag a">Dirección de arte</span>
-              <span class="htag a">Storytelling visual</span><span class="htag a">IA generativa</span><span class="htag b">Vídeo corporativo</span>
-              <span class="htag b">Identidad de marca</span><span class="htag a">Postproducción</span><span class="htag b">Fotografía</span>
-              <span class="htag a">Diseño 3D</span><span class="htag b">Campañas digitales</span><span class="htag a">Grabación in situ</span>
-            </div>
-          </div></div>
-        </div>
+    <div class="acc-section rv" style="transition-delay:.1s">
+      <div class="acc-tabs">
+        <div class="acc-tab" onclick="toggleTab(this,'exp')"><span class="acc-tab-label">Experiencia</span><div class="acc-tab-right"><span class="acc-tab-tag">3 años</span><div class="acc-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
+        <div class="acc-tab" onclick="toggleTab(this,'edu')"><span class="acc-tab-label">Formación</span><div class="acc-tab-right"><span class="acc-tab-tag">3 títulos</span><div class="acc-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
+        <div class="acc-tab" onclick="toggleTab(this,'cert')"><span class="acc-tab-label">Certificaciones</span><div class="acc-tab-right"><span class="acc-tab-tag">4 certs</span><div class="acc-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
+        <div class="acc-tab" onclick="toggleTab(this,'hab')"><span class="acc-tab-label">Habilidades</span><div class="acc-tab-right"><span class="acc-tab-tag">Especialidades</span><div class="acc-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
+      </div>
+      <div class="acc-panels">
+        <div class="acc-panel" id="panel-exp"><div class="tl"><div class="tl-row"><div class="tl-left"><div class="tl-dot"></div><div class="tl-dash"></div></div><div class="tl-c"><span class="tl-pill">Jun 2024 — Actual</span><div class="tl-co">Ádraba</div><div class="tl-role">Diseñadora gráfica & Community Manager</div><div class="tl-tasks"><div class="tl-task">Producción integral de contenido visual: concepto, diseño, grabación, edición y publicación.</div><div class="tl-task">Gestión y dirección de campañas de marketing digital en RRSS.</div><div class="tl-task">Diseño gráfico e ilustración para campañas digitales.</div><div class="tl-task">Vídeos animados 2D y motion graphics.</div><div class="tl-task">IA generativa para ideación, variaciones y optimización.</div><div class="tl-task">Diseño BTL: flyers, tarjetas, trípticos, spots TV, cartelería.</div></div></div></div><div class="tl-row"><div class="tl-left"><div class="tl-dot"></div><div class="tl-dash"></div></div><div class="tl-c"><span class="tl-pill">Jun — Sep 2023</span><div class="tl-co">Lunaro Solutions</div><div class="tl-role">Community Manager</div><div class="tl-tasks"><div class="tl-task">Gestión estratégica LinkedIn: contenido, calendario y análisis.</div><div class="tl-task">Diseño de piezas visuales y contenido audiovisual orientado a marca.</div></div></div></div><div class="tl-row"><div class="tl-left"><div class="tl-dot"></div></div><div class="tl-c"><span class="tl-pill">Mar — Jun 2023</span><div class="tl-co">Jastag</div><div class="tl-role">Asistente Diseño y Comunicación Digital</div><div class="tl-tasks"><div class="tl-task">Diseño web y optimización SEO en Wordpress.</div><div class="tl-task">Producción y postproducción de contenidos audiovisuales.</div><div class="tl-task">Diseño de piezas para RRSS y copywriting.</div></div></div></div></div></div>
+        <div class="acc-panel" id="panel-edu"><div class="edu-list"><div class="edu-row"><div class="edu-yr">2025</div><div><div class="edu-t">Máster Motion Graphics, VFX, Diseño 3D, 4D y Dirección de arte</div><div class="edu-p">CEI</div></div></div><div class="edu-row"><div class="edu-yr">2023</div><div><div class="edu-t">Máster Diseño Gráfico, Diseño web y Marketing Digital</div><div class="edu-p">CEI</div></div></div><div class="edu-row"><div class="edu-yr">2021</div><div><div class="edu-t">Grado Superior en Marketing y Publicidad</div><div class="edu-p">IES Clara del Rey</div></div></div></div></div>
+        <div class="acc-panel" id="panel-cert"><div class="cert-grid"><div class="cert-c"><div class="cert-yr">2025</div><div class="cert-n">Elements of AI</div><div class="cert-e">University of Helsinki</div></div><div class="cert-c"><div class="cert-yr">2025</div><div class="cert-n">Diseño Gráfico</div><div class="cert-e">Edutin Academy</div></div><div class="cert-c"><div class="cert-yr">2024</div><div class="cert-n">Inbound Marketing</div><div class="cert-e">Hubspot Academy</div></div><div class="cert-c"><div class="cert-yr">2024</div><div class="cert-n">Marketing Digital</div><div class="cert-e">Google Actívate</div></div></div></div>
+        <div class="acc-panel" id="panel-hab"><div class="int-wrap"><span class="itag a">Diseño gráfico</span><span class="itag b">Motion graphics</span><span class="itag a">Dirección de arte</span><span class="itag c">Storytelling visual</span><span class="itag a">IA generativa</span><span class="itag b">Vídeo corporativo</span><span class="itag c">Identidad de marca</span><span class="itag a">Postproducción</span><span class="itag b">Fotografía</span><span class="itag a">Diseño 3D</span><span class="itag c">Campañas digitales</span><span class="itag b">Spots publicitarios</span><span class="itag a">Content creation</span><span class="itag c">Gestión RRSS</span><span class="itag b">Grabación in situ</span></div></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ══ HABILIDADES ══ -->
-<section class="services" id="servicios">
-  <div class="svc-bg-text">HACE</div>
-  <div class="svc-inner">
-    <div class="svc-header rv">
-      <h2 class="svc-hl">QUÉ<br>PUEDO<br><span class="purple">HACER</span></h2>
-      <p class="svc-sub">6 disciplinas.<br>Un solo lenguaje.</p>
-    </div>
-    <div class="svc-grid rv d1">
-      <div class="svc-item"><span class="svc-num">01</span><img class="svc-ico" src="video.png" alt=""><div class="svc-name">Edición de vídeo</div><p class="svc-desc">Narrativa, ritmo y emoción. Premiere, After Effects, Cap Cut.</p></div>
-      <div class="svc-item"><span class="svc-num">02</span><img class="svc-ico" src="vector.png" alt=""><div class="svc-name">Diseño gráfico</div><p class="svc-desc">Identidad visual que comunica sin palabras. Photoshop, Illustrator, InDesign.</p></div>
-      <div class="svc-item"><span class="svc-num">03</span><img class="svc-ico" src="rrss.png" alt=""><div class="svc-name">Contenido RRSS</div><p class="svc-desc">Piezas para enganchar, retener y crecer. Estrategia y publicación.</p></div>
-      <div class="svc-item"><span class="svc-num">04</span><img class="svc-ico" src="grabacion.png" alt=""><div class="svc-name">Grabación</div><p class="svc-desc">Presencia in situ. Eventos, corporativo y producto.</p></div>
-      <div class="svc-item"><span class="svc-num">05</span><img class="svc-ico" src="motion-graphics.png" alt=""><div class="svc-name">Motion Graphics</div><p class="svc-desc">Animaciones 2D, intros y transitions que dan vida a cualquier pieza.</p></div>
-      <div class="svc-item"><span class="svc-num">06</span><img class="svc-ico" src="3d.png" alt=""><div class="svc-name">Diseño 3D</div><p class="svc-desc">Modelado, render y animación 3D. En evolución continua.</p><span class="svc-badge">En aprendizaje</span></div>
-    </div>
+<section class="servicios" id="servicios">
+  <canvas id="grainCanvas2"></canvas>
+  <div class="svc-aurora"></div><div class="svc-dots"></div><div class="svc-scanlines"></div>
+  <div class="sec-hd rv"><h2 class="sec-title light">¿Qué puedo <span class="hi">hacer?</span></h2></div>
+  <div class="svcs-grid rv" style="transition-delay:.09s">
+    <div class="svc"><span class="svc-num">01</span><div class="svc-bg-icon">🎬</div><div class="svc-ico"><img src="video.png" alt=""></div><h3>Edición de vídeo</h3><p>Narrativa visual, ritmo y emoción en cada corte. Premiere, After Effects, Cap Cut.</p></div>
+    <div class="svc"><span class="svc-num">02</span><div class="svc-bg-icon">✏️</div><div class="svc-ico"><img src="vector.png" alt=""></div><h3>Diseño gráfico</h3><p>Identidad visual que comunica sin palabras. Photoshop, Illustrator, InDesign.</p></div>
+    <div class="svc"><span class="svc-num">03</span><div class="svc-bg-icon">📱</div><div class="svc-ico"><img src="rrss.png" alt=""></div><h3>Contenido RRSS</h3><p>Piezas pensadas para enganchar, retener y crecer. Estrategia, diseño y publicación.</p></div>
+    <div class="svc"><span class="svc-num">04</span><div class="svc-bg-icon">🎥</div><div class="svc-ico"><img src="grabacion.png" alt=""></div><h3>Grabación</h3><p>Presencia in situ para capturar el momento real. Eventos, corporativo y producto.</p></div>
+    <div class="svc"><span class="svc-num">05</span><div class="svc-bg-icon">✨</div><div class="svc-ico"><img src="motion-graphics.png" alt=""></div><h3>Motion Graphics</h3><p>Animaciones 2D, intros, transitions y efectos que dan vida a cualquier pieza.</p></div>
+    <div class="svc"><span class="svc-num">06</span><div class="svc-bg-icon">🎲</div><div class="svc-ico"><img src="3d.png" alt=""></div><h3>Diseño 3D</h3><p>Modelado, render y animación 3D. En evolución continua.</p><span class="svc-badge">En aprendizaje</span></div>
   </div>
 </section>
 
 <!-- ══ PROYECTOS ══ -->
-<section class="projects" id="proyectos">
-  <div class="proj-header rv">
-    <h2 class="proj-hl">MIS<br><span class="italic">mejores</span><br><span class="purple">TRABAJOS</span></h2>
-    <span class="proj-counter">06 proyectos · 2023–2025</span>
-  </div>
+<section class="proyectos" id="proyectos">
+  <div class="proy-inner">
+    <div class="rv" style="max-width:1100px;margin:0 auto 40px"><h2 class="sec-title dk">Proyectos <span class="hi">recientes</span></h2></div>
+    <div class="proj-grid rv" style="transition-delay:.08s">
+      <div class="pcard"><div class="pcard-img" style="background-image:url('destacada-magnum-final.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">Campaña 360°</div><div class="pcard-title">Campaña 360 Magnum</div><div class="pcard-sub">Algunos placeres no entienden de estaciones</div><a href="proyecto-magnum.html" target="_blank" rel="noopener" class="pcard-btn">Ver proyecto →</a></div></div>
+      <div class="pcard"><div class="pcard-img" style="background-image:url('destacadas-dolce-vitta.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">Branding & RRSS</div><div class="pcard-title">Dolce Vitta</div><div class="pcard-sub">Branding y RRSS</div><a href="proyecto-dolcevitta.html" target="_blank" rel="noopener" class="pcard-btn">Ver proyecto →</a></div></div>
+      <div class="pcard"><div class="pcard-img" style="background-image:url('destacadas-HOME.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">After Effects</div><div class="pcard-title">Vídeo inmersivo Home</div><div class="pcard-sub">After Effects y Premiere</div><a href="proyecto-home.html" target="_blank" rel="noopener" class="pcard-btn">Ver proyecto →</a></div></div>
+      <div class="pcard"><div class="pcard-img" style="background-image:url('destacadas-superboy.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">VFX</div><div class="pcard-title">Vídeo simulación Superboy</div><div class="pcard-sub">After Effects y Premiere</div><a href="proyecto-superboy.html" target="_blank" rel="noopener" class="pcard-btn">Ver proyecto →</a></div></div>
+      <div class="pcard"><div class="pcard-img" style="background-image:url('destacada-hotwheel.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">IA Generativa</div><div class="pcard-title">Vídeo Hot Wheels</div><div class="pcard-sub">IA generativa y Premiere</div><a href="proyecto-hotwheels.html" target="_blank" rel="noopener" class="pcard-btn">Ver proyecto →</a></div></div>
+      <div class="pcard"><div class="pcard-img" style="background-image:url('destacada-nextfloor.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">Infografía RRSS</div><div class="pcard-title">Coworking Nextfloor</div><div class="pcard-sub">Infografía y diseño para RRSS</div><a href="proyecto-nextfloor.html" target="_blank" rel="noopener" class="pcard-btn">Ver proyecto →</a></div></div>
+    </div>
 
-  <div class="proj-grid rv d1">
-    <div class="pcard">
-      <img src="destacada-magnum-final.png" alt="Campaña Magnum">
-      <div class="pcard-overlay">
-        <div class="pcard-cat">Campaña 360°</div>
-        <div class="pcard-title">Campaña 360 Magnum</div>
-        <div class="pcard-sub">Algunos placeres no entienden de estaciones</div>
-        <a href="proyecto-magnum.html" target="_blank" rel="noopener" class="pcard-cta">Ver proyecto</a>
-      </div>
-    </div>
-    <div class="pcard">
-      <img src="destacadas-dolce-vitta.png" alt="Dolce Vitta">
-      <div class="pcard-overlay">
-        <div class="pcard-cat">Branding & RRSS</div>
-        <div class="pcard-title">Dolce Vitta</div>
-        <div class="pcard-sub">Branding y RRSS</div>
-        <a href="proyecto-dolcevitta.html" target="_blank" rel="noopener" class="pcard-cta">Ver proyecto</a>
-      </div>
-    </div>
-    <div class="pcard">
-      <img src="destacadas-HOME.png" alt="Vídeo Home">
-      <div class="pcard-overlay">
-        <div class="pcard-cat">After Effects</div>
-        <div class="pcard-title">Vídeo inmersivo Home</div>
-        <div class="pcard-sub">After Effects y Premiere</div>
-        <a href="proyecto-home.html" target="_blank" rel="noopener" class="pcard-cta">Ver proyecto</a>
-      </div>
-    </div>
-    <div class="pcard">
-      <img src="destacadas-superboy.png" alt="Superboy">
-      <div class="pcard-overlay">
-        <div class="pcard-cat">VFX</div>
-        <div class="pcard-title">Vídeo simulación Superboy</div>
-        <div class="pcard-sub">After Effects y Premiere</div>
-        <a href="proyecto-superboy.html" target="_blank" rel="noopener" class="pcard-cta">Ver proyecto</a>
-      </div>
-    </div>
-    <div class="pcard">
-      <img src="destacada-hotwheel.png" alt="Hot Wheels IA">
-      <div class="pcard-overlay">
-        <div class="pcard-cat">IA Generativa</div>
-        <div class="pcard-title">Vídeo Hot Wheels</div>
-        <div class="pcard-sub">IA generativa y Premiere</div>
-        <a href="proyecto-hotwheels.html" target="_blank" rel="noopener" class="pcard-cta">Ver proyecto</a>
-      </div>
-    </div>
-    <div class="pcard">
-      <img src="destacada-nextfloor.png" alt="Nextfloor">
-      <div class="pcard-overlay">
-        <div class="pcard-cat">Infografía RRSS</div>
-        <div class="pcard-title">Coworking Nextfloor</div>
-        <div class="pcard-sub">Infografía y diseño para RRSS</div>
-        <a href="proyecto-nextfloor.html" target="_blank" rel="noopener" class="pcard-cta">Ver proyecto</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="wip-wrap rv d2">
-    <div class="wip-head"><div class="wip-pulse"></div><span class="wip-label">En proceso — próximamente</span></div>
-    <div class="wip-grid">
-      <div class="wcard">
-        <img src="destacadas-mueblesboom.png" alt="Muebles Boom">
-        <div class="wcard-overlay"><span class="wcard-lock">🔒</span><span class="wcard-soon">Próximamente</span></div>
-        <div class="wcard-info"><div class="wcard-cat">Branding</div><div class="wcard-name">Rebranding Muebles Boom</div></div>
-      </div>
-      <div class="wcard">
-        <img src="destacadas-camisetas.png" alt="Camisetas">
-        <div class="wcard-overlay"><span class="wcard-lock">🔒</span><span class="wcard-soon">Próximamente</span></div>
-        <div class="wcard-info"><div class="wcard-cat">Diseño</div><div class="wcard-name">Diseños de camisetas</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ CONTACTO ══ -->
-<div class="contact-wrap">
-  <div class="wave-wrap">
-    <canvas id="waveCanvas" height="110"></canvas>
-  </div>
-  <div class="contact" id="contacto">
-    <div class="contact-blob"></div>
-    <div class="contact-inner">
-      <div class="rvL">
-        <h2 class="contact-hl">
-          HABLE<br>
-          <span class="italic">mos</span><br>
-          <span class="purple">:</span>)
-        </h2>
-        <p class="contact-sub">¿Tienes algo en mente? Me encantaría escucharte. Ya sea un proyecto, una idea loca o simplemente presentarte — escríbeme sin miedo.</p>
-        <a href="mailto:nerearamimarti@gmail.com" class="contact-btn">Escribir ahora</a>
-      </div>
-
-      <div class="rvR d1">
-        <div class="pantone-set">
-          <div class="pan">
-            <div class="pan-swatch"><div class="pan-hole"></div></div>
-            <div class="pan-body">
-              <div class="pan-code">PANTONE® 267 C</div>
-              <div class="pan-cname">Neeergraphs Purple</div>
-              <div class="pan-rule"></div>
-              <div class="pan-lbl">Teléfono</div>
-              <div class="pan-val">653 607 909</div>
-              <div class="pan-brand">Pantone®</div>
-            </div>
+    <!-- PUNTO 3 — WIP: textos borrosos DEBAJO de la imagen, dentro de ella -->
+    <div class="wip-section rv" style="transition-delay:.13s">
+      <div class="wip-header"><div class="wip-dot"></div><span class="wip-lbl">En proceso</span></div>
+      <div class="wip-grid">
+        <!-- Card WIP 1 -->
+        <div class="wcard" style="background-image:url('destacadas-mueblesboom.png')">
+          <div class="wcard-bg" style="background-image:url('destacadas-mueblesboom.png')"></div>
+          <div class="wcard-cover">
+            <span class="wcard-lock">🔒</span>
+            <span class="wcard-cover-txt">Próximamente</span>
           </div>
-          <div class="pan">
-            <div class="pan-swatch"><div class="pan-hole"></div></div>
-            <div class="pan-body">
-              <div class="pan-code">PANTONE® 2766 C</div>
-              <div class="pan-cname">Deep Ink</div>
-              <div class="pan-rule"></div>
-              <div class="pan-lbl">Email</div>
-              <div class="pan-val" style="font-size:9.5px">nerearamimarti@gmail.com</div>
-              <div class="pan-brand">Pantone®</div>
-            </div>
+          <div class="wcard-body-blur">
+            <div class="wcard-cat-b">Branding</div>
+            <div class="wcard-title-b">Rebranding Muebles Boom</div>
+            <div class="wcard-sub-b">Identidad de marca y comunicación visual</div>
           </div>
-          <div class="pan">
-            <div class="pan-swatch"><div class="pan-hole"></div></div>
-            <div class="pan-body">
-              <div class="pan-code">PANTONE® 3395 C</div>
-              <div class="pan-cname">Madrid Mint</div>
-              <div class="pan-rule"></div>
-              <div class="pan-lbl">Ubicación</div>
-              <div class="pan-val">Madrid · SSReyes</div>
-              <div class="pan-brand">Pantone®</div>
-            </div>
+        </div>
+        <!-- Card WIP 2 -->
+        <div class="wcard" style="background-image:url('destacadas-camisetas.png')">
+          <div class="wcard-bg" style="background-image:url('destacadas-camisetas.png')"></div>
+          <div class="wcard-cover">
+            <span class="wcard-lock">🔒</span>
+            <span class="wcard-cover-txt">Próximamente</span>
+          </div>
+          <div class="wcard-body-blur">
+            <div class="wcard-cat-b">Diseño</div>
+            <div class="wcard-title-b">Diseños de camisetas</div>
+            <div class="wcard-sub-b">Camisetas personalizadas de autor</div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="footer-bar">
-    <span class="footer-copy">© 2026 Neeergraphs — Nerea Ramírez</span>
-    <span class="footer-avail">Disponible para proyectos</span>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<div class="footer" id="contacto">
+  <canvas id="grainCanvas3"></canvas>
+  <div class="footer-gradient"></div>
+
+  <!-- PUNTO 4: Solo onda oscura, sin lilas ni tiburón -->
+  <div class="foot-wave-wrap">
+    <canvas id="waveCanvas" height="100"></canvas>
   </div>
+
+  <!-- PUNTO 6: Pantone cards -->
+  <div class="contact-sec">
+    <div class="rvL">
+      <div class="ct-head">Hablemos<span class="ct-smile">:)</span></div>
+      <p class="ct-sub">¿Tienes algo en mente? Me encantaría escucharte. Ya sea un proyecto, una idea loca o simplemente presentarte — escríbeme sin miedo.</p>
+      <a href="mailto:nerearamimarti@gmail.com" class="ct-cta">Escribir ahora</a>
+    </div>
+    <div class="ct-items rvR">
+      <!-- Cartela Pantone — Teléfono — PANTONE 267 C -->
+      <div class="pantone-card">
+        <div class="pan-color">
+          <div class="pan-hole"></div>
+        </div>
+        <div class="pan-white">
+          <div class="pan-ref">PANTONE® 267 C</div>
+          <div class="pan-name">Neeergraphs Purple</div>
+          <div class="pan-sep"></div>
+          <div class="pan-lbl">Teléfono</div>
+          <div class="pan-val">653 607 909</div>
+          <div class="pan-logo">Pantone®</div>
+        </div>
+      </div>
+      <!-- Cartela Pantone — Email — PANTONE 2766 C -->
+      <div class="pantone-card">
+        <div class="pan-color">
+          <div class="pan-hole"></div>
+        </div>
+        <div class="pan-white">
+          <div class="pan-ref">PANTONE® 2766 C</div>
+          <div class="pan-name">Deep Ink</div>
+          <div class="pan-sep"></div>
+          <div class="pan-lbl">Email</div>
+          <div class="pan-val" style="font-size:10.5px">nerearamimarti@gmail.com</div>
+          <div class="pan-logo">Pantone®</div>
+        </div>
+      </div>
+      <!-- Cartela Pantone — Ubicación — PANTONE 3395 C -->
+      <div class="pantone-card">
+        <div class="pan-color">
+          <div class="pan-hole"></div>
+        </div>
+        <div class="pan-white">
+          <div class="pan-ref">PANTONE® 3395 C</div>
+          <div class="pan-name">Madrid Mint</div>
+          <div class="pan-sep"></div>
+          <div class="pan-lbl">Ubicación</div>
+          <div class="pan-val">Madrid · SSReyes</div>
+          <div class="pan-logo">Pantone®</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tribute — PUNTO 5: sin título, Itten 8s -->
+  <div class="design-tribute rv">
+    <div class="tribute-inner">
+      <div class="tribute-grid">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:14px">
+          <div class="itten-wheel"><div class="itten-ring ir1"></div><div class="itten-ring ir2"></div><div class="itten-ring ir3"></div></div>
+          <span style="font-size:7px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.2);white-space:nowrap">Círculo de Itten · 1961</span>
+        </div>
+        <div class="typo-scale">
+          <div class="ts-row"><span class="ts-size">72pt</span><span class="ts-sample" style="font-size:34px">Neeer</span></div>
+          <div class="ts-row"><span class="ts-size">48pt</span><span class="ts-sample" style="font-size:26px">Diseño</span></div>
+          <div class="ts-row"><span class="ts-size">32pt</span><span class="ts-sample" style="font-size:20px">Motion</span></div>
+          <div class="ts-row"><span class="ts-size">18pt</span><span class="ts-sample" style="font-size:15px">Vídeo</span></div>
+          <div class="ts-row"><span class="ts-size">12pt</span><span class="ts-sample" style="font-size:11px">Creatividad</span></div>
+          <div class="ts-row"><span class="ts-size">8pt</span><span class="ts-sample" style="font-size:8px">NEEERGRAPHS · MADRID · 2026</span></div>
+        </div>
+        <div class="palette-col">
+          <div class="pal-row"><div class="pal-swatch" style="background:#7c3aed"></div><span class="pal-hex">#7C3AED</span></div>
+          <div class="pal-row"><div class="pal-swatch" style="background:#f0ff44"></div><span class="pal-hex">#F0FF44</span></div>
+          <div class="pal-row"><div class="pal-swatch" style="background:#ff3d9a"></div><span class="pal-hex">#FF3D9A</span></div>
+          <div class="pal-row"><div class="pal-swatch" style="background:#10f5a0"></div><span class="pal-hex">#10F5A0</span></div>
+          <div class="pal-row"><div class="pal-swatch" style="background:#ffffff;border-color:rgba(255,255,255,.2)"></div><span class="pal-hex">#FFFFFF</span></div>
+          <div class="pal-row"><div class="pal-swatch" style="background:#1a0a2e"></div><span class="pal-hex">#1A0A2E</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="film-strip"><div class="film-text">NEEERGRAPHS · DISEÑO GRÁFICO · MOTION GRAPHICS · EDICIÓN DE VÍDEO · DIRECCIÓN DE ARTE · IA GENERATIVA · POSTPRODUCCIÓN · MADRID 2026 · NEEERGRAPHS · DISEÑO GRÁFICO · MOTION GRAPHICS · EDICIÓN DE VÍDEO · DIRECCIÓN DE ARTE · POSTPRODUCCIÓN ·&nbsp;&nbsp;&nbsp;</div></div>
+  <div class="foot-copy"><span>© 2026 NEEERGRAPHS</span><span class="foot-avail">Disponible para proyectos</span><span>Madrid, España</span></div>
 </div>
 
 <script>
+/* GRAIN */
+function initGrain(id,op){
+  const c=document.getElementById(id);if(!c)return;
+  const ctx=c.getContext('2d');let f=0;
+  function resize(){c.width=c.parentElement.clientWidth||innerWidth;c.height=c.parentElement.clientHeight||innerHeight}
+  resize();window.addEventListener('resize',resize,{passive:true});
+  function draw(){f++;const w=c.width,h=c.height;const img=ctx.createImageData(w,h);const d=img.data;for(let i=0;i<d.length;i+=4){const v=Math.random()*op|0;d[i]=v;d[i+1]=v;d[i+2]=v;d[i+3]=Math.random()*34|0}ctx.putImageData(img,0,0);if(f%8===0){const y=Math.random()*h|0;ctx.fillStyle=`rgba(${Math.random()>.5?'160,80,255':'80,160,255'},.04)`;ctx.fillRect(0,y,w,Math.random()*2+1)}requestAnimationFrame(draw)}
+  draw();
+}
+initGrain('grainCanvas',195);initGrain('grainCanvas2',158);initGrain('grainCanvas3',138);
+
 /* CURSOR */
-const dot = document.getElementById('cursor-dot');
-const ring = document.getElementById('cursor-ring');
-let cx = 0, cy = 0, rx = 0, ry = 0;
-document.addEventListener('mousemove', e => {
-  cx = e.clientX; cy = e.clientY;
-  dot.style.left = cx + 'px'; dot.style.top = cy + 'px';
+const vidCur=document.getElementById('vid-cur');
+let cx=0,cy=0,trailT=0,trailCI=0;
+const tcols=['#8b5cf6','#ff3d9a','#f0ff44','#6d28d9','#10f5a0','#ff85c2'];
+document.addEventListener('mousemove',e=>{
+  cx=e.clientX;cy=e.clientY;
+  vidCur.style.left=cx+'px';vidCur.style.top=cy+'px';
+  const now=Date.now();
+  if(now-trailT>30){
+    trailT=now;
+    const t=document.createElement('div');t.className='cur-trail';
+    const sz=Math.random()*14+8;
+    const col=tcols[trailCI%tcols.length];trailCI++;
+    const ox=(Math.random()-.5)*12,oy=(Math.random()-.5)*12;
+    t.style.cssText=`left:${cx+ox}px;top:${cy+oy}px;width:${sz}px;height:${sz}px;background:${col};`;
+    document.body.appendChild(t);setTimeout(()=>t.remove(),520);
+  }
 });
-(function ringLoop() {
-  requestAnimationFrame(ringLoop);
-  rx += (cx - rx) * .1; ry += (cy - ry) * .1;
-  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-})();
+document.addEventListener('mousedown',()=>vidCur.classList.add('paused'));
+document.addEventListener('mouseup',()=>vidCur.classList.remove('paused'));
 
 /* TYPING */
-const phrases = ['diseño gráfico.', 'motion graphics.', 'edición de reels y TikToks.', 'dirección de arte.', 'storytelling visual.', 'IA generativa.'];
-const typingEl = document.getElementById('typingEl');
-let pi = 0, ci = 0, del = false;
-function type() {
-  const p = phrases[pi];
-  if (!del) { ci++; typingEl.textContent = p.slice(0, ci); if (ci === p.length) { del = true; setTimeout(type, 2200); return; } setTimeout(type, 72); }
-  else { ci--; typingEl.textContent = p.slice(0, ci); if (ci === 0) { del = false; pi = (pi + 1) % phrases.length; setTimeout(type, 350); return; } setTimeout(type, 38); }
+const phrases=['Diseño gráfico.','Motion graphics.','Edición reels y TikToks.','Dirección de arte.','Storytelling visual.','IA generativa.'];
+const typingEl=document.getElementById('typingEl');
+let pIdx=0,cIdx=0,deleting=false;
+function typeStep(){
+  const p=phrases[pIdx];
+  if(!deleting){cIdx++;typingEl.textContent=p.slice(0,cIdx);if(cIdx===p.length){deleting=true;setTimeout(typeStep,2400);return}setTimeout(typeStep,80)}
+  else{cIdx--;typingEl.textContent=p.slice(0,cIdx);if(cIdx===0){deleting=false;pIdx=(pIdx+1)%phrases.length;setTimeout(typeStep,380);return}setTimeout(typeStep,42)}
 }
-setTimeout(type, 400);
+setTimeout(typeStep,500);
 
-/* ONDA */
-(function() {
-  const c = document.getElementById('waveCanvas'); if (!c) return;
-  const ctx = c.getContext('2d'); let t = 0;
-  const resize = () => { c.width = c.parentElement.clientWidth || innerWidth; c.height = 110; };
-  resize(); window.addEventListener('resize', resize, { passive: true });
-  (function draw() {
-    t += .013; const w = c.width, h = 110;
-    ctx.clearRect(0, 0, w, h);
-    ctx.fillStyle = '#f0ece6'; ctx.fillRect(0, 0, w, h);
-    ctx.beginPath(); ctx.moveTo(0, h);
-    for (let x = 0; x <= w; x += 8) {
-      const y = 46 + Math.sin((x / w) * Math.PI * 3.5 + t) * 24 + Math.sin((x / w) * Math.PI * 6 + t * 1.3) * 10;
-      ctx.lineTo(x, y);
+/* PARALLAX */
+document.addEventListener('mousemove',e=>{
+  const mx=(e.clientX/innerWidth-.5)*2,my=(e.clientY/innerHeight-.5)*2;
+  const hm=document.getElementById('heroMain');
+  if(hm)hm.style.transform=`translate(${mx*3}px,${my*2}px)`;
+});
+
+/* PUNTO 4 — Onda oscura única sobre fondo blanco */
+(function(){
+  const canvas=document.getElementById('waveCanvas');if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  let t=0;
+  function resize(){canvas.width=canvas.parentElement.clientWidth||innerWidth;canvas.height=100}
+  resize();window.addEventListener('resize',resize,{passive:true});
+  function draw(){
+    t+=.016;
+    const w=canvas.width,h=100;
+    ctx.clearRect(0,0,w,h);
+    /* Fondo blanco = color de la sección proyectos */
+    ctx.fillStyle='#ffffff';ctx.fillRect(0,0,w,h);
+    /* Onda oscura única, suave y lenta */
+    ctx.beginPath();ctx.moveTo(0,h);
+    for(let x=0;x<=w;x+=8){
+      const y=46+Math.sin((x/w)*Math.PI*3.5+t)*20+Math.sin((x/w)*Math.PI*5.8+t*1.25)*9;
+      ctx.lineTo(x,y);
     }
-    ctx.lineTo(w, h); ctx.lineTo(0, h); ctx.closePath();
-    ctx.fillStyle = '#0a0a0a'; ctx.fill();
+    ctx.lineTo(w,h);ctx.lineTo(0,h);ctx.closePath();
+    ctx.fillStyle='#0d0a1a';ctx.fill();
     requestAnimationFrame(draw);
-  })();
+  }
+  draw();
 })();
 
-/* ACORDEÓN */
-function toggleAcc(trigger) {
-  const row = trigger.parentElement;
-  const body = row.querySelector('.acc-body');
-  const open = row.classList.contains('open');
-  document.querySelectorAll('.acc-row').forEach(r => { r.classList.remove('open'); r.querySelector('.acc-body').classList.remove('open'); });
-  if (!open) { row.classList.add('open'); body.classList.add('open'); }
+/* MORPH RING */
+(function(){
+  const path=document.getElementById('morphPath');if(!path)return;
+  const pcx=112,pcy=130,rx=88,ry=105;
+  const colors=['#6d28d9','#ff3d9a','#f0ff44','#10f5a0','#7c3aed','#ff85c2'];
+  let t=0,ci=0,ni=1,progress=0;
+  function lerpColor(c1,c2,p){const h=s=>parseInt(s,16);const r1=h(c1.slice(1,3)),g1=h(c1.slice(3,5)),b1=h(c1.slice(5,7));const r2=h(c2.slice(1,3)),g2=h(c2.slice(3,5)),b2=h(c2.slice(5,7));return`rgb(${Math.round(r1+(r2-r1)*p)},${Math.round(g1+(g2-g1)*p)},${Math.round(b1+(b2-b1)*p)})`}
+  function buildPath(t){const pts=[];const N=64;for(let i=0;i<=N;i++){const a=(i/N)*Math.PI*2;const rr1=rx+Math.sin(a*3+t*1.2)*14+Math.sin(a*5-t*.8)*8+Math.sin(a*7+t*.5)*4;const rr2=ry+Math.cos(a*3+t*1.2)*12+Math.cos(a*5-t*.8)*7+Math.cos(a*7+t*.5)*3;pts.push({x:pcx+Math.cos(a)*rr1,y:pcy+Math.sin(a)*rr2})}let d=`M ${pts[0].x} ${pts[0].y}`;for(let i=1;i<pts.length;i++){const pr=pts[i-1],cu=pts[i];const mx=(pr.x+cu.x)/2,my=(pr.y+cu.y)/2;d+=` Q ${pr.x} ${pr.y} ${mx} ${my}`}return d+'Z'}
+  function animate(){t+=.018;path.setAttribute('d',buildPath(t));progress+=.007;if(progress>=1){progress=0;ci=ni;ni=(ni+1)%colors.length}const col=lerpColor(colors[ci],colors[ni],progress);path.setAttribute('stroke',col);const glow=.45+Math.sin(t*2)*.3;path.setAttribute('stroke-opacity',glow.toFixed(2));path.setAttribute('filter',`drop-shadow(0 0 ${5+Math.sin(t*3)*4}px ${col})`);requestAnimationFrame(animate)}
+  animate();
+})();
+
+/* FOTO HOVER */
+(function(){
+  const pw=document.querySelector('.photo-wrap');
+  const pi=document.getElementById('photoIcon');
+  const pr=document.getElementById('photoReal');
+  const pf=document.getElementById('photoFlash');
+  if(!pw)return;
+  let flashed=false;
+  pw.addEventListener('mouseenter',()=>{if(!flashed){flashed=true;pf.style.opacity='1';setTimeout(()=>{pf.style.transition='opacity .35s';pf.style.opacity='0'},90);setTimeout(()=>{flashed=false;pf.style.transition=''},600)}});
+  pw.addEventListener('click',()=>{const s=pr.style.opacity==='1';pr.style.opacity=s?'0':'1';pr.style.transform=s?'scale(.9)':'scale(1)';pi.style.opacity=s?'1':'0'});
+})();
+
+/* SVC HOVER */
+const sc=['#8b5cf6','#d4b800','#ff3d9a','#10f5a0','#0ea5e9','#fbbf24'];
+document.querySelectorAll('.svc').forEach((s,i)=>{s.addEventListener('mouseenter',()=>{s.querySelector('h3').style.color=sc[i]});s.addEventListener('mouseleave',()=>{s.querySelector('h3').style.color=''})});
+
+/* NAV */
+const mainNav=document.getElementById('mainNav');
+const lightIds=['sobre','proyectos'];
+const navObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){mainNav.classList.toggle('light',lightIds.includes(e.target.id))}})},{threshold:.3,rootMargin:'-60px 0px 0px 0px'});
+document.querySelectorAll('section[id]').forEach(s=>navObs.observe(s));
+
+/* ACCORDION */
+function toggleTab(tab,panelId){
+  const allTabs=document.querySelectorAll('.acc-tab');
+  const allPanels=document.querySelectorAll('.acc-panel');
+  const isOpen=tab.classList.contains('open');
+  allTabs.forEach(t=>t.classList.remove('open'));
+  allPanels.forEach(p=>p.classList.remove('open'));
+  if(!isOpen){tab.classList.add('open');document.getElementById('panel-'+panelId).classList.add('open')}
 }
 
-/* NAV scroll */
-const nav = document.getElementById('mainNav');
-window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', scrollY > 60); }, { passive: true });
+/* MAGNETIC */
+document.querySelectorAll('.cta-fill,.ct-cta,.cta-outline').forEach(btn=>{btn.addEventListener('mousemove',e=>{const r=btn.getBoundingClientRect();btn.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.18}px,${(e.clientY-r.top-r.height/2)*.18}px) scale(1.04)`});btn.addEventListener('mouseleave',()=>{btn.style.transform=''})});
 
-/* REVEALS */
-const io = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); }); }, { threshold: .07 });
-document.querySelectorAll('.rv, .rvL, .rvR').forEach(el => io.observe(el));
+/* REVEAL */
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')})},{threshold:.07});
+document.querySelectorAll('.rv,.rvL,.rvR').forEach(el=>io.observe(el));
 
 /* BTT */
-const btt = document.getElementById('btt');
-window.addEventListener('scroll', () => { const s = scrollY > 500; btt.style.opacity = s ? '1' : '0'; btt.style.pointerEvents = s ? 'auto' : 'none'; }, { passive: true });
-
-/* PROJ GRID mobile */
-window.addEventListener('resize', () => {
-  document.querySelectorAll('.pcard').forEach(c => { if (window.innerWidth < 900) c.style.gridColumn = ''; });
-});
+const btt=document.getElementById('btt');
+window.addEventListener('scroll',()=>{const show=scrollY>400;btt.style.opacity=show?'1':'0';btt.style.pointerEvents=show?'auto':'none'},{passive:true});
+btt.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 </script>
 </body>
 </html>
