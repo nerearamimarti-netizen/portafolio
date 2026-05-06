@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEEERGRAPHS — Nerea Ramírez</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,700;0,900;1,100;1,200;1,300;1,700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════
+   NEEERGRAPHS — PORTFOLIO CINEMATOGRÁFICO
+   Concepto: La web ES una película.
+   Cada sección = un plano. El scroll = el tiempo.
+   La cámara avanza, los elementos cobran vida.
+═══════════════════════════════════════════════════ */
+
+:root {
+  --bg: #080808;
+  --white: #f0ece6;
+  --purple: #7c3aed;
+  --purple2: #a78bfa;
+  --pink: #ff3d9a;
+  --accent: #f0ff44;
+  --mint: #10f5a0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  background: var(--bg);
+  /* La altura total = "duración de la película" */
+  /* Cada sección tiene su bloque de scroll */
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CURSOR ── */
+#cursor {
+  position: fixed; z-index: 9999; pointer-events: none;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent);
+  transform: translate(-50%,-50%);
+  transition: width .3s, height .3s, background .3s;
+  mix-blend-mode: difference;
+}
+#cursor-ring {
+  position: fixed; z-index: 9998; pointer-events: none;
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid rgba(240,255,68,.4);
+  transform: translate(-50%,-50%);
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────────────
+   CANVAS FIJO — la "cámara" siempre presente
+   Grain de película, scanlines, número de fotograma
+───────────────────────────────────────────────── */
+#film-canvas {
+  position: fixed; inset: 0; z-index: 100;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: .45;
+}
+
+/* Timecode fijo en esquina */
+#timecode {
+  position: fixed; bottom: 24px; left: 28px; z-index: 200;
+  font-family: 'Courier New', monospace; font-size: 11px;
+  letter-spacing: 2px; color: rgba(240,255,68,.5);
+  pointer-events: none;
+  display: flex; align-items: center; gap: 8px;
+}
+#timecode .rec { width: 7px; height: 7px; border-radius: 50%; background: var(--pink); animation: recBlink 1.4s infinite; }
+@keyframes recBlink { 0%,100%{opacity:1} 50%{opacity:.15} }
+
+/* Progreso lateral */
+#progress-bar {
+  position: fixed; right: 0; top: 0; bottom: 0; z-index: 200;
+  width: 3px; background: rgba(255,255,255,.06);
+  pointer-events: none;
+}
+#progress-fill {
+  width: 100%; background: linear-gradient(to bottom, var(--purple), var(--pink), var(--accent));
+  height: 0%; transition: height .1s;
+}
+
+/* ─────────────────────────────────────────────────
+   NAV — minimalista, siempre visible
+───────────────────────────────────────────────── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  padding: 20px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  mix-blend-mode: normal;
+  transition: background .5s;
+}
+.nav.solid { background: rgba(8,8,8,.9); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,.06); }
+.nav-logo {
+  font-size: 11px; font-weight: 700; letter-spacing: 5px;
+  text-transform: uppercase; text-decoration: none; color: var(--white);
+  opacity: .7; transition: opacity .2s;
+}
+.nav-logo:hover { opacity: 1; }
+.nav-links { display: flex; gap: 6px; list-style: none; }
+.nav-links a {
+  font-size: 10px; font-weight: 300; letter-spacing: 2px;
+  text-transform: uppercase; text-decoration: none;
+  color: rgba(240,236,230,.4); padding: 6px 14px;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--white); }
+@media(max-width:640px){ .nav { padding: 16px 20px; } .nav-links { display: none; } }
+
+/* BTT */
+#btt {
+  position: fixed; bottom: 24px; right: 28px; z-index: 300;
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--bg);
+  background: var(--accent); border: none; cursor: none;
+  padding: 8px 16px; opacity: 0; pointer-events: none;
+  transition: opacity .3s, transform .3s;
+}
+#btt.show { opacity: 1; pointer-events: auto; }
+#btt:hover { transform: scale(1.05); }
+
+/* ═══════════════════════════════════════════════════
+   ACTO I — APERTURA
+   La pantalla se enciende. Aparece el título.
+   Efecto cinematográfico de entrada.
+═══════════════════════════════════════════════════ */
+
+/* El scroll-driver: contenedor largo que controla el tiempo */
+.scroll-driver {
+  position: relative;
+}
+
+/* ── SCENE 1: TITLE CARD ── */
+.scene-title {
+  position: sticky; top: 0;
+  height: 100svh; overflow: hidden;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  background: var(--bg);
+}
+.title-spacer { height: 300vh; } /* cuánto scroll ocupa esta escena */
+
+/* Fondo de la escena 1 */
+.s1-bg {
+  position: absolute; inset: 0; z-index: 0;
+}
+.s1-bg canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* Líneas de luz que cruzan */
+.s1-lines {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  overflow: hidden;
+}
+.s1-line {
+  position: absolute; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--purple), transparent);
+  opacity: 0;
+  animation: lineSweep 3s ease-in-out infinite;
+}
+.s1-line:nth-child(1){ top: 25%; width: 100%; animation-delay: 0s; }
+.s1-line:nth-child(2){ top: 50%; width: 100%; animation-delay: .8s; }
+.s1-line:nth-child(3){ top: 75%; width: 100%; animation-delay: 1.6s; }
+@keyframes lineSweep {
+  0%{ transform: translateX(-100%); opacity: 0; }
+  20%{ opacity: .6; }
+  80%{ opacity: .6; }
+  100%{ transform: translateX(100%); opacity: 0; }
+}
+
+/* Contenido del título */
+.title-content {
+  position: relative; z-index: 5;
+  text-align: center;
+  transform: translateY(var(--title-y, 0px));
+  opacity: var(--title-opacity, 1);
+}
+.title-eyebrow {
+  font-size: 10px; font-weight: 300; letter-spacing: 5px;
+  text-transform: uppercase; color: rgba(240,236,230,.4);
+  margin-bottom: 32px;
+  transform: translateY(var(--eye-y, 0px));
+  opacity: var(--eye-op, 1);
+}
+.title-h1 {
+  font-size: clamp(52px, 11vw, 160px);
+  font-weight: 900; line-height: .85;
+  letter-spacing: -4px;
+  color: var(--white);
+  overflow: hidden;
+}
+.title-h1 .line {
+  display: block; overflow: hidden;
+}
+.title-h1 .line span {
+  display: block;
+  transform: translateY(var(--line-y, 110%));
+  opacity: var(--line-op, 0);
+  transition: none;
+}
+.title-h1 .line:nth-child(2) span { color: var(--purple2); }
+.title-h1 .line:nth-child(3) span {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(240,236,230,.25);
+  font-style: italic; font-weight: 200;
+}
+
+/* Typing bajo el título */
+.title-typing {
+  margin-top: 32px; min-height: 30px;
+  font-size: clamp(14px, 2vw, 22px); font-weight: 200;
+  letter-spacing: 2px; color: rgba(240,236,230,.55);
+  transform: translateY(var(--type-y, 20px));
+  opacity: var(--type-op, 0);
+}
+#typingEl2::after {
+  content: '|'; animation: blink .7s step-end infinite;
+  color: var(--accent); margin-left: 2px;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* CTA scroll hint */
+.title-scroll {
+  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  font-size: 9px; font-weight: 300; letter-spacing: 3px;
+  text-transform: uppercase; color: rgba(240,236,230,.3);
+  opacity: var(--scroll-op, 1);
+  animation: scrollBob 2s ease-in-out infinite;
+}
+@keyframes scrollBob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+.scroll-line {
+  width: 1px; height: 40px;
+  background: linear-gradient(var(--purple), transparent);
+}
+
+/* ── SCENE 2: REEL HORIZONTAL ── */
+.scene-reel {
+  position: sticky; top: 0;
+  height: 100svh; overflow: hidden;
+  background: #0a0a0a;
+  display: flex; align-items: center;
+}
+.reel-spacer { height: 400vh; }
+
+.reel-track {
+  display: flex; gap: 24px;
+  padding: 0 80px;
+  will-change: transform;
+}
+.reel-card {
+  flex-shrink: 0;
+  width: clamp(260px, 28vw, 420px);
+  aspect-ratio: 9/16;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  transform: rotate(var(--card-rot)) scale(var(--card-scale, 1));
+  box-shadow: 0 32px 80px rgba(0,0,0,.7);
+  transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+}
+.reel-card:hover { transform: rotate(0deg) scale(1.04) !important; }
+.reel-card img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform .5s;
+}
+.reel-card:hover img { transform: scale(1.06); }
+.reel-card-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(8,8,8,.92));
+  padding: 32px 20px 22px;
+}
+.reel-cat {
+  font-size: 9px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 5px;
+}
+.reel-title {
+  font-size: clamp(16px, 2vw, 22px); font-weight: 700;
+  color: var(--white); line-height: 1.1; margin-bottom: 10px;
+}
+.reel-link {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; text-decoration: none;
+  color: var(--purple2); display: inline-flex; align-items: center; gap: 5px;
+}
+.reel-link::after { content: '→'; }
+
+/* Label del reel */
+.reel-label {
+  position: absolute; left: 80px; top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(60px, 10vw, 140px);
+  font-weight: 900; letter-spacing: -4px;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(240,236,230,.06);
+  user-select: none; pointer-events: none; line-height: 1;
+  z-index: 0;
+}
+
+/* Progress del reel */
+.reel-progress {
+  position: absolute; bottom: 32px; left: 80px;
+  display: flex; align-items: center; gap: 16px;
+}
+.reel-prog-bar {
+  width: 180px; height: 1px; background: rgba(255,255,255,.1);
+  position: relative;
+}
+.reel-prog-fill {
+  position: absolute; top: 0; left: 0; height: 100%;
+  background: var(--accent); width: 0%;
+  transition: width .1s;
+}
+.reel-prog-txt {
+  font-size: 11px; font-weight: 300; letter-spacing: 2px;
+  color: rgba(255,255,255,.3);
+}
+
+/* ── SCENE 3: SOBRE MÍ ── */
+.scene-about {
+  position: relative;
+  background: var(--white);
+  color: var(--bg);
+  min-height: 100svh;
+  overflow: hidden;
+  display: flex; align-items: center;
+  padding: 120px 10vw;
+}
+
+/* Texto enorme de fondo */
+.about-bg-txt {
+  position: absolute; right: -2%; bottom: -4%;
+  font-size: 22vw; font-weight: 900; line-height: 1;
+  color: rgba(17,17,17,.04); pointer-events: none;
+  user-select: none; letter-spacing: -8px;
+}
+
+.about-inner {
+  display: grid; gap: 80px; max-width: 1100px; margin: 0 auto;
+  position: relative; z-index: 1;
+  width: 100%;
+}
+@media(min-width:820px){ .about-inner { grid-template-columns: 300px 1fr; align-items: start; } }
+
+/* Foto editorial */
+.about-photo {
+  position: relative;
+}
+.about-photo-frame {
+  position: relative; overflow: hidden;
+  aspect-ratio: 3/4;
+  transform: rotate(-2deg);
+  transition: transform .5s cubic-bezier(.34,1.56,.64,1);
+  box-shadow: 12px 20px 60px rgba(17,17,17,.25);
+}
+.about-photo-frame:hover { transform: rotate(0deg) scale(1.02); }
+.about-photo-frame img {
+  width: 100%; height: 100%; object-fit: cover; object-position: center top;
+  display: block;
+}
+.about-photo-tag {
+  position: absolute; bottom: -12px; right: -12px;
+  background: var(--purple); color: #fff;
+  font-size: 9px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; padding: 8px 16px;
+  transform: rotate(3deg);
+}
+.about-photo-year {
+  position: absolute; top: 16px; left: -16px;
+  background: var(--accent); color: var(--bg);
+  font-size: 11px; font-weight: 900; padding: 4px 10px;
+  font-family: 'Courier New', monospace;
+  transform: rotate(-90deg); transform-origin: top left;
+  letter-spacing: 2px;
+}
+
+/* Texto sobre mí */
+.about-text {}
+.about-section-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--purple);
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 24px;
+}
+.about-section-label::before { content: ''; width: 20px; height: 2px; background: var(--purple); }
+
+.about-h2 {
+  font-size: clamp(36px, 5vw, 72px); font-weight: 900;
+  line-height: .9; letter-spacing: -2px;
+  color: var(--bg); margin-bottom: 28px;
+}
+.about-h2 em { font-style: italic; font-weight: 200; }
+
+.about-p {
+  font-size: 16px; font-weight: 300; line-height: 1.85;
+  color: rgba(17,17,17,.6); max-width: 480px; margin-bottom: 32px;
+}
+.about-p strong { color: var(--bg); font-weight: 700; }
+
+/* Stats en línea */
+.about-stats {
+  display: flex; gap: 40px; margin-bottom: 40px;
+  padding-top: 28px; border-top: 1px solid rgba(17,17,17,.1);
+}
+.stat-item { display: flex; flex-direction: column; }
+.stat-n {
+  font-size: 40px; font-weight: 900; line-height: 1;
+  color: var(--bg);
+}
+.stat-l {
+  font-size: 9px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: rgba(17,17,17,.35);
+  margin-top: 4px;
+}
+
+/* Chips de herramientas */
+.tools-wrap { display: flex; flex-wrap: wrap; gap: 7px; }
+.tool-chip {
+  font-size: 10px; font-weight: 600; letter-spacing: 1px;
+  padding: 5px 14px; cursor: default;
+  border: 1px solid rgba(17,17,17,.15);
+  color: rgba(17,17,17,.55);
+  transition: all .2s;
+}
+.tool-chip:hover { border-color: var(--purple); color: var(--purple); background: rgba(124,58,237,.05); }
+
+/* Acordeón */
+.acc-section { border-top: 1px solid rgba(17,17,17,.1); margin-top: 36px; }
+.acc-row { border-bottom: 1px solid rgba(17,17,17,.08); }
+.acc-trigger {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 0; cursor: none; user-select: none;
+}
+.acc-trigger:hover .acc-label { color: var(--purple); }
+.acc-label { font-size: 14px; font-weight: 600; color: var(--bg); transition: color .2s; }
+.acc-right { display: flex; align-items: center; gap: 10px; }
+.acc-pill {
+  font-size: 9px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; padding: 3px 10px;
+  background: rgba(124,58,237,.08); color: var(--purple);
+}
+.acc-icon {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 1.5px solid rgba(17,17,17,.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: var(--purple);
+  transition: all .3s cubic-bezier(.34,1.56,.64,1);
+}
+.acc-row.open .acc-icon { transform: rotate(45deg); background: var(--purple); border-color: var(--purple); color: #fff; }
+.acc-body { overflow: hidden; max-height: 0; transition: max-height .5s cubic-bezier(.16,1,.3,1); }
+.acc-body.open { max-height: 700px; }
+.acc-body-in { padding: 4px 0 20px; }
+
+.tl { display: flex; flex-direction: column; gap: 16px; }
+.tl-item { display: flex; gap: 14px; }
+.tl-bullet { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; margin-top: 4px; }
+.tl-dot { width: 8px; height: 8px; border-radius: 50%; }
+.tl-item:nth-child(1) .tl-dot { background: var(--purple); }
+.tl-item:nth-child(2) .tl-dot { background: var(--pink); }
+.tl-item:nth-child(3) .tl-dot { background: rgba(124,58,237,.4); }
+.tl-line { width: 1px; flex: 1; background: rgba(17,17,17,.08); margin-top: 4px; min-height: 12px; }
+.tl-c { flex: 1; }
+.tl-period { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(17,17,17,.3); margin-bottom: 2px; }
+.tl-co { font-size: 13px; font-weight: 700; color: var(--bg); }
+.tl-role { font-size: 11px; font-style: italic; color: var(--purple); margin-bottom: 8px; }
+.tl-pts { display: flex; flex-direction: column; gap: 4px; }
+.tl-pt { font-size: 11px; color: rgba(17,17,17,.5); padding-left: 12px; position: relative; }
+.tl-pt::before { content: '–'; position: absolute; left: 0; color: rgba(124,58,237,.4); }
+
+.edu-list { display: flex; flex-direction: column; gap: 8px; }
+.edu-row { display: flex; gap: 16px; padding: 10px 12px; border-left: 2px solid var(--purple); background: rgba(124,58,237,.04); }
+.edu-yr { font-size: 20px; font-weight: 900; color: var(--purple); min-width: 36px; line-height: 1; }
+.edu-t { font-size: 12px; font-weight: 600; color: var(--bg); }
+.edu-p { font-size: 10px; color: rgba(17,17,17,.35); }
+
+.cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.cert-c { padding: 10px 12px; border: 1px solid rgba(17,17,17,.1); transition: border-color .2s; }
+.cert-c:hover { border-color: var(--purple); }
+.cert-yr { font-size: 18px; font-weight: 900; color: var(--purple); }
+.cert-n { font-size: 12px; font-weight: 600; color: var(--bg); }
+.cert-e { font-size: 10px; color: rgba(17,17,17,.35); }
+
+.hab-flex { display: flex; flex-wrap: wrap; gap: 7px; }
+.htag { font-size: 11px; font-weight: 500; padding: 5px 14px; cursor: default; transition: all .2s; }
+.htag.a { background: rgba(124,58,237,.07); color: var(--purple); border: 1px solid rgba(124,58,237,.18); }
+.htag.b { background: rgba(17,17,17,.05); color: rgba(17,17,17,.6); border: 1px solid rgba(17,17,17,.12); }
+.htag:hover { transform: translateY(-2px); }
+
+/* ── SCENE 4: HABILIDADES ── */
+.scene-skills {
+  background: #0f0f0f; padding: 120px 10vw;
+  position: relative; overflow: hidden;
+}
+.skills-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 4px;
+  text-transform: uppercase; color: rgba(240,236,230,.25);
+  margin-bottom: 16px;
+}
+.skills-hl {
+  font-size: clamp(48px, 7vw, 100px); font-weight: 900;
+  line-height: .88; letter-spacing: -3px; color: var(--white);
+  margin-bottom: 64px;
+}
+.skills-hl em { font-style: italic; font-weight: 200; color: rgba(240,236,230,.35); }
+.skills-hl .accent { color: var(--accent); }
+
+.skills-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  border: 1px solid rgba(255,255,255,.06);
+}
+@media(max-width:820px){ .skills-grid { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:500px){ .skills-grid { grid-template-columns: 1fr; } }
+
+.skill-cell {
+  padding: 40px 32px 36px;
+  border-right: 1px solid rgba(255,255,255,.06);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  position: relative; overflow: hidden; cursor: none;
+  transition: background .35s;
+}
+.skill-cell:hover { background: rgba(124,58,237,.06); }
+.skill-cell::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--purple); transform: scaleX(0); transform-origin: left;
+  transition: transform .4s cubic-bezier(.16,1,.3,1);
+}
+.skill-cell:hover::after { transform: scaleX(1); }
+.skill-n { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(240,236,230,.18); margin-bottom: 24px; }
+.skill-ico { width: 42px; height: 42px; margin-bottom: 20px; filter: brightness(0) invert(.5); transition: filter .3s; }
+.skill-cell:hover .skill-ico { filter: brightness(0) invert(.75); }
+.skill-name { font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 10px; line-height: 1; }
+.skill-desc { font-size: 12px; font-weight: 300; color: rgba(240,236,230,.4); line-height: 1.7; }
+.skill-badge { display: inline-block; margin-top: 12px; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border: 1px solid var(--accent); color: var(--accent); }
+
+/* ── SCENE 5: CONTACTO ── */
+.scene-contact {
+  background: var(--bg); position: relative; overflow: hidden;
+  padding: 120px 10vw 80px;
+}
+
+/* Onda entre proyectos y contacto */
+.wave-divider { background: var(--white); overflow: hidden; line-height: 0; }
+#waveCanvas { display: block; width: 100%; }
+
+.contact-grid {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; gap: 80px; align-items: start;
+}
+@media(min-width:820px){ .contact-grid { grid-template-columns: 1fr 1fr; } }
+
+.contact-hl {
+  font-size: clamp(56px, 9vw, 120px);
+  font-weight: 900; line-height: .85; letter-spacing: -3px;
+  color: var(--white); margin-bottom: 28px;
+}
+.contact-hl .accent { color: var(--accent); }
+.contact-hl em { font-style: italic; font-weight: 200; color: rgba(240,236,230,.35); }
+
+.contact-sub {
+  font-size: 15px; font-weight: 300; color: rgba(240,236,230,.4);
+  line-height: 1.8; max-width: 340px; margin-bottom: 40px;
+}
+.contact-btn {
+  font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  text-decoration: none; padding: 16px 40px;
+  background: var(--accent); color: var(--bg);
+  display: inline-block; transition: transform .25s, background .25s;
+}
+.contact-btn:hover { transform: translateY(-3px); background: #fff; }
+
+/* PANTONE CARDS */
+.pantone-set { display: flex; gap: 18px; align-items: flex-start; flex-wrap: wrap; }
+.pan {
+  width: 136px; display: flex; flex-direction: column; cursor: none;
+  filter: drop-shadow(0 12px 32px rgba(0,0,0,.6));
+  transition: transform .4s cubic-bezier(.34,1.56,.64,1), filter .4s;
+}
+.pan:nth-child(1){ transform: rotate(-2deg); }
+.pan:nth-child(2){ transform: rotate(1.2deg); margin-top: 22px; }
+.pan:nth-child(3){ transform: rotate(-1deg); margin-top: 12px; }
+.pan:hover{ transform: rotate(0) translateY(-14px) !important; filter: drop-shadow(0 20px 44px rgba(0,0,0,.7)); }
+.pan-swatch { height: 160px; position: relative; border-radius: 2px 2px 0 0; overflow: hidden; }
+.pan:nth-child(1) .pan-swatch { background: linear-gradient(160deg,#9333ea,#7c3aed,#6d28d9); }
+.pan:nth-child(2) .pan-swatch { background: linear-gradient(160deg,#1a1a1a,#0d0d0d,#050505); }
+.pan:nth-child(3) .pan-swatch { background: linear-gradient(160deg,#10b981,#059669,#047857); }
+.pan-swatch::after { content:''; position:absolute; inset:0; background: linear-gradient(135deg,rgba(255,255,255,.2) 0%,transparent 35%,rgba(0,0,0,.1) 100%); }
+.pan-hole { position:absolute; top:10px; left:50%; transform:translateX(-50%); width:13px; height:13px; border-radius:50%; z-index:2; background:rgba(0,0,0,.6); box-shadow:inset 0 2px 6px rgba(0,0,0,.9); }
+.pan-paper { background:#ede9df; padding:9px 11px 13px; border-radius:0 0 2px 2px; }
+.pan-code { font-family:'Courier New',monospace; font-size:10px; font-weight:700; color:rgba(15,10,5,.85); margin-bottom:2px; }
+.pan-cname { font-family:'Courier New',monospace; font-size:7px; letter-spacing:1.5px; text-transform:uppercase; color:rgba(15,10,5,.38); margin-bottom:8px; }
+.pan-rule { height:1px; background:rgba(15,10,5,.1); margin-bottom:8px; }
+.pan-lbl { font-family:'Courier New',monospace; font-size:7px; letter-spacing:1.5px; text-transform:uppercase; color:rgba(15,10,5,.38); margin-bottom:4px; }
+.pan-val { font-family:'Courier New',monospace; font-size:11px; font-weight:700; color:rgba(15,10,5,.85); line-height:1.4; word-break:break-all; }
+.pan-brand { margin-top:9px; text-align:right; font-family:'Courier New',monospace; font-size:8px; color:rgba(15,10,5,.18); }
+
+/* FOOTER */
+.footer-bar {
+  background: var(--bg); border-top: 1px solid rgba(255,255,255,.06);
+  padding: 20px 10vw; display: flex;
+  align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+}
+.footer-copy { font-size: 10px; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; color: rgba(240,236,230,.18); }
+.footer-avail { display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; color: rgba(240,236,230,.28); }
+.footer-avail::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--mint); box-shadow:0 0 8px rgba(16,245,160,.5); animation:recBlink 2s ease infinite; }
+
+/* ── REVEALS ── */
+[data-reveal] { opacity: 0; transform: translateY(30px); transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s; }
+[data-reveal].visible { opacity: 1; transform: none; }
+[data-reveal="left"] { transform: translateX(-30px); }
+[data-reveal="left"].visible { transform: none; }
+[data-reveal="right"] { transform: translateX(30px); }
+[data-reveal="right"].visible { transform: none; }
+.d1{ transition-delay: .08s; }
+.d2{ transition-delay: .16s; }
+.d3{ transition-delay: .24s; }
+.d4{ transition-delay: .32s; }
+</style>
+</head>
+<body>
+
+<!-- UI fija -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<canvas id="film-canvas"></canvas>
+<div id="timecode"><span class="rec"></span><span id="tcDisplay">00:00:00:00</span></div>
+<div id="progress-bar"><div id="progress-fill"></div></div>
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Inicio</button>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <a class="nav-logo" href="#">NEEERGRAPHS</a>
+  <ul class="nav-links">
+    <li><a href="#about-anchor">Sobre</a></li>
+    <li><a href="#skills-anchor">Habilidades</a></li>
+    <li><a href="#reel-anchor">Proyectos</a></li>
+    <li><a href="#contact-anchor">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════════════
+   ACTO I — TITLE CARD (sticky, scroll-driven)
+══════════════════════════════════════════ -->
+<div class="scroll-driver" id="scene1-driver">
+  <div class="title-spacer"></div>
+  <div class="scene-title" id="scene1">
+    <div class="s1-bg">
+      <canvas id="bgCanvas"></canvas>
+    </div>
+    <div class="s1-lines">
+      <div class="s1-line"></div>
+      <div class="s1-line"></div>
+      <div class="s1-line"></div>
+    </div>
+
+    <div class="title-content" id="titleContent">
+      <div class="title-eyebrow" id="titleEye">
+        Diseñadora Gráfica &amp; Motion · Madrid 2026
+      </div>
+      <h1 class="title-h1">
+        <span class="line"><span id="l1">NEREA</span></span>
+        <span class="line"><span id="l2">RAMÍREZ</span></span>
+        <span class="line"><span id="l3">diseña.</span></span>
+      </h1>
+      <div class="title-typing" id="titleTyping">
+        Especialista en <span id="typingEl2"></span>
+      </div>
+    </div>
+
+    <div class="title-scroll" id="scrollHint">
+      <div class="scroll-line"></div>
+      SCROLL PARA DESCUBRIR
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+   ACTO II — EL REEL (scroll horizontal)
+══════════════════════════════════════════ -->
+<div id="reel-anchor"></div>
+<div class="scroll-driver" id="scene2-driver">
+  <div class="reel-spacer"></div>
+  <div class="scene-reel" id="scene2">
+    <div class="reel-label">SHOWREEL</div>
+    <div class="reel-track" id="reelTrack">
+      <div class="fan-card reel-card" style="--card-rot:-4deg">
+        <img src="destacada-magnum-final.png" alt="Campaña Magnum">
+        <div class="reel-card-info">
+          <div class="reel-cat">Campaña 360°</div>
+          <div class="reel-title">Campaña 360 Magnum</div>
+          <a href="proyecto-magnum.html" target="_blank" class="reel-link">Ver proyecto</a>
+        </div>
+      </div>
+      <div class="fan-card reel-card" style="--card-rot:2deg">
+        <img src="destacadas-dolce-vitta.png" alt="Dolce Vitta">
+        <div class="reel-card-info">
+          <div class="reel-cat">Branding & RRSS</div>
+          <div class="reel-title">Dolce Vitta</div>
+          <a href="proyecto-dolcevitta.html" target="_blank" class="reel-link">Ver proyecto</a>
+        </div>
+      </div>
+      <div class="fan-card reel-card" style="--card-rot:-2.5deg">
+        <img src="destacadas-HOME.png" alt="Vídeo Home">
+        <div class="reel-card-info">
+          <div class="reel-cat">After Effects</div>
+          <div class="reel-title">Vídeo inmersivo Home</div>
+          <a href="proyecto-home.html" target="_blank" class="reel-link">Ver proyecto</a>
+        </div>
+      </div>
+      <div class="fan-card reel-card" style="--card-rot:3deg">
+        <img src="destacadas-superboy.png" alt="Superboy">
+        <div class="reel-card-info">
+          <div class="reel-cat">VFX</div>
+          <div class="reel-title">Simulación Superboy</div>
+          <a href="proyecto-superboy.html" target="_blank" class="reel-link">Ver proyecto</a>
+        </div>
+      </div>
+      <div class="fan-card reel-card" style="--card-rot:-1.5deg">
+        <img src="destacada-hotwheel.png" alt="Hot Wheels">
+        <div class="reel-card-info">
+          <div class="reel-cat">IA Generativa</div>
+          <div class="reel-title">Vídeo Hot Wheels</div>
+          <a href="proyecto-hotwheels.html" target="_blank" class="reel-link">Ver proyecto</a>
+        </div>
+      </div>
+      <div class="fan-card reel-card" style="--card-rot:2.5deg">
+        <img src="destacada-nextfloor.png" alt="Nextfloor">
+        <div class="reel-card-info">
+          <div class="reel-cat">Infografía RRSS</div>
+          <div class="reel-title">Coworking Nextfloor</div>
+          <a href="proyecto-nextfloor.html" target="_blank" class="reel-link">Ver proyecto</a>
+        </div>
+      </div>
+      <div class="fan-card reel-card" style="--card-rot:-3deg;opacity:.6;filter:blur(2px)">
+        <img src="destacadas-mueblesboom.png" alt="Muebles Boom" style="filter:grayscale(.5)">
+        <div class="reel-card-info">
+          <div class="reel-cat" style="color:var(--purple2)">🔒 En proceso</div>
+          <div class="reel-title">Rebranding Muebles Boom</div>
+        </div>
+      </div>
+      <div class="fan-card reel-card" style="--card-rot:1.5deg;opacity:.6;filter:blur(2px)">
+        <img src="destacadas-camisetas.png" alt="Camisetas" style="filter:grayscale(.5)">
+        <div class="reel-card-info">
+          <div class="reel-cat" style="color:var(--purple2)">🔒 En proceso</div>
+          <div class="reel-title">Diseños de camisetas</div>
+        </div>
+      </div>
+    </div>
+    <div class="reel-progress">
+      <div class="reel-prog-bar"><div class="reel-prog-fill" id="reelProgFill"></div></div>
+      <div class="reel-prog-txt" id="reelProgTxt">01 / 08</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+   ACTO III — SOBRE MÍ
+══════════════════════════════════════════ -->
+<div id="about-anchor"></div>
+<section class="scene-about">
+  <div class="about-bg-txt">02</div>
+  <div class="about-inner">
+    <div class="about-photo" data-reveal="left">
+      <div class="about-photo-year">2026</div>
+      <div class="about-photo-frame">
+        <img src="nerea.ramirez.png" alt="Nerea Ramírez — Diseñadora Gráfica">
+        <div class="about-photo-tag">Diseñadora Gráfica</div>
+      </div>
+    </div>
+
+    <div class="about-text">
+      <div class="about-section-label" data-reveal>El making-of</div>
+      <h2 class="about-h2" data-reveal>
+        Hola,<br>
+        soy <em>Nerea.</em>
+      </h2>
+      <p class="about-p" data-reveal class="d1">
+        Y <strong>me apasiona</strong> lo que hago. Grabo, edito, diseño y animo —
+        todo en el mismo espacio creativo, sin perder el hilo entre disciplinas.
+        <strong>Tomo un brief en blanco y lo convierto en una pieza que comunica de verdad.</strong>
+      </p>
+      <div class="about-stats" data-reveal>
+        <div class="stat-item"><span class="stat-n">3+</span><span class="stat-l">Años</span></div>
+        <div class="stat-item"><span class="stat-n">∞</span><span class="stat-l">Creatividad</span></div>
+        <div class="stat-item"><span class="stat-n">2</span><span class="stat-l">Másteres</span></div>
+      </div>
+      <div data-reveal class="d2">
+        <div style="font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(17,17,17,.3);margin-bottom:10px">Herramientas</div>
+        <div class="tools-wrap">
+          <span class="tool-chip">Photoshop</span><span class="tool-chip">Illustrator</span>
+          <span class="tool-chip">Premiere</span><span class="tool-chip">After Effects</span>
+          <span class="tool-chip">InDesign</span><span class="tool-chip">Cap Cut</span>
+          <span class="tool-chip">Sora AI</span><span class="tool-chip">ChatGPT</span>
+          <span class="tool-chip">Gemini</span><span class="tool-chip">Metricool</span>
+          <span class="tool-chip">Meta Ads</span><span class="tool-chip">Wordpress</span>
+        </div>
+      </div>
+
+      <div class="acc-section" data-reveal>
+        <div class="acc-row">
+          <div class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-label">Experiencia</span>
+            <div class="acc-right"><span class="acc-pill">3 años</span><div class="acc-icon">+</div></div>
+          </div>
+          <div class="acc-body"><div class="acc-body-in">
+            <div class="tl">
+              <div class="tl-item"><div class="tl-bullet"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-c"><div class="tl-period">Jun 2024 — Actual</div><div class="tl-co">Ádraba</div><div class="tl-role">Diseñadora Gráfica & Community Manager</div><div class="tl-pts"><div class="tl-pt">Producción integral: concepto, diseño, grabación, edición y publicación.</div><div class="tl-pt">Campañas de marketing digital y motion graphics 2D.</div><div class="tl-pt">IA generativa para ideación y optimización creativa.</div></div></div></div>
+              <div class="tl-item"><div class="tl-bullet"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-c"><div class="tl-period">Jun — Sep 2023</div><div class="tl-co">Lunaro Solutions</div><div class="tl-role">Community Manager</div><div class="tl-pts"><div class="tl-pt">Gestión estratégica LinkedIn y contenido audiovisual.</div></div></div></div>
+              <div class="tl-item"><div class="tl-bullet"><div class="tl-dot"></div></div><div class="tl-c"><div class="tl-period">Mar — Jun 2023</div><div class="tl-co">Jastag</div><div class="tl-role">Asistente Diseño y Comunicación Digital</div><div class="tl-pts"><div class="tl-pt">Diseño web, SEO y postproducción audiovisual.</div></div></div></div>
+            </div>
+          </div></div>
+        </div>
+        <div class="acc-row">
+          <div class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-label">Formación</span>
+            <div class="acc-right"><span class="acc-pill">3 títulos</span><div class="acc-icon">+</div></div>
+          </div>
+          <div class="acc-body"><div class="acc-body-in">
+            <div class="edu-list">
+              <div class="edu-row"><div class="edu-yr">25</div><div><div class="edu-t">Máster Motion Graphics, VFX, Diseño 3D, 4D y Dirección de arte</div><div class="edu-p">CEI</div></div></div>
+              <div class="edu-row"><div class="edu-yr">23</div><div><div class="edu-t">Máster Diseño Gráfico, Diseño web y Marketing Digital</div><div class="edu-p">CEI</div></div></div>
+              <div class="edu-row"><div class="edu-yr">21</div><div><div class="edu-t">Grado Superior en Marketing y Publicidad</div><div class="edu-p">IES Clara del Rey</div></div></div>
+            </div>
+          </div></div>
+        </div>
+        <div class="acc-row">
+          <div class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-label">Certificaciones</span>
+            <div class="acc-right"><span class="acc-pill">4 certs</span><div class="acc-icon">+</div></div>
+          </div>
+          <div class="acc-body"><div class="acc-body-in">
+            <div class="cert-grid">
+              <div class="cert-c"><div class="cert-yr">25</div><div class="cert-n">Elements of AI</div><div class="cert-e">University of Helsinki</div></div>
+              <div class="cert-c"><div class="cert-yr">25</div><div class="cert-n">Diseño Gráfico</div><div class="cert-e">Edutin Academy</div></div>
+              <div class="cert-c"><div class="cert-yr">24</div><div class="cert-n">Inbound Marketing</div><div class="cert-e">Hubspot Academy</div></div>
+              <div class="cert-c"><div class="cert-yr">24</div><div class="cert-n">Marketing Digital</div><div class="cert-e">Google Actívate</div></div>
+            </div>
+          </div></div>
+        </div>
+        <div class="acc-row">
+          <div class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-label">Habilidades</span>
+            <div class="acc-right"><span class="acc-pill">Especialidades</span><div class="acc-icon">+</div></div>
+          </div>
+          <div class="acc-body"><div class="acc-body-in">
+            <div class="hab-flex">
+              <span class="htag a">Diseño gráfico</span><span class="htag b">Motion graphics</span><span class="htag a">Dirección de arte</span><span class="htag a">Storytelling visual</span><span class="htag a">IA generativa</span><span class="htag b">Vídeo corporativo</span><span class="htag a">Identidad de marca</span><span class="htag b">Postproducción</span><span class="htag a">Fotografía</span><span class="htag b">Diseño 3D</span><span class="htag a">Campañas digitales</span><span class="htag b">Grabación in situ</span>
+            </div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+   ACTO IV — HABILIDADES
+══════════════════════════════════════════ -->
+<div id="skills-anchor"></div>
+<section class="scene-skills">
+  <div class="skills-label" data-reveal>Qué puedo hacer</div>
+  <h2 class="skills-hl" data-reveal>
+    SEIS<br>
+    <em>disciplinas,</em><br>
+    <span class="accent">UN LENGUAJE</span>
+  </h2>
+  <div class="skills-grid" data-reveal>
+    <div class="skill-cell"><div class="skill-n">01</div><img class="skill-ico" src="video.png" alt=""><div class="skill-name">Edición de vídeo</div><p class="skill-desc">Narrativa, ritmo y emoción. Premiere, After Effects, Cap Cut.</p></div>
+    <div class="skill-cell"><div class="skill-n">02</div><img class="skill-ico" src="vector.png" alt=""><div class="skill-name">Diseño gráfico</div><p class="skill-desc">Identidad visual que comunica sin palabras. Photoshop, Illustrator, InDesign.</p></div>
+    <div class="skill-cell"><div class="skill-n">03</div><img class="skill-ico" src="rrss.png" alt=""><div class="skill-name">Contenido RRSS</div><p class="skill-desc">Piezas para enganchar, retener y crecer.</p></div>
+    <div class="skill-cell"><div class="skill-n">04</div><img class="skill-ico" src="grabacion.png" alt=""><div class="skill-name">Grabación</div><p class="skill-desc">Presencia in situ. Eventos, corporativo y producto.</p></div>
+    <div class="skill-cell"><div class="skill-n">05</div><img class="skill-ico" src="motion-graphics.png" alt=""><div class="skill-name">Motion Graphics</div><p class="skill-desc">Animaciones 2D, intros y transitions que dan vida a cualquier pieza.</p></div>
+    <div class="skill-cell"><div class="skill-n">06</div><img class="skill-ico" src="3d.png" alt=""><div class="skill-name">Diseño 3D</div><p class="skill-desc">Modelado, render y animación 3D. En evolución continua.</p><span class="skill-badge">En aprendizaje</span></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+   ACTO V — CONTACTO + CRÉDITOS FINALES
+══════════════════════════════════════════ -->
+<div id="contact-anchor"></div>
+<div class="wave-divider"><canvas id="waveCanvas" height="120"></canvas></div>
+
+<section class="scene-contact">
+  <div class="contact-grid">
+    <div data-reveal="left">
+      <h2 class="contact-hl">
+        HABLE<br>
+        <em>mos</em><br>
+        <span class="accent">:)</span>
+      </h2>
+      <p class="contact-sub">
+        ¿Tienes algo en mente? Me encantaría escucharte.
+        Ya sea un proyecto, una idea loca o simplemente presentarte —
+        escríbeme sin miedo.
+      </p>
+      <a href="mailto:nerearamimarti@gmail.com" class="contact-btn">Escribir ahora →</a>
+    </div>
+
+    <div data-reveal="right" style="transition-delay:.12s">
+      <div class="pantone-set">
+        <div class="pan">
+          <div class="pan-swatch"><div class="pan-hole"></div></div>
+          <div class="pan-paper"><div class="pan-code">PANTONE® 267 C</div><div class="pan-cname">Neeergraphs Purple</div><div class="pan-rule"></div><div class="pan-lbl">Teléfono</div><div class="pan-val">653 607 909</div><div class="pan-brand">Pantone®</div></div>
+        </div>
+        <div class="pan">
+          <div class="pan-swatch"><div class="pan-hole"></div></div>
+          <div class="pan-paper"><div class="pan-code">PANTONE® 2766 C</div><div class="pan-cname">Deep Ink</div><div class="pan-rule"></div><div class="pan-lbl">Email</div><div class="pan-val" style="font-size:9.5px">nerearamimarti@gmail.com</div><div class="pan-brand">Pantone®</div></div>
+        </div>
+        <div class="pan">
+          <div class="pan-swatch"><div class="pan-hole"></div></div>
+          <div class="pan-paper"><div class="pan-code">PANTONE® 3395 C</div><div class="pan-cname">Madrid Mint</div><div class="pan-rule"></div><div class="pan-lbl">Ubicación</div><div class="pan-val">Madrid · SSReyes</div><div class="pan-brand">Pantone®</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="footer-bar">
+  <span class="footer-copy">© 2026 Neeergraphs — Nerea Ramírez</span>
+  <span class="footer-avail">Disponible para proyectos · Madrid</span>
+</div>
+
+<script>
+/* ══════════════════════════════════════
+   MOTOR CINEMATOGRÁFICO
+   Todo controlado por scroll position.
+   requestAnimationFrame sincronizado.
+══════════════════════════════════════ */
+
+/* ── Cursor ── */
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+});
+(function ringLoop() {
+  requestAnimationFrame(ringLoop);
+  rx += (mx - rx) * .12; ry += (my - ry) * .12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+})();
+
+/* ── Film grain canvas ── */
+(function() {
+  const c = document.getElementById('film-canvas');
+  const ctx = c.getContext('2d');
+  let frame = 0;
+  function resize() { c.width = innerWidth; c.height = innerHeight; }
+  resize(); window.addEventListener('resize', resize, { passive: true });
+  function draw() {
+    frame++;
+    ctx.clearRect(0,0,c.width,c.height);
+    // Grain de película
+    const imgData = ctx.createImageData(c.width, c.height);
+    const d = imgData.data;
+    for (let i = 0; i < d.length; i += 4) {
+      const v = Math.random() * 255 | 0;
+      d[i] = v; d[i+1] = v; d[i+2] = v; d[i+3] = Math.random() * 18 | 0;
+    }
+    ctx.putImageData(imgData, 0, 0);
+    // Scanlines sutiles
+    ctx.fillStyle = 'rgba(0,0,0,.03)';
+    for (let y = 0; y < c.height; y += 4) ctx.fillRect(0, y, c.width, 1);
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ── Fondo animado escena 1 ── */
+(function() {
+  const c = document.getElementById('bgCanvas');
+  const ctx = c.getContext('2d');
+  let t = 0;
+  function resize() { c.width = c.parentElement.clientWidth; c.height = c.parentElement.clientHeight; }
+  resize(); window.addEventListener('resize', resize, { passive: true });
+  function draw() {
+    t += .006;
+    const w = c.width, h = c.height;
+    ctx.clearRect(0,0,w,h);
+    // Fondo base
+    ctx.fillStyle = '#080808'; ctx.fillRect(0,0,w,h);
+    // Blob morado animado
+    const grd = ctx.createRadialGradient(
+      w*.6 + Math.sin(t)*(w*.1), h*.4 + Math.cos(t*.7)*(h*.1), 0,
+      w*.6, h*.4, w*.5
+    );
+    grd.addColorStop(0, 'rgba(124,58,237,.22)');
+    grd.addColorStop(.5, 'rgba(124,58,237,.06)');
+    grd.addColorStop(1, 'transparent');
+    ctx.fillStyle = grd; ctx.fillRect(0,0,w,h);
+    // Blob rosa
+    const grd2 = ctx.createRadialGradient(
+      w*.2 + Math.cos(t*.8)*(w*.08), h*.7 + Math.sin(t*.6)*(h*.08), 0,
+      w*.2, h*.7, w*.35
+    );
+    grd2.addColorStop(0, 'rgba(255,61,154,.1)');
+    grd2.addColorStop(1, 'transparent');
+    ctx.fillStyle = grd2; ctx.fillRect(0,0,w,h);
+    // Partículas
+    ctx.fillStyle = 'rgba(240,255,68,.04)';
+    for (let i = 0; i < 80; i++) {
+      const px = (Math.sin(i*0.618+t)*0.5+0.5)*w;
+      const py = (Math.cos(i*0.618*0.7+t*0.8)*0.5+0.5)*h;
+      const pr = Math.sin(i+t)*1.5+2;
+      ctx.beginPath(); ctx.arc(px,py,Math.max(pr,.5),0,Math.PI*2); ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ── Timecode ── */
+const tcDisplay = document.getElementById('tcDisplay');
+const startTime = Date.now();
+setInterval(() => {
+  const e = (Date.now()-startTime)/1000;
+  const h = (e/3600|0).toString().padStart(2,'0');
+  const m = ((e%3600)/60|0).toString().padStart(2,'0');
+  const s = (e%60|0).toString().padStart(2,'0');
+  const f = (e%1*25|0).toString().padStart(2,'0');
+  tcDisplay.textContent = `${h}:${m}:${s}:${f}`;
+}, 40);
+
+/* ── Onda ── */
+(function() {
+  const c = document.getElementById('waveCanvas'); if (!c) return;
+  const ctx = c.getContext('2d'); let t = 0;
+  function resize() { c.width = c.parentElement.clientWidth || innerWidth; c.height = 120; }
+  resize(); window.addEventListener('resize', resize, { passive: true });
+  function draw() {
+    t += .012; const w = c.width, h = 120;
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle = '#f0ece6'; ctx.fillRect(0,0,w,h);
+    ctx.beginPath(); ctx.moveTo(0,h);
+    for (let x = 0; x <= w; x += 6) {
+      const y = 50 + Math.sin((x/w)*Math.PI*3.5+t)*26 + Math.sin((x/w)*Math.PI*6.2+t*1.3)*11;
+      ctx.lineTo(x, y);
+    }
+    ctx.lineTo(w,h); ctx.lineTo(0,h); ctx.closePath();
+    ctx.fillStyle = '#080808'; ctx.fill();
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ── Typing ── */
+const phrases = ['diseño gráfico.','motion graphics.','edición de reels.','dirección de arte.','storytelling visual.','IA generativa.'];
+const typingEl = document.getElementById('typingEl2');
+let pi = 0, ci = 0, del = false;
+function type() {
+  const p = phrases[pi];
+  if (!del) { ci++; typingEl.textContent = p.slice(0,ci); if (ci===p.length){del=true;setTimeout(type,2200);return;} setTimeout(type,75); }
+  else { ci--; typingEl.textContent = p.slice(0,ci); if (ci===0){del=false;pi=(pi+1)%phrases.length;setTimeout(type,350);return;} setTimeout(type,38); }
+}
+setTimeout(type, 1200);
+
+/* ══════════════════════════════════════
+   SCROLL ENGINE — el cerebro de la película
+   Cada valor de scroll activa una animación
+══════════════════════════════════════ */
+
+const scene1Driver = document.getElementById('scene1-driver');
+const scene2Driver = document.getElementById('scene2-driver');
+const scene1 = document.getElementById('scene1');
+const titleContent = document.getElementById('titleContent');
+const titleEye = document.getElementById('titleEye');
+const l1 = document.getElementById('l1');
+const l2 = document.getElementById('l2');
+const l3 = document.getElementById('l3');
+const titleTyping = document.getElementById('titleTyping');
+const scrollHint = document.getElementById('scrollHint');
+const reelTrack = document.getElementById('reelTrack');
+const reelProgFill = document.getElementById('reelProgFill');
+const reelProgTxt = document.getElementById('reelProgTxt');
+const progFill = document.getElementById('progress-fill');
+const nav = document.getElementById('mainNav');
+const btt = document.getElementById('btt');
+
+// Normaliza un valor entre 0 y 1 dentro de un rango
+function norm(val, min, max) { return Math.max(0, Math.min(1, (val-min)/(max-min))); }
+// Lerp
+function lerp(a, b, t) { return a + (b-a)*t; }
+// Ease in-out
+function eio(t) { return t < .5 ? 2*t*t : -1+(4-2*t)*t; }
+
+function onScroll() {
+  const sy = window.scrollY;
+  const maxScroll = document.body.scrollHeight - innerHeight;
+  const globalProg = sy / maxScroll;
+
+  // Progress bar
+  progFill.style.height = (globalProg * 100) + '%';
+
+  // Nav
+  nav.classList.toggle('solid', sy > 60);
+
+  // BTT
+  btt.classList.toggle('show', sy > 600);
+
+  /* ── SCENE 1: TITLE CARD ──
+     scroll 0 → 300vh controlado por scene1Driver */
+  const s1top = scene1Driver.offsetTop;
+  const s1h = scene1Driver.offsetHeight - innerHeight;
+  const s1prog = norm(sy - s1top, 0, s1h); // 0..1
+
+  // Líneas de texto entran al principio
+  const inProg = norm(s1prog, 0, .08);
+  const lineY = lerp(110, 0, eio(inProg));
+  const lineOp = eio(inProg);
+  l1.style.transform = `translateY(${lineY}%)`;
+  l1.style.opacity = lineOp;
+  l2.style.transform = `translateY(${lerp(110,0,eio(norm(s1prog,.02,.1)))}%)`;
+  l2.style.opacity = eio(norm(s1prog,.02,.1));
+  l3.style.transform = `translateY(${lerp(110,0,eio(norm(s1prog,.04,.12)))}%)`;
+  l3.style.opacity = eio(norm(s1prog,.04,.12));
+
+  // Eyebrow y typing
+  const eyeIn = eio(norm(s1prog,.05,.15));
+  titleEye.style.transform = `translateY(${lerp(20,0,eyeIn)}px)`;
+  titleEye.style.opacity = eyeIn;
+  const typIn = eio(norm(s1prog,.1,.2));
+  titleTyping.style.transform = `translateY(${lerp(20,0,typIn)}px)`;
+  titleTyping.style.opacity = typIn;
+
+  // Scroll hint desaparece
+  scrollHint.style.opacity = 1 - eio(norm(s1prog,.05,.2));
+
+  // Al avanzar el scroll de escena 1, el título se aleja
+  const exitProg = eio(norm(s1prog,.65,1));
+  titleContent.style.transform = `translateY(${lerp(0,-80,exitProg)}px) scale(${lerp(1,.85,exitProg)})`;
+  titleContent.style.opacity = 1 - exitProg;
+
+  /* ── SCENE 2: REEL HORIZONTAL ── */
+  const s2top = scene2Driver.offsetTop;
+  const s2h = scene2Driver.offsetHeight - innerHeight;
+  const s2prog = norm(sy - s2top, 0, s2h); // 0..1
+
+  if (s2prog > 0 && s2prog < 1) {
+    const cards = reelTrack.querySelectorAll('.reel-card');
+    const totalWidth = reelTrack.scrollWidth - innerWidth + 160;
+    // Mover el track
+    reelTrack.style.transform = `translateX(${-totalWidth * s2prog}px)`;
+
+    // Progress del reel
+    const visible = Math.round(s2prog * (cards.length - 1)) + 1;
+    reelProgFill.style.width = (s2prog * 100) + '%';
+    reelProgTxt.textContent = `${visible.toString().padStart(2,'0')} / ${cards.length.toString().padStart(2,'0')}`;
+
+    // Las tarjetas se enderezan conforme pasan al centro
+    cards.forEach((card, i) => {
+      const baseRot = parseFloat(card.style.getPropertyValue('--card-rot')) || 0;
+      const cardProg = norm(s2prog - (i/cards.length)*.6, 0, .2);
+      card.style.transform = `rotate(${lerp(baseRot,0,eio(cardProg))}deg) scale(${lerp(.95,1,eio(cardProg))})`;
+    });
+  }
+}
+
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll(); // init
+
+/* ── INTERSECTION OBSERVER para reveals ── */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+  });
+}, { threshold: .1 });
+document.querySelectorAll('[data-reveal]').forEach(el => revealObs.observe(el));
+
+/* ── ACCORDION ── */
+function toggleAcc(trigger) {
+  const row = trigger.parentElement;
+  const body = row.querySelector('.acc-body');
+  const open = row.classList.contains('open');
+  document.querySelectorAll('.acc-row').forEach(r => { r.classList.remove('open'); r.querySelector('.acc-body').classList.remove('open'); });
+  if (!open) { row.classList.add('open'); body.classList.add('open'); }
+}
+
+/* ── PARALLAX MOUSE en escena 1 ── */
+const bgCanvas = document.getElementById('bgCanvas');
+document.addEventListener('mousemove', e => {
+  if (window.scrollY < innerHeight * 2) {
+    const mx2 = (e.clientX/innerWidth-.5)*2;
+    const my2 = (e.clientY/innerHeight-.5)*2;
+    if (titleContent) {
+      // Sutil parallax al mover el ratón
+      const cx = parseFloat(titleContent.style.transform?.match(/translateX\(([^)]+)\)/)?.[1]) || 0;
+      titleContent.style.transition = 'transform .1s linear, opacity .3s';
+    }
+  }
+});
+</script>
+</body>
+</html>
