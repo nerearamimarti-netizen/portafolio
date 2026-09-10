@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="favicon-hoja.svg">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
+<title>Vita Ashwagandha Gummies — Creative Campaign</title>
+<style>
+
+:root {
+  --bg:      #eaf5e1;
+  --bg-rgb:  234,245,225;
+  --panel:   #d7ecd0;
+  --sage:    #bfe6b0;
+  --forest:  #2f7d4f;
+  --forest2: #3fa868;
+  --berry:   #5b2a6b;
+  --berry2:  #7c3f97;
+  --navy:    #14213d;
+  --navy-rgb:20,33,61;
+  --leafdark:#1f4d2c;
+  --honey:   #e3ac3e;
+  --muted:   #35513f;
+  --bdr:     rgba(91,42,107,0.15);
+}
+
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+
+body {
+  font-family:'Poppins',sans-serif;
+  background:var(--bg);
+  color:var(--navy);
+  overflow-x:hidden;
+  cursor:none;
+}
+
+#bg-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
+
+/* ══ CURSOR HOJA / CARA FELIZ ══ */
+@media(hover:hover) and (pointer:fine){ body{cursor:none} #cur{display:flex!important} }
+#cur {
+  display:none; position:fixed; width:30px; height:30px;
+  pointer-events:none; z-index:9999; transform:translate(-50%,-50%);
+  align-items:center; justify-content:center;
+  transition:transform .18s cubic-bezier(.34,1.56,.64,1);
+  filter:drop-shadow(0 0 8px rgba(63,168,104,.55));
+}
+#cur.clicked { transform:translate(-50%,-50%) scale(1.25) rotate(8deg); filter:drop-shadow(0 0 10px rgba(227,172,62,.75)); }
+#cur svg { width:100%; height:100%; overflow:visible; }
+
+.ctrail {
+  position:fixed; border-radius:50%; pointer-events:none; z-index:9997;
+  transform:translate(-50%,-50%); animation:tfade .65s ease forwards;
+}
+@keyframes tfade {
+  0%   { opacity:.85; transform:translate(-50%,-50%) scale(1); }
+  100% { opacity:0;   transform:translate(-50%,-50%) scale(.05); }
+}
+
+/* ══ TEMBLOR "ESTRESADO" ══ */
+@keyframes stressShake {
+  0%,100% { transform: translate(0,0) rotate(0deg); }
+  10% { transform: translate(-1px,1px) rotate(-1deg); }
+  20% { transform: translate(1px,-1px) rotate(1deg); }
+  30% { transform: translate(-1px,-1px) rotate(0deg); }
+  40% { transform: translate(1px,1px) rotate(1deg); }
+  50% { transform: translate(-1px,0) rotate(-1deg); }
+  60% { transform: translate(1px,0) rotate(0deg); }
+  70% { transform: translate(0,1px) rotate(1deg); }
+  80% { transform: translate(0,-1px) rotate(-1deg); }
+  90% { transform: translate(-1px,1px) rotate(0deg); }
+}
+.shake {
+  display:inline-block;
+  color:var(--berry);
+  animation: stressShake .22s infinite linear;
+  transform-origin:center;
+}
+
+/* ══ BOTÓN VOLVER ══ */
+.back-home {
+  position:fixed; top:22px; right:22px; z-index:900;
+  background:var(--sage); color:var(--navy); text-decoration:none;
+  font-family:'Fredoka',sans-serif; font-size:15px; font-weight:600;
+  letter-spacing:.5px; padding:11px 24px; border-radius:999px;
+  box-shadow:0 8px 24px rgba(191,230,176,.55);
+  animation:floatBtn 3s ease-in-out infinite;
+  transition:box-shadow .2s, background .2s;
+}
+.back-home:hover { background:#a9dc98; box-shadow:0 12px 32px rgba(191,230,176,.8); }
+@keyframes floatBtn {
+  0%,100% { transform:translateY(0); }
+  50%      { transform:translateY(-5px); }
+}
+
+/* ══ HERO ══ */
+.hero {
+  position:relative; width:100%; height:56vh; min-height:420px;
+  overflow:hidden; z-index:1;
+  display:flex; align-items:center; justify-content:center;
+}
+.hero-img {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; filter:saturate(1.1) brightness(.68);
+  transform:scale(1.04); animation:heroBreath 9s ease-in-out infinite;
+}
+@keyframes heroBreath {
+  0%,100% { transform:scale(1.04); }
+  50%      { transform:scale(1.07); }
+}
+.hero-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(
+    180deg,
+    rgba(var(--navy-rgb),.20) 0%,
+    rgba(var(--navy-rgb),.45) 45%,
+    rgba(var(--bg-rgb),.96) 100%
+  );
+}
+.hero-title-block {
+  position:relative; z-index:2; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center; padding:0 30px;
+}
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:'Poppins',sans-serif; font-size:10px; font-weight:500;
+  letter-spacing:5px; text-transform:uppercase; color:rgba(255,255,255,.92);
+  margin-bottom:16px; opacity:0; animation:fadeUp .8s ease .2s forwards;
+}
+.hero-eyebrow span { display:inline-block; width:22px; height:1px; background:rgba(255,255,255,.7); }
+
+.hero-title-svg-wrap { width:min(880px, 92vw); opacity:0; animation:fadeUp .9s ease .4s forwards; }
+
+.title-fill { fill:url(#titleFill); paint-order:fill stroke; opacity:0; animation:fillAppear 1.2s ease 1.5s forwards; }
+.title-path {
+  fill:none; stroke:var(--honey); stroke-width:2.2;
+  stroke-linecap:round; stroke-linejoin:round;
+  stroke-dasharray:5000; stroke-dashoffset:5000;
+  animation:drawTitle 1.4s cubic-bezier(.4,0,.2,1) .3s forwards;
+  filter:drop-shadow(0 0 10px rgba(227,172,62,.85)) drop-shadow(0 0 26px rgba(227,172,62,.45));
+}
+@keyframes drawTitle { to { stroke-dashoffset:0; } }
+@keyframes fillAppear { 0%{opacity:0;} 30%{opacity:.3;} 70%{opacity:.7;} 100%{opacity:1;} }
+
+.hero-sub {
+  font-family:'Poppins',sans-serif; font-size:11px; font-weight:300;
+  letter-spacing:4px; text-transform:uppercase; color:rgba(255,255,255,.85);
+  margin-top:18px; opacity:0; animation:fadeUp .8s ease 2.5s forwards;
+}
+@keyframes fadeUp { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+
+/* ══ MARQUEE ══ */
+.marquee-wrap {
+  overflow:hidden; border-top:1px solid var(--bdr); border-bottom:1px solid var(--bdr);
+  padding:13px 0; background:linear-gradient(90deg,rgba(91,42,107,.06),rgba(234,245,225,.04));
+  position:relative; z-index:2;
+}
+.marquee-track { display:flex; gap:48px; white-space:nowrap; animation:marquee 26s linear infinite; }
+.marquee-track span { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--berry); opacity:.8; flex-shrink:0; }
+.marquee-track .dot { font-size:13px; }
+@keyframes marquee { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+
+/* ══ INFO — centrado ══ */
+.sw { max-width:780px; margin:0 auto; padding:80px 40px 40px; position:relative; z-index:1; text-align:center; }
+@media(max-width:640px){ .sw{ padding:60px 20px 30px; } }
+
+.info-title {
+  font-family:'Fredoka',sans-serif; font-size:clamp(28px,4.6vw,52px); font-weight:700;
+  color:var(--navy); margin-bottom:26px; line-height:1.15;
+}
+.info-text {
+  font-family:'Poppins',sans-serif; font-size:15px; font-weight:300; line-height:1.85;
+  color:var(--muted); margin-bottom:16px;
+}
+.info-text strong { font-weight:600; color:var(--berry); }
+
+.tech-chips { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; justify-content:center; }
+.chip {
+  font-size:11px; font-weight:500; letter-spacing:2px; text-transform:uppercase;
+  padding:8px 18px; border-radius:999px; border:1px solid var(--bdr); color:var(--berry);
+  background:rgba(255,255,255,.55); backdrop-filter:blur(8px);
+  transition:all .25s; cursor:none; font-family:'Poppins',sans-serif;
+  text-decoration:none; display:inline-block;
+}
+.chip:hover { background:var(--berry); color:white; border-color:var(--berry); transform:translateY(-2px) rotate(-1deg); }
+
+/* ══ QUOTE BUBBLES (insight) ══ */
+.bubble-field {
+  max-width:720px; margin:10px auto 34px; display:flex; flex-wrap:wrap;
+  gap:14px; justify-content:center; padding:0 20px;
+}
+.bubble {
+  background:white; border:1px solid var(--bdr); border-radius:18px 18px 18px 4px;
+  padding:12px 20px; font-family:'Poppins',sans-serif; font-size:14px; font-weight:500;
+  color:var(--navy); box-shadow:0 10px 24px rgba(91,42,107,.10);
+  animation:bubbleWobble 2.6s ease-in-out infinite;
+}
+.bubble:nth-child(2){ animation-delay:.3s; border-radius:18px 18px 4px 18px; }
+.bubble:nth-child(3){ animation-delay:.6s; }
+.bubble:nth-child(4){ animation-delay:.9s; border-radius:18px 18px 4px 18px; }
+@keyframes bubbleWobble {
+  0%,100% { transform:translateY(0) rotate(-1deg); }
+  50%      { transform:translateY(-5px) rotate(1deg); }
+}
+
+/* ══ CLAIM BOX ══ */
+.claim-box {
+  max-width:820px; margin:20px auto 10px; padding:44px 30px;
+  background:var(--navy); border-radius:32px; position:relative; overflow:hidden;
+}
+.claim-text {
+  font-family:'Fredoka',sans-serif; font-weight:700; text-align:center;
+  font-size:clamp(24px,4.2vw,42px); line-height:1.2; color:var(--bg);
+}
+.claim-text .shake { color:var(--honey); }
+.claim-sub { text-align:center; margin-top:16px; color:rgba(234,245,225,.7); font-size:13px; letter-spacing:1px; }
+
+/* ══ SECCIONES DE IMÁGENES ══ */
+.img-section { position:relative; z-index:2; padding:20px 40px 0; max-width:1060px; margin:0 auto; }
+@media(max-width:640px){ .img-section{ padding:20px 20px 0; } }
+
+.img-wrapper {
+  width:100%; overflow:hidden; border-radius:36px;
+  box-shadow:0 28px 72px rgba(20,33,61,.16), 0 8px 20px rgba(20,33,61,.09);
+}
+.img-wrapper img { width:100%; height:auto; border:0; display:block; }
+
+.asset-caption {
+  text-align:center; font-family:'Poppins',sans-serif; font-size:11px;
+  letter-spacing:3px; text-transform:uppercase; color:var(--forest);
+  margin:26px 0 14px; font-weight:600;
+}
+
+/* ══ SECTION TITLES ══ */
+.section-label {
+  font-family:'Fredoka',sans-serif; font-size:clamp(22px,3.5vw,36px); font-weight:700;
+  color:var(--navy); line-height:1.1; padding:0 40px; max-width:1080px; margin:0 auto 6px; display:block;
+}
+.section-kicker {
+  text-align:center; font-family:'Poppins',sans-serif; font-size:14px; font-weight:300;
+  color:var(--muted); max-width:640px; margin:0 auto 24px; padding:0 40px; line-height:1.7;
+}
+@media(max-width:640px){ .section-label, .section-kicker{ padding:0 20px; } }
+.section-label { text-align:center; }
+
+/* ══ CAROUSEL ══ */
+.carousel { position:relative; max-width:760px; margin:0 auto; padding:0 20px; }
+.carousel-viewport { overflow:hidden; border-radius:30px; }
+.carousel-track { display:flex; transition:transform .55s cubic-bezier(.4,0,.2,1); }
+.carousel-slide { flex:0 0 100%; padding:6px 26px 34px; }
+.carousel-slide .img-wrapper {
+  box-shadow:0 34px 60px rgba(20,33,61,.28), 0 12px 26px rgba(91,42,107,.18);
+}
+.carousel-nav { display:flex; align-items:center; justify-content:center; gap:18px; margin-top:6px; }
+.carousel-arrow {
+  width:40px; height:40px; border-radius:50%; border:none; background:var(--sage);
+  display:flex; align-items:center; justify-content:center; cursor:none;
+  transition:background .2s, transform .2s;
+}
+.carousel-arrow:hover { background:var(--forest2); transform:scale(1.08); }
+.carousel-arrow svg { width:16px; height:16px; stroke:var(--navy); }
+.carousel-dots { display:flex; gap:8px; }
+.carousel-dot { width:8px; height:8px; border-radius:50%; background:var(--bdr); border:none; cursor:none; transition:background .2s, transform .2s; }
+.carousel-dot.active { background:var(--berry); transform:scale(1.3); }
+
+/* ══ INSTAGRAM STORY (phone) ══ */
+.phone-wrap { max-width:320px; margin:10px auto 0; }
+.phone-frame {
+  position:relative; width:100%; padding-top:177.7%; border-radius:38px;
+  background:var(--navy); box-shadow:0 30px 60px rgba(20,33,61,.35), 0 0 0 8px rgba(255,255,255,.6);
+  overflow:hidden;
+}
+.phone-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+.phone-notch {
+  position:absolute; top:10px; left:50%; transform:translateX(-50%);
+  width:70px; height:16px; background:var(--navy); border-radius:999px; z-index:3;
+}
+
+/* ══ DOOH NOTIFICATION MOCKUP ══ */
+.dooh-wrap { max-width:640px; margin:10px auto 0; padding:0 20px; }
+.dooh-screen {
+  position:relative; width:100%; aspect-ratio:16/10; border-radius:26px;
+  background:radial-gradient(circle at 50% 30%, #1b2a4c 0%, #070b16 75%);
+  overflow:hidden; box-shadow:0 26px 60px rgba(20,33,61,.35);
+  display:flex; align-items:center; justify-content:center;
+}
+.dooh-notif {
+  position:relative; z-index:3; background:rgba(255,255,255,.97);
+  border-radius:18px; padding:16px 22px; display:flex; align-items:center; gap:12px;
+  box-shadow:0 14px 34px rgba(0,0,0,.35);
+  animation:notifDrop 1s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes notifDrop { from{opacity:0; transform:translateY(-24px) scale(.9);} to{opacity:1; transform:translateY(0) scale(1);} }
+.dooh-bell { font-size:22px; animation:bellRing 1.6s ease-in-out infinite; transform-origin:top center; }
+@keyframes bellRing {
+  0%,100% { transform:rotate(0); }
+  10%{transform:rotate(14deg);} 20%{transform:rotate(-12deg);} 30%{transform:rotate(8deg);}
+  40%{transform:rotate(-6deg);} 50%{transform:rotate(0);}
+}
+.dooh-notif-text b { display:block; font-family:'Fredoka',sans-serif; font-size:13px; color:var(--navy); }
+.dooh-notif-text span { font-family:'Poppins',sans-serif; font-size:12px; color:var(--muted); }
+
+.gummy { position:absolute; top:-40px; font-size:20px; animation:gummyFall linear infinite; z-index:2; }
+@keyframes gummyFall { to { transform:translateY(420px) rotate(360deg); opacity:.2; } }
+
+.dooh-label {
+  text-align:center; font-size:11px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--forest); font-weight:600; margin:22px 0 8px;
+}
+.dooh-note {
+  text-align:center; font-size:12px; font-style:italic; color:var(--muted); opacity:.75;
+  max-width:480px; margin:18px auto 0; padding:0 20px;
+}
+
+/* ══ FUNNEL 360 ══ */
+.channel-chips {
+  display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:820px; margin:0 auto 46px; padding:0 20px;
+}
+.channel-chip {
+  font-size:12px; font-weight:500; padding:9px 16px; border-radius:14px;
+  background:white; border:1px solid var(--bdr); color:var(--navy);
+  box-shadow:0 6px 14px rgba(91,42,107,.08);
+}
+.funnel {
+  display:flex; flex-wrap:wrap; justify-content:center; gap:14px; max-width:900px; margin:0 auto; padding:0 20px 20px;
+}
+.funnel-step {
+  flex:1 1 150px; max-width:190px; text-align:center; background:white; border-radius:24px;
+  padding:26px 16px 22px; box-shadow:0 16px 34px rgba(20,33,61,.10);
+  animation:funnelBounce 3s ease-in-out infinite;
+}
+.funnel-step:nth-child(2){ animation-delay:.25s; }
+.funnel-step:nth-child(3){ animation-delay:.5s; }
+.funnel-step:nth-child(4){ animation-delay:.75s; }
+@keyframes funnelBounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+.funnel-emoji { font-size:30px; display:block; margin-bottom:10px; }
+.funnel-title { font-family:'Fredoka',sans-serif; font-weight:700; font-size:14px; color:var(--navy); letter-spacing:1px; }
+
+/* ══ HERRAMIENTAS ══ */
+.tools-section { position:relative; z-index:2; padding:0 40px 100px; text-align:center; max-width:1080px; margin:0 auto; }
+.tools-grid { display:flex; justify-content:center; gap:80px; flex-wrap:wrap; padding-top:20px; }
+.tool-item { display:flex; flex-direction:column; align-items:center; gap:16px; animation:toolFloat 3.5s ease-in-out infinite; }
+.tool-item:nth-child(2) { animation-delay:.6s; }
+@keyframes toolFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+.tool-item img {
+  width:72px; height:72px; object-fit:contain;
+  filter:drop-shadow(0 14px 20px rgba(0,0,0,.2)) drop-shadow(0 4px 8px rgba(91,42,107,.3));
+  transition:filter .3s, transform .3s;
+}
+.tool-item:hover img {
+  filter:drop-shadow(0 20px 30px rgba(0,0,0,.25)) drop-shadow(0 6px 12px rgba(91,42,107,.5));
+  transform:scale(1.1);
+}
+.tool-shadow { width:50px; height:8px; border-radius:50%; background:rgba(91,42,107,.25); filter:blur(4px); transition:all .3s; }
+.tool-item:hover .tool-shadow { width:40px; opacity:.5; }
+.tool-name { font-family:'Poppins',sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); font-weight:500; margin-top:-8px; }
+
+/* ══ REVEAL ══ */
+.reveal { opacity:0; transform:translateY(32px); transition:opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1); }
+.reveal.visible { opacity:1; transform:none; }
+
+/* ══ FOOTER ══ */
+footer { position:relative; z-index:2; background:var(--sage); padding:90px 40px 70px; overflow:hidden; }
+.footer-ghost { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; overflow:hidden; }
+.footer-ghost span {
+  font-family:'Fredoka',sans-serif; font-weight:700; font-size:13vw; color:transparent;
+  -webkit-text-stroke:1px rgba(20,33,61,.08); white-space:nowrap; user-select:none;
+}
+.footer-deco { position:absolute; pointer-events:none; opacity:.16; }
+.footer-deco.fd1 { width:140px; height:180px; top:-30px; left:-30px; transform:rotate(12deg); }
+.footer-deco.fd2 { width:100px; height:100px; bottom:30px; right:80px; transform:rotate(-18deg); }
+.footer-deco.fd3 { width:80px;  height:80px;  bottom:20px; left:140px; transform:rotate(8deg); }
+
+.footer-inner { position:relative; z-index:2; max-width:900px; margin:0 auto; }
+.footer-heading { display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:28px; }
+.footer-label { font-family:'Fredoka',sans-serif; font-size:clamp(24px,3.6vw,40px); font-weight:700; color:rgba(20,33,61,.4); letter-spacing:1px; }
+.footer-project-name { font-family:'Playfair Display',serif; font-style:italic; font-weight:900; font-size:clamp(38px,6.6vw,78px); color:var(--navy); line-height:.95; }
+.footer-meta { font-family:'Poppins',sans-serif; font-size:13px; font-weight:300; letter-spacing:3px; text-transform:uppercase; color:rgba(20,33,61,.55); line-height:2; margin-bottom:48px; }
+.footer-cta {
+  display:inline-flex; align-items:center; gap:10px; font-family:'Fredoka',sans-serif; font-size:16px; font-weight:600;
+  text-decoration:none; color:white; background:var(--berry); padding:14px 30px; border-radius:999px;
+  transition:background .25s, transform .25s, box-shadow .25s; box-shadow:0 8px 24px rgba(91,42,107,.35);
+}
+.footer-cta:hover { background:var(--berry2); transform:translateY(-3px); box-shadow:0 14px 36px rgba(91,42,107,.45); }
+.footer-cta-arrow { display:inline-block; transition:transform .25s; }
+.footer-cta:hover .footer-cta-arrow { transform:translateX(4px); }
+.footer-divider { position:relative; z-index:2; max-width:900px; margin:48px auto 24px; height:1px; background:rgba(20,33,61,.14); }
+.footer-bottom { position:relative; z-index:2; max-width:900px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }
+.footer-bottom span { font-family:'Poppins',sans-serif; font-size:11px; color:rgba(20,33,61,.4); letter-spacing:2px; }
+
+/* ══ BACK TO TOP ══ */
+#back-top {
+  position:fixed; bottom:36px; right:36px; z-index:900; width:50px; height:50px; border-radius:50%;
+  background:var(--sage); border:none; cursor:none; opacity:0; pointer-events:none;
+  display:flex; align-items:center; justify-content:center; transition:opacity .4s, background .25s;
+  box-shadow:0 0 20px rgba(191,230,176,.7); animation:floatBtn 3s ease-in-out infinite;
+}
+#back-top.show { opacity:1; pointer-events:auto; }
+#back-top:hover { background:#a9dc98; box-shadow:0 0 32px rgba(191,230,176,.9); }
+#back-top svg { width:20px; height:20px; }
+
+.section-gap { height:60px; position:relative; z-index:2; }
+
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div id="cur"></div>
+
+<!-- ══ BACK TO TOP ══ -->
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Volver arriba">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="18 15 12 9 6 15" stroke="#14213d"/>
+  </svg>
+</button>
+
+<!-- ══ BOTÓN VOLVER ══ -->
+<a class="back-home" href="index.html#proyectos">← Volver</a>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <img class="hero-img" src="hero-aswa.png" alt="Vita Ashwagandha Gummies hero">
+  <div class="hero-overlay"></div>
+
+  <div class="hero-title-block">
+    <div class="hero-eyebrow">
+      <span></span>Creative Campaign · Art Direction<span></span>
+    </div>
+
+    <div class="hero-title-svg-wrap">
+      <svg viewBox="0 0 980 115" xmlns="http://www.w3.org/2000/svg" style="width:100%;overflow:visible;">
+        <defs>
+          <linearGradient id="titleFill" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stop-color="#153a24"/>
+            <stop offset="25%"  stop-color="#2f7d4f"/>
+            <stop offset="50%"  stop-color="#1f4d2c"/>
+            <stop offset="75%"  stop-color="#3fa868"/>
+            <stop offset="100%" stop-color="#12291a"/>
+          </linearGradient>
+        </defs>
+
+        <text class="title-fill" x="490" y="90" text-anchor="middle"
+          font-family="'Fredoka', sans-serif" font-size="72" font-weight="700" letter-spacing="-1">Vita Ashwagandha</text>
+
+        <text class="title-path" x="490" y="90" text-anchor="middle"
+          font-family="'Fredoka', sans-serif" font-size="72" font-weight="700" letter-spacing="-1">Vita Ashwagandha</text>
+      </svg>
+    </div>
+
+    <p class="hero-sub">Advertising · Social Media · DOOH · Copywriting</p>
+  </div>
+</section>
+
+<!-- ══ MARQUEE ══ -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>CAMPAIGN</span><span class="dot">🍃</span>
+    <span>CREATIVE CONCEPT</span><span class="dot">🍃</span>
+    <span>ART DIRECTION</span><span class="dot">🍃</span>
+    <span>ADVERTISING</span><span class="dot">🍃</span>
+    <span>SOCIAL MEDIA</span><span class="dot">🍃</span>
+    <span>DOOH</span><span class="dot">🍃</span>
+    <span>COPYWRITING</span><span class="dot">🍃</span>
+    <span>CAMPAIGN</span><span class="dot">🍃</span>
+    <span>CREATIVE CONCEPT</span><span class="dot">🍃</span>
+    <span>ART DIRECTION</span><span class="dot">🍃</span>
+    <span>ADVERTISING</span><span class="dot">🍃</span>
+    <span>SOCIAL MEDIA</span><span class="dot">🍃</span>
+    <span>DOOH</span><span class="dot">🍃</span>
+    <span>COPYWRITING</span><span class="dot">🍃</span>
+  </div>
+</div>
+
+<!-- ══ INFO — centrado ══ -->
+<div class="sw reveal">
+  <h2 class="info-title">¿Desde cuándo vivir <span class="shake">estresado</span> es lo normal?</h2>
+  <p class="info-text">
+    <strong>VITA ASHWAGANDHA GUMMIES</strong> es una propuesta de campaña creada para el lanzamiento de un nuevo producto de la marca Vita en España.
+  </p>
+  <p class="info-text">
+    Partiendo de un insight cotidiano —<strong>hemos normalizado vivir siempre a mil</strong>—, la campaña cuestiona esa sensación de estrés constante que hemos aprendido a aceptar como parte de nuestro día a día.
+  </p>
+  <p class="info-text">
+    Una campaña que transforma situaciones reconocibles —notificaciones, tareas pendientes, mensajes y ruido constante— en un universo visual que pone el estrés en primer plano y presenta Vita como una propuesta para recuperar el equilibrio.
+  </p>
+  <div class="tech-chips">
+    <span class="chip">Campaign</span>
+    <span class="chip">Creative Concept</span>
+    <span class="chip">Art Direction</span>
+    <span class="chip">Advertising</span>
+    <span class="chip">Social Media</span>
+    <span class="chip">DOOH</span>
+    <span class="chip">Copywriting</span>
+  </div>
+</div>
+
+<div class="section-gap"></div>
+
+<!-- ══ EL INSIGHT ══ -->
+<p class="section-label reveal">Nos hemos acostumbrado</p>
+<p class="section-kicker reveal">
+  Frases que utilizamos todos los días y que reflejan algo más profundo: hemos empezado a tratar el estrés como si fuera nuestro estado natural.
+</p>
+<div class="bubble-field reveal">
+  <div class="bubble">💬 Estoy a tope.</div>
+  <div class="bubble">📱 No paro.</div>
+  <div class="bubble">😮‍💨 Ya descansaré.</div>
+  <div class="bubble">🧳 Necesito vacaciones.</div>
+</div>
+<p class="section-kicker reveal" style="margin-top:-10px; font-weight:500; color:var(--navy);">
+  ¿Por qué hemos dejado de cuestionarlo?
+</p>
+
+<div class="section-gap"></div>
+
+<!-- ══ EL CONCEPTO CREATIVO ══ -->
+<div class="sw reveal">
+  <h2 class="info-title" style="font-size:clamp(24px,3.6vw,38px);">Cuestionar lo que hemos normalizado</h2>
+  <p class="info-text">
+    Si vivir <span class="shake">estresado</span> se ha convertido en "lo normal", la campaña empieza por ponerlo en duda: un concepto construido desde el contraste entre <strong>el ruido de nuestro día a día</strong> y <strong>los espacios de equilibrio</strong> que necesitamos dentro de él.
+  </p>
+</div>
+
+<div class="section-gap"></div>
+
+<!-- ══ LA CAMPAÑA / CLAIM ══ -->
+<div class="claim-box reveal">
+  <p class="claim-text">¿DESDE CUÁNDO VIVIR <span class="shake">ESTRESADO</span><br>ES LO NORMAL?</p>
+  <p class="claim-sub">El claim que hilvana toda la campaña · el caos y las notificaciones frente al espacio, la pausa y el equilibrio</p>
+</div>
+
+<div class="section-gap"></div>
+
+<!-- ══ CARTELERÍA ══ -->
+<p class="section-label reveal">Cartelería</p>
+<p class="section-kicker reveal">Del ruido a la pregunta. Una gráfica que lleva al espacio público aquello que todos reconocemos: vivir rodeados de cosas pendientes. Notificaciones, mensajes y tareas construyen el universo visual hasta dejar paso al claim y al producto.</p>
+<div class="img-section reveal">
+  <p class="asset-caption">Arte final</p>
+  <div class="img-wrapper">
+    <img src="A4_Cartel_Ashwagandha.jpg" alt="Cartel A4 Vita Ashwagandha — arte final">
+  </div>
+  <p class="asset-caption">Mockup</p>
+  <div class="img-wrapper">
+    <img src="Mockup-cartel.jpg" alt="Mockup del cartel Vita Ashwagandha">
+  </div>
+</div>
+
+<div class="section-gap"></div>
+
+<!-- ══ TRÍPTICO ══ -->
+<p class="section-label reveal">Tríptico</p>
+<p class="section-kicker reveal">Del impacto a la información. El flyer amplía la campaña y transforma la curiosidad inicial en conocimiento del producto: ashwagandha, vitamina D2, beneficios, composición y modo de uso, manteniendo el mismo universo visual.</p>
+
+<p class="asset-caption reveal">Artes finales</p>
+<div class="carousel reveal" data-carousel>
+  <div class="carousel-viewport">
+    <div class="carousel-track">
+      <div class="carousel-slide"><div class="img-wrapper"><img src="A4_Triptico_Ashwagandha_CaraA.jpg" alt="Tríptico Vita Ashwagandha — Cara A"></div></div>
+      <div class="carousel-slide"><div class="img-wrapper"><img src="A4_Triptico_Ashwagandha_CaraB.jpg" alt="Tríptico Vita Ashwagandha — Cara B"></div></div>
+    </div>
+  </div>
+  <div class="carousel-nav">
+    <button class="carousel-arrow" data-prev aria-label="Anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="carousel-dots"></div>
+    <button class="carousel-arrow" data-next aria-label="Siguiente">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+</div>
+
+<div class="section-gap"></div>
+
+<p class="asset-caption reveal">Mockups</p>
+<div class="carousel reveal" data-carousel>
+  <div class="carousel-viewport">
+    <div class="carousel-track">
+      <div class="carousel-slide"><div class="img-wrapper"><img src="Mockup-interior-triptico.jpg" alt="Mockup interior del tríptico Vita Ashwagandha"></div></div>
+      <div class="carousel-slide"><div class="img-wrapper"><img src="Mockup-triptico.jpg" alt="Mockup del tríptico Vita Ashwagandha"></div></div>
+    </div>
+  </div>
+  <div class="carousel-nav">
+    <button class="carousel-arrow" data-prev aria-label="Anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="carousel-dots"></div>
+    <button class="carousel-arrow" data-next aria-label="Siguiente">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+</div>
+
+<div class="section-gap"></div>
+
+<!-- ══ INSTAGRAM STORY ══ -->
+<p class="section-label reveal">Instagram Story</p>
+<p class="section-kicker reveal">El estrés también vive en nuestra pantalla. Una pieza audiovisual construida a partir del ritmo de las notificaciones: el ruido aumenta, se acumula y finalmente desaparece para dar paso al mensaje y al producto.</p>
+<div class="phone-wrap reveal">
+  <div class="phone-frame">
+    <div class="phone-notch"></div>
+    <iframe src="https://www.youtube.com/embed/omV2v1T-nK0" title="Instagram Story — Vita Ashwagandha Gummies" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+
+<div class="section-gap"></div>
+
+<!-- ══ DOOH — LA NOTIFICACIÓN QUE NO ESPERABAS ══ -->
+<p class="section-label reveal">La notificación que no esperabas</p>
+<p class="dooh-label reveal">Formato: DOOH · Pantallas digitales exteriores</p>
+<p class="section-kicker reveal">Después de una secuencia de anuncios, la pantalla se queda completamente en negro. Aparece una notificación inesperada — y una lluvia de gominolas da paso al producto y al claim de campaña.</p>
+
+<div class="dooh-wrap reveal">
+  <div class="dooh-screen">
+    <span class="gummy" style="left:12%; animation-duration:2.6s; animation-delay:.2s;">🟩</span>
+    <span class="gummy" style="left:26%; animation-duration:3.2s; animation-delay:.8s;">🟪</span>
+    <span class="gummy" style="left:40%; animation-duration:2.9s; animation-delay:0s;">🟨</span>
+    <span class="gummy" style="left:58%; animation-duration:3.4s; animation-delay:1.1s;">🟩</span>
+    <span class="gummy" style="left:72%; animation-duration:2.7s; animation-delay:.5s;">🟪</span>
+    <span class="gummy" style="left:86%; animation-duration:3.1s; animation-delay:1.4s;">🟨</span>
+    <div class="dooh-notif">
+      <span class="dooh-bell">🔔</span>
+      <span class="dooh-notif-text"><b>Nueva notificación</b><span>No tienes nada pendiente.</span></span>
+    </div>
+  </div>
+</div>
+<p class="dooh-note reveal">Propuesta conceptual. La pieza audiovisual no ha sido producida; se muestra como visualización de la idea.</p>
+
+<div class="section-gap"></div>
+
+<!-- ══ CAMPAÑA 360º ══ -->
+<p class="section-label reveal">Campaña 360º</p>
+<p class="section-kicker reveal">De la conversación a la compra. La campaña se adapta a diferentes medios para acompañar al consumidor durante todo el recorrido.</p>
+<div class="channel-chips reveal">
+  <span class="channel-chip">DOOH</span>
+  <span class="channel-chip">Social Media</span>
+  <span class="channel-chip">Vídeo Online</span>
+  <span class="channel-chip">Influencers</span>
+  <span class="channel-chip">Display</span>
+  <span class="channel-chip">Paid Social</span>
+  <span class="channel-chip">E-commerce</span>
+  <span class="channel-chip">Retail Media</span>
+  <span class="channel-chip">Farmacias</span>
+  <span class="channel-chip">Parafarmacias</span>
+  <span class="channel-chip">PLV</span>
+</div>
+<div class="funnel reveal">
+  <div class="funnel-step"><span class="funnel-emoji">📢</span><span class="funnel-title">IMPACTAR</span></div>
+  <div class="funnel-step"><span class="funnel-emoji">👀</span><span class="funnel-title">INTERESAR</span></div>
+  <div class="funnel-step"><span class="funnel-emoji">💬</span><span class="funnel-title">CONVENCER</span></div>
+  <div class="funnel-step"><span class="funnel-emoji">🛒</span><span class="funnel-title">VENDER</span></div>
+</div>
+
+<div class="section-gap"></div>
+
+<!-- ══ DIRECCIÓN DE ARTE ══ -->
+<div class="sw reveal">
+  <h2 class="info-title" style="font-size:clamp(24px,3.6vw,38px);">El ruido frente al equilibrio 🍃</h2>
+  <p class="info-text">
+    El universo visual nace de una tensión muy reconocible: <strong>la saturación de nuestro día a día</strong> frente a la necesidad de encontrar espacios de equilibrio.
+  </p>
+  <p class="info-text">
+    La gráfica utiliza notificaciones, interfaces, mensajes y elementos cotidianos para construir una estética contemporánea y reconocible, mientras que el producto y las gominolas introducen el contrapunto visual — dulce, calmado, con gracia. 🫙😊🫐
+  </p>
+</div>
+
+<div class="section-gap"></div>
+
+<!-- ══ HERRAMIENTAS ══ -->
+<div class="tools-section reveal">
+  <div class="tools-grid">
+    <div class="tool-item">
+      <img src="photoshop.png" alt="Photoshop">
+      <div class="tool-shadow"></div>
+      <span class="tool-name">Photoshop</span>
+    </div>
+    <div class="tool-item">
+      <img src="ilustrador.png" alt="Illustrator">
+      <div class="tool-shadow"></div>
+      <span class="tool-name">Illustrator</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-ghost"><span>Vita Ashwagandha</span></div>
+
+  <div class="footer-deco fd1">
+    <svg viewBox="0 0 80 110" xmlns="http://www.w3.org/2000/svg">
+      <path d="M40 100 C10 85, 8 45, 30 15 C55 30, 65 70, 40 100 Z" fill="#14213d"/>
+      <path d="M40 98 C36 75, 34 45, 30 16" stroke="#bfe6b0" stroke-width="3" fill="none"/>
+    </svg>
+  </div>
+  <div class="footer-deco fd2">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="34" fill="#14213d"/>
+      <circle cx="38" cy="42" r="5" fill="#bfe6b0"/>
+      <circle cx="62" cy="42" r="5" fill="#bfe6b0"/>
+      <path d="M32 60 Q50 78 68 60" stroke="#bfe6b0" stroke-width="4" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="footer-deco fd3">
+    <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="25" cy="25" r="14" fill="#14213d"/>
+      <circle cx="45" cy="20" r="13" fill="#14213d"/>
+      <circle cx="55" cy="42" r="13" fill="#14213d"/>
+      <circle cx="35" cy="48" r="14" fill="#14213d"/>
+      <circle cx="20" cy="55" r="11" fill="#14213d"/>
+    </svg>
+  </div>
+
+  <div class="footer-inner">
+    <div class="footer-heading">
+      <span class="footer-label">Proyecto:</span>
+      <span class="footer-project-name">Vita Ashwagandha</span>
+    </div>
+    <p class="footer-meta">
+      Creative Campaign · Art Direction · Advertising<br>
+      Social Media · DOOH · Copywriting
+    </p>
+    <a class="footer-cta" href="index.html#proyectos">
+      Ver más proyectos <span class="footer-cta-arrow">→</span>
+    </a>
+  </div>
+
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <span>Vita Ashwagandha Gummies — Creative Campaign</span>
+    <span>Art Direction · Advertising · Social Media · DOOH</span>
+  </div>
+</footer>
+
+<!-- ══ THREE.JS ══ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  const canvas=document.getElementById('bg-canvas');
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setClearColor(0x000000,0);
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,200);
+  camera.position.z=30;
+  function resize(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}
+  resize(); window.addEventListener('resize',resize);
+
+  const C_FOREST=0x2f7d4f, C_FOREST2=0x3fa868, C_BG=0xeaf5e1,
+        C_HONEY=0xe3ac3e, C_NAVY=0x14213d, C_BERRY=0x5b2a6b, C_SAGE=0xbfe6b0;
+
+  function lMat(col,op=.55){return new THREE.LineBasicMaterial({color:col,transparent:true,opacity:op});}
+  function wMat(col,op=.38){return new THREE.MeshBasicMaterial({color:col,wireframe:true,transparent:true,opacity:op});}
+
+  // hoja
+  function makeLeaf(col){
+    const g=new THREE.Group();
+    const pts=[];
+    const n=30;
+    for(let i=0;i<=n;i++){
+      const t=i/n, a=t*Math.PI;
+      const x=Math.cos(a)*1.7;
+      const y=Math.sin(a)*1.1+ (t<.5? t*.4 : (1-t)*.4);
+      pts.push(new THREE.Vector3(x,y,0));
+    }
+    for(let i=n;i>=0;i--){
+      const t=i/n, a=t*Math.PI;
+      const x=Math.cos(a)*1.7;
+      const y=-(Math.sin(a)*1.1+ (t<.5? t*.4 : (1-t)*.4));
+      pts.push(new THREE.Vector3(x,y,0));
+    }
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.6)));
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-1.7,0,0),new THREE.Vector3(1.7,0,0)]),lMat(col,.4)));
+    [[-.6,.35],[0,.5],[.6,.35],[-.6,-.35],[0,-.5],[.6,-.35]].forEach(([x,y])=>{
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x,0,0),new THREE.Vector3(x,y,0)]),lMat(col,.3)));
+    });
+    return g;
+  }
+
+  // bote / jar de gominolas
+  function makeJar(col){
+    const g=new THREE.Group();
+    const body=[
+      new THREE.Vector3(-1.0,-1.5,0), new THREE.Vector3(1.0,-1.5,0),
+      new THREE.Vector3(1.0,.9,0), new THREE.Vector3(.55,.9,0),
+      new THREE.Vector3(.55,1.4,0), new THREE.Vector3(-.55,1.4,0),
+      new THREE.Vector3(-.55,.9,0), new THREE.Vector3(-1.0,.9,0),
+      new THREE.Vector3(-1.0,-1.5,0)
+    ];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(body),lMat(col,.65)));
+    const lid=[new THREE.Vector3(-.65,1.4,0),new THREE.Vector3(-.65,1.7,0),new THREE.Vector3(.65,1.7,0),new THREE.Vector3(.65,1.4,0)];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(lid),lMat(col,.65)));
+    [-.7,0,.7].forEach(y=>{
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-1.0,y,0),new THREE.Vector3(1.0,y,0)]),lMat(col,.22)));
+    });
+    // gominola dentro
+    const gum=new THREE.Mesh(new THREE.SphereGeometry(.28,10,8),wMat(C_HONEY,.5));
+    gum.position.set(0,-.4,0); g.add(gum);
+    return g;
+  }
+
+  // cara feliz
+  function makeSmiley(col){
+    const g=new THREE.Group();
+    const pts=[];
+    for(let i=0;i<=24;i++){const a=(i/24)*Math.PI*2; pts.push(new THREE.Vector3(Math.cos(a)*1.3,Math.sin(a)*1.3,0));}
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.6)));
+    [[-.45,.3],[.45,.3]].forEach(([x,y])=>{
+      const e=[];
+      for(let i=0;i<=10;i++){const a=(i/10)*Math.PI*2; e.push(new THREE.Vector3(x+Math.cos(a)*.13,y+Math.sin(a)*.13,0));}
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(e),lMat(col,.7)));
+    });
+    const smile=[];
+    for(let i=0;i<=14;i++){const t=i/14, a=Math.PI*.15+t*Math.PI*.7; smile.push(new THREE.Vector3(Math.cos(a)*.75,-Math.sin(a)*.75+.05,0));}
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(smile),lMat(col,.7)));
+    return g;
+  }
+
+  // mora (blackberry) - racimo de esferas
+  function makeBerry(col){
+    const g=new THREE.Group();
+    const offs=[[0,0.35],[-.42,.05],[.42,.05],[-.22,-.35],[.22,-.35],[0,-.65],[-.5,-.55],[.5,-.55]];
+    offs.forEach(([x,y])=>{
+      const m=new THREE.Mesh(new THREE.SphereGeometry(.32,10,8),wMat(col,.5));
+      m.position.set(x,y,0); g.add(m);
+    });
+    const stem=[new THREE.Vector3(0,.55,0),new THREE.Vector3(.15,1.4,0)];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(stem),lMat(C_FOREST,.6)));
+    const leaf=[new THREE.Vector3(.15,1.4,0),new THREE.Vector3(.9,1.9,0),new THREE.Vector3(.35,1.65,0)];
+    leaf.push(leaf[0]);
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(leaf),lMat(C_FOREST2,.55)));
+    return g;
+  }
+
+  function makeBlob(col){
+    const g=new THREE.Group();
+    [[0,0,1.2],[1.4,.3,.9],[-1.1,.25,.85],[.6,-.15,.72],[-0.5,-.12,.65]].forEach(([cx,cy,r])=>{
+      const pts=[];
+      for(let i=0;i<=22;i++){const a=(i/22)*Math.PI*2;pts.push(new THREE.Vector3(cx+Math.cos(a)*r,cy+Math.sin(a)*r,0));}
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.4)));
+    });
+    return g;
+  }
+
+  const floaters=[];
+  function place(obj,x,y,z,sc=1){
+    obj.scale.setScalar(sc); obj.position.set(x,y,z);
+    obj.userData={
+      rx:(Math.random()-.5)*.007, ry:(Math.random()-.5)*.010, rz:(Math.random()-.5)*.006,
+      floatAmp:.35+Math.random()*.55, floatSpd:.28+Math.random()*.45,
+      floatOff:Math.random()*Math.PI*2, baseY:y
+    };
+    scene.add(obj); floaters.push(obj);
+  }
+
+  place(makeLeaf(C_FOREST),   -26,  8,-10,1.9);
+  place(makeLeaf(C_FOREST2),   24,  9,-12,1.6);
+  place(makeLeaf(C_FOREST),   -20, -9,-14,1.7);
+  place(makeLeaf(C_FOREST2),   19, -7, -9,1.4);
+  place(makeLeaf(C_FOREST),     1, 13,-16,2.0);
+  place(makeLeaf(C_FOREST2),  -11,  2,-18,1.5);
+  place(makeLeaf(C_FOREST),    27, -2,-13,1.3);
+  place(makeLeaf(C_FOREST2),   -4,-13,-11,1.6);
+  place(makeLeaf(C_FOREST),    12,  5,-20,1.8);
+
+  place(makeJar(C_HONEY),-25, 5,-8,1.5);
+  place(makeJar(C_HONEY), 24,11,-10,1.3);
+  place(makeJar(C_HONEY),  8,-11,-9,1.2);
+  place(makeJar(C_HONEY),-14,13,-13,1.3);
+  place(makeJar(C_HONEY), 22,-5,-15,1.1);
+
+  place(makeSmiley(C_NAVY),-27, 1,-9,1.4);
+  place(makeSmiley(C_BERRY), 26, 5,-11,1.2);
+  place(makeSmiley(C_NAVY),-16,-12,-10,1.1);
+  place(makeSmiley(C_BERRY), 14,14,-13,1.3);
+  place(makeSmiley(C_NAVY),   0,-14,-8,1.2);
+  place(makeSmiley(C_BERRY), -8, 9,-19,1.1);
+
+  place(makeBerry(C_BERRY),  -28,-1,-9,1.2);
+  place(makeBerry(C_BERRY),   27, 6,-11,1.0);
+  place(makeBerry(C_BERRY),   -6,11,-17,1.3);
+  place(makeBerry(C_BERRY),   22,-10,-14,1.0);
+  place(makeBerry(C_BERRY),    0,-14,-8,1.1);
+
+  place(makeBlob(C_SAGE),-10, 3,-18,2.0);
+  place(makeBlob(C_BG),   18,-4,-16,1.8);
+
+  const pCount=1600, pGeo=new THREE.BufferGeometry();
+  const pPos=new Float32Array(pCount*3), pCol=new Float32Array(pCount*3), pSpd=new Float32Array(pCount);
+  const CA=new THREE.Color(C_FOREST), CB=new THREE.Color(C_HONEY),
+        CC=new THREE.Color(C_SAGE),  CD=new THREE.Color(C_BERRY);
+  for(let i=0;i<pCount;i++){
+    pPos[i*3]=(Math.random()-.5)*140; pPos[i*3+1]=(Math.random()-.5)*90; pPos[i*3+2]=(Math.random()-.5)*70;
+    const t=Math.random(), c=t<.4?CA:t<.65?CB:t<.85?CC:CD;
+    pCol[i*3]=c.r; pCol[i*3+1]=c.g; pCol[i*3+2]=c.b; pSpd[i]=.018+Math.random()*.055;
+  }
+  pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  pGeo.setAttribute('color',new THREE.BufferAttribute(pCol,3));
+  const particles=new THREE.Points(pGeo,new THREE.PointsMaterial({size:.14,vertexColors:true,transparent:true,opacity:.55,sizeAttenuation:true}));
+  scene.add(particles);
+
+  const maxL=floaters.length*(floaters.length-1)/2;
+  const lineGeo=new THREE.BufferGeometry();
+  lineGeo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(maxL*6),3));
+  scene.add(new THREE.LineSegments(lineGeo,new THREE.LineBasicMaterial({color:C_FOREST,transparent:true,opacity:.04})));
+
+  const torusRing=new THREE.Mesh(new THREE.TorusGeometry(24,.05,4,120),new THREE.MeshBasicMaterial({color:C_HONEY,transparent:true,opacity:.05}));
+  torusRing.rotation.x=Math.PI/2.5; scene.add(torusRing);
+
+  let mx=0,my=0,tmx=0,tmy=0;
+  document.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2; my=(e.clientY/innerHeight-.5)*2;});
+  let scrollY=0; window.addEventListener('scroll',()=>scrollY=window.scrollY);
+  let tc=0;
+
+  (function animate(){
+    requestAnimationFrame(animate); tc+=.007;
+    tmx+=(mx*1.4-tmx)*.04; tmy+=(my*.7-tmy)*.04;
+    camera.position.x=tmx; camera.position.y=-tmy+scrollY*.003;
+    camera.lookAt(0,scrollY*.003,0);
+    particles.rotation.y=tc*.03; particles.rotation.x=tc*.011;
+    const pos=pGeo.attributes.position.array;
+    for(let i=0;i<pCount;i++) pos[i*3+1]+=Math.sin(tc*pSpd[i]+i)*.003;
+    pGeo.attributes.position.needsUpdate=true;
+    floaters.forEach(m=>{
+      m.rotation.x+=m.userData.rx; m.rotation.y+=m.userData.ry; m.rotation.z+=m.userData.rz;
+      m.position.y=m.userData.baseY+Math.sin(tc*m.userData.floatSpd+m.userData.floatOff)*m.userData.floatAmp;
+    });
+    let li=0; const lp=lineGeo.attributes.position.array;
+    for(let a=0;a<floaters.length;a++){
+      for(let b=a+1;b<floaters.length;b++){
+        if(floaters[a].position.distanceTo(floaters[b].position)<15){
+          lp[li++]=floaters[a].position.x; lp[li++]=floaters[a].position.y; lp[li++]=floaters[a].position.z;
+          lp[li++]=floaters[b].position.x; lp[li++]=floaters[b].position.y; lp[li++]=floaters[b].position.z;
+        }
+      }
+    }
+    for(;li<lp.length;li++) lp[li]=0;
+    lineGeo.attributes.position.needsUpdate=true;
+    lineGeo.setDrawRange(0,li/3);
+    torusRing.rotation.z=tc*.04;
+    renderer.render(scene,camera);
+  })();
+})();
+
+/* ── CURSOR: HOJA → CARA FELIZ ── */
+const LEAF_SVG = `
+<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <path d="M20 4 C34 6, 38 20, 30 32 C22 42, 8 38, 5 26 C2 16, 9 6, 20 4 Z" fill="#3fa868" stroke="#14213d" stroke-width="1.6"/>
+  <path d="M20 6 C17 18, 15 28, 8 36" stroke="#eaf5e1" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+</svg>`;
+const FACE_SVG = `
+<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="20" cy="20" r="17" fill="#e3ac3e" stroke="#14213d" stroke-width="1.6"/>
+  <path d="M11 17 Q14.5 13 18 17" stroke="#14213d" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M22 17 Q25.5 13 29 17" stroke="#14213d" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M12 24 Q20 32 28 24" stroke="#14213d" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+</svg>`;
+
+if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){
+  const dot=document.getElementById('cur');
+  dot.innerHTML = LEAF_SVG;
+  let revertTimer=null;
+
+  document.addEventListener('mousemove',e=>{
+    dot.style.left=e.clientX+'px'; dot.style.top=e.clientY+'px';
+  });
+
+  const tc=['#3fa868','#e3ac3e','#5b2a6b','#bfe6b0','#2f7d4f'];
+  let ti=0,lx=0,ly=0;
+  document.addEventListener('mousemove',e=>{
+    const d=Math.hypot(e.clientX-lx,e.clientY-ly);
+    if(d>6){
+      lx=e.clientX; ly=e.clientY;
+      for(let k=0;k<3;k++){
+        const t=document.createElement('div'); t.className='ctrail';
+        const sz=Math.random()*8+5, col=tc[(ti+k)%tc.length];
+        const ox=(Math.random()-.5)*6, oy=(Math.random()-.5)*6;
+        t.style.cssText=`width:${sz}px;height:${sz}px;left:${e.clientX+ox}px;top:${e.clientY+oy}px;background:${col};box-shadow:0 0 ${sz*2}px ${col};`;
+        document.body.appendChild(t); ti++; setTimeout(()=>t.remove(),650);
+      }
+    }
+  });
+
+  document.addEventListener('mousedown',()=>{
+    clearTimeout(revertTimer);
+    dot.innerHTML = FACE_SVG;
+    dot.classList.add('clicked');
+  });
+  document.addEventListener('mouseup',()=>{
+    revertTimer=setTimeout(()=>{
+      dot.innerHTML = LEAF_SVG;
+      dot.classList.remove('clicked');
+    },260);
+  });
+
+  document.querySelectorAll('a,.chip,.tool-item,.footer-cta,.carousel-arrow,.carousel-dot,#back-top').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ dot.style.transform='translate(-50%,-50%) scale(1.4) rotate(-6deg)'; });
+    el.addEventListener('mouseleave',()=>{ dot.style.transform='translate(-50%,-50%) scale(1) rotate(0deg)'; });
+  });
+}
+
+/* ── SCROLL REVEAL ── */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('visible');});
+},{threshold:.10});
+document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+
+/* ── BACK TO TOP ── */
+const bTop=document.getElementById('back-top');
+window.addEventListener('scroll',()=>bTop.classList.toggle('show',window.scrollY>400));
+
+/* ── CAROUSELS ── */
+document.querySelectorAll('[data-carousel]').forEach(car=>{
+  const track=car.querySelector('.carousel-track');
+  const slides=car.querySelectorAll('.carousel-slide');
+  const dotsWrap=car.querySelector('.carousel-dots');
+  const prevBtn=car.querySelector('[data-prev]');
+  const nextBtn=car.querySelector('[data-next]');
+  let idx=0;
+
+  slides.forEach((_,i)=>{
+    const d=document.createElement('button');
+    d.className='carousel-dot'+(i===0?' active':'');
+    d.addEventListener('click',()=>go(i));
+    dotsWrap.appendChild(d);
+  });
+  const dots=dotsWrap.querySelectorAll('.carousel-dot');
+
+  function go(i){
+    idx=(i+slides.length)%slides.length;
+    track.style.transform=`translateX(-${idx*100}%)`;
+    dots.forEach((d,j)=>d.classList.toggle('active',j===idx));
+  }
+  prevBtn.addEventListener('click',()=>go(idx-1));
+  nextBtn.addEventListener('click',()=>go(idx+1));
+
+  let auto=setInterval(()=>go(idx+1),5000);
+  car.addEventListener('mouseenter',()=>clearInterval(auto));
+  car.addEventListener('mouseleave',()=>{ auto=setInterval(()=>go(idx+1),5000); });
+});
+</script>
+
+</body>
+</html>
