@@ -172,6 +172,12 @@ body {
   color:var(--blue); opacity:.75; flex-shrink:0;
 }
 .marquee-track .dot { color:var(--navy); font-size:8px; }
+.marquee-track .dot-icon {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:18px; height:18px; border-radius:50%;
+  background:var(--navy); flex-shrink:0;
+}
+.marquee-track .dot-icon svg { width:10px; height:10px; }
 @keyframes marquee { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
 
 /* ══ SECCIONES DE IMÁGENES ══ */
@@ -202,6 +208,16 @@ body {
   width:100%;
   height:auto;
   display:block;
+}
+
+/* post grande y responsive */
+.img-plain-lg img {
+  max-width:900px;
+  width:100%;
+  height:auto;
+  display:block;
+  border-radius:24px;
+  box-shadow:0 28px 72px rgba(0,57,109,.16), 0 8px 20px rgba(0,57,109,.09);
 }
 
 /* infografía A4 con sombra premium, tamaño controlado */
@@ -467,22 +483,22 @@ footer {
 <!-- ══ MARQUEE ══ -->
 <div class="marquee-wrap">
   <div class="marquee-track">
-    <span>REDES SOCIALES</span><span class="dot">🏢</span>
-    <span>DISEÑO EDUCATIVO</span><span class="dot">🏢</span>
-    <span>INFOGRAFÍA</span><span class="dot">🏢</span>
-    <span>COWORKING</span><span class="dot">🏢</span>
-    <span>CONTENIDO DIGITAL</span><span class="dot">🏢</span>
-    <span>PHOTOSHOP</span><span class="dot">🏢</span>
-    <span>ILLUSTRATOR</span><span class="dot">🏢</span>
-    <span>ESTRATEGIA DE MARCA</span><span class="dot">🏢</span>
-    <span>REDES SOCIALES</span><span class="dot">🏢</span>
-    <span>DISEÑO EDUCATIVO</span><span class="dot">🏢</span>
-    <span>INFOGRAFÍA</span><span class="dot">🏢</span>
-    <span>COWORKING</span><span class="dot">🏢</span>
-    <span>CONTENIDO DIGITAL</span><span class="dot">🏢</span>
-    <span>PHOTOSHOP</span><span class="dot">🏢</span>
-    <span>ILLUSTRATOR</span><span class="dot">🏢</span>
-    <span>ESTRATEGIA DE MARCA</span><span class="dot">🏢</span>
+    <span>REDES SOCIALES</span><span class="dot-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="3" width="12" height="18" fill="white"/><rect x="9" y="6" width="2" height="2" fill="#00396d"/><rect x="13" y="6" width="2" height="2" fill="#00396d"/><rect x="9" y="10" width="2" height="2" fill="#00396d"/><rect x="13" y="10" width="2" height="2" fill="#00396d"/><rect x="9" y="14" width="2" height="2" fill="#00396d"/><rect x="13" y="14" width="2" height="2" fill="#00396d"/><rect x="10" y="18" width="4" height="3" fill="#00396d"/></svg></span>
+    <span>DISEÑO EDUCATIVO</span><span class="dot-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="3" width="12" height="18" fill="white"/><rect x="9" y="6" width="2" height="2" fill="#00396d"/><rect x="13" y="6" width="2" height="2" fill="#00396d"/><rect x="9" y="10" width="2" height="2" fill="#00396d"/><rect x="13" y="10" width="2" height="2" fill="#00396d"/><rect x="9" y="14" width="2" height="2" fill="#00396d"/><rect x="13" y="14" width="2" height="2" fill="#00396d"/><rect x="10" y="18" width="4" height="3" fill="#00396d"/></svg></span>
+    <span>INFOGRAFÍA</span><span class="dot-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="3" width="12" height="18" fill="white"/><rect x="9" y="6" width="2" height="2" fill="#00396d"/><rect x="13" y="6" width="2" height="2" fill="#00396d"/><rect x="9" y="10" width="2" height="2" fill="#00396d"/><rect x="13" y="10" width="2" height="2" fill="#00396d"/><rect x="9" y="14" width="2" height="2" fill="#00396d"/><rect x="13" y="14" width="2" height="2" fill="#00396d"/><rect x="10" y="18" width="4" height="3" fill="#00396d"/></svg></span>
+    <span>COWORKING</span><span class="dot-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="3" width="12" height="18" fill="white"/><rect x="9" y="6" width="2" height="2" fill="#00396d"/><rect x="13" y="6" width="2" height="2" fill="#00396d"/><rect x="9" y="10" width="2" height="2" fill="#00396d"/><rect x="13" y="10" width="2" height="2" fill="#00396d"/><rect x="9" y="14" width="2" height="2" fill="#00396d"/><rect x="13" y="14" width="2" height="2" fill="#00396d"/><rect x="10" y="18" width="4" height="3" fill="#00396d"/></svg></span>
+    <span>CONTENIDO DIGITAL</span><span class="dot-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="3" width="12" height="18" fill="white"/><rect x="9" y="6" width="2" height="2" fill="#00396d"/><rect x="13" y="6" width="2" height="2" fill="#00396d"/><rect x="9" y="10" width="2" height="2" fill="#00396d"/><rect x="13" y="10" width="2" height="2" fill="#00396d"/><rect x="9" y="14" width="2" height="2" fill="#00396d"/><rect x="13" y="14" width="2" height="2" fill="#00396d"/><rect x="10" y="18" width="4" height="3" fill="#00396d"/></svg></span>
+    <span>PHOTOSHOP</span><span class="dot-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="3" width="12" height="18" fill="white"/><rect x="9" y="6" width="2" height="2" fill="#00396d"/><rect x="13" y="6" width="2" height="2" fill="#00396d"/><rect x="9" y="10" width="2" height="2" fill="#00396d"/><rect x="13" y="10" width="2" height="2" fill="#00396d"/><rect x="9" y="14" width="2" height="2" fill="#00396d"/><rect x="13" y="14" width="2" height="2" fill="#00396d"/><rect x="10" y="18" width="4" height="3" fill="#00396d"/></svg></span>
+    <span>ILLUSTRATOR</span><span class="dot-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="3" width="12" height="18" fill="white"/><rect x="9" y="6" width="2" height="2" fill="#00396d"/><rect x="13" y="6" width="2" height="2" fill="#00396d"/><rect x="9" y="10" width="2" height="2" fill="#00396d"/><rect x="13" y="10" width="2" height="2" fill="#00396d"/><rect x="9" y="14" width="2" height="2" fill="#00396d"/><rect x="13" y="14" width="2" height="2" fill="#00396d"/><rect x="10" y="18" width="4" height="3" fill="#00396d"/></svg></span>
+    <span>ESTRATEGIA DE MARCA</span><span class="dot-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="3" width="12" height="18" fill="white"/><rect x="9" y="6" width="2" height="2" fill="#00396d"/><rect x="13" y="6" width="2" height="2" fill="#00396d"/><rect x="9" y="10" width="2" height="2" fill="#00396d"/><rect x="13" y="10" width="2" height="2" fill="#00396d"/><rect x="9" y="14" width="2" height="2" fill="#00396d"/><rect x="13" y="14" width="2" height="2" fill="#00396d"/><rect x="10" y="18" width="4" height="3" fill="#00396d"/></svg></span>
+    <span>REDES SOCIALES</span><span class="dot-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="3" width="12" height="18" fill="white"/><rect x="9" y="6" width="2" height="2" fill="#00396d"/><rect x="13" y="6" width="2" height="2" fill="#00396d"/><rect x="9" y="10" width="2" height="2" fill="#00396d"/><rect x="13" y="10" width="2" height="2" fill="#00396d"/><rect x="9" y="14" width="2" height="2" fill="#00396d"/><rect x="13" y="14" width="2" height="2" fill="#00396d"/><rect x="10" y="18" width="4" height="3" fill="#00396d"/></svg></span>
+    <span>DISEÑO EDUCATIVO</span><span class="dot-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="3" width="12" height="18" fill="white"/><rect x="9" y="6" width="2" height="2" fill="#00396d"/><rect x="13" y="6" width="2" height="2" fill="#00396d"/><rect x="9" y="10" width="2" height="2" fill="#00396d"/><rect x="13" y="10" width="2" height="2" fill="#00396d"/><rect x="9" y="14" width="2" height="2" fill="#00396d"/><rect x="13" y="14" width="2" height="2" fill="#00396d"/><rect x="10" y="18" width="4" height="3" fill="#00396d"/></svg></span>
+    <span>INFOGRAFÍA</span><span class="dot-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="3" width="12" height="18" fill="white"/><rect x="9" y="6" width="2" height="2" fill="#00396d"/><rect x="13" y="6" width="2" height="2" fill="#00396d"/><rect x="9" y="10" width="2" height="2" fill="#00396d"/><rect x="13" y="10" width="2" height="2" fill="#00396d"/><rect x="9" y="14" width="2" height="2" fill="#00396d"/><rect x="13" y="14" width="2" height="2" fill="#00396d"/><rect x="10" y="18" width="4" height="3" fill="#00396d"/></svg></span>
+    <span>COWORKING</span><span class="dot-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="3" width="12" height="18" fill="white"/><rect x="9" y="6" width="2" height="2" fill="#00396d"/><rect x="13" y="6" width="2" height="2" fill="#00396d"/><rect x="9" y="10" width="2" height="2" fill="#00396d"/><rect x="13" y="10" width="2" height="2" fill="#00396d"/><rect x="9" y="14" width="2" height="2" fill="#00396d"/><rect x="13" y="14" width="2" height="2" fill="#00396d"/><rect x="10" y="18" width="4" height="3" fill="#00396d"/></svg></span>
+    <span>CONTENIDO DIGITAL</span><span class="dot-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="3" width="12" height="18" fill="white"/><rect x="9" y="6" width="2" height="2" fill="#00396d"/><rect x="13" y="6" width="2" height="2" fill="#00396d"/><rect x="9" y="10" width="2" height="2" fill="#00396d"/><rect x="13" y="10" width="2" height="2" fill="#00396d"/><rect x="9" y="14" width="2" height="2" fill="#00396d"/><rect x="13" y="14" width="2" height="2" fill="#00396d"/><rect x="10" y="18" width="4" height="3" fill="#00396d"/></svg></span>
+    <span>PHOTOSHOP</span><span class="dot-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="3" width="12" height="18" fill="white"/><rect x="9" y="6" width="2" height="2" fill="#00396d"/><rect x="13" y="6" width="2" height="2" fill="#00396d"/><rect x="9" y="10" width="2" height="2" fill="#00396d"/><rect x="13" y="10" width="2" height="2" fill="#00396d"/><rect x="9" y="14" width="2" height="2" fill="#00396d"/><rect x="13" y="14" width="2" height="2" fill="#00396d"/><rect x="10" y="18" width="4" height="3" fill="#00396d"/></svg></span>
+    <span>ILLUSTRATOR</span><span class="dot-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="3" width="12" height="18" fill="white"/><rect x="9" y="6" width="2" height="2" fill="#00396d"/><rect x="13" y="6" width="2" height="2" fill="#00396d"/><rect x="9" y="10" width="2" height="2" fill="#00396d"/><rect x="13" y="10" width="2" height="2" fill="#00396d"/><rect x="9" y="14" width="2" height="2" fill="#00396d"/><rect x="13" y="14" width="2" height="2" fill="#00396d"/><rect x="10" y="18" width="4" height="3" fill="#00396d"/></svg></span>
+    <span>ESTRATEGIA DE MARCA</span><span class="dot-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="3" width="12" height="18" fill="white"/><rect x="9" y="6" width="2" height="2" fill="#00396d"/><rect x="13" y="6" width="2" height="2" fill="#00396d"/><rect x="9" y="10" width="2" height="2" fill="#00396d"/><rect x="13" y="10" width="2" height="2" fill="#00396d"/><rect x="9" y="14" width="2" height="2" fill="#00396d"/><rect x="13" y="14" width="2" height="2" fill="#00396d"/><rect x="10" y="18" width="4" height="3" fill="#00396d"/></svg></span>
   </div>
 </div>
 
@@ -522,7 +538,7 @@ footer {
 <div class="section-gap"></div>
 
 <div class="img-section reveal">
-  <div class="img-plain">
+  <div class="img-plain img-plain-lg">
     <img src="rrss-1-nextfloor.png" alt="Post redes sociales Next Floor 2">
   </div>
 </div>
