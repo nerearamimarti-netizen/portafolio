@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/svg+xml" href="favicon-hoja.svg">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23ffffff'/%3E%3Ctext x='50' y='73' text-anchor='middle' font-family='Fredoka, Poppins, Arial, sans-serif' font-size='68' font-weight='700' fill='%23886f9c'%3EA%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
 <title>Vita Ashwagandha Gummies — Creative Campaign</title>
 <style>
@@ -157,7 +157,7 @@ body {
 }
 .marquee-track { display:flex; gap:48px; white-space:nowrap; animation:marquee 26s linear infinite; }
 .marquee-track span { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--berry); opacity:.85; flex-shrink:0; }
-.marquee-track .dot { font-size:13px; }
+.marquee-track .dot { font-size:13px; opacity:.5; }
 @keyframes marquee { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
 
 /* ══ INFO — centrado ══ */
@@ -231,6 +231,28 @@ body {
   margin:26px 0 14px; font-weight:600;
 }
 
+/* ══ CARTELERÍA: ARTE FINAL + MOCKUP LADO A LADO ══ */
+.poster-duo {
+  position:relative; z-index:2;
+  max-width:1180px; margin:0 auto; padding:10px 40px 0;
+  display:grid; grid-template-columns:1fr 1fr; gap:26px; align-items:start;
+}
+.poster-duo figure { margin:0; display:flex; flex-direction:column; }
+.poster-duo .asset-caption { margin:0 0 12px; }
+.poster-duo .img-wrapper {
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(255,255,255,.55);
+  border-radius:28px;
+  box-shadow:0 20px 48px rgba(136,111,156,.16), 0 6px 16px rgba(63,51,71,.08);
+}
+.poster-duo .img-wrapper img {
+  width:auto; max-width:100%; height:auto; max-height:72vh; object-fit:contain;
+}
+@media(max-width:860px){
+  .poster-duo { grid-template-columns:1fr; padding:10px 20px 0; }
+  .poster-duo .img-wrapper img { max-height:62vh; }
+}
+
 /* ══ SECTION TITLES ══ */
 .section-label {
   font-family:'Fredoka',sans-serif; font-size:clamp(22px,3.5vw,36px); font-weight:700;
@@ -247,9 +269,13 @@ body {
 .carousel { position:relative; max-width:760px; margin:0 auto; padding:0 20px; }
 .carousel-viewport { overflow:hidden; border-radius:30px; }
 .carousel-track { display:flex; transition:transform .55s cubic-bezier(.4,0,.2,1); }
-.carousel-slide { flex:0 0 100%; padding:6px 26px 34px; }
+.carousel-slide { flex:0 0 100%; padding:10px 30px 40px; }
 .carousel-slide .img-wrapper {
-  box-shadow:0 34px 60px rgba(63,51,71,.3), 0 12px 26px rgba(189,68,89,.2);
+  box-shadow:
+    0 6px 14px rgba(63,51,71,.05),
+    0 14px 34px rgba(63,51,71,.07),
+    0 30px 70px rgba(136,111,156,.09),
+    0 50px 110px rgba(189,68,89,.06);
 }
 .carousel-nav { display:flex; align-items:center; justify-content:center; gap:18px; margin-top:6px; }
 .carousel-arrow {
@@ -314,27 +340,13 @@ body {
 
 /* ══ FUNNEL 360 ══ */
 .channel-chips {
-  display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:820px; margin:0 auto 46px; padding:0 20px;
+  display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:820px; margin:0 auto 20px; padding:0 20px;
 }
 .channel-chip {
   font-size:12px; font-weight:500; padding:9px 16px; border-radius:14px;
   background:white; border:1px solid var(--bdr); color:var(--navy);
   box-shadow:0 6px 14px rgba(189,68,89,.1);
 }
-.funnel {
-  display:flex; flex-wrap:wrap; justify-content:center; gap:14px; max-width:900px; margin:0 auto; padding:0 20px 20px;
-}
-.funnel-step {
-  flex:1 1 150px; max-width:190px; text-align:center; background:white; border-radius:24px;
-  padding:26px 16px 22px; box-shadow:0 16px 34px rgba(63,51,71,.12);
-  animation:funnelBounce 3s ease-in-out infinite;
-}
-.funnel-step:nth-child(2){ animation-delay:.25s; }
-.funnel-step:nth-child(3){ animation-delay:.5s; }
-.funnel-step:nth-child(4){ animation-delay:.75s; }
-@keyframes funnelBounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
-.funnel-emoji { font-size:30px; display:block; margin-bottom:10px; }
-.funnel-title { font-family:'Fredoka',sans-serif; font-weight:700; font-size:14px; color:var(--navy); letter-spacing:1px; }
 
 /* ══ HERRAMIENTAS ══ */
 .tools-section { position:relative; z-index:2; padding:0 40px 100px; text-align:center; max-width:1080px; margin:0 auto; }
@@ -427,7 +439,7 @@ footer { position:relative; z-index:2; background:var(--sage); padding:90px 40px
 
   <div class="hero-title-block">
     <div class="hero-eyebrow">
-      <span></span>Creative Campaign · Art Direction<span></span>
+      <span></span>Campaña desde 0<span></span>
     </div>
 
     <div class="hero-title-svg-wrap">
@@ -450,27 +462,27 @@ footer { position:relative; z-index:2; background:var(--sage); padding:90px 40px
       </svg>
     </div>
 
-    <p class="hero-sub">Advertising · Social Media · DOOH · Copywriting</p>
+    <p class="hero-sub">Dirección de arte, diseño gráfico y edición de vídeo</p>
   </div>
 </section>
 
 <!-- ══ MARQUEE ══ -->
 <div class="marquee-wrap">
   <div class="marquee-track">
-    <span>CAMPAIGN</span><span class="dot">🫐</span>
-    <span>CREATIVE CONCEPT</span><span class="dot">🫐</span>
-    <span>ART DIRECTION</span><span class="dot">🫐</span>
-    <span>ADVERTISING</span><span class="dot">🫐</span>
-    <span>SOCIAL MEDIA</span><span class="dot">🫐</span>
-    <span>DOOH</span><span class="dot">🫐</span>
-    <span>COPYWRITING</span><span class="dot">🫐</span>
-    <span>CAMPAIGN</span><span class="dot">🫐</span>
-    <span>CREATIVE CONCEPT</span><span class="dot">🫐</span>
-    <span>ART DIRECTION</span><span class="dot">🫐</span>
-    <span>ADVERTISING</span><span class="dot">🫐</span>
-    <span>SOCIAL MEDIA</span><span class="dot">🫐</span>
-    <span>DOOH</span><span class="dot">🫐</span>
-    <span>COPYWRITING</span><span class="dot">🫐</span>
+    <span>CAMPAÑA</span><span class="dot">·</span>
+    <span>CONCEPTO CREATIVO</span><span class="dot">·</span>
+    <span>DIRECCIÓN DE ARTE</span><span class="dot">·</span>
+    <span>PUBLICIDAD</span><span class="dot">·</span>
+    <span>REDES SOCIALES</span><span class="dot">·</span>
+    <span>DOOH</span><span class="dot">·</span>
+    <span>COPYWRITING</span><span class="dot">·</span>
+    <span>CAMPAÑA</span><span class="dot">·</span>
+    <span>CONCEPTO CREATIVO</span><span class="dot">·</span>
+    <span>DIRECCIÓN DE ARTE</span><span class="dot">·</span>
+    <span>PUBLICIDAD</span><span class="dot">·</span>
+    <span>REDES SOCIALES</span><span class="dot">·</span>
+    <span>DOOH</span><span class="dot">·</span>
+    <span>COPYWRITING</span><span class="dot">·</span>
   </div>
 </div>
 
@@ -487,11 +499,11 @@ footer { position:relative; z-index:2; background:var(--sage); padding:90px 40px
     Una campaña que transforma situaciones reconocibles —notificaciones, tareas pendientes, mensajes y ruido constante— en un universo visual que pone el estrés en primer plano y presenta Vita como una propuesta para recuperar el equilibrio.
   </p>
   <div class="tech-chips">
-    <span class="chip">Campaign</span>
-    <span class="chip">Creative Concept</span>
-    <span class="chip">Art Direction</span>
-    <span class="chip">Advertising</span>
-    <span class="chip">Social Media</span>
+    <span class="chip">Campaña</span>
+    <span class="chip">Concepto creativo</span>
+    <span class="chip">Dirección de arte</span>
+    <span class="chip">Publicidad</span>
+    <span class="chip">Redes sociales</span>
     <span class="chip">DOOH</span>
     <span class="chip">Copywriting</span>
   </div>
@@ -529,30 +541,32 @@ footer { position:relative; z-index:2; background:var(--sage); padding:90px 40px
 <!-- ══ LA CAMPAÑA / CLAIM ══ -->
 <div class="claim-box reveal">
   <p class="claim-text">¿DESDE CUÁNDO VIVIR <span class="shake">ESTRESADO</span><br>ES LO NORMAL?</p>
-  <p class="claim-sub">El claim que hilvana toda la campaña · el caos y las notificaciones frente al espacio, la pausa y el equilibrio</p>
+  <p class="claim-sub">El claim que unirá toda la campaña e iniciará el KV.</p>
 </div>
 
 <div class="section-gap"></div>
 
 <!-- ══ CARTELERÍA ══ -->
 <p class="section-label reveal">Cartelería</p>
-<p class="section-kicker reveal">Del ruido a la pregunta. Una gráfica que lleva al espacio público aquello que todos reconocemos: vivir rodeados de cosas pendientes. Notificaciones, mensajes y tareas construyen el universo visual hasta dejar paso al claim y al producto.</p>
-<div class="img-section reveal">
-  <p class="asset-caption">Arte final</p>
-  <div class="img-wrapper">
-    <img src="A4_Cartel_Ashwagandha.jpg" alt="Cartel A4 Vita Ashwagandha — arte final">
-  </div>
-  <p class="asset-caption">Mockup</p>
-  <div class="img-wrapper">
-    <img src="Mockup-cartel.jpg" alt="Mockup del cartel Vita Ashwagandha">
-  </div>
+<div class="poster-duo reveal">
+  <figure>
+    <p class="asset-caption">Arte final</p>
+    <div class="img-wrapper">
+      <img src="A4_Cartel_Ashwagandha.jpg" alt="Cartel A4 Vita Ashwagandha — arte final">
+    </div>
+  </figure>
+  <figure>
+    <p class="asset-caption">Mockup</p>
+    <div class="img-wrapper">
+      <img src="Mockup-cartel.jpg" alt="Mockup del cartel Vita Ashwagandha">
+    </div>
+  </figure>
 </div>
 
 <div class="section-gap"></div>
 
 <!-- ══ TRÍPTICO ══ -->
 <p class="section-label reveal">Tríptico</p>
-<p class="section-kicker reveal">Del impacto a la información. El flyer amplía la campaña y transforma la curiosidad inicial en conocimiento del producto: ashwagandha, vitamina D2, beneficios, composición y modo de uso, manteniendo el mismo universo visual.</p>
 
 <p class="asset-caption reveal">Artes finales</p>
 <div class="carousel reveal" data-carousel>
@@ -647,23 +661,17 @@ footer { position:relative; z-index:2; background:var(--sage); padding:90px 40px
   <span class="channel-chip">Parafarmacias</span>
   <span class="channel-chip">PLV</span>
 </div>
-<div class="funnel reveal">
-  <div class="funnel-step"><span class="funnel-emoji">📢</span><span class="funnel-title">IMPACTAR</span></div>
-  <div class="funnel-step"><span class="funnel-emoji">👀</span><span class="funnel-title">INTERESAR</span></div>
-  <div class="funnel-step"><span class="funnel-emoji">💬</span><span class="funnel-title">CONVENCER</span></div>
-  <div class="funnel-step"><span class="funnel-emoji">🛒</span><span class="funnel-title">VENDER</span></div>
-</div>
 
 <div class="section-gap"></div>
 
 <!-- ══ DIRECCIÓN DE ARTE ══ -->
 <div class="sw reveal">
-  <h2 class="info-title" style="font-size:clamp(24px,3.6vw,38px);">El ruido frente al equilibrio 🫐</h2>
+  <h2 class="info-title" style="font-size:clamp(24px,3.6vw,38px);">El ruido frente al equilibrio</h2>
   <p class="info-text">
     El universo visual nace de una tensión muy reconocible: <strong>la saturación de nuestro día a día</strong> frente a la necesidad de encontrar espacios de equilibrio.
   </p>
   <p class="info-text">
-    La gráfica utiliza notificaciones, interfaces, mensajes y elementos cotidianos para construir una estética contemporánea y reconocible, mientras que el producto y las gominolas introducen el contrapunto visual — dulce, calmado, con gracia. 🫙😊🫐
+    La gráfica utiliza notificaciones, interfaces, mensajes y elementos cotidianos para construir una estética contemporánea y reconocible, mientras que el producto y las gominolas introducen el contrapunto visual — dulce, calmado, con gracia.
   </p>
 </div>
 
@@ -724,8 +732,8 @@ footer { position:relative; z-index:2; background:var(--sage); padding:90px 40px
       <span class="footer-project-name">Vita Ashwagandha</span>
     </div>
     <p class="footer-meta">
-      Creative Campaign · Art Direction · Advertising<br>
-      Social Media · DOOH · Copywriting
+      Campaña desde 0 · Dirección de arte<br>
+      Diseño gráfico · Edición de vídeo
     </p>
     <a class="footer-cta" href="index.html#proyectos">
       Ver más proyectos <span class="footer-cta-arrow">→</span>
@@ -734,8 +742,8 @@ footer { position:relative; z-index:2; background:var(--sage); padding:90px 40px
 
   <div class="footer-divider"></div>
   <div class="footer-bottom">
-    <span>Vita Ashwagandha Gummies — Creative Campaign</span>
-    <span>Art Direction · Advertising · Social Media · DOOH</span>
+    <span>Vita Ashwagandha Gummies — Campaña desde 0</span>
+    <span>Dirección de arte · Diseño gráfico · Edición de vídeo</span>
   </div>
 </footer>
 
