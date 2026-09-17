@@ -317,8 +317,23 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
 .wip-dot{width:7px;height:7px;border-radius:50%;background:var(--purple3);animation:wipPulse 2s ease-in-out infinite}
 @keyframes wipPulse{0%,100%{box-shadow:0 0 0 0 rgba(109,40,217,.4)}50%{box-shadow:0 0 0 5px rgba(109,40,217,0)}}
 .wip-lbl{font-family:'Fredoka',sans-serif;font-size:12px;font-weight:700;color:var(--purple);letter-spacing:3px;text-transform:uppercase}
-.wip-grid{display:grid;gap:16px;grid-template-columns:repeat(2,1fr)}
-@media(max-width:600px){.wip-grid{grid-template-columns:1fr}}
+/* Ahora 3 columnas: 1 proyecto terminado (izquierda) + 2 WIP más pequeñas */
+.wip-grid{display:grid;gap:16px;grid-template-columns:repeat(3,1fr)}
+@media(max-width:860px){.wip-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.wip-grid{grid-template-columns:1fr}}
+
+/* Card de proyecto terminado dentro del bloque WIP — estilo pcard normal, sin blur */
+.wcard-done{border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .4s cubic-bezier(.34,1.56,.64,1);border:1.5px solid rgba(255,61,154,.18);box-shadow:0 2px 6px rgba(255,61,154,.12),0 1px 3px rgba(26,10,46,.06)}
+.wcard-done:hover{transform:translateY(-6px);box-shadow:0 8px 20px rgba(255,61,154,.2),0 2px 6px rgba(26,10,46,.08)}
+.wcard-done-img{width:100%;aspect-ratio:16/9;background-size:cover;background-position:center;background-color:#fce7f3;position:relative;overflow:hidden;flex-shrink:0}
+.wcard-done-wash{position:absolute;inset:0;z-index:1;opacity:0;transition:opacity .4s;background:linear-gradient(135deg,rgba(255,61,154,.28),transparent)}
+.wcard-done:hover .wcard-done-wash{opacity:1}
+.wcard-done-body{padding:14px 16px 18px;background:linear-gradient(135deg,#fce7f3,#fbcfe8)}
+.wcard-done-cat{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;color:var(--accent2)}
+.wcard-done-title{font-family:'Fredoka',sans-serif;font-size:18px;font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:3px}
+.wcard-done-sub{font-size:11px;color:var(--muted2);font-style:italic;margin-bottom:10px}
+.wcard-done-btn{display:inline-flex;align-items:center;gap:5px;font-family:'Fredoka',sans-serif;font-size:12px;font-weight:700;text-decoration:none;padding:6px 15px;border-radius:999px;transition:transform .22s;border:2px solid rgba(255,61,154,.3);background:transparent;color:var(--accent2)}
+.wcard-done-btn:hover{transform:scale(1.05)}
 
 .wcard{
   border-radius:16px;overflow:hidden;
@@ -656,8 +671,8 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
           <div class="brainstorm-inner">
             <span class="bchip">Photoshop</span><span class="bchip">Illustrator</span><span class="bchip">Premiere</span>
             <span class="bchip">After Effects</span><span class="bchip">InDesign</span><span class="bchip">Cap Cut</span>
-            <span class="bchip">Sora AI</span><span class="bchip">ChatGPT</span><span class="bchip">Gemini</span>
-            <span class="bchip">Metricool</span><span class="bchip">Meta Ads</span><span class="bchip">Wordpress</span>
+            <span class="bchip">Magnific</span><span class="bchip">ChatGPT</span><span class="bchip">Gemini</span>
+            <span class="bchip">Claude</span><span class="bchip">Metricool</span><span class="bchip">Meta Ads</span><span class="bchip">Wordpress</span>
           </div>
         </div>
       </div>
@@ -708,10 +723,22 @@ body{background:var(--white);color:var(--ink);font-family:'Nunito',sans-serif;ov
       <div class="pcard"><div class="pcard-img" style="background-image:url('destacada-nextfloor.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">Infografía RRSS</div><div class="pcard-title">Coworking Nextfloor</div><div class="pcard-sub">Infografía y diseño para RRSS</div><a href="proyecto-nextfloor.html" target="_blank" rel="noopener" class="pcard-btn">Ver proyecto →</a></div></div>
     </div>
 
-    <!-- PUNTO 3 — WIP: textos borrosos DEBAJO de la imagen, dentro de ella -->
+    <!-- WIP + proyecto terminado (Ashwagandha, a la izquierda, sin blur) -->
     <div class="wip-section rv" style="transition-delay:.13s">
       <div class="wip-header"><div class="wip-dot"></div><span class="wip-lbl">En proceso</span></div>
       <div class="wip-grid">
+        <!-- Proyecto terminado — Ashwagandha Gummies (rosa, sin blur, estilo pcard normal) -->
+        <div class="wcard-done">
+          <div class="wcard-done-img" style="background-image:url('https://raw.githubusercontent.com/nerearamimarti-netizen/portafolio/main/destacada-aswa.jpg')">
+            <div class="wcard-done-wash"></div>
+          </div>
+          <div class="wcard-done-body">
+            <div class="wcard-done-cat">Campaña desde 0</div>
+            <div class="wcard-done-title">Ashwagandha Gummies</div>
+            <div class="wcard-done-sub">Photoshop, Ilustrator y Cap Cut</div>
+            <a href="https://nerearamimarti-netizen.github.io/portafolio/proyecto-ashwagandha.html" target="_blank" rel="noopener" class="wcard-done-btn">Ver proyecto →</a>
+          </div>
+        </div>
         <!-- Card WIP 1 -->
         <div class="wcard" style="background-image:url('destacadas-mueblesboom.png')">
           <div class="wcard-bg" style="background-image:url('destacadas-mueblesboom.png')"></div>
