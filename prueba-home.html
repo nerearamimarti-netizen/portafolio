@@ -98,10 +98,11 @@ a:focus-visible,button:focus-visible,.acc-tab:focus-visible{outline:2px solid va
 .hero-title .pre-split{visibility:hidden}
 .hero-title .letter{display:inline-block;opacity:0;transform:translate(var(--tx,0),var(--ty,0)) rotate(var(--rot,0deg)) scale(.3);animation:letterIn .85s cubic-bezier(.16,1,.3,1) forwards;animation-delay:calc(.15s + var(--i,0) * 26ms)}
 @keyframes letterIn{60%{opacity:1}to{opacity:1;transform:translate(0,0) rotate(0deg) scale(1)}}
-.draw-underline{position:absolute;left:2%;right:2%;bottom:2px;width:96%;height:22px;pointer-events:none}
-.draw-underline path{fill:none;stroke:var(--pink);stroke-width:5;stroke-linecap:round;stroke-dasharray:420;stroke-dashoffset:420;animation:drawLine 1s cubic-bezier(.65,0,.35,1) 1.25s forwards}
+/* subrayado a ancho completo — viewBox estirado sin mantener proporción para cubrir toda la palabra */
+.draw-underline{position:absolute;left:0;right:0;bottom:-6px;width:100%;height:22px;pointer-events:none}
+.draw-underline path{fill:none;stroke:var(--pink);stroke-width:4.5;stroke-linecap:round;stroke-dasharray:220;stroke-dashoffset:220;animation:drawLine 1s cubic-bezier(.65,0,.35,1) 1.25s forwards;vector-effect:non-scaling-stroke}
 @keyframes drawLine{to{stroke-dashoffset:0}}
-.draw-dot{offset-path:path('M4,14 C60,4 120,20 180,10 C210,6 230,14 254,8');offset-rotate:0deg;position:absolute;width:9px;height:9px;border-radius:50%;background:var(--pink);opacity:0;animation:dotMove 1s cubic-bezier(.65,0,.35,1) 1.25s forwards}
+.draw-dot{offset-path:path('M2,14 C25,2 50,22 75,9 C85,4 92,14 99,7');offset-rotate:0deg;position:absolute;width:9px;height:9px;border-radius:50%;background:var(--pink);opacity:0;animation:dotMove 1s cubic-bezier(.65,0,.35,1) 1.25s forwards}
 @keyframes dotMove{0%{offset-distance:0%;opacity:1}96%{opacity:1}100%{offset-distance:100%;opacity:0}}
 
 /* ══ ESTRELLAS DE 4 PUNTAS — grandes, brillantes, dan vida a la portada ══ */
@@ -129,8 +130,8 @@ a:focus-visible,button:focus-visible,.acc-tab:focus-visible{outline:2px solid va
 .hero-parallax{transition:transform .12s ease-out;display:flex;flex-direction:column;align-items:center;width:100%}
 .hero-stars-parallax{transition:transform .18s ease-out}
 
-.hero-typerow{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:22px;min-height:34px}
-.hero-plus{font-family:'Unbounded',sans-serif;font-size:clamp(15px,2vw,20px);font-weight:600;color:rgba(255,255,255,.5)}
+.hero-typerow{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:30px;min-height:34px}
+.hero-plus{font-family:'Unbounded',sans-serif;font-size:clamp(15px,2vw,20px);font-weight:700;color:var(--pink)}
 .hero-typing{font-family:'Unbounded',sans-serif;font-size:clamp(15px,2vw,20px);font-weight:600;color:#fff}
 .hero-typing::after{content:'|';display:inline-block;margin-left:3px;color:var(--pink);animation:blink .8s step-end infinite;font-weight:300}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
@@ -453,8 +454,7 @@ a:focus-visible,button:focus-visible,.acc-tab:focus-visible{outline:2px solid va
     <h1 class="hero-title">
       <span class="l1 pre-split">Diseñadora</span>
       <span class="l2-wrap"><span class="l2 pre-split">Gráfica</span>
-        <svg class="draw-underline" viewBox="0 0 260 22" aria-hidden="true"><path d="M4,14 C60,4 120,20 180,10 C210,6 230,14 254,8"/></svg>
-        <span class="draw-dot"></span>
+        <svg class="draw-underline" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><path d="M2,14 C25,2 50,22 75,9 C85,4 92,14 99,7"/></svg>
       </span>
     </h1>
     <div class="hero-typerow rv-pop" style="transition-delay:1s">
@@ -786,17 +786,17 @@ function explodeText(el){
 }
 document.querySelectorAll('.hero-title .pre-split').forEach(explodeText);
 
-/* TYPING — "+ Motion Designer" se escribe en directo, como si se tecleara */
-const phrases=['Motion Designer','Dirección de arte','Identidad de marca','IA generativa','Ilustración'];
+/* TYPING — "Motion Designer" se escribe en directo una sola vez, como si se tecleara */
 const typingEl=document.getElementById('typingEl');
-let pIdx=0,cIdx=0,deleting=false;
+const typingPhrase='Motion Designer';
+let cIdx=0;
 function typeStep(){
-  if(reduceMotion){typingEl.textContent=phrases[0];return}
-  const p=phrases[pIdx];
-  if(!deleting){cIdx++;typingEl.textContent=p.slice(0,cIdx);if(cIdx===p.length){deleting=true;setTimeout(typeStep,2200);return}setTimeout(typeStep,75)}
-  else{cIdx--;typingEl.textContent=p.slice(0,cIdx);if(cIdx===0){deleting=false;pIdx=(pIdx+1)%phrases.length;setTimeout(typeStep,350);return}setTimeout(typeStep,40)}
+  if(reduceMotion){typingEl.textContent=typingPhrase;return}
+  cIdx++;
+  typingEl.textContent=typingPhrase.slice(0,cIdx);
+  if(cIdx<typingPhrase.length)setTimeout(typeStep,80);
 }
-setTimeout(typeStep,600);
+setTimeout(typeStep,900);
 
 /* MORPH RING */
 (function(){
