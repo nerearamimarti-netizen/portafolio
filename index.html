@@ -38,7 +38,8 @@ h1,h2,h3,.disp{font-family:'Unbounded',sans-serif}
 a:focus-visible,button:focus-visible,.acc-tab:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
 
 /* ══ NAV ══ */
-.nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 48px}
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 48px;opacity:0;transform:translateY(-14px);pointer-events:none;transition:opacity .4s ease,transform .4s ease}
+.nav.show{opacity:1;transform:none;pointer-events:auto}
 @media(max-width:640px){.nav{padding:9px 16px}}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.7);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border:1.5px solid rgba(21,10,43,.08);border-radius:14px;padding:9px 22px;box-shadow:0 4px 20px rgba(109,40,217,.06);transition:background .4s,border-color .4s}
 .nav.on-dark .nav-inner{background:rgba(21,10,43,.6);border-color:rgba(255,255,255,.12)}
@@ -57,15 +58,24 @@ a:focus-visible,button:focus-visible,.acc-tab:focus-visible{outline:2px solid va
 
 /* ══ HERO — corte diagonal, la parte que más le gustaba ══ */
 .hero-skew-wrap{position:relative;transform:skewY(-2.5deg);transform-origin:top left;margin-bottom:-58px;z-index:1;overflow:hidden}
-.hero{min-height:90svh;display:flex;flex-direction:column;position:relative;overflow:hidden;background:var(--ink);transform:skewY(2.5deg);transform-origin:top left}
-@media(max-width:640px){.hero{min-height:78svh}}
+.hero{min-height:100svh;display:flex;flex-direction:column;position:relative;overflow:hidden;background:var(--ink);transform:skewY(2.5deg);transform-origin:top left}
+@media(max-width:640px){.hero{min-height:100svh}}
 .grain{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 #grainCanvas{opacity:.22}
 .hero-gradient{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 75% 60% at 22% 30%,rgba(109,40,217,.45),transparent 65%),radial-gradient(ellipse 55% 55% at 85% 75%,rgba(255,61,154,.22),transparent 60%),radial-gradient(ellipse 40% 40% at 60% 15%,rgba(232,255,61,.08),transparent 60%)}
 .hero-dots{position:absolute;inset:0;z-index:2;pointer-events:none;background-image:radial-gradient(circle,rgba(255,255,255,.09) 1px,transparent 1px);background-size:26px 26px}
 
-.hero-main{position:relative;z-index:5;flex:1;display:flex;flex-direction:column;justify-content:center;padding:150px 52px 90px;max-width:1200px;margin:0 auto;width:100%}
-@media(max-width:640px){.hero-main{padding:120px 22px 70px}}
+.hero-main{position:relative;z-index:5;flex:1;display:flex;flex-direction:column;justify-content:center;padding:110px 52px 70px;max-width:1200px;margin:0 auto;width:100%}
+@media(max-width:640px){.hero-main{padding:100px 22px 60px}}
+
+.scroll-cue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:6;display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;color:rgba(255,255,255,.5);transition:color .2s}
+.scroll-cue:hover{color:var(--lime)}
+.scroll-cue span{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+.scroll-cue svg{animation:cueBounce 1.8s ease-in-out infinite}
+@keyframes cueBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+@media(max-width:640px){.scroll-cue{bottom:18px}}
+
+.hero-scribble{position:absolute;pointer-events:none;z-index:1;opacity:.4}
 
 .sticker-badge{position:absolute;top:95px;right:52px;width:96px;height:96px;z-index:6}
 @media(max-width:780px){.sticker-badge{display:none}}
@@ -117,8 +127,10 @@ a:focus-visible,button:focus-visible,.acc-tab:focus-visible{outline:2px solid va
 .about{padding:84px 52px 100px;background:var(--white);position:relative;overflow:hidden}
 @media(max-width:640px){.about{padding:60px 20px 76px}}
 .about-shape1{position:absolute;width:26px;height:26px;border-radius:50%;background:var(--lime);top:100px;left:8%;opacity:.7}
-.about-shape2{position:absolute;width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-bottom:22px solid var(--pink);opacity:.5;top:60%;right:6%;transform:rotate(18deg)}
-.about-shape3{position:absolute;width:34px;height:34px;border:3px solid var(--purple3);border-radius:8px;opacity:.35;bottom:60px;left:4%;transform:rotate(12deg)}
+.about-shape2{position:absolute;top:58%;right:6%;opacity:.55}
+.about-shape3{position:absolute;width:34px;height:34px;border:3px solid var(--purple3);border-radius:8px;opacity:.3;bottom:60px;left:4%;transform:rotate(12deg)}
+.about-palette{display:inline-flex;gap:5px;margin-left:10px;vertical-align:middle}
+.about-palette span{width:9px;height:9px;border-radius:50%;display:inline-block}
 .about-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1}
 .about-row{display:grid;gap:36px;align-items:start}
 @media(min-width:820px){.about-row{grid-template-columns:180px 1fr 220px}}
@@ -235,36 +247,36 @@ a:focus-visible,button:focus-visible,.acc-tab:focus-visible{outline:2px solid va
 .svc p{font-size:12px;color:rgba(255,255,255,.6);line-height:1.7}
 
 /* ══ PROYECTOS ══ */
-.proyectos{padding:90px 52px;background:var(--offwhite);position:relative;overflow:hidden}
+.proyectos{padding:90px 52px;background:var(--lav);position:relative;overflow:hidden}
 @media(max-width:640px){.proyectos{padding:70px 20px}}
 .proy-inner{max-width:1100px;margin:0 auto}
-.proj-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:22px}
-.pcard{width:calc((100% - 44px)/3);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s;background:#fff}
-@media(max-width:900px){.pcard{width:calc((100% - 22px)/2)}}
+.proj-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:24px}
+.pcard{width:calc((100% - 48px)/3);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s;background:#fff;border:1.5px solid rgba(21,10,43,.07);box-shadow:0 10px 28px rgba(109,40,217,.09)}
+@media(max-width:900px){.pcard{width:calc((100% - 24px)/2)}}
 @media(max-width:520px){.pcard{width:100%}}
 .pcard:nth-child(odd){transform:rotate(-.6deg)}.pcard:nth-child(even){transform:rotate(.6deg)}
 .pcard:hover{transform:rotate(0) translateY(-6px)}
-.pcard:nth-child(6n+1):hover{box-shadow:7px 7px 0 var(--purple)}.pcard:nth-child(6n+2):hover{box-shadow:7px 7px 0 var(--lime)}.pcard:nth-child(6n+3):hover{box-shadow:7px 7px 0 var(--pink)}.pcard:nth-child(6n+4):hover{box-shadow:7px 7px 0 var(--mint)}.pcard:nth-child(6n+5):hover{box-shadow:7px 7px 0 var(--purple)}.pcard:nth-child(6n):hover{box-shadow:7px 7px 0 var(--pink)}
+.pcard:nth-child(3n+1):hover{box-shadow:7px 7px 0 var(--purple)}.pcard:nth-child(3n+2):hover{box-shadow:7px 7px 0 var(--pink)}.pcard:nth-child(3n):hover{box-shadow:7px 7px 0 var(--mint)}
 .pcard-img{width:100%;aspect-ratio:16/9;background-size:cover;background-position:center;background-color:var(--lav);position:relative;overflow:hidden;flex-shrink:0}
 .pcard-wash{position:absolute;inset:0;z-index:1;opacity:0;transition:opacity .4s}
 .pcard:hover .pcard-wash{opacity:1}
-.pcard:nth-child(6n+1) .pcard-wash{background:linear-gradient(135deg,rgba(109,40,217,.28),transparent)}.pcard:nth-child(6n+2) .pcard-wash{background:linear-gradient(135deg,rgba(232,255,61,.28),transparent)}.pcard:nth-child(6n+3) .pcard-wash{background:linear-gradient(135deg,rgba(255,61,154,.28),transparent)}.pcard:nth-child(6n+4) .pcard-wash{background:linear-gradient(135deg,rgba(16,245,160,.24),transparent)}.pcard:nth-child(6n+5) .pcard-wash{background:linear-gradient(135deg,rgba(14,165,233,.24),transparent)}.pcard:nth-child(6n) .pcard-wash{background:linear-gradient(135deg,rgba(251,191,36,.24),transparent)}
+.pcard:nth-child(3n+1) .pcard-wash{background:linear-gradient(135deg,rgba(109,40,217,.28),transparent)}.pcard:nth-child(3n+2) .pcard-wash{background:linear-gradient(135deg,rgba(255,61,154,.26),transparent)}.pcard:nth-child(3n) .pcard-wash{background:linear-gradient(135deg,rgba(16,245,160,.24),transparent)}
 .pcard-body{flex:1;padding:14px 16px 18px;border-top:3px solid}
-.pcard:nth-child(6n+1) .pcard-body{border-color:var(--purple)}.pcard:nth-child(6n+2) .pcard-body{border-color:var(--lime)}.pcard:nth-child(6n+3) .pcard-body{border-color:var(--pink)}.pcard:nth-child(6n+4) .pcard-body{border-color:var(--mint)}.pcard:nth-child(6n+5) .pcard-body{border-color:#0ea5e9}.pcard:nth-child(6n) .pcard-body{border-color:#fbbf24}
+.pcard:nth-child(3n+1) .pcard-body{border-color:var(--purple)}.pcard:nth-child(3n+2) .pcard-body{border-color:var(--pink)}.pcard:nth-child(3n) .pcard-body{border-color:var(--mint)}
 .pcard-cat{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
-.pcard:nth-child(6n+1) .pcard-cat{color:var(--purple)}.pcard:nth-child(6n+2) .pcard-cat{color:#8a8600}.pcard:nth-child(6n+3) .pcard-cat{color:var(--pink)}.pcard:nth-child(6n+4) .pcard-cat{color:#059669}.pcard:nth-child(6n+5) .pcard-cat{color:#0284c7}.pcard:nth-child(6n) .pcard-cat{color:#d97706}
+.pcard:nth-child(3n+1) .pcard-cat{color:var(--purple)}.pcard:nth-child(3n+2) .pcard-cat{color:var(--pink)}.pcard:nth-child(3n) .pcard-cat{color:#059669}
 .pcard-title{font-family:'Unbounded',sans-serif;font-size:16px;font-weight:700;color:var(--ink);line-height:1.2;margin-bottom:4px}
 .pcard-sub{font-size:11px;color:var(--muted);font-style:italic;margin-bottom:10px}
 .pcard-btn{display:inline-flex;align-items:center;gap:5px;font-family:'Fredoka',sans-serif;font-size:12px;font-weight:700;text-decoration:none;padding:6px 15px;border-radius:999px;transition:transform .22s;border:2px solid;background:transparent}
 .pcard-btn:hover{transform:scale(1.05)}
-.pcard:nth-child(6n+1) .pcard-btn{color:var(--purple);border-color:rgba(109,40,217,.3)}.pcard:nth-child(6n+2) .pcard-btn{color:#8a8600;border-color:rgba(138,134,0,.3)}.pcard:nth-child(6n+3) .pcard-btn{color:var(--pink);border-color:rgba(255,61,154,.3)}.pcard:nth-child(6n+4) .pcard-btn{color:#059669;border-color:rgba(5,150,105,.3)}.pcard:nth-child(6n+5) .pcard-btn{color:#0284c7;border-color:rgba(2,132,199,.3)}.pcard:nth-child(6n) .pcard-btn{color:#d97706;border-color:rgba(217,119,6,.3)}
+.pcard:nth-child(3n+1) .pcard-btn{color:var(--purple);border-color:rgba(109,40,217,.3)}.pcard:nth-child(3n+2) .pcard-btn{color:var(--pink);border-color:rgba(255,61,154,.3)}.pcard:nth-child(3n) .pcard-btn{color:#059669;border-color:rgba(5,150,105,.3)}
 
 /* ════════ FOOTER ════════ */
 .footer{background:var(--ink);position:relative;overflow:hidden}
 #grainCanvas3{opacity:.12}
 .footer-gradient{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 55% 50% at 18% 25%,rgba(109,40,217,.18),transparent 65%),radial-gradient(ellipse 40% 40% at 82% 75%,rgba(255,61,154,.1),transparent 65%)}
-.foot-cut{position:relative;background:var(--offwhite);line-height:0;overflow:hidden}
-.foot-cut svg{display:block;width:100%;height:44px}
+.foot-cut{position:relative;background:var(--lav);line-height:0;overflow:hidden}
+.foot-cut svg{display:block;width:100%;height:68px}
 
 .contact-sec{padding:64px 52px 48px;position:relative;z-index:2;max-width:1100px;margin:0 auto;display:grid;gap:52px;align-items:start}
 @media(min-width:820px){.contact-sec{grid-template-columns:1fr 1fr}}
@@ -391,12 +403,20 @@ a:focus-visible,button:focus-visible,.acc-tab:focus-visible{outline:2px solid va
       <span class="hero-plus">+</span>
       <span class="hero-typing" id="typingEl"></span>
     </div>
-    <p class="hero-sub rv" style="transition-delay:.15s">Convierto un brief en blanco en identidades, campañas y piezas gráficas que se entienden a la primera. Diseño, ilustro y — cuando hace falta — lo pongo en movimiento.</p>
+    <p class="hero-sub rv" style="transition-delay:.15s">Convierto un brief en blanco en identidades, campañas y piezas gráficas que se entienden a la primera. Diseño, ilustro y lo pongo en movimiento.</p>
     <div class="hero-ctas rv" style="transition-delay:.2s">
       <a href="#proyectos" class="cta-fill">Ver proyectos</a>
       <a href="#sobre" class="cta-outline">Más sobre mí</a>
     </div>
   </div>
+
+  <svg class="hero-scribble" style="width:120px;height:60px;left:6%;top:22%" viewBox="0 0 120 60" fill="none" aria-hidden="true"><path d="M4 40C20 10 34 50 50 26C66 2 80 42 96 20C104 10 110 14 116 8" stroke="#e8ff3d" stroke-width="2" stroke-linecap="round"/></svg>
+  <svg class="hero-scribble" style="width:60px;height:60px;right:10%;bottom:18%;opacity:.3" viewBox="0 0 60 60" fill="none" aria-hidden="true"><circle cx="30" cy="30" r="26" stroke="#ff3d9a" stroke-width="2" stroke-dasharray="5 7"/></svg>
+
+  <a href="#sobre" class="scroll-cue">
+    <span>Scroll</span>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 5L8 11L14 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
 
   <div class="hero-logo-ras">
     <span class="hero-logo-txt">NEEERGRAPHS</span>
@@ -422,7 +442,9 @@ a:focus-visible,button:focus-visible,.acc-tab:focus-visible{outline:2px solid va
 
 <!-- ══ SOBRE MÍ ══ -->
 <section class="about" id="sobre">
-  <span class="about-shape1"></span><span class="about-shape2"></span><span class="about-shape3"></span>
+  <span class="about-shape1"></span>
+  <svg class="about-shape2" width="46" height="20" viewBox="0 0 46 20" fill="none" aria-hidden="true"><path d="M1 10C6 2 11 18 16 10C21 2 26 18 31 10C36 2 41 18 45 10" stroke="#ff3d9a" stroke-width="2.5" stroke-linecap="round"/></svg>
+  <span class="about-shape3"></span>
   <div class="about-inner">
     <div class="about-row">
       <div class="photo-col rvL">
@@ -444,14 +466,14 @@ a:focus-visible,button:focus-visible,.acc-tab:focus-visible{outline:2px solid va
       </div>
 
       <div class="about-text rvR">
-        <h2 class="about-greeting">Hola, soy Nerea :)</h2>
-        <p class="about-sub">Diseñadora gráfica de 23 años, y <span class="me-apasiona">me apasiona</span> lo que hago.</p>
+        <h2 class="about-greeting">Hola, soy Nerea :)<span class="about-palette" aria-hidden="true"><span style="background:var(--purple)"></span><span style="background:var(--pink)"></span><span style="background:var(--mint)"></span></span></h2>
+        <p class="about-sub">Diseñadora gráfica, y <span class="me-apasiona">me apasiona</span> lo que hago.</p>
         <p class="about-body">
           <strong>Convierto un brief en blanco en campañas, identidades y piezas que comunican de verdad.</strong> Diseño, ilustro y dirijo el aspecto visual de cada proyecto de principio a fin; cuando una idea pide movimiento, la animo yo misma. Uso la IA generativa como una herramienta más para agilizar la ideación, sin perder nunca el criterio.
         </p>
         <div class="about-links">
-          <a class="about-link" href="https://www.linkedin.com/in/TU-USUARIO" target="_blank" rel="noopener">LinkedIn</a>
-          <a class="about-link" href="https://www.behance.net/TU-USUARIO" target="_blank" rel="noopener">Behance</a>
+          <a class="about-link" href="https://www.linkedin.com/in/nerearamirez/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="about-link" href="https://www.behance.net/nerearamirez1" target="_blank" rel="noopener">Behance</a>
         </div>
       </div>
 
@@ -504,7 +526,7 @@ a:focus-visible,button:focus-visible,.acc-tab:focus-visible{outline:2px solid va
 <section class="servicios" id="servicios">
   <canvas class="grain" id="grainCanvas2"></canvas>
   <div class="svc-aurora"></div>
-  <div class="sec-hd rv"><div class="sec-eyebrow">Servicios</div><h2 class="sec-title light">¿Qué puedo <span class="hi">hacer?</span></h2></div>
+  <div class="sec-hd rv"><h2 class="sec-title light">¿Qué puedo <span class="hi">hacer?</span></h2></div>
   <div class="svcs-grid rv" style="transition-delay:.09s">
     <div class="svc"><span class="svc-num">01</span><div class="svc-ico"><img src="vector.png" alt=""></div><h3>Diseño gráfico</h3><p>Identidad visual que comunica sin palabras. Photoshop, Illustrator, InDesign.</p></div>
     <div class="svc"><span class="svc-num">02</span><div class="svc-ico"><img src="rrss.png" alt=""></div><h3>Branding y campañas</h3><p>Identidad de marca y piezas de campaña pensadas para enganchar en digital y en físico.</p></div>
@@ -530,8 +552,11 @@ a:focus-visible,button:focus-visible,.acc-tab:focus-visible{outline:2px solid va
 </section>
 
 <!-- ══ FOOTER ══ -->
-<div class="foot-cut">
-  <svg viewBox="0 0 1200 44" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,26 L1120,10 L1040,30 L960,8 L880,26 L800,12 L720,28 L640,10 L560,26 L480,12 L400,28 L320,10 L240,26 L160,12 L80,28 L0,10 Z" fill="#150a2b"/></svg>
+<div class="foot-cut" aria-hidden="true">
+  <svg viewBox="0 0 1200 70" preserveAspectRatio="none">
+    <path d="M0,32 C160,58 360,2 600,26 C840,50 1040,10 1200,30 L1200,70 L0,70 Z" fill="rgba(109,40,217,.16)"/>
+    <path d="M0,44 C170,16 380,64 620,38 C860,12 1030,52 1200,40 L1200,70 L0,70 Z" fill="#150a2b"/>
+  </svg>
 </div>
 <div class="footer" id="contacto">
   <canvas class="grain" id="grainCanvas3"></canvas>
@@ -543,8 +568,8 @@ a:focus-visible,button:focus-visible,.acc-tab:focus-visible{outline:2px solid va
       <p class="ct-sub">¿Tienes algo en mente? Me encantaría escucharte. Ya sea un proyecto, una idea loca o simplemente presentarte — escríbeme sin miedo.</p>
       <a href="mailto:nerearamimarti@gmail.com" class="ct-cta">Escribir ahora</a>
       <div class="ct-social">
-        <a class="ct-soc" href="https://www.linkedin.com/in/TU-USUARIO" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="ct-soc" href="https://www.behance.net/TU-USUARIO" target="_blank" rel="noopener">Behance</a>
+        <a class="ct-soc" href="https://www.linkedin.com/in/nerearamirez/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="ct-soc" href="https://www.behance.net/nerearamirez1" target="_blank" rel="noopener">Behance</a>
       </div>
     </div>
     <div class="ct-items rvR">
@@ -716,11 +741,18 @@ setTimeout(typeStep,600);
   animate();
 })();
 
-/* NAV */
+/* NAV — la portada es lo primero que se ve; el nav aparece como cabecera al hacer scroll */
 const mainNav=document.getElementById('mainNav');
 const darkIds=['hero','servicios','contacto'];
 const navObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){mainNav.classList.toggle('on-dark',darkIds.includes(e.target.id))}})},{threshold:.3,rootMargin:'-60px 0px 0px 0px'});
 document.querySelectorAll('section[id],div.footer[id]').forEach(s=>navObs.observe(s));
+
+function updateNavVisibility(){
+  const show=scrollY>innerHeight*.55;
+  mainNav.classList.toggle('show',show);
+}
+window.addEventListener('scroll',updateNavVisibility,{passive:true});
+updateNavVisibility();
 
 /* ACORDEÓN */
 function toggleTab(tab,panelId){
