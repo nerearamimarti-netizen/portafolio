@@ -9,7 +9,7 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%236d28d9'/%3E%3Ctext x='32' y='46' font-family='Fredoka%2C sans-serif' font-size='40' font-weight='700' text-anchor='middle' fill='white'%3EN%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Fredoka:wght@500;600;700&family=Caveat:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--pink:#ff3d9a;--lime:#e8ff3d;--mint:#10f5a0;--ink:#150a2b;--foam:#e9fbff;--muted:rgba(233,251,255,.78)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -53,14 +53,22 @@ section,footer,header{position:relative;z-index:2}
 @keyframes bobf{50%{transform:translateY(-7px) rotate(3deg)}}
 
 /* Hero */
-.hero{min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:110px 24px 90px}
+.hero{min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:110px 24px 120px}
 .rays{position:absolute;inset:-10% 0 0;pointer-events:none;background:repeating-linear-gradient(105deg,rgba(255,255,255,.14) 0 28px,transparent 28px 120px);-webkit-mask-image:linear-gradient(180deg,#000,transparent 75%);mask-image:linear-gradient(180deg,#000,transparent 75%);animation:sway 9s ease-in-out infinite alternate}
 @keyframes sway{to{transform:translateX(40px) skewX(-3deg)}}
 .hero-in{position:relative;z-index:3}
 .hero h1{font-size:clamp(38px,9vw,108px);font-weight:800;letter-spacing:-2px;text-shadow:0 8px 40px rgba(0,40,90,.45)}
 .hero .hi{font-family:'Fredoka',sans-serif;font-size:clamp(20px,3vw,30px);color:var(--lime);font-weight:600;margin-bottom:12px;display:block}
 .hero p{margin:22px auto 0;max-width:44ch;font-size:clamp(16px,2vw,20px)}
-.hint{margin-top:18px;font-size:13px;opacity:.75}
+.hero .me{margin-top:16px;max-width:54ch;font-size:clamp(15px,1.8vw,18px)}
+.hero .sub2{margin-top:16px;font-size:13.5px;opacity:.8}
+.toast{position:fixed;left:18px;bottom:24px;z-index:850;max-width:290px;padding:14px 38px 14px 16px;border-radius:20px;background:rgba(255,255,255,.96);color:var(--ink);font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;line-height:1.35;box-shadow:0 12px 34px rgba(0,0,0,.35);display:flex;gap:10px;align-items:center;transform:translateY(30px) scale(.9);opacity:0;pointer-events:none;transition:.5s cubic-bezier(.34,1.56,.64,1)}
+.toast.show{transform:none;opacity:1;pointer-events:auto}
+.toast .b{font-size:28px;animation:bobf 2s ease-in-out infinite}
+.toast button{position:absolute;top:4px;right:8px;background:none;border:none;font-size:22px;color:var(--ink);line-height:1}
+.wrap.about{max-width:780px;display:grid;gap:30px;align-items:center}
+@media(min-width:700px){.wrap.about{grid-template-columns:230px 1fr}}
+.about .ph{transform:rotate(-2deg);border-radius:22px;border-style:solid;border-color:#fff;border-width:5px}
 .cue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:4;color:#fff;text-decoration:none;font-family:'Fredoka',sans-serif;font-size:14px;display:flex;flex-direction:column;align-items:center;animation:bob 2s ease-in-out infinite}
 .wave{position:absolute;bottom:-1px;left:0;width:100%;height:70px;z-index:3}
 
@@ -78,14 +86,14 @@ section,footer,header{position:relative;z-index:2}
 .dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
 
 /* Gatos */
-.tabs{display:flex;gap:10px;margin:28px 0 18px}
-.tab{font-family:'Fredoka',sans-serif;font-weight:600;font-size:17px;padding:10px 26px;border-radius:999px;border:1.5px solid rgba(255,255,255,.35);background:transparent;transition:.2s}
+.tabs{display:flex;gap:10px;margin:24px 0 16px}
+.tab{font-family:'Fredoka',sans-serif;font-weight:600;font-size:16px;padding:8px 22px;border-radius:999px;border:1.5px solid rgba(255,255,255,.35);background:transparent;transition:.2s}
 .tab.on{background:var(--lime);color:var(--ink);border-color:var(--lime)}
-.panel{display:none;gap:26px;align-items:center;padding:22px}
-.panel.on{display:grid;animation:pop .4s ease}
-@media(min-width:760px){.panel.on{grid-template-columns:.9fr 1.1fr}}
-.panel h3{font-size:26px;margin-bottom:8px}
-.panel p{color:var(--muted);font-size:17px}
+.panel{display:none;gap:18px;align-items:center;padding:16px;max-width:520px}
+.panel.on{display:grid;grid-template-columns:130px 1fr;animation:pop .4s ease}
+.panel .ph{border-radius:14px;padding:6px;font-size:12px}
+.panel h3{font-size:20px;margin-bottom:6px}
+.panel p{color:var(--muted);font-size:15.5px;line-height:1.55}
 
 /* Tiburón */
 .stage{position:relative;height:340px;border-radius:26px;overflow:hidden;margin-top:26px;touch-action:none;border:1.5px solid rgba(255,255,255,.2);background:radial-gradient(ellipse 70% 90% at 50% -10%,rgba(120,220,255,.55),transparent 65%),linear-gradient(180deg,#0b5a8c,#04213f)}
@@ -98,41 +106,38 @@ section,footer,header{position:relative;z-index:2}
 .facts h3{font-size:17px;margin-bottom:4px;color:var(--lime)}
 .facts p{font-size:15px}
 
-/* Postales */
-.cards{display:grid;gap:18px;margin-top:30px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
-.pc{perspective:900px;cursor:pointer;height:250px}
-.pc>div{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.34,1.3,.64,1);transform-style:preserve-3d}
-.pc.fl>div{transform:rotateY(180deg)}
-.pc .f,.pc .k{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;padding:12px;display:flex;flex-direction:column;gap:10px}
-.pc .f{background:rgba(6,30,66,.5);border:1.5px solid rgba(255,255,255,.2)}
-.pc .f .ph{flex:1;aspect-ratio:auto}
-.pc .f h3{font-size:16px;padding:0 4px 2px}
-.pc .k{transform:rotateY(180deg);background:linear-gradient(150deg,#6d28d9,#ff3d9a);justify-content:center;padding:22px;font-size:15.5px;line-height:1.55}
-.pc .k h3{font-size:16px}
-
-/* Slider */
-.bal{margin-top:28px;padding:30px;max-width:760px;text-align:center}
-.bal .em{font-size:52px;transition:transform .3s}
-#rg{-webkit-appearance:none;appearance:none;width:100%;height:10px;border-radius:99px;margin:22px 0;background:linear-gradient(90deg,var(--pink),#6d28d9,var(--mint));outline-offset:6px}
-#rg::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;background:#fff;border:4px solid var(--ink);cursor:grab}
-#rg::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:#fff;border:4px solid var(--ink)}
-.ends{display:flex;justify-content:space-between;font-family:'Fredoka',sans-serif;font-size:14px;color:var(--muted)}
-#bt{font-size:18px;min-height:56px;margin-top:14px}
-#bh{font-family:'Unbounded',sans-serif;font-size:20px;margin-top:8px}
-
-/* Buceo */
-.goal{text-align:center;padding:110px 0}
-.goal h2{font-size:clamp(28px,5.5vw,60px)}
-.count{display:inline-flex;gap:14px;margin-top:28px}
-.count div{padding:16px 30px;font-family:'Unbounded',sans-serif}
-.count b{display:block;font-size:clamp(30px,6vw,54px);color:var(--lime)}
-.count span{font-family:'Nunito',sans-serif;font-size:13px;color:var(--muted)}
-
-footer{padding:90px 0 40px;text-align:center}
-footer h2{font-size:clamp(32px,6vw,60px);margin-bottom:14px}
-.cta{display:inline-block;margin-top:22px;font-family:'Fredoka',sans-serif;font-weight:700;font-size:16px;padding:14px 34px;border-radius:999px;background:var(--lime);color:var(--ink);text-decoration:none;transition:transform .25s}
+/* Polaroids */
+.ptbar{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;max-width:520px;margin-top:26px;padding:14px 22px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:18px;color:#fff;transition:.2s}
+.ptbar:hover{background:rgba(255,61,154,.35)}
+.ptbar em{font-style:normal;font-weight:500;font-size:14px;opacity:.75}
+.pta{background:var(--lime);color:var(--ink);padding:4px 14px;border-radius:99px;font-size:14px}
+.pols{display:grid;gap:30px 22px;margin-top:28px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.pols.pt{display:none}.pols.pt.open{display:grid;animation:pop .5s ease}
+.pol{position:relative;background:#fdfcf8;padding:10px 10px 0;border-radius:4px;box-shadow:0 12px 26px rgba(0,0,0,.35);transform:rotate(var(--r));transition:transform .3s cubic-bezier(.34,1.56,.64,1);color:#2a1a3a}
+.pol:hover{transform:rotate(0) scale(1.07) translateY(-4px);z-index:3}
+.pol::before{content:'';position:absolute;top:-10px;left:50%;width:64px;height:20px;background:rgba(232,255,61,.65);transform:translateX(-50%) rotate(-3deg)}
+.pol .ph{aspect-ratio:1/1;border-radius:2px;border:2px dashed rgba(21,10,43,.25);background:#ebe7de;color:#5a4a6a;font-size:12px}
+.pol b{display:block;font-family:'Caveat',cursive;font-size:24px;text-align:center;padding:6px 0 10px;line-height:1.1}
+/* Metas */
+.goals{display:grid;gap:12px;margin-top:26px;max-width:760px}
+.gi{display:flex;align-items:center;gap:16px;text-align:left;width:100%;padding:16px 20px;border-radius:18px;background:rgba(6,30,66,.55);border:1.5px solid rgba(255,255,255,.2);font-size:17px;transition:.25s}
+.gi:hover{transform:translateX(6px);border-color:var(--lime)}
+.gi .em{font-size:26px}
+.gi .t{flex:1}
+.gi .ck{flex:0 0 30px;height:30px;border-radius:50%;border:2px solid #fff;display:grid;place-items:center;color:transparent;font-weight:800;transition:.25s}
+.gi.done .ck{background:var(--mint);border-color:var(--mint);color:var(--ink);transform:scale(1.15) rotate(360deg)}
+.gi.done .t{text-decoration:line-through;opacity:.65}
+footer{padding:80px 0 40px}
+.cafe{display:grid;gap:26px;align-items:center;text-align:center;justify-items:center}
+@media(min-width:760px){.cafe{grid-template-columns:200px 1fr;text-align:left;justify-items:start}}
+.cup{width:170px}
+.steam path{fill:none;stroke:#fff;stroke-width:4;stroke-linecap:round;opacity:0;animation:st 3s ease-in-out infinite}
+.steam path:nth-child(2){animation-delay:.9s}.steam path:nth-child(3){animation-delay:1.8s}
+@keyframes st{0%{opacity:0;transform:translateY(10px)}40%{opacity:.75}100%{opacity:0;transform:translateY(-14px)}}
+footer h2{font-size:clamp(30px,5.5vw,54px);margin-bottom:12px}
+.cta{display:inline-block;margin-top:20px;font-family:'Fredoka',sans-serif;font-weight:700;font-size:16px;padding:14px 34px;border-radius:999px;background:var(--lime);color:var(--ink);text-decoration:none;transition:transform .25s}
 .cta:hover{transform:scale(1.06)}.cta.o{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4);margin-left:8px}
-.copy{margin-top:60px;font-size:12px;color:rgba(255,255,255,.4);letter-spacing:1px}
+.copy{margin-top:60px;text-align:center;font-size:12px;color:rgba(255,255,255,.4);letter-spacing:1px}
 .rv{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
 .rv.on{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}}
@@ -142,14 +147,18 @@ footer h2{font-size:clamp(32px,6vw,60px);margin-bottom:14px}
 
 <!-- Tiburón (definición única, mira hacia la derecha) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-<linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4d6f8c"/><stop offset=".55" stop-color="#7f9db3"/><stop offset=".56" stop-color="#e4eef3"/><stop offset="1" stop-color="#fff"/></linearGradient>
+<linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4f6f78"/><stop offset=".5" stop-color="#7f9ea3"/><stop offset=".56" stop-color="#e9ede4"/><stop offset="1" stop-color="#fff"/></linearGradient>
 <symbol id="shk" viewBox="0 0 300 120">
-<path class="tail" d="M78 62L14 14 34 62 8 108Z" fill="#4d6f8c"/>
-<path d="M296 64C240 22 150 14 70 48V76C150 108 240 104 296 64Z" fill="url(#sg)"/>
-<path d="M192 32L140 0 130 38Z" fill="#4d6f8c"/>
-<path d="M204 84L150 116 172 80Z" fill="#6c8ea6"/>
-<path d="M232 50q6 12 0 24M242 50q6 12 0 24M252 52q5 10 0 20" stroke="#3b566d" stroke-width="2" fill="none" stroke-linecap="round"/>
-<circle cx="272" cy="54" r="4" fill="#0b1a2b"/>
+<path class="tail" d="M78 62C56 46 34 26 6 4 24 28 28 46 34 58 28 74 32 90 46 102 60 92 68 80 78 66Z" fill="#4a6870"/>
+<path d="M292 66C292 50 270 36 240 31 200 25 140 21 100 40L70 52V74L100 80C140 92 210 98 250 88 278 82 292 76 292 66Z" fill="url(#sg)"/>
+<g stroke="#2f4a54" stroke-width="4" stroke-linecap="round" fill="none" opacity=".4"><path d="M100 44q-3 12 2 22"/><path d="M120 37q-4 14 2 26"/><path d="M144 31q-4 16 2 28"/><path d="M168 29q-4 16 2 28"/><path d="M192 30q-3 15 2 27"/><path d="M214 33q-3 13 2 24"/></g>
+<path d="M192 28C176 15 160 8 148 3 146 14 140 26 130 33Z" fill="#4a6870"/>
+<path d="M92 45L78 36 80 50Z" fill="#4a6870"/>
+<path d="M198 84C184 100 168 112 150 118 160 106 166 94 170 84Z" fill="#5d7f88"/>
+<path d="M122 90L108 104 128 97Z" fill="#5d7f88"/>
+<path d="M240 46q4 10 0 22M249 46q4 10 0 22M258 47q4 9 0 20" stroke="#3b565f" stroke-width="2" fill="none" stroke-linecap="round"/>
+<path d="M290 72Q264 80 238 74" stroke="#33454c" stroke-width="2" fill="none" stroke-linecap="round"/>
+<circle cx="268" cy="52" r="3.6" fill="#0b1a2b"/><circle cx="269" cy="51" r="1" fill="#fff"/>
 </symbol>
 <symbol id="fsh" viewBox="0 0 40 24"><path d="M38 12C30 0 16 0 8 12 16 24 30 24 38 12ZM8 12L0 3V21Z" fill="currentColor"/><circle cx="31" cy="10" r="1.6" fill="#06253f"/></symbol>
 </defs></svg>
@@ -164,6 +173,7 @@ footer h2{font-size:clamp(32px,6vw,60px);margin-bottom:14px}
   <span class="fs" style="--t:44%;--s:18px;--c:#ff85c2;--du:20s;--de:-9s"><svg viewBox="0 0 40 24"><use href="#fsh"/></svg></span>
 </div>
 <a class="back-home" href="index.html">← Volver</a>
+<div class="toast" id="toast" role="status"><span class="b">🫧</span><span>¡Psst! Pincha en las burbujas y verás cómo revientan.</span><button id="tx" aria-label="Cerrar">×</button></div>
 <button id="btt" aria-label="Volver arriba">↑</button>
 <div id="depth" aria-hidden="true"><b id="dm">0 m</b><div class="rail"><div class="fill" id="df"></div></div><span>profundidad</span></div>
 
@@ -175,83 +185,106 @@ footer h2{font-size:clamp(32px,6vw,60px);margin-bottom:14px}
   <div class="hero-in" id="heroIn">
     <h1><span class="hi">Vale, ya sabes qué hago.</span>Ahora te cuento quién soy</h1>
     <p>Café, gatos, tiburones y una lista infinita de planes. Ponte cómod@ y baja conmigo.</p>
-    <p class="hint">🫧 Pincha en las burbujas: revientan.</p>
+    <p class="me">Soy Nerea, tengo 23 años, no tanta experiencia como me gustaría, pero muchísimas ganas de darlo todo y conseguir grandes cosas en la vida.</p>
+    <p class="sub2">Ahora sumérgete si quieres saber más sobre mí (me encanta el mar por si no se nota) 🌊</p>
   </div>
-  <a class="cue" href="#pregunta">Sumérgete<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 5l6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a>
+  <a class="cue" href="#yo">Sumérgete<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 5l6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a>
   <svg class="wave" viewBox="0 0 1200 70" preserveAspectRatio="none" aria-hidden="true"><path d="M0 35C150 65 300 5 450 35S750 65 900 35 1100 10 1200 35V70H0Z" fill="#1aa6c9" opacity=".5"/><path d="M0 48C150 20 300 68 450 46S750 20 900 48 1100 60 1200 44V70H0Z" fill="#0d6f9a"/></svg>
 </header>
+
+<!-- FOTO -->
+<section class="sec" id="yo"><div class="wrap about rv">
+  <div class="ph" style="--ar:4/5">Tu foto en plan normal</div>
+  <div><h2>Esta soy yo</h2><p class="lead">En versión día normal: sin poses, sin retoques y, con suerte, con un café en la mano ☕</p></div>
+</div></section>
 
 <!-- PREGÚNTAME -->
 <section class="sec" id="pregunta"><div class="wrap rv">
   <h2>Pregúntame lo que quieras</h2>
-  <p class="lead">Elige una pregunta y te contesto. Sin filtros, o casi.</p>
-  <div class="chat glass"><div class="qs" id="qs"></div><div class="log" id="log"><div class="m n">Venga, dispara 👇</div></div></div>
+  <p class="lead">Elige una pregunta y te contesto.</p>
+  <div class="chat glass"><div class="qs" id="qs"></div><div class="log" id="log"><div class="m n">¡Venga, pregunta sin miedo! 👇</div></div></div>
 </div></section>
 
 <!-- GATOS -->
 <section class="sec"><div class="wrap rv">
-  <h2>Mis tres gatos</h2>
+  <h2>Mis tres gatitos</h2>
   <p class="lead">Los tres son adoptados. Toca a cada uno.</p>
   <div class="tabs" role="tablist"><button class="tab on" data-t="0">Kitty</button><button class="tab" data-t="1">Mandi</button><button class="tab" data-t="2">Boo</button></div>
-  <div class="glass panel on"><div class="ph" style="--ar:1/1">Foto de Kitty</div><div><h3>Kitty</h3><p>Adoptada y parte de la familia desde el primer día.</p></div></div>
-  <div class="glass panel"><div class="ph" style="--ar:1/1">Foto de Mandi</div><div><h3>Mandi</h3><p>Adoptada también. Un carácter que llena la casa.</p></div></div>
-  <div class="glass panel"><div class="ph" style="--ar:1/1">Foto de Boo</div><div><h3>Boo 💛</h3><p>Lo encontramos en la basura y lo crié yo. Por eso es mi favorito y, sí, lo sé, no debería tener favoritos.</p></div></div>
+  <div class="glass panel on"><div class="ph" style="--ar:1/1">Foto de Kitty</div><div><h3>Kitty</h3><p>Adoptada y de la familia desde el primer día.</p></div></div>
+  <div class="glass panel"><div class="ph" style="--ar:1/1">Foto de Mandi</div><div><h3>Mandi</h3><p>También adoptada. Personalidad le sobra.</p></div></div>
+  <div class="glass panel"><div class="ph" style="--ar:1/1">Foto de Boo</div><div><h3>Boo 💛</h3><p>Lo encontramos en la basura y lo crié yo, así que tenemos un vínculo especial. Sí, es mi favorito (shhh, que no se enteren los otros) 🤫</p></div></div>
 </div></section>
 
 <!-- TIBURÓN -->
 <section class="sec"><div class="wrap rv">
   <h2>Mi animal favorito: el tiburón</h2>
-  <p class="lead">Sí, ese. Te presento al mío.</p>
   <!-- Para meter un vídeo real de tiburón, pon dentro de .stage: <video src="tiburon.mp4" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video> -->
   <div class="stage" id="stage"><div class="rays"></div>
     <svg id="pet" viewBox="0 0 300 120" aria-hidden="true"><use href="#shk"/></svg>
     <small>Mueve el ratón o el dedo por aquí: te sigue 🦈</small>
   </div>
   <div class="facts">
-    <div><h3>Elegantes</h3><p>Se mueven como si no costara nada.</p></div>
-    <div><h3>Fuertes</h3><p>Potencia pura y aun así todo calma.</p></div>
-    <div><h3>Preciosos</h3><p>Sí, me parecen bonitos. No me juzgues.</p></div>
+    <div><h3>Elegantes</h3><p>Se mueven como si nada y yo ahí flipando.</p></div>
+    <div><h3>Fuertes</h3><p>Potencia pura, pero con toda la calma.</p></div>
+    <div><h3>Preciosos</h3><p>Sí, me parecen bonitos. No me juzgues 😅</p></div>
   </div>
 </div></section>
 
 <!-- VIAJES -->
 <section class="sec"><div class="wrap rv">
   <h2>Sitios donde he estado</h2>
-  <p class="lead">Dale la vuelta a cada postal.</p>
-  <div class="cards" id="cards">
-    <div class="pc" tabindex="0" role="button"><div><div class="f"><div class="ph">Foto Nerja</div><h3>Nerja ★</h3></div><div class="k"><h3>Mi sitio favorito</h3>Tranquilidad, rutas, naturaleza y desconectar de verdad. Es el que más me ha marcado.</div></div></div>
-    <div class="pc" tabindex="0" role="button"><div><div class="f"><div class="ph">Foto Andorra</div><h3>Andorra</h3></div><div class="k"><h3>Esquí, 2026</h3>Nieve, montaña y mucha adrenalina. Esquiar es de lo que más me gusta.</div></div></div>
-    <div class="pc" tabindex="0" role="button"><div><div class="f"><div class="ph">Foto Londres</div><h3>Londres</h3></div><div class="k"><h3>Ciudad grande</h3>Otra ciudad tachada de la lista.</div></div></div>
-    <div class="pc" tabindex="0" role="button"><div><div class="f"><div class="ph">Foto Portugal</div><h3>Portugal</h3></div><div class="k"><h3>Escapada</h3>Un viaje que también salió redondo.</div></div></div>
-    <div class="pc" tabindex="0" role="button"><div><div class="f"><div class="ph">Foto Rusia</div><h3>Rusia</h3></div><div class="k"><h3>El más distinto</h3>Un viaje diferente a todo lo demás.</div></div></div>
-    <div class="pc" tabindex="0" role="button"><div><div class="f"><div class="ph">Foto del pueblo</div><h3>Mi pueblo (Cáceres)</h3></div><div class="k"><h3>Mi botón de pausa</h3>Campo, familia, amigos y cero prisas.</div></div></div>
+  <p class="lead">Mi álbum de viajes 📸 Abre Portugal, que le tengo mucho cariño.</p>
+  <button class="ptbar glass" id="ptb" aria-expanded="false" aria-controls="pt"><span>🇵🇹 Portugal <em>· 7 paradas</em></span><span class="pta" id="pta">Abrir ▾</span></button>
+  <div class="pols pt" id="pt">
+<figure class="pol" style="--r:-3deg"><div class="ph">Foto Lisboa</div><b>Lisboa</b></figure>
+<figure class="pol" style="--r:2deg"><div class="ph">Foto Óbidos</div><b>Óbidos</b></figure>
+<figure class="pol" style="--r:-1.5deg"><div class="ph">Foto Nazaré</div><b>Nazaré</b></figure>
+<figure class="pol" style="--r:3deg"><div class="ph">Foto Coimbra</div><b>Coimbra</b></figure>
+<figure class="pol" style="--r:-2deg"><div class="ph">Foto Aveiro</div><b>Aveiro</b></figure>
+<figure class="pol" style="--r:1.5deg"><div class="ph">Foto Oporto</div><b>Oporto</b></figure>
+<figure class="pol" style="--r:-3deg"><div class="ph">Foto Évora</div><b>Évora</b></figure>
+  </div>
+  <div class="pols" style="margin-top:34px">
+<figure class="pol" style="--r:-1.5deg"><div class="ph">Foto Nerja</div><b>Nerja ★</b></figure>
+<figure class="pol" style="--r:3deg"><div class="ph">Foto El Gordo</div><b>El Gordo</b></figure>
+<figure class="pol" style="--r:-2deg"><div class="ph">Foto Andorra</div><b>Andorra</b></figure>
+<figure class="pol" style="--r:1.5deg"><div class="ph">Foto Huesca</div><b>Huesca</b></figure>
+<figure class="pol" style="--r:-3deg"><div class="ph">Foto León</div><b>León</b></figure>
+<figure class="pol" style="--r:2deg"><div class="ph">Foto Torrevieja</div><b>Torrevieja</b></figure>
+<figure class="pol" style="--r:-1.5deg"><div class="ph">Foto Denia</div><b>Denia</b></figure>
+<figure class="pol" style="--r:3deg"><div class="ph">Foto Londres</div><b>Londres</b></figure>
+<figure class="pol" style="--r:-2deg"><div class="ph">Foto Rusia</div><b>Rusia</b></figure>
   </div>
 </div></section>
 
-<!-- EQUILIBRIO -->
+<!-- METAS -->
 <section class="sec"><div class="wrap rv">
-  <h2>¿Cómo soy? Depende del día</h2>
-  <p class="lead">Mueve el control y mira las dos versiones de mí.</p>
-  <div class="glass bal">
-    <div class="em" id="be">⚖️</div>
-    <input type="range" id="rg" min="0" max="100" value="50" aria-label="De modo no paro a modo desconexión">
-    <div class="ends"><span>Modo no paro</span><span>Modo desconexión</span></div>
-    <div id="bh">Equilibrio</div>
-    <p id="bt">Trabajar con ganas y hacerme hueco para respirar.</p>
+  <h2>Lo que quiero conseguir</h2>
+  <p class="lead">Mi lista de sueños. Tócalos para tacharlos (spoiler: todavía no he tachado ninguno 😅).</p>
+  <div class="goals">
+    <button class="gi"><span class="em">🏍️</span><span class="t">Sacarme el carnet de moto y comprarme una Ninja 650</span><span class="ck">✓</span></button>
+    <button class="gi"><span class="em">🧊</span><span class="t">Aprender a diseñar en 3D</span><span class="ck">✓</span></button>
+    <button class="gi"><span class="em">🤿</span><span class="t">Hacer un curso de bautismo de buceo</span><span class="ck">✓</span></button>
+    <button class="gi"><span class="em">📖</span><span class="t">Crear mi propio libro de recetas (me encanta la repostería 🧁)</span><span class="ck">✓</span></button>
+    <button class="gi"><span class="em">🏡</span><span class="t">Comprar una casita para construir mi hogar</span><span class="ck">✓</span></button>
   </div>
 </div></section>
 
-<!-- BUCEO -->
-<section class="goal"><div class="wrap rv">
-  <h2>Próxima parada: el fondo del mar</h2>
-  <p class="lead" style="margin:16px auto 0">Verano de 2027: mi primer bautismo de buceo. Nunca he buceado y estoy deseando.</p>
-  <div class="count"><div class="glass"><b id="cd">0</b><span>días</span></div></div>
-</div></section>
-
-<footer><div class="wrap rv">
-  <h2>¿Hablamos?</h2>
-  <p class="lead" style="margin:0 auto">De diseño, de un proyecto o de por qué los tiburones son geniales.</p>
-  <a class="cta" href="mailto:nerearamimarti@gmail.com">Escríbeme</a><a class="cta o" href="index.html#proyectos">Ver proyectos</a>
+<footer><div class="wrap">
+  <div class="cafe rv">
+    <svg class="cup" viewBox="0 0 120 120" aria-hidden="true">
+      <g class="steam"><path d="M42 40q-8-8 0-16t0-14"/><path d="M60 40q-8-8 0-16t0-14"/><path d="M78 40q-8-8 0-16t0-14"/></g>
+      <path d="M22 52h66v24a30 30 0 0 1-30 30h-6a30 30 0 0 1-30-30z" fill="#f4f1ec"/>
+      <path d="M88 60h6a12 12 0 0 1 0 24h-8" fill="none" stroke="#f4f1ec" stroke-width="7" stroke-linecap="round"/>
+      <ellipse cx="55" cy="52" rx="33" ry="6" fill="#6b3d20"/>
+      <ellipse cx="55" cy="110" rx="46" ry="6" fill="#ff3d9a" opacity=".85"/>
+    </svg>
+    <div>
+      <h2>¿Nos tomamos un café?</h2>
+      <p class="lead">Cuéntame tu idea, tu proyecto o simplemente qué tal tu día. Yo pongo las ganas y tú el café ☕😉</p>
+      <a class="cta" href="mailto:nerearamimarti@gmail.com">Escríbeme</a><a class="cta o" href="index.html#proyectos">Ver proyectos</a>
+    </div>
+  </div>
   <p class="copy">© 2026 NEEERGRAPHS · MADRID</p>
 </div></footer>
 
@@ -292,14 +325,13 @@ $('btt').onclick=()=>scrollTo({top:0,behavior:'smooth'});
 
 /* Chat */
 const QA=[
-["¿Qué te hace feliz?","Un café. Me vale de cualquier manera, no soy nada exigente. Y ese momento de terminar un diseño y pensar «wow, esto lo he hecho yo»."],
-["¿Cómo empezaste en el diseño?","De pequeña me quedaba mirando un cartel o una animación pensando «¿cómo habrán hecho esto?». Luego llegaron PicsArt y Photopea, y ya no paré."],
-["¿Cómo eres trabajando?","Perfeccionista. Si no queda como lo imagino, sigo hasta conseguirlo. Y muy organizada: me gusta tenerlo todo bien pensado."],
-["¿Qué haces un domingo?","Lo más probable: «¿vamos a hacer una ruta?». Naturaleza, calma y cero prisas."],
-["¿Haces deporte?","Mucho. Voley en el instituto, 3 años de boxeo (lo dejé al empezar a estudiar y trabajar a la vez), gimnasio desde hace un año y esquí cuando toca."],
-["¿Qué comes?","De todo. Como sano, pero disfruto muchísimo de lo menos healthy. Sushi y hamburguesas, siempre."],
-["¿Peli favorita?","Monstruos S.A. y Ratatouille. Las dos dicen que con esfuerzo, ganas y perseverancia puedes conseguir lo que quieres. Y me lo creo."],
-["¿Qué música escuchas?","De todo. Depende del momento y de lo que esté haciendo."]];
+["¿Qué te hace feliz?","Un cafecito ☕ (el que sea, no soy nada tiquismiquis) y ese momento de terminar un diseño y decir «wow, ¿esto lo he hecho yo?»."],
+["¿Cómo acabaste en el diseño?","De pequeña veía un cartel o una animación y me quedaba pensando «¿cómo lo habrán hecho?». Luego descubrí PicsArt y Photopea… y ya no hubo vuelta atrás 😅"],
+["¿Cómo eres currando?","Perfeccionista total. Si no queda como lo imagino, no paro hasta que sí. Mis carpetas de «final_definitivo_v7» lo saben. Eso sí, súper organizada."],
+["¿Qué plan te apetece un domingo?","Un «¿vamos a hacer una ruta?» y listo. Naturaleza, calma y cero prisas."],
+["¿Haces deporte?","Hago mucho deporte, estuve 3 años en boxeo hasta que tuve que trabajar y estudiar a la vez y no me daba tiempo a seguir los horarios, pero ahora voy al gym cuando saco el hueco para mantenerme y juego de vez en cuando al pádel :)"],
+["¿Comida?","¡Me encanta comer! Adoro el sushi, las hamburguesas curradas, el salmón, el mango, la tortilla de patatas de mi madre y bueno, una muy larga lista de cosas"],
+["¿Peli animada favorita?","¡Qué buena pregunta! Me quedo con Monstruos S.A. y Ratatouille. Las dos me recuerdan que con esfuerzo, ganas y perseverancia se puede llegar a donde quieras. Me encantan 💜"]];
 const qs=$('qs'),log=$('log');let busy=0;
 QA.forEach(([q,a],i)=>{const b=document.createElement('button');b.className='q';b.textContent=q;b.onclick=()=>{
   if(busy)return;busy=1;qs.querySelectorAll('.q').forEach(e=>e.classList.remove('on'));b.classList.add('on');
@@ -326,15 +358,15 @@ tabs.forEach(t=>t.onclick=()=>{tabs.forEach(e=>e.classList.remove('on'));pn.forE
     pet.style.transform=`translate(${px-115}px,${py-46}px) rotate(${ang*dir}deg) scaleX(${dir})`})();
 })();
 
-/* Postales */
-document.querySelectorAll('.pc').forEach(c=>{c.onclick=()=>c.classList.toggle('fl');c.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();c.click()}}});
+/* Portugal */
+$('ptb').onclick=()=>{const o=$('pt').classList.toggle('open');$('ptb').setAttribute('aria-expanded',o);$('pta').textContent=o?'Cerrar ▴':'Abrir ▾'};
 
-/* Equilibrio */
-const S=[["⚡","Modo no paro","Agenda llena, planes exprimidos al máximo y cero tiempo perdido. Si viajo, no me pierdo nada."],["⚖️","Equilibrio","Trabajar con ganas y hacerme hueco para respirar."],["🌿","Modo desconexión","Campo, familia, ruta y café sin mirar el reloj."]];
-$('rg').oninput=e=>{const v=+e.target.value,s=S[v<35?0:v>65?2:1];$('be').textContent=s[0];$('bh').textContent=s[1];$('bt').textContent=s[2];$('be').style.transform=`scale(${1+Math.abs(v-50)/150}) rotate(${(v-50)/5}deg)`};
+/* Metas */
+document.querySelectorAll('.gi').forEach(g=>g.onclick=()=>g.classList.toggle('done'));
 
-/* Cuenta atrás */
-$('cd').textContent=Math.max(0,Math.ceil((new Date('2027-07-01T00:00:00')-new Date())/864e5));
+/* Aviso de burbujas */
+const ts=$('toast');setTimeout(()=>ts.classList.add('show'),1400);setTimeout(()=>ts.classList.remove('show'),12000);
+$('tx').onclick=()=>ts.classList.remove('show');
 
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.08});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
