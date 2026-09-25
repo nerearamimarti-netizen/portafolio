@@ -180,14 +180,17 @@ a:focus-visible,button:focus-visible,.acc-tab:focus-visible{outline:2px solid va
 .photo-frame img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
 .photo-sticker{position:absolute;bottom:-8px;right:-10px;background:var(--lime);color:var(--ink);font-family:'Fredoka',sans-serif;font-size:9px;font-weight:700;padding:5px 10px;border-radius:999px;transform:rotate(-8deg);z-index:3;box-shadow:0 4px 12px rgba(0,0,0,.15)}
 
-/* Sello circular giratorio, enlaza a nerea.html — mismo lenguaje visual que el badge del hero */
-.meet-badge{position:absolute;top:-22px;left:-22px;width:64px;height:64px;z-index:5;display:block;text-decoration:none;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
-.meet-badge:hover,.meet-badge:focus-visible{transform:scale(1.1) rotate(-6deg)}
-.meet-badge svg{width:100%;height:100%;display:block;animation:stickerSpin 11s linear infinite;filter:drop-shadow(0 6px 14px rgba(109,40,217,.28))}
-.meet-badge:hover svg,.meet-badge:focus-visible svg{animation-play-state:paused}
-.meet-badge-face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:19px;pointer-events:none;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
-.meet-badge:hover .meet-badge-face,.meet-badge:focus-visible .meet-badge-face{transform:scale(1.18) rotate(6deg)}
-@media(max-width:520px){.meet-badge{width:54px;height:54px;top:-16px;left:-16px}.meet-badge-face{font-size:16px}}
+/* Etiqueta colgante — como una etiqueta de regalo, cuelga de un hilo de la esquina de la foto */
+.hang-tag{position:absolute;top:-40px;right:6px;z-index:5;display:flex;flex-direction:column;align-items:center;text-decoration:none;transform-origin:top center;animation:tagSwing 4.5s ease-in-out infinite}
+.hang-tag:hover,.hang-tag:focus-visible{animation-play-state:paused;transform:rotate(0deg) scale(1.05)}
+@keyframes tagSwing{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+.hang-tag .ht-string{width:1.5px;height:24px;background:rgba(21,10,43,.28)}
+.hang-tag .ht-body{position:relative;margin-top:-2px;display:flex;align-items:center;gap:6px;background:var(--lime);color:var(--ink);font-family:'Fredoka',sans-serif;font-size:11.5px;font-weight:700;white-space:nowrap;padding:7px 14px 7px 18px;border-radius:3px 9px 9px 3px;box-shadow:0 8px 18px rgba(21,10,43,.22);transition:background .22s,box-shadow .22s}
+.hang-tag .ht-body::before{content:'';position:absolute;left:6px;top:50%;transform:translateY(-50%);width:5px;height:5px;border-radius:50%;background:var(--white);border:1.5px solid var(--ink)}
+.hang-tag .ht-arrow{transition:transform .22s}
+.hang-tag:hover .ht-body,.hang-tag:focus-visible .ht-body{background:var(--pink);color:#fff;box-shadow:0 10px 22px rgba(255,61,154,.35)}
+.hang-tag:hover .ht-arrow,.hang-tag:focus-visible .ht-arrow{transform:translateX(3px)}
+@media(max-width:520px){.hang-tag{top:-36px;right:0}.hang-tag .ht-body{font-size:10.5px;padding:6px 12px 6px 16px}}
 
 .about-stats{display:flex;gap:22px;justify-content:center}
 .st-item{text-align:center}
@@ -396,7 +399,7 @@ a:focus-visible,button:focus-visible,.acc-tab:focus-visible{outline:2px solid va
   .hero-title .pre-split{visibility:visible}
   .star4{opacity:var(--maxop,1)}
   .draw-underline-bar{transform:scaleX(1)}
-  .meet-badge svg{animation:none}
+  .hang-tag{animation:none;transform:rotate(-3deg)}
 }
 </style>
 </head>
@@ -525,15 +528,9 @@ a:focus-visible,button:focus-visible,.acc-tab:focus-visible{outline:2px solid va
             <img src="nerea.ramirez.png" alt="Nerea Ramírez, diseñadora gráfica">
           </div>
           <span class="photo-sticker">¡Hola!</span>
-          <a href="nerea.html" class="meet-badge" aria-label="Conóceme un poco más">
-            <svg viewBox="0 0 100 100" aria-hidden="true">
-              <defs><path id="meetCirclePath" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
-              <circle cx="50" cy="50" r="49" fill="var(--lav)" stroke="var(--purple3)" stroke-width="1.6"/>
-              <text font-size="8.2" font-weight="700" letter-spacing="1" fill="var(--purple2)" font-family="Fredoka, sans-serif">
-                <textPath href="#meetCirclePath" startOffset="0%">CONÓCEME UN POCO MÁS · · ·</textPath>
-              </text>
-            </svg>
-            <span class="meet-badge-face" aria-hidden="true">🙂</span>
+          <a href="nerea.html" class="hang-tag" aria-label="Conóceme un poco más — mis gustos y aficiones">
+            <span class="ht-string" aria-hidden="true"></span>
+            <span class="ht-body">Más sobre mí <svg class="ht-arrow" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M1 5H9M9 5L5.5 1.5M9 5L5.5 8.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           </a>
         </div>
         <div class="about-stats">
