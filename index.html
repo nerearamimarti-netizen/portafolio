@@ -185,7 +185,7 @@ a:focus-visible,button:focus-visible,.acc-tab:focus-visible{outline:2px solid va
 .st-l{font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted2)}
 
 .about-text{display:flex;flex-direction:column;gap:14px}
-.about-greeting{font-size:clamp(24px,2.8vw,36px);font-weight:700;line-height:1.1;color:var(--ink)}
+.about-greeting{font-size:clamp(24px,2.8vw,36px);font-weight:700;line-height:1.1;color:var(--ink);display:flex;align-items:center;flex-wrap:wrap;gap:2px}
 .about-sub{font-family:'Unbounded',sans-serif;font-size:clamp(14px,1.6vw,18px);font-weight:500;color:var(--ink)}
 .me-apasiona{color:var(--pink);display:inline;font-weight:800;animation:apasionaGlow 2.4s ease-in-out infinite}
 @keyframes apasionaGlow{0%,100%{color:var(--pink)}50%{color:var(--purple2);text-shadow:0 0 16px rgba(109,40,217,.35)}}
@@ -194,6 +194,13 @@ a:focus-visible,button:focus-visible,.acc-tab:focus-visible{outline:2px solid va
 .about-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
 .about-link{font-family:'Fredoka',sans-serif;font-size:13px;font-weight:600;padding:8px 18px;border-radius:999px;text-decoration:none;color:var(--purple);border:1.5px solid var(--lavender);background:var(--lav);transition:all .22s}
 .about-link:hover{background:var(--purple);border-color:var(--purple);color:#fff}
+
+/* Botoncito discreto que lleva a nerea.html, con un balanceo suave */
+.meet-more{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;margin-top:2px;font-family:'Fredoka',sans-serif;font-size:11.5px;font-weight:600;text-decoration:none;color:var(--purple2);background:var(--lav);border:1.5px dashed var(--lavender);padding:6px 14px 6px 10px;border-radius:999px;transition:background .22s,border-color .22s,color .22s,transform .22s}
+.meet-more .mm-emoji{display:inline-block;font-size:14px;animation:mmWiggle 2.6s ease-in-out infinite}
+.meet-more:hover{background:var(--purple);border-color:var(--purple);border-style:solid;color:#fff;transform:translateY(-1px)}
+@keyframes mmWiggle{0%,100%{transform:rotate(0)}8%{transform:rotate(-12deg)}16%{transform:rotate(10deg)}24%{transform:rotate(-8deg)}32%{transform:rotate(0)}}
+@media (prefers-reduced-motion:reduce){.meet-more .mm-emoji{animation:none}}
 
 .brainstorm-col{min-width:0}
 .brainstorm-wrap{position:relative;padding:14px 12px 14px;background:var(--lav);border:1.5px solid var(--lavender);border-radius:16px;overflow:hidden}
@@ -527,6 +534,7 @@ a:focus-visible,button:focus-visible,.acc-tab:focus-visible{outline:2px solid va
         <p class="about-body">
           <strong>Convierto un brief en blanco en campañas, identidades y piezas que comunican de verdad.</strong> Diseño, ilustro y dirijo el aspecto visual de cada proyecto de principio a fin; cuando una idea pide movimiento, la animo yo misma. Uso la IA generativa como una herramienta más para agilizar la ideación, sin perder nunca el criterio.
         </p>
+        <a class="meet-more" href="nerea.html"><span class="mm-emoji">🙂</span>Conóceme un poco más</a>
         <div class="about-links">
           <a class="about-link" href="https://www.linkedin.com/in/nerearamirez/" target="_blank" rel="noopener">LinkedIn</a>
           <a class="about-link" href="https://www.behance.net/nerearamirez1" target="_blank" rel="noopener">Behance</a>
