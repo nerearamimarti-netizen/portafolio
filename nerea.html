@@ -413,7 +413,7 @@ const QA=[
 ["¿Haces deporte?","Hago mucho deporte, estuve 3 años en boxeo hasta que tuve que trabajar y estudiar a la vez y no me daba tiempo a seguir los horarios, pero ahora voy al gym cuando saco el hueco para mantenerme y juego de vez en cuando al pádel :)"],
 ["¿Comida?","¡Me encanta comer! Adoro el sushi, las hamburguesas curradas, el salmón, el mango, la tortilla de patatas de mi madre y bueno, una muy larga lista de cosas"],
 ["¿Peli animada favorita?","¡Qué buena pregunta! Me quedo con Monstruos S.A. y Ratatouille. Las dos me recuerdan que con esfuerzo, ganas y perseverancia se puede llegar a donde quieras. Me encantan 💜"],
-["¿Campaña de publi favorita?","Porque me encanta cuando una campaña consigue contar una historia y hacerte sentir algo, no solo venderte un producto."]];
+["¿Campaña de publi favorita?","Es una de Nike, Dream Crazy. Me encanta cuando una campaña consigue contar una historia y hacerte sentir algo, no solo venderte un producto."]];
 const qs=$('qs'),log=$('log');let busy=0;
 QA.forEach(([q,a],i)=>{const b=document.createElement('button');b.className='q';b.textContent=q;b.onclick=()=>{
   if(busy)return;busy=1;qs.querySelectorAll('.q').forEach(e=>e.classList.remove('on'));b.classList.add('on');
