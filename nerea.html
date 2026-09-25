@@ -40,6 +40,12 @@ section,footer,header{position:relative;z-index:2}
 .ph{position:relative;width:100%;aspect-ratio:var(--ar,4/3);border:2px dashed rgba(255,255,255,.4);border-radius:18px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font-family:'Fredoka',sans-serif;font-size:14px;color:rgba(255,255,255,.8);overflow:hidden}
 .ph img,.ph video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
+/* Etiquetas sobre foto */
+.mini-tag{position:absolute;bottom:12px;right:12px;z-index:4;font-family:'Fredoka',sans-serif;font-weight:600;font-size:13px;padding:7px 16px;border-radius:999px;background:rgba(255,255,255,.92);color:var(--ink);border:none;box-shadow:0 8px 20px rgba(0,0,0,.3);transition:.2s}
+.mini-tag:hover{background:var(--lime)}
+.poltag{position:absolute;top:8px;left:8px;z-index:4;font-family:'Fredoka',sans-serif;font-weight:600;font-size:11px;padding:4px 10px;border-radius:999px;background:var(--pink);color:#fff;box-shadow:0 4px 10px rgba(0,0,0,.3)}
+#lb img.plain{max-width:92vw;max-height:86vh;border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+
 /* Peces y cola del tiburón */
 .tail{animation:wag 1.1s ease-in-out infinite alternate;transform-origin:72px 62px}
 @keyframes wag{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}
@@ -215,7 +221,10 @@ footer h2{font-size:clamp(30px,5.5vw,54px);margin-bottom:12px}
 
 <!-- FOTO -->
 <section class="sec" id="yo"><div class="wrap about rv">
-  <div class="ph" style="--ar:4/5">Tu foto en plan normal</div>
+  <div class="ph" style="--ar:4/5">
+    <img src="https://raw.githubusercontent.com/nerearamimarti-netizen/portafolio/main/Nerea-sobre-mi.jpg" alt="Foto de Nerea">
+    <button class="mini-tag" id="peqTag" type="button">Más pequeña</button>
+  </div>
   <div><h2>Esta soy yo</h2><p class="lead">Una versión un poco menos formal ;)</p></div>
 </div></section>
 
@@ -235,10 +244,10 @@ footer h2{font-size:clamp(30px,5.5vw,54px);margin-bottom:12px}
       <div class="catname" id="catname"></div>
     </div>
     <div class="catpics">
-      <div class="ph on" style="--ar:16/10">Foto de los tres gatitos</div>
-      <div class="ph" style="--ar:16/10">Foto de Kitty</div>
-      <div class="ph" style="--ar:16/10">Foto de Mandi</div>
-      <div class="ph" style="--ar:16/10">Foto de Boo</div>
+      <div class="ph on" style="--ar:16/10"><img src="https://raw.githubusercontent.com/nerearamimarti-netizen/portafolio/main/todos-gatos.jpg" alt="Kitty, Mandi y Boo juntos"></div>
+      <div class="ph" style="--ar:16/10"><img src="https://raw.githubusercontent.com/nerearamimarti-netizen/portafolio/main/kitty.jpg" alt="Kitty"></div>
+      <div class="ph" style="--ar:16/10"><img src="https://raw.githubusercontent.com/nerearamimarti-netizen/portafolio/main/mandi.jpg" alt="Mandi"></div>
+      <div class="ph" style="--ar:16/10"><img src="https://raw.githubusercontent.com/nerearamimarti-netizen/portafolio/main/boo.jpg" alt="Boo"></div>
     </div>
   </div>
 </div></section>
@@ -262,27 +271,25 @@ footer h2{font-size:clamp(30px,5.5vw,54px);margin-bottom:12px}
 <section class="sec"><div class="wrap rv">
   <h2>Sitios donde he estado</h2>
   <p class="lead">Me encanta viajar, tengo pendiente muchísimos sitios por conocer</p>
-  <button class="ptbar glass" id="ptb" aria-expanded="false" aria-controls="pt"><span>🇵🇹 Portugal <em>· 7 paradas</em></span><span class="pta" id="pta">Abrir ▾</span></button>
+  <button class="ptbar glass" id="ptb" aria-expanded="false" aria-controls="pt"><span>🇵🇹 Portugal <em>· 6 paradas</em></span><span class="pta" id="pta">Abrir ▾</span></button>
   <div class="pols pt" id="pt">
-<figure class="pol" style="--r:-3deg"><div class="ph">Foto Lisboa</div><b>Lisboa</b></figure>
-<figure class="pol" style="--r:2deg"><div class="ph">Foto Óbidos</div><b>Óbidos</b></figure>
-<figure class="pol" style="--r:-1.5deg"><div class="ph">Foto Nazaré</div><b>Nazaré</b></figure>
-<figure class="pol" style="--r:3deg"><div class="ph">Foto Coimbra</div><b>Coimbra</b></figure>
-<figure class="pol" style="--r:-2deg"><div class="ph">Foto Aveiro</div><b>Aveiro</b></figure>
+<figure class="pol" style="--r:-3deg"><div class="ph"><img src="https://raw.githubusercontent.com/nerearamimarti-netizen/portafolio/main/lisboa.jpg" alt="Lisboa"></div><b>Lisboa</b></figure>
+<figure class="pol" style="--r:-1.5deg"><div class="ph"><img src="https://raw.githubusercontent.com/nerearamimarti-netizen/portafolio/main/nazare.jpg" alt="Nazaré"></div><b>Nazaré</b></figure>
+<figure class="pol" style="--r:3deg"><div class="ph"><img src="https://raw.githubusercontent.com/nerearamimarti-netizen/portafolio/main/coimbra.jpg" alt="Coimbra"></div><b>Coimbra</b></figure>
+<figure class="pol" style="--r:-2deg"><div class="ph"><img src="https://raw.githubusercontent.com/nerearamimarti-netizen/portafolio/main/aveiro.jpg" alt="Aveiro"></div><b>Aveiro</b></figure>
 <figure class="pol" style="--r:1.5deg"><div class="ph">Foto Oporto</div><b>Oporto</b></figure>
-<figure class="pol" style="--r:-3deg"><div class="ph">Foto Évora</div><b>Évora</b></figure>
+<figure class="pol" style="--r:-3deg"><div class="ph"><img src="https://raw.githubusercontent.com/nerearamimarti-netizen/portafolio/main/evora.jpg" alt="Évora"></div><b>Évora</b></figure>
   </div>
   <div class="pols" style="margin-top:34px">
-<figure class="pol" style="--r:-1.5deg"><div class="ph">Foto Nerja</div><b>Nerja ★</b></figure>
-<figure class="pol" style="--r:3deg"><div class="ph">Foto El Gordo</div><b>El Gordo</b></figure>
-<figure class="pol" style="--r:-2deg"><div class="ph">Foto Andorra</div><b>Andorra</b></figure>
-<figure class="pol" style="--r:1.5deg"><div class="ph">Foto Huesca</div><b>Huesca</b></figure>
-<figure class="pol" style="--r:-3deg"><div class="ph">Foto León</div><b>León</b></figure>
-<figure class="pol" style="--r:2deg"><div class="ph">Foto Torrevieja</div><b>Torrevieja</b></figure>
-<figure class="pol" style="--r:-1.5deg"><div class="ph">Foto Denia</div><b>Denia</b></figure>
-<figure class="pol" style="--r:3deg"><div class="ph">Foto Londres</div><b>Londres</b></figure>
-<figure class="pol" style="--r:-2deg"><div class="ph">Foto Rusia</div><b>Rusia</b></figure>
-<figure class="pol" style="--r:2deg"><div class="ph">Foto San Petersburgo</div><b>San Petersburgo</b></figure>
+<figure class="pol" style="--r:3deg"><span class="poltag">Mi pueblo</span><div class="ph"><img src="https://raw.githubusercontent.com/nerearamimarti-netizen/portafolio/main/el-gordo.jpg" alt="El Gordo"></div><b>El Gordo</b></figure>
+<figure class="pol" style="--r:-2deg"><div class="ph"><img src="https://raw.githubusercontent.com/nerearamimarti-netizen/portafolio/main/andorra.jpg" alt="Andorra"></div><b>Andorra</b></figure>
+<figure class="pol" style="--r:1.5deg"><div class="ph"><img src="https://raw.githubusercontent.com/nerearamimarti-netizen/portafolio/main/huesca.jpg" alt="Huesca"></div><b>Huesca</b></figure>
+<figure class="pol" style="--r:-3deg"><div class="ph"><img src="https://raw.githubusercontent.com/nerearamimarti-netizen/portafolio/main/leon.jpg" alt="León"></div><b>León</b></figure>
+<figure class="pol" style="--r:2deg"><div class="ph"><img src="https://raw.githubusercontent.com/nerearamimarti-netizen/portafolio/main/torrevieja.jpg" alt="Torrevieja"></div><b>Torrevieja</b></figure>
+<figure class="pol" style="--r:-1.5deg"><div class="ph"><img src="https://raw.githubusercontent.com/nerearamimarti-netizen/portafolio/main/valencia.jpg" alt="Valencia"></div><b>Valencia</b></figure>
+<figure class="pol" style="--r:3deg"><div class="ph"><img src="https://raw.githubusercontent.com/nerearamimarti-netizen/portafolio/main/londres.jpg" alt="Londres"></div><b>Londres</b></figure>
+<figure class="pol" style="--r:-2deg"><div class="ph"><img src="https://raw.githubusercontent.com/nerearamimarti-netizen/portafolio/main/rusia.jpg" alt="Rusia"></div><b>Rusia</b></figure>
+<figure class="pol" style="--r:-1.5deg"><div class="ph"><img src="https://raw.githubusercontent.com/nerearamimarti-netizen/portafolio/main/nerja.jpg" alt="Nerja"></div><b>Nerja</b></figure>
   </div>
 </div></section>
 
@@ -310,7 +317,7 @@ footer h2{font-size:clamp(30px,5.5vw,54px);margin-bottom:12px}
     </svg>
     <div>
       <h2>¿Nos tomamos un café?</h2>
-      <p class="lead">Si te ha gustado lo que has visto y quieres conocerme mejor, escríbeme. Me encantará charlar contigo y contarte más sobre mí ☕😉</p>
+      <p class="lead">Si te ha gustado lo que has visto y crees que puedo aportar algo a tu proyecto, escríbeme. Estaré encantada de leerte y contarte más sobre mi trabajo ☕</p>
       <a class="cta" href="mailto:nerearamimarti@gmail.com">Escríbeme</a><a class="cta o" href="index.html#proyectos">Ver proyectos</a>
     </div>
   </div>
@@ -402,12 +409,16 @@ $('ptb').onclick=()=>{const o=$('pt').classList.toggle('open');$('ptb').setAttri
 /* Ampliar fotos de viaje al hacer click */
 const lb=$('lb'),lbc=$('lbc');
 function openLb(p){const c=p.cloneNode(true);c.removeAttribute('style');c.removeAttribute('tabindex');lbc.innerHTML='';lbc.appendChild(c);lb.classList.add('open')}
+function openImgLb(src,alt){lbc.innerHTML='';const img=document.createElement('img');img.src=src;img.alt=alt||'';img.className='plain';lbc.appendChild(img);lb.classList.add('open')}
 function closeLb(){lb.classList.remove('open')}
 document.querySelectorAll('.pols .pol').forEach(p=>{p.tabIndex=0;p.setAttribute('role','button');
   p.onclick=()=>openLb(p);p.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openLb(p)}}});
-lb.onclick=e=>{if(!e.target.closest('.pol'))closeLb()};
+lb.onclick=e=>{if(!e.target.closest('.pol,img.plain'))closeLb()};
 $('lbx').onclick=closeLb;
 addEventListener('keydown',e=>{if(e.key==='Escape')closeLb()});
+
+/* Foto "más pequeña" */
+$('peqTag').onclick=e=>{e.stopPropagation();openImgLb('https://raw.githubusercontent.com/nerearamimarti-netizen/portafolio/main/nerea-peque.jpg','Nerea, foto pequeña')};
 
 /* Metas: X + bocadillo de cómic */
 document.querySelectorAll('.gi').forEach(g=>g.onclick=()=>{
