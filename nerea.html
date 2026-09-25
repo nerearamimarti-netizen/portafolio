@@ -64,7 +64,7 @@ section,footer,header{position:relative;z-index:2}
 @keyframes swim2{from{transform:translateX(-15vw)}to{transform:translateX(115vw)}}
 @keyframes bobf{50%{transform:translateY(-7px) rotate(3deg)}}
 
-/* Hero (más compacto) */
+/* Hero (compacto) */
 .hero{z-index:auto;min-height:56svh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:64px 24px 56px;
   background:
     radial-gradient(ellipse 60% 50% at 20% 0%,rgba(109,40,217,.28),transparent 70%),
@@ -115,27 +115,9 @@ section,footer,header{position:relative;z-index:2}
 .catpics .ph{display:none;border-radius:18px}
 .catpics .ph.on{display:flex;animation:pop .4s ease}
 
-/* Tiburón — océano realista, solo aleta */
-.stage{position:relative;height:360px;border-radius:26px;overflow:hidden;margin-top:26px;touch-action:none;border:1.5px solid rgba(255,255,255,.2);
-  background:
-    radial-gradient(ellipse 90% 55% at 50% 0%,rgba(90,190,255,.32),transparent 62%),
-    linear-gradient(180deg,#0c3b5c 0%,#083152 32%,#052440 58%,#021624 100%)}
-.stage .caustic{position:absolute;inset:0;pointer-events:none;opacity:.55;mix-blend-mode:screen;
-  background:
-    repeating-radial-gradient(circle at 28% 22%,rgba(255,255,255,.05) 0 2px,transparent 3px 42px),
-    repeating-radial-gradient(circle at 72% 58%,rgba(255,255,255,.04) 0 2px,transparent 3px 52px);
-  animation:caust 16s linear infinite}
-@keyframes caust{0%{background-position:0 0,0 0}100%{background-position:220px 320px,-260px 210px}}
-.stage .surface{position:absolute;left:0;right:0;top:24%;height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);filter:blur(1px)}
-#pet{position:absolute;left:0;top:0;width:130px;will-change:transform;pointer-events:none;filter:drop-shadow(0 10px 12px rgba(0,8,20,.55))}
-#pet .wake{fill:rgba(255,255,255,.14);filter:blur(2px)}
-#pet .fin{filter:drop-shadow(0 0 1.5px rgba(255,255,255,.12))}
-.stage small{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-family:'Fredoka',sans-serif;font-size:14px;color:#fff;opacity:.85}
-.facts{display:grid;gap:14px;margin-top:16px}
-@media(min-width:760px){.facts{grid-template-columns:repeat(3,1fr)}}
-.facts div{padding:18px 22px;background:rgba(4,20,45,.7);border:1.5px solid rgba(255,255,255,.18);border-radius:18px}
-.facts h3{font-size:17px;margin-bottom:4px;color:var(--lime)}
-.facts p{font-size:15px}
+/* Tiburón — vídeo */
+.stage{position:relative;border-radius:26px;overflow:hidden;margin-top:26px;border:1.5px solid rgba(255,255,255,.2);background:#02101d;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.stage video{display:block;width:100%;height:100%;max-height:520px;object-fit:cover}
 
 /* Polaroids */
 .pols{display:grid;gap:30px 22px;margin-top:28px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
@@ -155,33 +137,40 @@ section,footer,header{position:relative;z-index:2}
 #lb .pol b{font-size:38px;padding:10px 0 16px}
 #lbx{position:absolute;top:18px;right:22px;width:44px;height:44px;border-radius:50%;border:none;background:#fff;color:#0b2f63;font-size:26px;line-height:1}
 
-/* Metas — tarjetas */
-.goals{display:grid;gap:16px;margin-top:26px;grid-template-columns:1fr}
-@media(min-width:700px){.goals{grid-template-columns:1fr 1fr}}
-.goals .gw:last-child{grid-column:1/-1}
-.gw{position:relative}
-.gi{position:relative;display:flex;align-items:center;gap:16px;text-align:left;width:100%;padding:20px 22px;border-radius:20px;background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.03));border:1.5px solid rgba(255,255,255,.18);font-size:16px;transition:.3s cubic-bezier(.34,1.56,.64,1);overflow:hidden}
-.gi::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,var(--lime),var(--pink));opacity:.85}
-.gi:hover{transform:translateY(-4px);border-color:var(--lime);box-shadow:0 14px 30px rgba(0,0,0,.3)}
-.gi .badge{flex:0 0 52px;height:52px;border-radius:15px;display:grid;place-items:center;font-size:25px;border:1.5px solid rgba(255,255,255,.22);transition:.3s;background:rgba(255,255,255,.08)}
-.gw:nth-child(1) .badge{background:rgba(255,61,154,.2)}
-.gw:nth-child(2) .badge{background:rgba(16,245,160,.2)}
-.gw:nth-child(3) .badge{background:rgba(90,190,255,.2)}
-.gw:nth-child(4) .badge{background:rgba(232,255,61,.2)}
-.gw:nth-child(5) .badge{background:rgba(139,92,246,.2)}
-.gi:hover .badge{transform:rotate(-8deg) scale(1.08)}
-.gi .t{flex:1}
-.gi .t span{position:relative;transition:opacity .3s}
-.gi .t span::after{content:'';position:absolute;left:0;top:50%;width:0;height:2px;background:#ff5c7a;transition:width .4s ease}
-.gi.no .t span::after{width:100%}
-.gi.no .t span{opacity:.55}
-.gi .status{flex:0 0 auto;font-family:'Fredoka',sans-serif;font-size:11.5px;font-weight:600;padding:6px 13px;border-radius:999px;border:1.5px solid rgba(255,255,255,.3);white-space:nowrap;transition:.3s}
-.gi.no .status{background:#ff5c7a;border-color:#ff5c7a;color:#fff;animation:shake .45s}
-@keyframes shake{25%{transform:translateX(-4px) rotate(-4deg)}75%{transform:translateX(4px) rotate(4deg)}}
-.bub{position:absolute;right:14px;bottom:calc(100% - 6px);z-index:5;max-width:min(340px,86%);background:#fff;color:#111;border:3px solid #111;border-radius:22px;padding:10px 16px;font-family:'Caveat',cursive;font-weight:700;font-size:22px;line-height:1.15;box-shadow:4px 4px 0 #111;opacity:0;transform:scale(.6) rotate(-3deg);transform-origin:90% 100%;pointer-events:none;transition:.3s cubic-bezier(.34,1.56,.64,1)}
-.bub::before{content:'';position:absolute;top:-9px;left:22px;width:34px;height:14px;background:rgba(232,255,61,.75);transform:rotate(-4deg);box-shadow:0 2px 5px rgba(0,0,0,.25)}
-.bub::after{content:'';position:absolute;right:26px;bottom:-15px;width:18px;height:18px;background:#fff;border-right:3px solid #111;border-bottom:3px solid #111;transform:rotate(45deg) skew(10deg,10deg)}
-.bub.show{opacity:1;transform:scale(1) rotate(-1deg)}
+/* METAS — hoja de libreta */
+.goals-sheet{position:relative;max-width:760px;margin:30px auto 0;background:#fbf6e8;color:#2b2013;padding:56px 46px 50px;
+  border-radius:4px 4px 18px 4px;
+  box-shadow:0 30px 60px rgba(0,0,0,.5),0 2px 0 rgba(0,0,0,.05);
+  transform:rotate(-.7deg);
+  clip-path:polygon(0 0,100% 0,100% 97%,96% 98.4%,92% 96.6%,88% 98.8%,84% 97%,80% 99%,76% 96.8%,72% 98.6%,68% 97%,64% 99.2%,60% 96.6%,56% 98.8%,52% 97%,48% 99%,44% 96.8%,40% 98.6%,36% 97%,32% 99.2%,28% 96.6%,24% 98.8%,20% 97%,16% 99%,12% 96.8%,8% 98.6%,4% 97%,0 99%);
+}
+.goals-sheet::before{content:'';position:absolute;top:20px;left:24px;right:24px;height:10px;pointer-events:none;
+  background-image:radial-gradient(circle at 10px 5px,rgba(43,32,19,.28) 0 3px,transparent 3.5px);
+  background-size:30px 10px;background-repeat:repeat-x}
+.goals-sheet::after{content:'';position:absolute;left:58px;top:0;bottom:0;width:2px;background:rgba(198,60,60,.32);pointer-events:none}
+.sheet-tape{position:absolute;width:86px;height:30px;background:rgba(232,255,61,.55);box-shadow:0 4px 8px rgba(0,0,0,.2);top:-14px}
+.sheet-tape.l{left:26px;transform:rotate(-6deg)}
+.sheet-tape.r{right:26px;transform:rotate(5deg)}
+.sheet-title{font-family:'Caveat',cursive;font-weight:700;font-size:clamp(30px,4vw,40px);color:#2b2013;padding-left:22px;margin-bottom:6px}
+.sheet-sub{font-family:'Fredoka',sans-serif;font-size:13.5px;color:rgba(43,32,19,.6);padding-left:22px;margin-bottom:10px}
+.glist{list-style:none;padding-left:22px;margin-top:14px;display:flex;flex-direction:column}
+.gline{border-bottom:1px dashed rgba(43,32,19,.18)}
+.gline:last-child{border-bottom:none}
+.grow{display:flex;align-items:flex-start;gap:16px;width:100%;padding:16px 4px;background:none;border:none;text-align:left;font-family:'Fredoka',sans-serif;font-size:16.5px;color:#2b2013;border-radius:10px;transition:.2s}
+.grow:hover{background:rgba(43,32,19,.05)}
+.gchk{flex:0 0 26px;height:26px;margin-top:2px;border:2.2px solid #2b2013;border-radius:7px;position:relative;transition:.25s;background:#fff8ec}
+.gchk svg{position:absolute;inset:0;margin:auto;width:16px;height:16px;stroke:#c0392b;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:22;stroke-dashoffset:22;transition:stroke-dashoffset .4s ease .05s}
+.gline.done .gchk svg{stroke-dashoffset:0}
+.gline.done .gchk{background:#ffe4da;border-color:#c0392b;transform:rotate(-4deg)}
+.gtxt-wrap{flex:1}
+.gtxt{position:relative;display:inline}
+.gtxt::after{content:'';position:absolute;left:-2px;top:52%;width:0;height:2.5px;background:#c0392b;transform:rotate(-1deg);transition:width .5s ease}
+.gline.done .gtxt::after{width:calc(100% + 4px)}
+.gline.done .gtxt{opacity:.5}
+.gnote{max-height:0;overflow:hidden;opacity:0;transition:max-height .4s ease,opacity .35s ease,margin .4s ease;font-family:'Caveat',cursive;font-size:21px;color:#c0392b;line-height:1.2}
+.gline.done .gnote{max-height:70px;opacity:1;margin-top:6px}
+.gnote span{display:inline-block}
+@media(max-width:600px){.goals-sheet{padding:50px 22px 40px}.goals-sheet::after{left:34px}.glist{padding-left:6px}.sheet-title,.sheet-sub{padding-left:6px}}
 
 /* Footer */
 footer{z-index:auto;padding:80px 0 40px;background:linear-gradient(180deg,transparent 0,#000 240px,#000 100%)}
@@ -192,7 +181,7 @@ footer .wrap{position:relative;z-index:2}
 .steam path{fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;opacity:0;animation:st 3s ease-in-out infinite}
 .steam path:nth-child(2){animation-delay:.9s}.steam path:nth-child(3){animation-delay:1.8s}
 @keyframes st{0%{opacity:0;transform:translateY(10px)}40%{opacity:.6}100%{opacity:0;transform:translateY(-14px)}}
-footer h2{font-size:clamp(30px,5.5vw,54px);margin-bottom:12px}
+footer h2{font-size:clamp(28px,5vw,48px);margin-bottom:12px}
 .cta{display:inline-block;margin-top:20px;font-family:'Fredoka',sans-serif;font-weight:700;font-size:16px;padding:14px 34px;border-radius:999px;background:var(--lime);color:var(--ink);text-decoration:none;transition:transform .25s}
 .cta:hover{transform:scale(1.06)}.cta.o{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4);margin-left:8px}
 .copy{margin-top:60px;text-align:center;font-size:12px;color:rgba(255,255,255,.4);letter-spacing:1px}
@@ -282,26 +271,9 @@ footer h2{font-size:clamp(30px,5.5vw,54px);margin-bottom:12px}
 <!-- TIBURÓN -->
 <section class="sec"><div class="wrap rv">
   <h2>Mi animal favorito: el tiburón</h2>
-  <!-- Para meter un vídeo real de tiburón, pon dentro de .stage: <video src="tiburon.mp4" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video> -->
-  <div class="stage" id="stage">
-    <div class="caustic"></div>
-    <div class="surface"></div>
-    <svg id="pet" viewBox="0 0 200 140" aria-hidden="true">
-      <defs>
-        <linearGradient id="finGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#0b1a24"/>
-          <stop offset="1" stop-color="#233f4f"/>
-        </linearGradient>
-      </defs>
-      <ellipse class="wake" cx="100" cy="112" rx="56" ry="9"/>
-      <path class="fin" d="M100 18C90 46 86 78 95 110C99 120 111 120 116 108C107 78 105 46 116 22C110 15 104 14 100 18Z" fill="url(#finGrad)"/>
-    </svg>
-    <small>Mueve el ratón o el dedo por aquí 🦈</small>
-  </div>
-  <div class="facts">
-    <div><h3>Elegantes</h3><p>Se mueven como si nada y yo ahí flipando.</p></div>
-    <div><h3>Fuertes</h3><p>Potencia pura, pero con toda la calma.</p></div>
-    <div><h3>Preciosos</h3><p>Sí, me parecen bonitos. No me juzgues 😅</p></div>
+  <p class="lead">Me tienen fascinada. Aquí tienes un vídeo en vez de mil palabras.</p>
+  <div class="stage">
+    <video src="video-tiburon.mp4" autoplay muted loop playsinline></video>
   </div>
 </div></section>
 
@@ -335,42 +307,43 @@ footer h2{font-size:clamp(30px,5.5vw,54px);margin-bottom:12px}
 <section class="sec"><div class="wrap rv">
   <h2>Mis metas a futuro</h2>
   <p class="lead">También soy bastante ambiciosa: me encanta perseguir mis sueños y, sobre todo, conseguir llegar a ellos y superarme cada día.</p>
-  <div class="goals">
-    <div class="gw"><span class="bub"></span>
-      <button class="gi" data-c="¡Más quisiera yo! Ojalá, lo estoy deseando, pero primero tengo que comprarme la casita">
-        <span class="badge">🏍️</span>
-        <span class="t"><span>Sacarme el carnet de moto y comprarme una Ninja 650</span></span>
-        <span class="status">Pendiente</span>
-      </button>
-    </div>
-    <div class="gw"><span class="bub"></span>
-      <button class="gi" data-c="Bueno, he estudiado un módulo en CEI de 2 meses, pero aún me queda un mundo... aún no lo marcamos">
-        <span class="badge">🧊</span>
-        <span class="t"><span>Aprender a diseñar en 3D</span></span>
-        <span class="status">Pendiente</span>
-      </button>
-    </div>
-    <div class="gw"><span class="bub"></span>
-      <button class="gi" data-c="¡En el verano del 2027 lo conseguiré!">
-        <span class="badge">🤿</span>
-        <span class="t"><span>Hacer un curso de bautismo de buceo</span></span>
-        <span class="status">Pendiente</span>
-      </button>
-    </div>
-    <div class="gw"><span class="bub"></span>
-      <button class="gi" data-c="Joe... este siempre lo pospongo">
-        <span class="badge">📖</span>
-        <span class="t"><span>Crear mi propio libro de recetas (me encanta la repostería 🧁)</span></span>
-        <span class="status">Pendiente</span>
-      </button>
-    </div>
-    <div class="gw"><span class="bub"></span>
-      <button class="gi" data-c="¡En ello estamos!">
-        <span class="badge">🏡</span>
-        <span class="t"><span>Comprar una casita para construir mi hogar</span></span>
-        <span class="status">Pendiente</span>
-      </button>
-    </div>
+
+  <div class="goals-sheet">
+    <span class="sheet-tape l"></span><span class="sheet-tape r"></span>
+    <h3 class="sheet-title">Mi lista de sueños</h3>
+    <p class="sheet-sub">(toca cada línea y te cuento cómo lo llevo)</p>
+    <ul class="glist">
+      <li class="gline">
+        <button class="grow" data-c="¡Más quisiera yo! Ojalá, lo estoy deseando, pero primero tengo que comprarme la casita">
+          <span class="gchk"><svg viewBox="0 0 20 20"><path d="M4 10l4 4 8-9"/></svg></span>
+          <span class="gtxt-wrap"><span class="gtxt">🏍️ Sacarme el carnet de moto y comprarme una Ninja 650</span><div class="gnote"></div></span>
+        </button>
+      </li>
+      <li class="gline">
+        <button class="grow" data-c="Bueno, he estudiado un módulo en CEI de 2 meses, pero aún me queda un mundo... aún no lo marcamos">
+          <span class="gchk"><svg viewBox="0 0 20 20"><path d="M4 10l4 4 8-9"/></svg></span>
+          <span class="gtxt-wrap"><span class="gtxt">🧊 Aprender a diseñar en 3D</span><div class="gnote"></div></span>
+        </button>
+      </li>
+      <li class="gline">
+        <button class="grow" data-c="¡En el verano del 2027 lo conseguiré!">
+          <span class="gchk"><svg viewBox="0 0 20 20"><path d="M4 10l4 4 8-9"/></svg></span>
+          <span class="gtxt-wrap"><span class="gtxt">🤿 Hacer un curso de bautismo de buceo</span><div class="gnote"></div></span>
+        </button>
+      </li>
+      <li class="gline">
+        <button class="grow" data-c="Joe... este siempre lo pospongo">
+          <span class="gchk"><svg viewBox="0 0 20 20"><path d="M4 10l4 4 8-9"/></svg></span>
+          <span class="gtxt-wrap"><span class="gtxt">📖 Crear mi propio libro de recetas (me encanta la repostería 🧁)</span><div class="gnote"></div></span>
+        </button>
+      </li>
+      <li class="gline">
+        <button class="grow" data-c="¡En ello estamos!">
+          <span class="gchk"><svg viewBox="0 0 20 20"><path d="M4 10l4 4 8-9"/></svg></span>
+          <span class="gtxt-wrap"><span class="gtxt">🏡 Comprar una casita para construir mi hogar</span><div class="gnote"></div></span>
+        </button>
+      </li>
+    </ul>
   </div>
 </div></section>
 
@@ -384,9 +357,9 @@ footer h2{font-size:clamp(30px,5.5vw,54px);margin-bottom:12px}
       <path d="M22 108h76" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".5"/>
     </svg>
     <div>
-      <h2>¿Nos tomamos un café?</h2>
-      <p class="lead">Si te he caído bien y crees que puedo aportar algo a tu proyecto, escríbeme. Estaré encantada de leerte y contarte más sobre mi trabajo :)</p>
-      <a class="cta" href="mailto:nerearamimarti@gmail.com">Escríbeme</a><a class="cta o" href="index.html#proyectos">Ver proyectos</a>
+      <h2>Gracias por leerme hasta aquí</h2>
+      <p class="lead">Espero que después de esto me conozcas un poquito mejor, más allá de lo que pone en un CV. Si te ha gustado cómo pienso y cómo trabajo, ahora ya sabes dónde encontrarme :)</p>
+      <a class="cta" href="index.html#proyectos">Volver a mis proyectos</a><a class="cta o" href="mailto:nerearamimarti@gmail.com">Escríbeme</a>
     </div>
   </div>
   <p class="copy">© 2026 NEEERGRAPHS · MADRID</p>
@@ -458,23 +431,6 @@ tabs.forEach(t=>t.onclick=()=>{
   if(was){showCat(0,'');return}
   t.classList.add('on');showCat(+t.dataset.t,t.textContent)});
 
-/* Aleta de tiburón: movimiento realista, solo horizontal + ligero balanceo */
-(function(){
-  const st=$('stage'),pet=$('pet');
-  let px=st.clientWidth*.3,py=st.clientHeight*.42,tx=px,vx=0,dir=1,act=0,t=0;
-  function pos(e){const r=st.getBoundingClientRect();tx=e.clientX-r.left;act=1}
-  st.addEventListener('pointermove',pos);st.addEventListener('pointerdown',pos);
-  st.addEventListener('pointerleave',()=>act=0);
-  (function f(){requestAnimationFrame(f);t+=.012;const w=st.clientWidth,h=st.clientHeight;
-    if(!act||rm){tx=w*.5+Math.sin(t)*w*.34}
-    const dx=tx-px;vx=vx*.85+dx*.045;px+=vx;
-    const baseY=h*.42+Math.sin(t*1.6)*6;py+=(baseY-py)*.08;
-    if(Math.abs(vx)>.4)dir=vx>0?1:-1;
-    const tilt=Math.max(-9,Math.min(9,vx*1.3));
-    pet.style.transform=`translate(${px-65}px,${py-56}px) rotate(${tilt}deg) scaleX(${dir})`
-  })();
-})();
-
 /* Foto que se voltea como una carta */
 const flipcard=$('flipcard');
 document.querySelectorAll('#flipcard .flip-btn').forEach(b=>b.onclick=e=>{e.stopPropagation();flipcard.classList.toggle('flipped')});
@@ -503,14 +459,14 @@ lb.onclick=e=>{if(!e.target.closest('.pol,img.plain'))closeLb()};
 $('lbx').onclick=closeLb;
 addEventListener('keydown',e=>{if(e.key==='Escape')closeLb()});
 
-/* Metas: tacha, tarjeta se sacude y sale la nota */
-document.querySelectorAll('.gi').forEach(g=>g.onclick=()=>{
-  const bub=g.parentElement.querySelector('.bub');
-  document.querySelectorAll('.bub.show').forEach(e=>e.classList.remove('show'));
-  bub.textContent=g.dataset.c;
-  g.classList.remove('no');void g.offsetWidth;g.classList.add('no');
-  bub.classList.add('show');
-  clearTimeout(g._t);g._t=setTimeout(()=>{bub.classList.remove('show');g.classList.remove('no')},3800)});
+/* Metas: tacha en la hoja y muestra la notita escrita a mano */
+document.querySelectorAll('.grow').forEach(g=>g.onclick=()=>{
+  const line=g.closest('.gline'),note=g.querySelector('.gnote');
+  const was=line.classList.contains('done');
+  if(was){line.classList.remove('done');return}
+  note.innerHTML=`<span>→ ${g.dataset.c}</span>`;
+  line.classList.add('done');
+});
 
 /* Aviso de burbujas */
 const ts=$('toast');setTimeout(()=>ts.classList.add('show'),1400);setTimeout(()=>ts.classList.remove('show'),12000);
