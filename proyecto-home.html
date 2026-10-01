@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@300;400;500&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23b4dbfd'/%3E%3Cg transform='translate(32,32)'%3E%3Cellipse rx='7' ry='18' fill='%232d8a3e' transform='rotate(0)'/%3E%3Cellipse rx='7' ry='18' fill='%232d8a3e' transform='rotate(60)'/%3E%3Cellipse rx='7' ry='18' fill='%232d8a3e' transform='rotate(120)'/%3E%3Cellipse rx='7' ry='18' fill='%233ab54a' transform='rotate(30)'/%3E%3Cellipse rx='7' ry='18' fill='%233ab54a' transform='rotate(90)'/%3E%3Cellipse rx='7' ry='18' fill='%233ab54a' transform='rotate(150)'/%3E%3Ccircle r='11' fill='%23f5c842'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23b4dbfd'/%3E%3Cg transform='translate(32,32)'%3E%3Cellipse rx='7' ry='18' fill='%232d8a3e' transform='rotate(0)'/%3E%3Cellipse rx='7' ry='18' fill='%232d8a3e' transform='rotate(60)'/%3E%3Cellipse rx='7' ry='18' fill='%232d8a3e' transform='rotate(120)'/%3E%3Cellipse rx='7' ry='18' fill='%233ab54a' transform='rotate(30)'/%3E%3Cellipse rx='7' ry='18' fill='%233ab54a' transform='rotate(90)'/%3E%3Cellipse rx='7' ry='18' fill='%233ab54a' transform='rotate(150)'/%3E%3Ccircle r='11' fill='%23f5c842'/%3E%3C/g%3E%3C/svg%3E">
 <title>Home — Motion Graphics</title>
@@ -52,7 +52,7 @@ body {
 .back-home {
   position:fixed; top:22px; right:22px; z-index:900;
   background:var(--green); color:white; text-decoration:none;
-  font-family:'Fredoka',sans-serif; font-size:15px; font-weight:600;
+  font-family:'Poppins',sans-serif; font-size:14px; font-weight:600;
   letter-spacing:.5px; padding:11px 24px; border-radius:999px;
   box-shadow:0 8px 24px rgba(45,138,62,.35);
   animation:floatBtn 3s ease-in-out infinite;
@@ -137,24 +137,34 @@ body {
 .video-wrapper { width:100%; aspect-ratio:2592/1080; border-radius:20px; overflow:hidden; box-shadow:0 40px 100px rgba(0,0,0,.22); }
 .video-wrapper iframe { width:100%; height:100%; border:0; display:block; }
 
-/* SECCIÓN INFO — CENTRADA */
+/* SECCIÓN INFO — CARD */
 .sw {
-  max-width:780px; margin:0 auto;
+  max-width:860px; margin:0 auto;
   padding:80px 40px;
-  position:relative; z-index:1;
+  position:relative; z-index:2;
+}
+@media(max-width:640px){ .sw{ padding:60px 16px; } }
+
+.info-card {
+  background:rgba(255,255,255,.82);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.9);
+  border-radius:32px;
+  padding:56px 52px;
+  box-shadow:0 24px 70px rgba(14,31,14,.14), 0 4px 14px rgba(45,138,62,.08);
   text-align:center;
 }
-@media(max-width:640px){ .sw{ padding:60px 20px; } }
+@media(max-width:640px){ .info-card{ padding:36px 24px; border-radius:24px; } }
 
 .info-title {
-  font-family:'Fredoka',sans-serif;
-  font-size:clamp(32px,5vw,58px); font-weight:700;
-  color:var(--dark); margin-bottom:26px; line-height:1.1;
+  font-family:'Poppins',sans-serif;
+  font-size:clamp(26px,4.2vw,46px); font-weight:700;
+  color:var(--dark); margin-bottom:26px; line-height:1.15;
   text-align:center;
 }
 .info-text {
   font-family:'Poppins',sans-serif;
-  font-size:15px; font-weight:300; line-height:1.85;
+  font-size:15px; font-weight:400; line-height:1.85;
   color:var(--muted); margin-bottom:16px;
   text-align:center;
 }
@@ -163,10 +173,9 @@ body {
   font-size:11px; font-weight:500; letter-spacing:2px;
   text-transform:uppercase; padding:8px 18px; border-radius:999px;
   border:1px solid var(--bdr); color:var(--green);
-  background:rgba(255,255,255,.5); backdrop-filter:blur(8px);
-  transition:all .25s; cursor:default; font-family:'Poppins',sans-serif;
+  background:rgba(255,255,255,.7);
+  cursor:default; font-family:'Poppins',sans-serif;
 }
-.chip:hover { background:var(--green); color:white; border-color:var(--green); transform:translateY(-2px); }
 
 /* HERRAMIENTAS */
 .tools-section {
@@ -179,10 +188,8 @@ body {
 .tool-item:nth-child(2) { animation-delay:.6s; }
 .tool-item:nth-child(3) { animation-delay:1.2s; }
 @keyframes toolFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
-.tool-item img { width:72px; height:72px; object-fit:contain; filter:drop-shadow(0 14px 20px rgba(0,0,0,.2)) drop-shadow(0 4px 8px rgba(45,138,62,.15)); transition:filter .3s, transform .3s; }
-.tool-item:hover img { filter:drop-shadow(0 20px 30px rgba(0,0,0,.25)) drop-shadow(0 6px 12px rgba(45,138,62,.25)); transform:scale(1.1); }
-.tool-shadow { width:50px; height:8px; border-radius:50%; background:rgba(45,138,62,.18); filter:blur(4px); transition:all .3s; }
-.tool-item:hover .tool-shadow { width:40px; opacity:.5; }
+.tool-item img { width:72px; height:72px; object-fit:contain; filter:drop-shadow(0 14px 20px rgba(0,0,0,.2)) drop-shadow(0 4px 8px rgba(45,138,62,.15)); }
+.tool-shadow { width:50px; height:8px; border-radius:50%; background:rgba(45,138,62,.18); filter:blur(4px); }
 .tool-name { font-family:'Poppins',sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); font-weight:500; margin-top:-8px; }
 
 /* REVEAL */
@@ -192,17 +199,17 @@ body {
 /* FOOTER */
 footer { position:relative; z-index:2; background:var(--dark); padding:90px 40px 70px; overflow:hidden; }
 .footer-ghost { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; overflow:hidden; }
-.footer-ghost span { font-family:'Fredoka',sans-serif; font-weight:700; font-size:28vw; color:transparent; -webkit-text-stroke:1px rgba(255,255,255,.04); white-space:nowrap; user-select:none; }
+.footer-ghost span { font-family:'Poppins',sans-serif; font-weight:700; font-size:26vw; color:transparent; -webkit-text-stroke:1px rgba(255,255,255,.04); white-space:nowrap; user-select:none; }
 .footer-daisy { position:absolute; pointer-events:none; opacity:.1; }
 .footer-daisy.fd1 { width:180px; height:180px; top:-50px; left:-50px; transform:rotate(25deg); }
 .footer-daisy.fd2 { width:110px; height:110px; bottom:30px; right:80px; transform:rotate(-20deg); }
 .footer-daisy.fd3 { width:75px;  height:75px;  bottom:20px; left:140px; transform:rotate(55deg); }
 .footer-inner { position:relative; z-index:2; max-width:900px; margin:0 auto; }
 .footer-heading { display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:28px; }
-.footer-label { font-family:'Fredoka',sans-serif; font-size:clamp(28px,4vw,44px); font-weight:700; color:rgba(255,255,255,.4); letter-spacing:1px; }
-.footer-project-name { font-family:'Playfair Display',serif; font-style:italic; font-weight:900; font-size:clamp(48px,8vw,96px); color:white; line-height:.9; }
+.footer-label { font-family:'Poppins',sans-serif; font-size:clamp(24px,3.6vw,40px); font-weight:600; color:rgba(255,255,255,.4); letter-spacing:1px; }
+.footer-project-name { font-family:'Poppins',sans-serif; font-weight:700; font-size:clamp(44px,7.5vw,88px); color:white; line-height:.95; }
 .footer-meta { font-family:'Poppins',sans-serif; font-size:13px; font-weight:300; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,.38); line-height:2; margin-bottom:48px; }
-.footer-cta { display:inline-flex; align-items:center; gap:10px; font-family:'Fredoka',sans-serif; font-size:16px; font-weight:600; text-decoration:none; color:var(--dark); background:rgba(180,219,253,.9); padding:14px 30px; border-radius:999px; transition:background .25s, transform .25s, box-shadow .25s; box-shadow:0 8px 24px rgba(0,0,0,.2); }
+.footer-cta { display:inline-flex; align-items:center; gap:10px; font-family:'Poppins',sans-serif; font-size:15px; font-weight:600; text-decoration:none; color:var(--dark); background:rgba(180,219,253,.9); padding:14px 30px; border-radius:999px; transition:background .25s, transform .25s, box-shadow .25s; box-shadow:0 8px 24px rgba(0,0,0,.2); }
 .footer-cta:hover { background:white; transform:translateY(-3px); box-shadow:0 14px 36px rgba(0,0,0,.28); }
 .footer-cta-arrow { display:inline-block; transition:transform .25s; }
 .footer-cta:hover .footer-cta-arrow { transform:translateX(4px); }
@@ -271,8 +278,8 @@ footer { position:relative; z-index:2; background:var(--dark); padding:90px 40px
             <stop offset="100%" stop-color="#145220"/>
           </linearGradient>
         </defs>
-        <text class="title-fill" x="350" y="96" text-anchor="middle" font-family="'Fredoka', sans-serif" font-size="108" font-weight="700" letter-spacing="-1">Home</text>
-        <text class="title-path" x="350" y="96" text-anchor="middle" font-family="'Fredoka', sans-serif" font-size="108" font-weight="700" letter-spacing="-1" style="fill:none;stroke:url(#titleGrad);stroke-width:2.2;paint-order:stroke fill;">Home</text>
+        <text class="title-fill" x="350" y="92" text-anchor="middle" font-family="'Poppins', sans-serif" font-size="100" font-weight="700" letter-spacing="-1">Home</text>
+        <text class="title-path" x="350" y="92" text-anchor="middle" font-family="'Poppins', sans-serif" font-size="100" font-weight="700" letter-spacing="-1" style="fill:none;stroke:url(#titleGrad);stroke-width:2.2;paint-order:stroke fill;">Home</text>
       </svg>
     </div>
     <p class="hero-sub">Ilustraciones · Profundidad 3D · Espacio Z</p>
@@ -316,24 +323,26 @@ footer { position:relative; z-index:2; background:var(--dark); padding:90px 40px
   </div>
 </div>
 
-<!-- INFO — centrado -->
+<!-- INFO — card -->
 <div class="sw reveal">
-  <h2 class="info-title">Cuando las ilustraciones rompen la pantalla</h2>
-  <p class="info-text">
-    Un ejercicio de motion graphics centrado en algo muy concreto: demostrar que una imagen plana puede tener alma, volumen y movimiento sin renunciar a su naturaleza de ilustración.
-  </p>
-  <p class="info-text">
-    Capas desplazadas en el espacio Z, una cámara que recorre el escenario como si fuera una película — y el resultado es un mundo que parece estar vivo.
-  </p>
-  <p class="info-text">
-    Muy complicado de construir. Muy divertido cuando todo empieza a moverse.
-  </p>
-  <div class="tech-chips">
-    <span class="chip">Espacio 3D</span>
-    <span class="chip">Camera mapping</span>
-    <span class="chip">Parallax</span>
-    <span class="chip">Motion design</span>
-    <span class="chip">Ilustración animada</span>
+  <div class="info-card">
+    <h2 class="info-title">Cuando las ilustraciones rompen la pantalla</h2>
+    <p class="info-text">
+      Un ejercicio de motion graphics centrado en algo muy concreto: demostrar que una imagen plana puede tener alma, volumen y movimiento sin renunciar a su naturaleza de ilustración.
+    </p>
+    <p class="info-text">
+      Capas desplazadas en el espacio Z, una cámara que recorre el escenario como si fuera una película — y el resultado es un mundo que parece estar vivo.
+    </p>
+    <p class="info-text">
+      Muy complicado de construir. Muy divertido cuando todo empieza a moverse.
+    </p>
+    <div class="tech-chips">
+      <span class="chip">Espacio 3D</span>
+      <span class="chip">Camera mapping</span>
+      <span class="chip">Parallax</span>
+      <span class="chip">Motion design</span>
+      <span class="chip">Ilustración animada</span>
+    </div>
   </div>
 </div>
 
@@ -422,6 +431,7 @@ footer { position:relative; z-index:2; background:var(--dark); padding:90px 40px
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
+/* FONDO: HOJAS RELLENAS FLOTANTES */
 (function(){
   const canvas=document.getElementById('bg-canvas');
   const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
@@ -433,118 +443,57 @@ footer { position:relative; z-index:2; background:var(--dark); padding:90px 40px
   function resize(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}
   resize();window.addEventListener('resize',resize);
 
-  const C_GREEN=0x3ab54a,C_BLUE=0x5ba8d4,C_BARK=0x8b5e3c,C_YELLOW=0xf5c842,C_CREAM=0xe8f4d4;
-  function lMat(col,op=.55){return new THREE.LineBasicMaterial({color:col,transparent:true,opacity:op});}
-  function wMat(col,op=.3){return new THREE.MeshBasicMaterial({color:col,wireframe:true,transparent:true,opacity:op});}
-
-  function makeDaisy(col,nc=6){
+  // Forma de hoja (rellena) con nervio central y rabito
+  function makeLeaf(hex,opacity,width){
     const g=new THREE.Group();
-    for(let i=0;i<nc;i++){
-      const angle=(i/nc)*Math.PI*2,pts=[];
-      for(let j=0;j<=12;j++){const t=(j/12)*Math.PI*2;pts.push(new THREE.Vector3(Math.cos(angle)*1.4+Math.cos(t)*.45,Math.sin(angle)*1.4+Math.sin(t)*.18,0));}
-      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.6)));
-    }
-    const cPts=[];for(let i=0;i<=20;i++){const a=(i/20)*Math.PI*2;cPts.push(new THREE.Vector3(Math.cos(a)*.55,Math.sin(a)*.55,0));}
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(cPts),lMat(C_YELLOW,.9)));
-    const iPts=[];for(let i=0;i<=12;i++){const a=(i/12)*Math.PI*2;iPts.push(new THREE.Vector3(Math.cos(a)*.25,Math.sin(a)*.25,0));}
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(iPts),lMat(C_YELLOW,.6)));
-    return g;
-  }
-  function makeSun(col){
-    const g=new THREE.Group();
-    const cp=[];for(let i=0;i<=32;i++){const a=(i/32)*Math.PI*2;cp.push(new THREE.Vector3(Math.cos(a)*1.2,Math.sin(a)*1.2,0));}
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(cp),lMat(col,.75)));
-    for(let i=0;i<12;i++){const a=(i/12)*Math.PI*2,len=i%3===0?.7:.45;g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(Math.cos(a)*1.35,Math.sin(a)*1.35,0),new THREE.Vector3(Math.cos(a)*(1.35+len),Math.sin(a)*(1.35+len),0)]),lMat(col,.6)));}
-    return g;
-  }
-  function makeCloud(col){
-    const g=new THREE.Group();
-    [[0,0,1],[1.1,.3,.75],[-1,.25,.7],[.5,-.15,.55],[-.4,-.1,.5],[1.7,-.1,.6]].forEach(([cx,cy,r])=>{
-      const pts=[];for(let i=0;i<=18;i++){const a=(i/18)*Math.PI*2;pts.push(new THREE.Vector3(cx+Math.cos(a)*r,cy+Math.sin(a)*r,0));}
-      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.5)));
-    });
-    return g;
-  }
-  function makeSpider(col){
-    const g=new THREE.Group();
-    for(let i=0;i<8;i++){const a=(i/8)*Math.PI*2;g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),new THREE.Vector3(Math.cos(a)*2.2,Math.sin(a)*2.2,0)]),lMat(col,.25)));}
-    [.7,1.3,1.9].forEach(r=>{const pts=[];for(let i=0;i<=24;i++){const a=(i/24)*Math.PI*2;pts.push(new THREE.Vector3(Math.cos(a)*r,Math.sin(a)*r,0));}g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lMat(col,.2)));});
-    const body=new THREE.Mesh(new THREE.SphereGeometry(.18,8,6),wMat(col,.7));body.position.set(.3,-2.4,0);g.add(body);
-    const head=new THREE.Mesh(new THREE.SphereGeometry(.12,6,4),wMat(col,.6));head.position.set(.3,-2.12,0);g.add(head);
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),new THREE.Vector3(.3,-2,0)]),lMat(col,.5)));
-    return g;
-  }
-  function makeLeaf(col){
-    const g=new THREE.Group();
-    const shape=new THREE.Shape();
-    shape.moveTo(0,0);shape.bezierCurveTo(-1,1,-1,3,0,4);shape.bezierCurveTo(1,3,1,1,0,0);
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(shape.getPoints(20)),lMat(col,.65)));
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),new THREE.Vector3(0,4,0)]),lMat(col,.4)));
-    return g;
-  }
-  function makeButterfly(col){
-    const g=new THREE.Group();
-    for(let side=0;side<2;side++){
-      const s=side===0?1:-1;
-      const w=[new THREE.Vector3(0,0,0),new THREE.Vector3(s*.3,.8,0),new THREE.Vector3(s*1.5,1.2,0),new THREE.Vector3(s*2,.5,0),new THREE.Vector3(s*1.4,-.3,0),new THREE.Vector3(s*.2,-.2,0),new THREE.Vector3(0,0,0)];
-      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(w),lMat(col,.6)));
-      const lo=[new THREE.Vector3(0,0,0),new THREE.Vector3(s*.4,-.5,0),new THREE.Vector3(s*1.2,-1.1,0),new THREE.Vector3(s*1.4,-.5,0),new THREE.Vector3(s*.3,0,0),new THREE.Vector3(0,0,0)];
-      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(lo),lMat(col,.5)));
-    }
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,-1.2,0),new THREE.Vector3(0,.9,0)]),lMat(col,.7)));
-    return g;
-  }
-  function makeGrass(col){
-    const g=new THREE.Group();
-    [[-0.6,0],[0,0],[0.5,0],[1,0],[-0.3,0]].forEach(([ox,oy],i)=>{
-      const h=1.5+i*.4;
-      const curve=new THREE.QuadraticBezierCurve3(new THREE.Vector3(ox,oy,0),new THREE.Vector3(ox+(i%2===0?.3:-.3),h*.5,0),new THREE.Vector3(ox+(i%2===0?.5:-.5),h,0));
-      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(curve.getPoints(10)),lMat(col,.55)));
-    });
+    const s=new THREE.Shape();
+    s.moveTo(0,0);
+    s.bezierCurveTo(-1.5*width,1,-1.3*width,3,0,4.4);
+    s.bezierCurveTo(1.3*width,3,1.5*width,1,0,0);
+    const geo=new THREE.ShapeGeometry(s,24);
+    geo.translate(0,-2.2,0);
+    const col=new THREE.Color(hex);
+    g.add(new THREE.Mesh(geo,new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:opacity,side:THREE.DoubleSide,depthWrite:false})));
+    const dark=col.clone().multiplyScalar(.72);
+    const vein=new THREE.Mesh(new THREE.PlaneGeometry(.09,3.9),new THREE.MeshBasicMaterial({color:dark,transparent:true,opacity:opacity,side:THREE.DoubleSide,depthWrite:false}));
+    vein.position.set(0,-.05,.01);g.add(vein);
+    const stem=new THREE.Mesh(new THREE.PlaneGeometry(.1,.9),new THREE.MeshBasicMaterial({color:dark,transparent:true,opacity:opacity,side:THREE.DoubleSide,depthWrite:false}));
+    stem.position.set(0,-2.6,.01);g.add(stem);
     return g;
   }
 
-  const floaters=[];
-  function place(obj,x,y,z,sc=1){
-    obj.scale.setScalar(sc);obj.position.set(x,y,z);
-    obj.userData={rx:(Math.random()-.5)*.008,ry:(Math.random()-.5)*.011,rz:(Math.random()-.5)*.006,floatAmp:.3+Math.random()*.6,floatSpd:.3+Math.random()*.5,floatOff:Math.random()*Math.PI*2,baseY:y};
-    scene.add(obj);floaters.push(obj);
+  const greens=[0x2d8a3e,0x3ab54a,0x5fc25a,0x7dcf6e,0x9bd66b,0x1e7a32];
+  const leaves=[];
+  const N=28;
+  for(let i=0;i<N;i++){
+    const col=greens[i%greens.length];
+    const leaf=makeLeaf(col,.5+Math.random()*.3,.75+Math.random()*.5);
+    const x=(Math.random()-.5)*58, y=(Math.random()-.5)*30, z=-5-Math.random()*12;
+    const sc=.45+Math.random()*.85;
+    leaf.scale.setScalar(sc);
+    leaf.position.set(x,y,z);
+    leaf.rotation.set(Math.random()*Math.PI,Math.random()*Math.PI,Math.random()*Math.PI*2);
+    leaf.userData={
+      rx:(Math.random()-.5)*.008, ry:(Math.random()-.5)*.010, rz:(Math.random()-.5)*.006,
+      ampY:.4+Math.random()*.8, ampX:.3+Math.random()*.6,
+      spd:.3+Math.random()*.5, off:Math.random()*Math.PI*2, bx:x, by:y
+    };
+    scene.add(leaf);leaves.push(leaf);
   }
 
-  place(makeDaisy(C_CREAM,6),-18,7,-9,1.8); place(makeDaisy(C_CREAM,5),14,-5,-8,1.2);
-  place(makeDaisy(C_GREEN,6),-6,-9,-12,1.5); place(makeDaisy(C_BLUE,5),20,8,-10,1.0);
-  place(makeDaisy(C_CREAM,7),-2,5,-14,2.0);  place(makeDaisy(C_YELLOW,5),8,-2,-7,0.9);
-  place(makeSun(C_YELLOW),16,9,-11,1.6);      place(makeSun(C_CREAM),-14,-6,-9,1.0);
-  place(makeCloud(C_BLUE),-20,4,-10,1.4);     place(makeCloud(C_CREAM),10,8,-12,1.8);
-  place(makeCloud(C_BLUE),4,-8,-14,1.1);
-  place(makeSpider(C_BARK),-12,9,-8,1.3);     place(makeSpider(C_GREEN),18,-8,-11,1.0);
-  place(makeLeaf(C_GREEN),-16,-4,-7,1.4);     place(makeLeaf(C_GREEN),12,5,-8,1.0);
-  place(makeLeaf(C_CREAM),-4,10,-13,1.6);
-  place(makeButterfly(C_BLUE),6,10,-9,1.2);   place(makeButterfly(C_YELLOW),-8,-7,-10,0.9);
-  place(makeButterfly(C_CREAM),22,2,-12,1.5);
-  place(makeGrass(C_GREEN),-22,-9,-8,1.6);    place(makeGrass(C_GREEN),16,-10,-9,1.2);
-
-  const pCount=1400,pGeo=new THREE.BufferGeometry();
-  const pPos=new Float32Array(pCount*3),pCol=new Float32Array(pCount*3),pSpd=new Float32Array(pCount);
-  const CA=new THREE.Color(0x3ab54a),CB=new THREE.Color(0x5ba8d4),CC=new THREE.Color(0xf5c842);
+  // Partículas suaves
+  const pCount=900,pGeo=new THREE.BufferGeometry();
+  const pPos=new Float32Array(pCount*3),pCol=new Float32Array(pCount*3);
+  const CA=new THREE.Color(0x3ab54a),CB=new THREE.Color(0xffffff),CC=new THREE.Color(0xf5c842);
   for(let i=0;i<pCount;i++){
     pPos[i*3]=(Math.random()-.5)*120;pPos[i*3+1]=(Math.random()-.5)*80;pPos[i*3+2]=(Math.random()-.5)*60;
-    const t=Math.random(),c=t<.33?CA:t<.66?CB:CC;
-    pCol[i*3]=c.r;pCol[i*3+1]=c.g;pCol[i*3+2]=c.b;pSpd[i]=.02+Math.random()*.06;
+    const t=Math.random(),c=t<.4?CA:t<.75?CB:CC;
+    pCol[i*3]=c.r;pCol[i*3+1]=c.g;pCol[i*3+2]=c.b;
   }
   pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
   pGeo.setAttribute('color',new THREE.BufferAttribute(pCol,3));
-  const particles=new THREE.Points(pGeo,new THREE.PointsMaterial({size:.15,vertexColors:true,transparent:true,opacity:.65,sizeAttenuation:true}));
+  const particles=new THREE.Points(pGeo,new THREE.PointsMaterial({size:.14,vertexColors:true,transparent:true,opacity:.55,sizeAttenuation:true}));
   scene.add(particles);
-
-  const maxL=floaters.length*(floaters.length-1)/2;
-  const lineGeo=new THREE.BufferGeometry();
-  const lineArr=new Float32Array(maxL*6);
-  lineGeo.setAttribute('position',new THREE.BufferAttribute(lineArr,3));
-  scene.add(new THREE.LineSegments(lineGeo,new THREE.LineBasicMaterial({color:0x3ab54a,transparent:true,opacity:.05})));
-
-  const ring=new THREE.Mesh(new THREE.TorusGeometry(22,.05,4,120),new THREE.MeshBasicMaterial({color:0x3ab54a,transparent:true,opacity:.07}));
-  ring.rotation.x=Math.PI/2.5;scene.add(ring);
 
   let mx=0,my=0,tmx=0,tmy=0;
   document.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=(e.clientY/innerHeight-.5)*2;});
@@ -554,19 +503,13 @@ footer { position:relative; z-index:2; background:var(--dark); padding:90px 40px
     requestAnimationFrame(animate);tc+=.007;
     tmx+=(mx*1.4-tmx)*.04;tmy+=(my*.7-tmy)*.04;
     camera.position.x=tmx;camera.position.y=-tmy+scrollY*.003;camera.lookAt(0,scrollY*.003,0);
-    particles.rotation.y=tc*.035;particles.rotation.x=tc*.012;
-    const pos=pGeo.attributes.position.array;
-    for(let i=0;i<pCount;i++) pos[i*3+1]+=Math.sin(tc*pSpd[i]+i)*.003;
-    pGeo.attributes.position.needsUpdate=true;
-    floaters.forEach(m=>{
-      m.rotation.x+=m.userData.rx;m.rotation.y+=m.userData.ry;m.rotation.z+=m.userData.rz;
-      m.position.y=m.userData.baseY+Math.sin(tc*m.userData.floatSpd+m.userData.floatOff)*m.userData.floatAmp;
+    particles.rotation.y=tc*.03;particles.rotation.x=tc*.01;
+    leaves.forEach(l=>{
+      const u=l.userData;
+      l.rotation.x+=u.rx;l.rotation.y+=u.ry;l.rotation.z+=u.rz;
+      l.position.y=u.by+Math.sin(tc*u.spd+u.off)*u.ampY;
+      l.position.x=u.bx+Math.cos(tc*u.spd*.8+u.off)*u.ampX;
     });
-    let li=0;const lp=lineGeo.attributes.position.array;
-    for(let a=0;a<floaters.length;a++) for(let b=a+1;b<floaters.length;b++) if(floaters[a].position.distanceTo(floaters[b].position)<18){lp[li++]=floaters[a].position.x;lp[li++]=floaters[a].position.y;lp[li++]=floaters[a].position.z;lp[li++]=floaters[b].position.x;lp[li++]=floaters[b].position.y;lp[li++]=floaters[b].position.z;}
-    for(;li<lp.length;li++) lp[li]=0;
-    lineGeo.attributes.position.needsUpdate=true;lineGeo.setDrawRange(0,li/3);
-    ring.rotation.z=tc*.04;
     renderer.render(scene,camera);
   })();
 })();
@@ -589,7 +532,8 @@ if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){
       }
     }
   });
-  document.querySelectorAll('a,.chip,.tool-item,.footer-cta').forEach(el=>{
+  // Solo elementos que realmente son enlaces/botones
+  document.querySelectorAll('a,.footer-cta').forEach(el=>{
     el.addEventListener('mouseenter',()=>{dot.style.transform='translate(-50%,-50%) scale(2.5)';dot.style.background='#f5c842';dot.style.boxShadow='0 0 16px #f5c842,0 0 32px rgba(245,200,66,.5)';});
     el.addEventListener('mouseleave',()=>{dot.style.transform='translate(-50%,-50%) scale(1)';dot.style.background='var(--green)';dot.style.boxShadow='0 0 16px var(--green)';});
   });
