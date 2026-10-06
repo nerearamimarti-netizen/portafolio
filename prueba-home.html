@@ -309,28 +309,54 @@ box-shadow:inset 0 0 22px rgba(255,255,255,.75),inset -10px -14px 26px rgba(120,
 .sec-title .w{overflow:visible;padding:0;margin:0}
 .sec-title .c{opacity:0;transform:translateY(.4em);transition:transform .9s cubic-bezier(.16,1,.3,1),opacity .6s;transition-delay:calc(var(--i)*35ms)}
 .sec-title.on .c{opacity:1;transform:none}
-.ft{position:relative;z-index:1;background:var(--v);color:#fff;overflow:hidden;margin-top:70px;border-radius:44px 44px 0 0}
-.ft-orbs i{position:absolute;border-radius:50%;pointer-events:none}
-.o1{width:320px;height:320px;background:var(--pk);right:-70px;top:-130px}
-.o2{width:210px;height:210px;background:var(--lm);right:240px;top:-100px}
-.o3{width:140px;height:140px;background:var(--mt);left:-40px;bottom:80px}
-.ft-grid{position:relative;max-width:1180px;margin:0 auto;padding:86px 6vw 36px;display:grid;gap:44px;align-items:end}
-@media(min-width:960px){.ft-grid{grid-template-columns:1fr 1fr}}
-.ft-head{font-size:clamp(48px,7vw,104px);font-weight:800;line-height:.92;margin-bottom:16px}
-.ft-head span{color:var(--lm)}
-.ft-sub{font-size:16px;font-weight:600;line-height:1.65;color:rgba(255,255,255,.9);max-width:400px;margin-bottom:24px}
-.ft-cta{display:inline-block;background:var(--lm);color:var(--ink);font-weight:800;font-size:17px;padding:16px 38px;border-radius:999px;text-decoration:none;box-shadow:0 18px 30px -14px rgba(0,0,0,.45)}
-.ft-soc{display:flex;gap:10px;margin-top:16px}
-.ft-soc a{color:#fff;background:rgba(255,255,255,.16);font-weight:800;padding:10px 24px;border-radius:999px;text-decoration:none;transition:.25s}
-.ft-soc a:hover{background:#fff;color:var(--v)}
-.ft-rows{display:flex;flex-direction:column;gap:12px}
-.ft-row{display:flex;flex-direction:column;gap:2px;padding:18px 26px;border-radius:26px;background:rgba(255,255,255,.12);color:#fff;text-decoration:none;transition:background .3s,color .3s,transform .4s cubic-bezier(.34,1.56,.64,1)}
-a.ft-row:hover{background:var(--lm);color:var(--ink);transform:translateX(10px)}
-.ft-row small{font-size:12px;font-weight:800;opacity:.75}
-.ft-row b{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(20px,2.4vw,32px);font-weight:800;letter-spacing:-.02em;word-break:break-word}
-.ft-tick{position:relative;overflow:hidden;white-space:nowrap;padding:6px 0 16px}
-.ft-tick div{display:inline-flex;gap:.5em;animation:mq 28s linear infinite;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(50px,8vw,120px);letter-spacing:-.05em;color:rgba(255,255,255,.14)}
-.ft-copy{position:relative;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:14px 6vw;background:rgba(0,0,0,.18);font-size:13px;font-weight:700;color:rgba(255,255,255,.75)}
+
+/* ===== v6 ===== */
+.photo-col{gap:34px}
+.photo-wrap{width:250px;height:250px;filter:drop-shadow(0 22px 22px rgba(70,35,160,.22))}
+.photo-wrap::before{display:none}
+.pf,.photo-frame{position:absolute;inset:0;clip-path:url(#wavy);-webkit-clip-path:url(#wavy)}
+.photo-frame{border-radius:0;box-shadow:none;animation:none;background:var(--vt)}
+.pf1{inset:-14px;background:linear-gradient(135deg,var(--pk),var(--v));animation:rot 24s linear infinite}
+.pf2{inset:-5px;background:var(--lm);animation:rot 17s linear infinite reverse}
+@keyframes rot{to{rotate:360deg}}
+.ring-badge{position:absolute;left:-34px;bottom:-12px;width:106px;height:106px;border-radius:50%;background:var(--pk);box-shadow:var(--sh);z-index:4}
+.ring-badge svg{width:100%;height:100%;animation:sp 16s linear infinite}
+.ring-badge i{position:absolute;top:50%;left:50%;width:24px;height:24px;margin:-12px;border-radius:50%;background:var(--lm)}
+.hang-tag{top:-34px;right:-10px}
+.giant{padding:6px 0 0;margin:-30px 0 -10px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
+.gt.g1{font-size:clamp(26px,4.4vw,80px);font-weight:700;color:rgba(21,17,43,.17)}
+.gt.g1 .w2{color:rgba(109,40,217,.22)}
+.gt.g2{font-size:clamp(40px,6.4vw,104px);font-weight:700;color:rgba(21,17,43,.06)}
+.gt.g2 i{background:rgba(255,61,154,.14)}
+.pcard:hover{transform:translateY(-10px)}
+.pcard-img::after{content:'↗';position:absolute;top:16px;right:16px;width:50px;height:50px;border-radius:50%;background:#fff;color:var(--ink);display:flex;align-items:center;justify-content:center;font:800 22px 'Bricolage Grotesque',sans-serif;box-shadow:0 12px 22px -8px rgba(0,0,0,.32);transition:transform .45s cubic-bezier(.34,1.56,.64,1),background .3s;z-index:2}
+.pcard:hover .pcard-img::after{transform:rotate(45deg) scale(1.15);background:var(--lm)}
+.pcard-more{background:var(--ink);color:#fff;padding:10px 10px 10px 22px;border-radius:999px;gap:14px;align-items:center;transition:background .3s}
+.pcard-more .arr{width:30px;height:30px;border-radius:50%;background:#fff;color:var(--ink);display:inline-flex;align-items:center;justify-content:center;font-size:15px}
+.pcard:hover .pcard-more{background:var(--ct)}
+.pcard:hover .pcard-more .arr{transform:translateX(4px)}
+.hb{position:relative;z-index:1;margin-top:40px;padding-top:50px;background:linear-gradient(180deg,transparent,rgba(241,234,254,.88) 55%,rgba(255,231,243,.88));overflow:hidden}
+.hb-grid{max-width:1180px;margin:0 auto;padding:40px 6vw 26px;display:grid;gap:44px;align-items:center}
+@media(min-width:960px){.hb-grid{grid-template-columns:1.05fr 1fr}}
+.hb-head{font-size:clamp(52px,8vw,118px);font-weight:800;line-height:.92;margin-bottom:16px;color:var(--ink)}
+.hb-head span{color:var(--pk)}
+.hb-sub{font-size:16px;font-weight:600;line-height:1.65;color:rgba(21,17,43,.76);max-width:400px;margin-bottom:24px}
+.hb-cta{display:inline-block;background:var(--v);color:#fff;font-weight:800;font-size:17px;padding:16px 38px;border-radius:999px;text-decoration:none;box-shadow:0 18px 30px -14px rgba(109,40,217,.7);transition:background .3s}
+.hb-cta:hover{background:var(--pk)}
+.hb-soc{display:flex;gap:10px;margin-top:16px}
+.hb-soc a{color:var(--v);background:#fff;box-shadow:var(--sh);font-weight:800;padding:10px 24px;border-radius:999px;text-decoration:none;transition:.25s}
+.hb-soc a:hover{background:var(--v);color:#fff;transform:translateY(-3px)}
+.hb-rows{display:flex;flex-direction:column;gap:14px}
+.hb-row{display:flex;align-items:center;gap:18px;padding:20px 26px;border-radius:30px;background:#fff;box-shadow:var(--sh);color:var(--ink);text-decoration:none;transition:transform .4s cubic-bezier(.34,1.56,.64,1),box-shadow .3s}
+a.hb-row:hover{transform:translateX(-10px);box-shadow:var(--shh)}
+.hb-ic{width:52px;height:52px;border-radius:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--ic)}
+.hb-ic svg{width:24px;height:24px;fill:#fff}
+.r1{--ic:var(--v)}.r2{--ic:var(--pk)}.r3{--ic:#0fbf80}
+.hb-row small{display:block;font-size:12px;font-weight:800;color:var(--mut)}
+.hb-row b{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(19px,2.2vw,29px);font-weight:800;letter-spacing:-.02em;word-break:break-word}
+.hb-tick{overflow:hidden;white-space:nowrap;padding:4px 0 10px}
+.hb-tick div{display:inline-flex;gap:.5em;animation:mq 30s linear infinite;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(50px,8vw,120px);letter-spacing:-.05em;color:rgba(109,40,217,.07)}
+.hb-copy{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:14px 6vw 18px;font-size:13px;font-weight:700;color:var(--mut)}
 </style>
 </head>
 <body class="pre">
@@ -380,7 +406,7 @@ a.ft-row:hover{background:var(--lm);color:var(--ink);transform:translateX(10px)}
 
 <div class="bands" style="position:relative">
   <div class="band b1"><div class="bt">
-    <span>Diseño gráfico</span><span class="dot">●</span><span>Identidad de marca</span><span class="dot">●</span><span>Dirección de arte</span><span class="dot">●</span><span>Campañas 360°</span><span class="dot">●</span><span>Ilustración</span><span class="dot">●</span>
+    <span>Diseño gráfico</span><span class="dot">●</span><span>Identidad de marca</span><span class="dot">●</span><span>Campañas 360°</span><span class="dot">●</span><span>Ilustración</span><span class="dot">●</span>
   </div></div>
   <div class="band b2"><div class="bt">
     <span>Photoshop</span><span class="dot">●</span><span>Illustrator</span><span class="dot">●</span><span>InDesign</span><span class="dot">●</span><span>Motion graphics</span><span class="dot">●</span><span>IA generativa</span><span class="dot">●</span>
@@ -392,8 +418,12 @@ a.ft-row:hover{background:var(--lm);color:var(--ink);transform:translateX(10px)}
     <div class="about-row">
       <div class="photo-col rvL">
         <div class="photo-wrap">
+          <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><clipPath id="wavy" clipPathUnits="objectBoundingBox"><path id="wavyP"/></clipPath></defs></svg>
+          <span class="pf pf1"></span><span class="pf pf2"></span>
           <div class="photo-frame"><img src="nerea.ramirez.png" alt="Nerea Ramírez, diseñadora gráfica"></div>
-          <span class="photo-sticker" aria-hidden="true">¡Hola!</span>
+          <div class="ring-badge" aria-hidden="true">
+            <svg viewBox="0 0 100 100"><defs><path id="rp" d="M50,50 m-35,0 a35,35 0 1,1 70,0 a35,35 0 1,1 -70,0"/></defs><text font-size="10" font-weight="800" letter-spacing="1.3" fill="#fff" font-family="Bricolage Grotesque, sans-serif"><textPath href="#rp">DISEÑO · MOTION · BRANDING ·</textPath></text></svg><i></i>
+          </div>
           <a href="nerea.html" class="hang-tag" aria-label="Conóceme un poco más — mis gustos y aficiones">
             <span class="ht-string" aria-hidden="true"></span>
             <span class="ht-body">Más sobre mí <svg width="12" height="12" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M1 5H9M9 5L5.5 1.5M9 5L5.5 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -401,7 +431,7 @@ a.ft-row:hover{background:var(--lm);color:var(--ink);transform:translateX(10px)}
         </div>
         <div class="about-stats">
           <div class="st-item"><div class="st-n" data-n="3" data-s="+">3+</div><div class="st-l">Años</div></div>
-          <div class="st-item"><div class="st-n" data-n="7" data-s="">7</div><div class="st-l">Proyectos</div></div>
+          
         </div>
       </div>
 
@@ -409,7 +439,7 @@ a.ft-row:hover{background:var(--lm);color:var(--ink);transform:translateX(10px)}
         <h2 class="about-greeting">Hola, soy Nerea :)<span class="about-palette" aria-hidden="true"><span style="background:var(--v)"></span><span style="background:var(--pk)"></span><span style="background:var(--mt)"></span></span></h2>
         <p class="about-sub">Diseñadora gráfica, y <span class="me-apasiona">me apasiona</span> lo que hago.</p>
         <p class="about-body">
-          <strong>Convierto un brief en blanco en campañas, identidades y piezas que comunican de verdad.</strong> Diseño, ilustro y dirijo el aspecto visual de cada proyecto de principio a fin; cuando una idea pide movimiento, la animo yo misma. Uso la IA generativa como una herramienta más para agilizar la ideación, sin perder nunca el criterio.
+          <strong>Me encanta convertir un brief en blanco en campañas, identidades y piezas que conectan de verdad con la gente.</strong> Diseño, ilustro y cuido el aspecto visual de cada proyecto de principio a fin y, cuando una idea pide movimiento, ¡la animo yo misma! También uso la IA generativa como una herramienta más para ganar ideas y rapidez, siempre con mi criterio y mucho mimo por el detalle :)
         </p>
         <div class="about-links">
           <a class="about-link" href="https://www.linkedin.com/in/nerearamirez/" target="_blank" rel="noopener">LinkedIn</a>
@@ -431,7 +461,7 @@ a.ft-row:hover{background:var(--lm);color:var(--ink);transform:translateX(10px)}
         <div class="acc-tab" tabindex="0" role="button" onclick="toggleTab(this,'exp')"><span class="acc-tab-label">Experiencia</span><div class="acc-tab-right"><span class="acc-tab-tag">3 años</span><div class="acc-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
         <div class="acc-tab" tabindex="0" role="button" onclick="toggleTab(this,'edu')"><span class="acc-tab-label">Formación</span><div class="acc-tab-right"><span class="acc-tab-tag">3 títulos</span><div class="acc-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
         <div class="acc-tab" tabindex="0" role="button" onclick="toggleTab(this,'cert')"><span class="acc-tab-label">Certificaciones</span><div class="acc-tab-right"><span class="acc-tab-tag">4 certs</span><div class="acc-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
-        <div class="acc-tab" tabindex="0" role="button" onclick="toggleTab(this,'hab')"><span class="acc-tab-label">Especialidades</span><div class="acc-tab-right"><span class="acc-tab-tag">6</span><div class="acc-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
+        <div class="acc-tab" tabindex="0" role="button" onclick="toggleTab(this,'hab')"><span class="acc-tab-label">Especialidades</span><div class="acc-tab-right"><span class="acc-tab-tag">5</span><div class="acc-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
       </div>
       <div class="acc-panels">
         <div class="acc-panel" id="panel-exp"><div class="tl">
@@ -454,7 +484,7 @@ a.ft-row:hover{background:var(--lm);color:var(--ink);transform:translateX(10px)}
         </div></div>
         <div class="acc-panel" id="panel-edu"><div class="edu-list"><div class="edu-row"><div class="edu-yr">2025</div><div><div class="edu-t">Máster Motion Graphics, VFX, Diseño 3D, 4D y Dirección de arte</div><div class="edu-p">CEI</div></div></div><div class="edu-row"><div class="edu-yr">2023</div><div><div class="edu-t">Máster Diseño Gráfico, Diseño web y Marketing Digital</div><div class="edu-p">CEI</div></div></div><div class="edu-row"><div class="edu-yr">2021</div><div><div class="edu-t">Grado Superior en Marketing y Publicidad</div><div class="edu-p">IES Clara del Rey</div></div></div></div></div>
         <div class="acc-panel" id="panel-cert"><div class="cert-grid"><div class="cert-c"><div class="cert-yr">2025</div><div class="cert-n">Elements of AI</div><div class="cert-e">University of Helsinki</div></div><div class="cert-c"><div class="cert-yr">2025</div><div class="cert-n">Diseño Gráfico</div><div class="cert-e">Edutin Academy</div></div><div class="cert-c"><div class="cert-yr">2024</div><div class="cert-n">Inbound Marketing</div><div class="cert-e">Hubspot Academy</div></div><div class="cert-c"><div class="cert-yr">2024</div><div class="cert-n">Marketing Digital</div><div class="cert-e">Google Actívate</div></div></div></div>
-        <div class="acc-panel" id="panel-hab"><div class="int-wrap"><span class="itag a">Diseño gráfico</span><span class="itag b">Motion graphics</span><span class="itag a">Dirección de arte</span><span class="itag c">Identidad de marca</span><span class="itag b">Postproducción</span><span class="itag c">IA generativa</span></div></div>
+        <div class="acc-panel" id="panel-hab"><div class="int-wrap"><span class="itag a">Diseño gráfico</span><span class="itag b">Motion graphics</span><span class="itag c">Identidad de marca</span><span class="itag b">Postproducción</span><span class="itag c">IA generativa</span></div></div>
       </div>
     </div>
   </div>
@@ -462,7 +492,7 @@ a.ft-row:hover{background:var(--lm);color:var(--ink);transform:translateX(10px)}
 
 <div class="giant" aria-hidden="true">
   <div class="gt g1"><span>Diseño gráfico</span><i></i><span class="w2">Motion graphics</span></div>
-  <div class="gt g2"><span>Identidad de marca</span><i></i><span>Dirección de arte</span><i></i><span>Campañas 360°</span><i></i><span>Ilustración</span><i></i></div>
+  <div class="gt g2"><span>Identidad de marca</span><i></i><span>Campañas 360°</span><i></i><span>Ilustración</span><i></i></div>
 </div>
 
 <section class="servicios" id="servicios">
@@ -487,38 +517,37 @@ a.ft-row:hover{background:var(--lm);color:var(--ink);transform:translateX(10px)}
       </div>
     </div>
     <div class="proj-grid rv" style="transition-delay:.08s">
-      <a class="pcard tilt" data-cat="mkt" href="proyecto-magnum.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Campaña 360 Magnum"><div class="pcard-img" style="background-image:url('destacada-magnum-final.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">Campaña 360°</div><div class="pcard-title">Campaña 360 Magnum</div><div class="pcard-sub">Algunos placeres no entienden de estaciones</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
-      <a class="pcard tilt" data-cat="mkt" href="proyecto-ashwagandha.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Ashwagandha Gummies"><div class="pcard-img" style="background-image:url('destacada-aswa.jpg')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">Campaña desde 0</div><div class="pcard-title">Ashwagandha Gummies</div><div class="pcard-sub">Photoshop, Illustrator y Cap Cut</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
-      <a class="pcard tilt" data-cat="motion" href="proyecto-home.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Vídeo inmersivo Home"><div class="pcard-img" style="background-image:url('destacadas-HOME.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">After Effects</div><div class="pcard-title">Vídeo inmersivo Home</div><div class="pcard-sub">After Effects y Premiere</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
-      <a class="pcard tilt" data-cat="motion" href="proyecto-superboy.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Vídeo simulación Superboy"><div class="pcard-img" style="background-image:url('destacadas-superboy.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">VFX</div><div class="pcard-title">Vídeo simulación Superboy</div><div class="pcard-sub">After Effects y Premiere</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
-      <a class="pcard tilt" data-cat="motion" href="proyecto-hotwheels.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Vídeo Hot Wheels"><div class="pcard-img" style="background-image:url('destacada-hotwheel.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">IA Generativa</div><div class="pcard-title">Vídeo Hot Wheels</div><div class="pcard-sub">IA generativa y Premiere</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
-      <a class="pcard tilt" data-cat="design" href="proyecto-dolcevitta.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Dolce Vitta"><div class="pcard-img" style="background-image:url('destacadas-dolce-vitta.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">Branding & RRSS</div><div class="pcard-title">Dolce Vitta</div><div class="pcard-sub">Branding y RRSS</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
-      <a class="pcard tilt" data-cat="design" href="proyecto-nextfloor.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Coworking Nextfloor"><div class="pcard-img" style="background-image:url('destacada-nextfloor.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">Infografía RRSS</div><div class="pcard-title">Coworking Nextfloor</div><div class="pcard-sub">Infografía y diseño para RRSS</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
+      <a class="pcard" data-cat="mkt" href="proyecto-magnum.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Campaña 360 Magnum"><div class="pcard-img" style="background-image:url('destacada-magnum-final.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">Campaña 360°</div><div class="pcard-title">Campaña 360 Magnum</div><div class="pcard-sub">Algunos placeres no entienden de estaciones</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
+      <a class="pcard" data-cat="mkt" href="proyecto-ashwagandha.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Ashwagandha Gummies"><div class="pcard-img" style="background-image:url('destacada-aswa.jpg')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">Campaña desde 0</div><div class="pcard-title">Ashwagandha Gummies</div><div class="pcard-sub">Photoshop, Illustrator y Cap Cut</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
+      <a class="pcard" data-cat="motion" href="proyecto-home.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Vídeo inmersivo Home"><div class="pcard-img" style="background-image:url('destacadas-HOME.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">After Effects</div><div class="pcard-title">Vídeo inmersivo Home</div><div class="pcard-sub">After Effects y Premiere</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
+      <a class="pcard" data-cat="motion" href="proyecto-superboy.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Vídeo simulación Superboy"><div class="pcard-img" style="background-image:url('destacadas-superboy.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">VFX</div><div class="pcard-title">Vídeo simulación Superboy</div><div class="pcard-sub">After Effects y Premiere</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
+      <a class="pcard" data-cat="motion" href="proyecto-hotwheels.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Vídeo Hot Wheels"><div class="pcard-img" style="background-image:url('destacada-hotwheel.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">IA Generativa</div><div class="pcard-title">Vídeo Hot Wheels</div><div class="pcard-sub">IA generativa y Premiere</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
+      <a class="pcard" data-cat="design" href="proyecto-dolcevitta.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Dolce Vitta"><div class="pcard-img" style="background-image:url('destacadas-dolce-vitta.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">Branding & RRSS</div><div class="pcard-title">Dolce Vitta</div><div class="pcard-sub">Branding y RRSS</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
+      <a class="pcard" data-cat="design" href="proyecto-nextfloor.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Coworking Nextfloor"><div class="pcard-img" style="background-image:url('destacada-nextfloor.png')"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">Infografía RRSS</div><div class="pcard-title">Coworking Nextfloor</div><div class="pcard-sub">Infografía y diseño para RRSS</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
     </div>
   </div>
 </section>
 </main>
 
-<footer class="ft" id="contacto">
-  <div class="ft-orbs" aria-hidden="true"><i class="o1"></i><i class="o2"></i><i class="o3"></i></div>
-  <div class="ft-grid">
+<footer class="hb" id="contacto">
+  <div class="hb-grid">
     <div class="rvL">
-      <div class="ft-head f">Hablemos<span>:)</span></div>
-      <p class="ft-sub">¿Tienes algo en mente? Me encantaría escucharte. Ya sea un proyecto, una idea loca o simplemente presentarte — escríbeme sin miedo.</p>
-      <a href="mailto:nerearamimarti@gmail.com" class="ft-cta mag">Escribir ahora</a>
-      <div class="ft-soc">
+      <div class="hb-head f">Hablemos<span>:)</span></div>
+      <p class="hb-sub">¿Tienes algo en mente? Me encantaría escucharte. Ya sea un proyecto, una idea loca o simplemente presentarte — escríbeme sin miedo.</p>
+      <a href="mailto:nerearamimarti@gmail.com" class="hb-cta mag">Escribir ahora</a>
+      <div class="hb-soc">
         <a href="https://www.linkedin.com/in/nerearamirez/" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://www.behance.net/nerearamirez1" target="_blank" rel="noopener">Behance</a>
       </div>
     </div>
-    <div class="ft-rows rvR">
-      <a class="ft-row" href="tel:+34653607909"><small>Teléfono</small><b>653 607 909</b></a>
-      <a class="ft-row" href="mailto:nerearamimarti@gmail.com"><small>Email</small><b>nerearamimarti@gmail.com</b></a>
-      <div class="ft-row"><small>Ubicación</small><b>Madrid · SSReyes</b></div>
+    <div class="hb-rows rvR">
+      <a class="hb-row r1" href="tel:+34653607909"><span class="hb-ic"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.6 3.6a1 1 0 0 1-.25 1z"/></svg></span><span><small>Teléfono</small><b>653 607 909</b></span></a>
+      <a class="hb-row r2" href="mailto:nerearamimarti@gmail.com"><span class="hb-ic"><svg viewBox="0 0 24 24"><path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v.5l-10 6.2L2 6.5zM2 9l10 6.2L22 9v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z"/></svg></span><span><small>Email</small><b>nerearamimarti@gmail.com</b></span></a>
+      <div class="hb-row r3"><span class="hb-ic"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg></span><span><small>Ubicación</small><b>Madrid · SSReyes</b></span></div>
     </div>
   </div>
-  <div class="ft-tick" aria-hidden="true"><div><span>Hablemos :)</span><span>Hablemos :)</span><span>Hablemos :)</span><span>Hablemos :)</span><span>Hablemos :)</span><span>Hablemos :)</span></div></div>
-  <div class="ft-copy"><span>© 2026 NEEERGRAPHS</span><span>Madrid, España</span></div>
+  <div class="hb-tick" aria-hidden="true"><div><span>Hablemos :)</span><span>Hablemos :)</span><span>Hablemos :)</span><span>Hablemos :)</span><span>Hablemos :)</span><span>Hablemos :)</span></div></div>
+  <div class="hb-copy"><span>© 2026 NEEERGRAPHS</span><span>Madrid, España</span></div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -556,7 +585,7 @@ addEventListener('mousemove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHe
     [new THREE.SphereGeometry(1,64,64),0x6d28d9,.6,-1,4.7,.14],
     [new THREE.TorusGeometry(1,.4,48,100),0x8b5cf6,.75, 1,5.6,.2]
   ];
-  const objs=defs.map((d,i)=>{const m=new THREE.Mesh(d[0],mat(d[1]));S.add(m);return{m,s:d[2],side:d[3],v:d[4],sp:d[5],i,t0:-1}});
+  const objs=defs.map((d,i)=>{const m=new THREE.Mesh(d[0],mat(d[1]));S.add(m);return{m,s:d[2],side:d[3],v:d[4],sp:d[5],i,fr:i>=3?[.2,.36,.55,.74,.9][i-3]:undefined}});
   let visH,visW,narrow;
   function size(){R.setSize(innerWidth,innerHeight,false);C.aspect=innerWidth/innerHeight;C.updateProjectionMatrix();
     visH=2*12*Math.tan(THREE.MathUtils.degToRad(17.5));visW=visH*C.aspect;narrow=C.aspect<.9}
@@ -564,14 +593,14 @@ addEventListener('mousemove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHe
   const clock=new THREE.Clock();let sm=0;
   function tick(){
     requestAnimationFrame(tick);if(document.hidden)return;
-    const t=clock.getElapsedTime(),sy=scrollY/innerHeight;
+    const t=clock.getElapsedTime(),sy=scrollY/innerHeight,maxv=Math.max(1,(document.documentElement.scrollHeight-innerHeight)/innerHeight);
     C.position.y=-sy*visH*.85;
     sm+=(sy-sm)*.08;
     objs.forEach(o=>{
       const k=Math.min(1,Math.max(0,(t-1.1-o.i*.12)/1.4)),e=1-Math.pow(1-k,4)*Math.cos(k*9);
       const sc=o.s*(narrow?.62:1)*Math.max(0,e);o.m.scale.setScalar(sc);
       o.m.position.x=o.side*visW*(narrow?.42:.34)+Math.sin(t*.35+o.i*2)*.35;
-      o.m.position.y=-o.v*visH*.85*1+Math.sin(t*.8+o.i)*.3;
+      o.m.position.y=-(o.fr!==undefined?o.fr*maxv:o.v)*visH*.85+Math.sin(t*.8+o.i)*.3;
       o.m.rotation.x=reduce?.4:t*o.sp+o.i;
       o.m.rotation.y=reduce?.6:t*o.sp*1.3;
     });
@@ -589,6 +618,8 @@ addEventListener('mousemove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHe
 /* Títulos de sección: letras que emergen */
 function splitT(el){let i=0;(function w(n){[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(tk=>{if(!tk)return;if(/^\s+$/.test(tk)){f.appendChild(document.createTextNode(' '));return}const wd=document.createElement('span');wd.className='w';[...tk].forEach(ch=>{const q=document.createElement('span');q.className='c';q.textContent=ch;q.style.setProperty('--i',i++);wd.appendChild(q)});f.appendChild(wd)});c.replaceWith(f)}else w(c)})})(el);el.setAttribute('aria-label',el.textContent)}
 window.addEventListener('DOMContentLoaded',()=>{});const __st=[...document.querySelectorAll('.sec-title')];__st.forEach(splitT);
+/* Marco ondulado de la foto */
+(function(){const N=160,L=11;let d='';for(let i=0;i<=N;i++){const a=i/N*Math.PI*2,r=.455+.04*Math.cos(L*a);d+=(i?'L':'M')+(.5+r*Math.cos(a)).toFixed(4)+' '+(.5+r*Math.sin(a)).toFixed(4)}document.getElementById('wavyP').setAttribute('d',d+'Z')})();
 /* Bandas */
 function fillBands(){document.querySelectorAll('.bt').forEach(bt=>{if(!bt.dataset.base)bt.dataset.base=bt.innerHTML;const b=bt.dataset.base;let h=b;bt.innerHTML=h;let g=0;while(bt.scrollWidth<innerWidth*1.4&&g<12){h+=b;bt.innerHTML=h;g++}bt.innerHTML=h+h})}
 fillBands();addEventListener('resize',fillBands,{passive:true});
