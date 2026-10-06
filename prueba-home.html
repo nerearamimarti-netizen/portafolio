@@ -294,11 +294,6 @@ html.nc,html.nc *{cursor:none!important}
 #cur{width:16px;height:16px;margin:-8px 0 0 -8px;background:var(--ink)}
 #cur.on{opacity:1}
 #cur.big{width:76px;height:76px;margin:-38px 0 0 -38px;background:var(--pk);opacity:.4}
-.bub span{position:absolute;width:var(--s);height:var(--s);border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font:800 13px 'Bricolage Grotesque',sans-serif;color:rgba(21,17,43,.5);pointer-events:none;z-index:2;
-background:radial-gradient(circle at 29% 22%,rgba(255,255,255,.95) 0,rgba(255,255,255,.35) 8%,transparent 20%),radial-gradient(circle at 74% 82%,rgba(255,255,255,.6) 0,transparent 18%),conic-gradient(from 210deg,rgba(255,61,154,.2),rgba(139,92,246,.2),rgba(0,194,255,.2),rgba(16,245,160,.18),rgba(232,255,61,.22),rgba(255,61,154,.2)),radial-gradient(circle,rgba(255,255,255,.04) 52%,rgba(255,255,255,.6) 100%);
-box-shadow:inset 0 0 22px rgba(255,255,255,.75),inset -10px -14px 26px rgba(120,90,255,.16),0 20px 30px -18px rgba(0,0,0,.22);backdrop-filter:blur(3px) saturate(1.5);-webkit-backdrop-filter:blur(3px) saturate(1.5);animation:bf 10s ease-in-out infinite;animation-delay:var(--d,0s)}
-@keyframes bf{50%{transform:translate(14px,-24px)}}
-@media(max-width:780px){.bub{display:none}}
 .bchip.ad{background:var(--v);color:#fff}.bchip.ai{background:var(--lm);color:var(--ink)}.bchip.cc{background:var(--pk);color:#fff}
 .gt.g1{font-size:clamp(28px,5vw,92px);margin-left:4vw;gap:.28em}
 .gt.g1 i{display:none}
@@ -350,46 +345,13 @@ html.nc #cur{display:flex}
 .bub span{position:absolute;width:var(--s);height:var(--s);border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;padding:17%;font:800 12.5px/1.15 'Bricolage Grotesque',sans-serif;color:rgba(21,17,43,.55);pointer-events:none;z-index:2;isolation:isolate;
 background:radial-gradient(circle,rgba(255,255,255,0) 0,rgba(255,255,255,0) 56%,rgba(200,215,255,.12) 74%,rgba(255,255,255,.3) 92%,rgba(255,255,255,.5) 100%);
 box-shadow:inset 0 0 20px rgba(130,150,255,.24),inset 7px 9px 20px rgba(110,200,255,.16),inset -9px -12px 22px rgba(255,120,190,.18),0 14px 26px -18px rgba(0,0,0,.25);
-backdrop-filter:blur(1.5px) saturate(1.4) brightness(1.04);-webkit-backdrop-filter:blur(1.5px) saturate(1.4) brightness(1.04);
 animation:bf 12s ease-in-out infinite,bw 5s ease-in-out infinite;animation-delay:var(--d,0s)}
 .bub span::before{content:'';position:absolute;inset:0;border-radius:50%;z-index:-1;background:conic-gradient(from 0deg,rgba(255,40,160,.55),rgba(255,200,0,.45),rgba(60,230,150,.5),rgba(0,190,255,.55),rgba(150,80,255,.55),rgba(255,40,160,.55));-webkit-mask-image:radial-gradient(circle,transparent 58%,#000 82%,transparent 99%);mask-image:radial-gradient(circle,transparent 58%,#000 82%,transparent 99%);opacity:.6;animation:rot 20s linear infinite}
 .bub span::after{content:'';position:absolute;inset:0;border-radius:50%;z-index:-1;background:radial-gradient(circle at 28% 20%,#fff 0,rgba(255,255,255,.92) 3.5%,rgba(255,255,255,0) 8%),radial-gradient(ellipse 22% 12% at 33% 24%,rgba(255,255,255,.7),rgba(255,255,255,0)),radial-gradient(circle at 71% 82%,rgba(255,255,255,.65) 0,rgba(255,255,255,0) 8%),radial-gradient(circle at 24% 26%,rgba(255,255,255,.28) 0,rgba(255,255,255,0) 30%)}
 @keyframes bf{50%{translate:14px -24px}}
 @keyframes bw{0%,100%{scale:1 1}50%{scale:1.035 .965}}
-/* franja dúo */
-.duo{max-width:1180px;margin:0 auto;padding:10px 6vw 20px;position:relative;z-index:1}
-.duo-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-@media(max-width:760px){.duo-grid{grid-template-columns:1fr}}
-.dcard{position:relative;height:300px;border-radius:36px;overflow:hidden;background:rgba(255,255,255,.6);backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);box-shadow:var(--sh)}
-.dcard i{position:absolute;display:block}
-.dlabel{position:absolute;left:24px;bottom:22px;z-index:3;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(18px,2vw,26px);letter-spacing:-.03em;padding:8px 20px;border-radius:999px;background:rgba(255,255,255,.85);box-shadow:0 10px 18px -12px rgba(0,0,0,.25)}
-.dz .h{inset:0;background-image:radial-gradient(rgba(109,40,217,.35) 2px,transparent 2.6px);background-size:16px 16px;-webkit-mask-image:linear-gradient(135deg,transparent 45%,#000);mask-image:linear-gradient(135deg,transparent 45%,#000);opacity:.6}
-.dz .a{width:170px;height:170px;border-radius:50%;left:9%;top:10%;background:radial-gradient(circle at 32% 28%,#b79bff,#6d28d9 62%,#4c1d95);animation:dzf 9s ease-in-out infinite}
-.dz .b{width:120px;height:120px;border-radius:120px 0 0 0;right:10%;top:9%;background:var(--pk);animation:dzf 8s -2s ease-in-out infinite}
-.dz .c{width:76px;height:190px;border-radius:38px;left:41%;top:24%;background:var(--lm);rotate:-14deg;animation:dzf 10s -4s ease-in-out infinite}
-.dz .d{width:58px;height:58px;border-radius:50%;right:24%;top:46%;background:var(--mt);animation:dzf 7s -1s ease-in-out infinite}
-.dz .e{width:0;height:0;border-left:44px solid transparent;border-right:44px solid transparent;border-bottom:76px solid var(--ink);right:8%;bottom:20%;rotate:12deg;animation:dzf 9s -5s ease-in-out infinite}
-@keyframes dzf{50%{translate:10px -14px}}
-.mz .tlb{left:26px;right:26px;top:24px;height:6px;border-radius:3px;background:rgba(21,17,43,.1)}
-.mz .ph{top:19px;left:26px;width:16px;height:16px;border-radius:50%;background:var(--pk);animation:ph 4s linear infinite}
-@keyframes ph{to{left:calc(100% - 42px)}}
-.mz .mo{left:40%;top:20%;width:96px;height:96px;background:linear-gradient(135deg,#8b5cf6,#6d28d9);animation:mo 5s ease-in-out infinite}
-@keyframes mo{0%,100%{border-radius:50%;rotate:0deg}50%{border-radius:18%;rotate:90deg}}
-.mz .st{right:12%;top:18%;width:90px;height:90px;background:var(--lm);clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);animation:stR 6s linear infinite,stS 2s ease-in-out infinite}
-@keyframes stR{to{rotate:360deg}}@keyframes stS{50%{scale:1.2}}
-.mz .ball{left:11%;bottom:84px;width:72px;height:72px;border-radius:50%;background:radial-gradient(circle at 32% 28%,#ff9ad0,#f0157c 70%);transform-origin:50% 100%;animation:bn 2.2s ease-in-out infinite}
-@keyframes bn{0%,100%{translate:0 0;scale:1.14 .86}16%{scale:.95 1.07}50%{translate:0 -118px;scale:1 1}84%{scale:.95 1.07}}
-.mz .sh{left:calc(11% + 3px);bottom:76px;width:66px;height:10px;border-radius:50%;background:rgba(21,17,43,.16);animation:shw 2.2s ease-in-out infinite}
-@keyframes shw{0%,100%{scale:1 1;opacity:1}50%{scale:.45 .6;opacity:.45}}
-.mz .eq{position:absolute;right:12%;bottom:84px;display:flex;gap:6px;align-items:flex-end;height:90px}
-.mz .eq b{width:12px;height:100%;border-radius:6px;background:var(--mt);transform-origin:bottom;animation:eq 1.1s ease-in-out infinite}
-.mz .eq b:nth-child(2){animation-delay:-.2s;background:#00c27f}.mz .eq b:nth-child(3){animation-delay:-.45s}.mz .eq b:nth-child(4){animation-delay:-.7s;background:#00c27f}.mz .eq b:nth-child(5){animation-delay:-.9s}
-@keyframes eq{0%,100%{scale:1 .25}50%{scale:1 1}}
-.duo-tick{overflow:hidden;white-space:nowrap;margin-top:22px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);padding:10px 0 14px}
-.duo-tick div{display:inline-flex;gap:12px;animation:mq 50s linear infinite}
-.duo-tick span{flex-shrink:0;display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:15px;padding:11px 22px;border-radius:999px;background:rgba(255,255,255,.75);box-shadow:var(--sh)}
-.duo-tick span::before{content:'';width:10px;height:10px;border-radius:50%;background:var(--v)}
-.duo-tick span:nth-child(6n+2)::before{background:var(--pk)}.duo-tick span:nth-child(6n+3)::before{background:#b5cf00}.duo-tick span:nth-child(6n+4)::before{background:#0fbf80}.duo-tick span:nth-child(6n+5)::before{background:#00b4e6}.duo-tick span:nth-child(6n+6)::before{background:var(--v2)}
+/* servicios sin franja dúo: ajuste de espacio */
+.servicios{padding-top:70px}
 /* footer en panel */
 .hb{position:relative;z-index:1;margin:70px 4vw 0}
 .hb-panel{position:relative;overflow:hidden;border-radius:48px;color:#fff;padding:72px 5vw 0;background:radial-gradient(circle at 10% 12%,#9b6bff 0,transparent 46%),radial-gradient(circle at 92% 88%,#ff3d9a 0,transparent 48%),radial-gradient(circle at 64% 6%,rgba(232,255,61,.6) 0,transparent 30%),#5b1fd1;box-shadow:0 44px 80px -44px rgba(91,31,209,.7)}
@@ -416,6 +378,18 @@ a.hb-row:hover small{color:var(--mut)}
 .hb-tick{position:relative;z-index:1;overflow:hidden;white-space:nowrap;padding:0 0 6px}
 .hb-tick div{display:inline-flex;gap:.5em;animation:mq 32s linear infinite;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(50px,8vw,120px);letter-spacing:-.05em;color:rgba(255,255,255,.12)}
 .hb-copy{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:16px 2vw 20px;font-size:13px;font-weight:700;color:var(--mut)}
+
+/* ===== v8: cambios solicitados ===== */
+/* 1) Burbujas del header más pequeñas, sin desenfoque sobre los objetos 3D */
+.hero .bub span{font-size:10.5px;padding:11%;-webkit-backdrop-filter:none;backdrop-filter:none}
+/* 4) Sección Herramientas sin animación */
+.bchip{transition:none}
+.bchip:hover{transform:none}
+/* 6) Menú con color sólido al hacer scroll */
+.nav-inner{background:var(--v);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 18px 34px -16px rgba(70,35,160,.65)}
+.nav-logo-nav{color:#fff}
+.nav-links a{color:rgba(255,255,255,.92)}
+.nav-links a:hover{background:#fff;color:var(--v)}
 </style>
 </head>
 <body class="pre">
@@ -439,7 +413,7 @@ a.hb-row:hover small{color:var(--mut)}
 
 <main>
 <section class="hero" id="hero">
-  <div class="eyebrow rv-pop">Nerea Ramírez</div>
+  <div class="eyebrow rv-pop">Neeergraphs 2026</div>
   <h1 class="hero-title">
     <span class="l1" data-split>Diseñadora</span>
     <span class="l2" data-split>Gráfica</span>
@@ -455,10 +429,10 @@ a.hb-row:hover small{color:var(--mut)}
   </div>
 
   <div class="bub" aria-hidden="true">
-    <span style="left:60%;top:14%;--s:134px">Branding y campañas</span>
-    <span style="left:84%;top:42%;--s:104px;--d:-3s">Edición de vídeo</span>
-    <span style="left:67%;top:68%;--s:142px;--d:-6s">Diseño para imprenta</span>
-    <span style="left:47%;top:84%;--s:108px;--d:-2s">IA generativa</span>
+    <span style="left:56%;top:12%;--s:92px">Branding y campañas</span>
+    <span style="left:60%;top:38%;--s:84px;--d:-3s">Edición de vídeo</span>
+    <span style="left:82%;top:66%;--s:96px;--d:-6s">Diseño para imprenta</span>
+    <span style="left:73%;top:76%;--s:84px;--d:-2s">IA generativa</span>
   </div>
   </section>
 
@@ -505,7 +479,7 @@ a.hb-row:hover small{color:var(--mut)}
         </div>
       </div>
 
-      <div class="brainstorm-col rvR" style="transition-delay:.08s">
+      <div class="brainstorm-col">
         <div class="brainstorm-wrap"><div class="brainstorm-inner">
           <span class="bchip ad">Photoshop</span><span class="bchip ad">Illustrator</span><span class="bchip ad">InDesign</span>
           <span class="bchip ad">After Effects</span><span class="bchip ad">Premiere</span><span class="bchip cc">Cap Cut</span>
@@ -544,14 +518,6 @@ a.hb-row:hover small{color:var(--mut)}
       </div>
     </div>
   </div>
-</section>
-
-<section class="duo" aria-hidden="true">
-  <div class="duo-grid">
-    <div class="dcard dz rv"><i class="h"></i><i class="a"></i><i class="b"></i><i class="c"></i><i class="d"></i><i class="e"></i><span class="dlabel">Diseño gráfico</span></div>
-    <div class="dcard mz rv" style="transition-delay:.1s"><i class="tlb"></i><i class="ph"></i><i class="mo"></i><i class="st"></i><i class="ball"></i><i class="sh"></i><div class="eq"><b></b><b></b><b></b><b></b><b></b></div><span class="dlabel">Motion graphics</span></div>
-  </div>
-  <div class="duo-tick"><div><span>Identidad de marca</span><span>Campañas 360°</span><span>Ilustración</span><span>Edición de vídeo</span><span>Diseño para imprenta</span><span>IA generativa</span></div></div>
 </section>
 
 <section class="servicios" id="servicios">
@@ -638,17 +604,18 @@ addEventListener('mousemove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHe
   const key=new THREE.DirectionalLight(0xffffff,1.6);key.position.set(5,7,9);S.add(key);
   const rim=new THREE.DirectionalLight(0xb9c7ff,1.1);rim.position.set(-6,2,-6);S.add(rim);S.add(new THREE.HemisphereLight(0xffffff,0x3b2d6b,.35));
   const mat=(c,o={})=>new THREE.MeshPhysicalMaterial(Object.assign({color:c,roughness:.12,metalness:.06,clearcoat:1,clearcoatRoughness:.04,envMapIntensity:1.5},o));
+  /* [geometría, color, escala, lado, posición vertical, velocidad, posición horizontal (solo header)] */
   const defs=[
-    [new THREE.TorusKnotGeometry(1,.36,260,40,2,3),0x5b1fd1,1.45, 1,0,.22],
-    [new THREE.SphereGeometry(1,64,64),0xf0157c,.78,-1,.34,.18],
-    [new THREE.TorusGeometry(1,.4,48,100),0xbbe600,.62,-1,-.33,.3],
+    [new THREE.TorusKnotGeometry(1,.36,260,40,2,3),0x5b1fd1,1.0, 1,-.04,.22,.30],
+    [new THREE.SphereGeometry(1,64,64),0xf0157c,.7, 1,.38,.18,.12],
+    [new THREE.TorusGeometry(1,.4,48,100),0xbbe600,.55, 1,-.36,.3,.42],
     [new THREE.TorusGeometry(1,.42,48,100),0xf0157c,.8, 1,1.7,.2],
     [new THREE.SphereGeometry(1,64,64),0xbbe600,.7,-1,2.6,.16],
     [new THREE.TorusKnotGeometry(1,.34,240,36,3,2),0x00c27f,1.0, 1,3.7,.2],
     [new THREE.SphereGeometry(1,64,64),0x5b1fd1,.6,-1,4.7,.14],
     [new THREE.TorusGeometry(1,.4,48,100),0x7436ea,.75, 1,5.6,.2]
   ];
-  const objs=defs.map((d,i)=>{const m=new THREE.Mesh(d[0],mat(d[1]));S.add(m);return{m,s:d[2],side:d[3],v:d[4],sp:d[5],i,fr:i>=3?[.2,.36,.55,.74,.9][i-3]:undefined}});
+  const objs=defs.map((d,i)=>{const m=new THREE.Mesh(d[0],mat(d[1]));S.add(m);return{m,s:d[2],side:d[3],v:d[4],sp:d[5],xk:d[6],i,fr:i>=3?[.2,.36,.55,.74,.9][i-3]:undefined}});
   let visH,visW,narrow;
   function size(){R.setSize(innerWidth,innerHeight,false);C.aspect=innerWidth/innerHeight;C.updateProjectionMatrix();
     visH=2*12*Math.tan(THREE.MathUtils.degToRad(17.5));visW=visH*C.aspect;narrow=C.aspect<.9}
@@ -662,7 +629,8 @@ addEventListener('mousemove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHe
     objs.forEach(o=>{
       const k=Math.min(1,Math.max(0,(t-1.1-o.i*.12)/1.4)),e=1-Math.pow(1-k,4)*Math.cos(k*9);
       const sc=o.s*(narrow?.62:1)*Math.max(0,e);o.m.scale.setScalar(sc);
-      o.m.position.x=o.side*visW*(narrow?.42:.34)+Math.sin(t*.35+o.i*2)*.35;
+      const xk=o.xk!==undefined?(narrow?.40:o.xk):(narrow?.42:.34);
+      o.m.position.x=o.side*visW*xk+Math.sin(t*.35+o.i*2)*.35;
       o.m.position.y=-(o.fr!==undefined?o.fr*maxv:o.v)*visH*.85+Math.sin(t*.8+o.i)*.3;
       o.m.rotation.x=reduce?.4:t*o.sp+o.i;
       o.m.rotation.y=reduce?.6:t*o.sp*1.3;
@@ -723,8 +691,6 @@ if(fine){
   }
 }
 
-/* Tipografía gigante ligada al scroll */
-const dt=document.querySelector('.duo-tick div');if(dt)dt.innerHTML=dt.innerHTML.repeat(4);
 /* Scroll: nav, progreso, volver arriba */
 const nav=document.getElementById('mainNav'),btt=document.getElementById('btt'),pg=document.getElementById('prog'),hero=document.getElementById('hero');
 function onScroll(){const y=scrollY,h=document.documentElement.scrollHeight-innerHeight;
