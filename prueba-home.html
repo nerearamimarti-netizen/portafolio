@@ -58,7 +58,7 @@ body.pre{overflow:hidden}body.pre .ch{animation-play-state:paused}
 .hero{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:130px 6vw 110px}
 .hero>*{align-self:flex-start}
 .hero::after{content:'';position:absolute;right:0;bottom:0;width:48vw;height:46vh;background-image:radial-gradient(var(--v) 2.4px,transparent 3px);background-size:20px 20px;opacity:.2;-webkit-mask-image:radial-gradient(circle at 100% 100%,#000,transparent 68%);mask-image:radial-gradient(circle at 100% 100%,#000,transparent 68%);pointer-events:none}
-.eyebrow{display:inline-flex;align-items:center;font-size:14px;font-weight:800;background:#fff;color:var(--ink);padding:9px 20px;border-radius:999px;box-shadow:var(--sh);margin-bottom:28px}
+.eyebrow{display:inline-flex;align-items:center;font-size:15px;font-weight:800;letter-spacing:.02em;background:#1fa8f5;color:#fff;text-shadow:0 1px 3px rgba(0,70,140,.4);padding:10px 22px;border-radius:999px;box-shadow:0 18px 30px -14px rgba(31,168,245,.75);margin-bottom:28px}
 .hero-title{font-weight:800;line-height:.88}
 .l1,.l2{display:block;width:fit-content;overflow:hidden;padding:.16em 0 .08em;margin:-.16em 0 -.08em;font-weight:800}
 .l1{font-size:clamp(38px,6.6vw,100px)}
@@ -254,9 +254,6 @@ animation:bf 12s ease-in-out infinite,bw 5s ease-in-out infinite;animation-delay
 .hb-cta svg{width:20px;height:20px;fill:currentColor;flex-shrink:0}
 .hb-wa{background:#25d366}
 .hb-cta:hover{background:#fff}
-.hb-soc{display:flex;gap:10px;margin-top:16px}
-.hb-soc a{color:#fff;background:rgba(255,255,255,.18);font-weight:800;padding:10px 24px;border-radius:999px;text-decoration:none;transition:.25s}
-.hb-soc a:hover{background:#fff;color:var(--v);transform:translateY(-3px)}
 .hb-rows{display:flex;flex-direction:column;gap:14px}
 .hb-row{display:flex;align-items:center;gap:16px;padding:18px 22px;border-radius:30px;background:rgba(255,255,255,.2);color:#fff;text-decoration:none;box-shadow:0 22px 36px -24px rgba(0,0,0,.45);transition:transform .4s cubic-bezier(.34,1.56,.64,1),background .3s,color .3s}
 a.hb-row:hover{background:#fff;color:var(--ink);transform:translateX(-10px)}
@@ -276,6 +273,37 @@ a.hb-row:hover small{color:var(--mut)}
 .rv{transform:translateY(46px)}.rvL{transform:translateX(-46px)}.rvR{transform:translateX(46px)}.rv-pop{transform:translateY(20px) scale(.94)}
 .on{opacity:1!important;transform:none!important}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.rv,.rvL,.rvR,.rv-pop{opacity:1;transform:none}.ch{transform:none}.sec-title .c{opacity:1;transform:none}}
+
+/* ===== v11 ===== */
+/* pestañas más visibles */
+.acc-tabs{gap:14px}
+.acc-tab{padding:16px 16px 16px 30px;gap:14px;background:var(--tc);color:var(--tt);box-shadow:0 22px 34px -18px var(--tc)}
+.acc-tab:nth-child(1){--tc:var(--v);--tt:#fff}
+.acc-tab:nth-child(2){--tc:var(--pk);--tt:#fff}
+.acc-tab:nth-child(3){--tc:var(--lm);--tt:var(--ink)}
+.acc-tab:hover{transform:translateY(-4px) scale(1.03)}
+.acc-tab-label{font-size:20px;font-weight:800;color:inherit}
+.acc-tab-tag{background:#fff;color:var(--ink)}
+.acc-tab:nth-child(3) .acc-tab-tag{background:var(--ink);color:#fff}
+.acc-arrow{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.28)}
+.acc-tab:nth-child(3) .acc-arrow{background:rgba(21,17,43,.12)}
+.acc-arrow path{stroke:currentColor}
+.acc-tab:not(.open) .acc-arrow svg{animation:nudge 1.8s ease-in-out infinite}
+@keyframes nudge{50%{translate:0 3px}}
+.acc-tab.open{background:var(--ink);color:#fff;box-shadow:0 22px 34px -18px rgba(21,17,43,.6);transform:translateY(-3px)}
+.acc-tab.open .acc-tab-label{color:#fff}
+.acc-tab.open .acc-tab-tag{background:var(--lm);color:var(--ink)}
+.acc-tab.open .acc-arrow{background:var(--lm);color:var(--ink)}
+.acc-tab.open .acc-arrow path{stroke:var(--ink)}
+/* redes integradas en el contacto */
+.hb-two{display:flex;gap:14px}
+@media(max-width:560px){.hb-two{flex-direction:column}}
+.hb-mini{flex:1;min-width:0;padding:16px 18px;gap:12px}
+.hb-mini .hb-ic{width:44px;height:44px}
+.hb-mini .hb-t b{font-size:clamp(13px,1.45vw,17px)}
+.hb-ic b{font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:var(--ic);letter-spacing:-.02em}
+.r4{--ic:#0a66c2}.r5{--ic:#1769ff}
+a.hb-mini:hover{transform:translateY(-6px)}
 </style>
 </head>
 <body class="pre">
@@ -312,7 +340,7 @@ a.hb-row:hover small{color:var(--mut)}
   <p class="hero-sub rv-pop" style="transition-delay:.65s">Convierto un brief en blanco en identidades, campañas y piezas gráficas que se entienden a la primera. Diseño, ilustro y lo pongo en movimiento.</p>
   <div class="hero-ctas rv-pop" style="transition-delay:.75s">
     <a href="#proyectos" class="cta-fill mag">Ver proyectos</a>
-    <a href="#sobre" class="cta-outline mag">Más sobre mí</a>
+    <a href="#sobre" class="cta-outline mag">Sobre mí</a>
   </div>
 
   <div class="bub" aria-hidden="true">
@@ -452,15 +480,15 @@ a.hb-row:hover small{color:var(--mut)}
           <a href="mailto:nerearamimarti@gmail.com" class="hb-cta mag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v.5l-10 6.2L2 6.5zM2 9l10 6.2L22 9v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z"/></svg>Escribir por correo</a>
           <a href="https://wa.me/34653607909" target="_blank" rel="noopener" class="hb-cta hb-wa mag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>Escribir por WhatsApp</a>
         </div>
-        <div class="hb-soc">
-          <a href="https://www.linkedin.com/in/nerearamirez/" target="_blank" rel="noopener">LinkedIn</a>
-          <a href="https://www.behance.net/nerearamirez1" target="_blank" rel="noopener">Behance</a>
-        </div>
       </div>
       <div class="hb-rows rvR">
         <a class="hb-row r1" href="tel:+34653607909"><span class="hb-ic"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.6 3.6a1 1 0 0 1-.25 1z"/></svg></span><span class="hb-t"><small>Teléfono</small><b>653 607 909</b></span></a>
         <a class="hb-row r2" href="mailto:nerearamimarti@gmail.com"><span class="hb-ic"><svg viewBox="0 0 24 24"><path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v.5l-10 6.2L2 6.5zM2 9l10 6.2L22 9v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z"/></svg></span><span class="hb-t"><small>Email</small><b>nerearamimarti@gmail.com</b></span></a>
         <div class="hb-row r3"><span class="hb-ic"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg></span><span class="hb-t"><small>Ubicación</small><b>Madrid · SSReyes · Alcobendas</b></span></div>
+        <div class="hb-two">
+          <a class="hb-row hb-mini r4" href="https://www.linkedin.com/in/nerearamirez/" target="_blank" rel="noopener"><span class="hb-ic"><b>in</b></span><span class="hb-t"><small>LinkedIn</small><b>@nerearamirez</b></span></a>
+          <a class="hb-row hb-mini r5" href="https://www.behance.net/nerearamirez1" target="_blank" rel="noopener"><span class="hb-ic"><b>Bē</b></span><span class="hb-t"><small>Behance</small><b>@nerearamirez1</b></span></a>
+        </div>
       </div>
     </div>
     <div class="hb-tick" aria-hidden="true"><div><span>Hablemos :)</span><span>Hablemos :)</span><span>Hablemos :)</span><span>Hablemos :)</span><span>Hablemos :)</span><span>Hablemos :)</span></div></div>
@@ -511,11 +539,11 @@ function init3D(){
   const objs=defs.map((d,i)=>{const m=new THREE.Mesh(d[0],mat(d[1]));S.add(m);
     const sh=new THREE.Sprite(new THREE.SpriteMaterial({map:shTex,transparent:true,opacity:.5,depthWrite:false}));S.add(sh);
     return{m,sh,s:d[2],side:d[3],v:d[4],sp:d[5],xk:d[6],anc:d[7],i,y:0,ty:0}});
-  let visH,visW,narrow,H=innerHeight;
+  let visH,visW,narrow,H=innerHeight,pinPx=0;const wrapEl=document.getElementById('heroWrap'),heroEl=document.getElementById('hero');
   /* Posiciones ancladas a las secciones: no dependen de la altura total, así no saltan */
   function docTop(el){return el.getBoundingClientRect().top+scrollY}
-  function targets(snap){objs.forEach(o=>{let wy;
-    if(o.anc){const el=document.getElementById(o.anc[0]);if(!el)return;const y=docTop(el)+el.offsetHeight*o.anc[1];wy=-(Math.max(0,y-H/2)/H)*visH*.85}
+  function targets(snap){pinPx=Math.max(0,wrapEl.offsetHeight-heroEl.offsetHeight);objs.forEach(o=>{let wy;
+    if(o.anc){const el=document.getElementById(o.anc[0]);if(!el)return;const y=docTop(el)+el.offsetHeight*o.anc[1];wy=-(Math.max(0,y-H/2-pinPx)/H)*visH*.85}
     else wy=-o.v*visH*.85;
     o.ty=wy;if(snap)o.y=wy})}
   function size(snap){const w=cv.clientWidth||innerWidth;H=cv.clientHeight||innerHeight;R.setSize(w,H,false);C.aspect=w/H;C.updateProjectionMatrix();
@@ -527,7 +555,7 @@ function init3D(){
   const clock=new THREE.Clock();
   function tick(){
     requestAnimationFrame(tick);if(document.hidden)return;
-    const t=clock.getElapsedTime(),sy=scrollY/H;
+    const t=clock.getElapsedTime(),sy=Math.max(0,scrollY-pinPx)/H;
     C.position.y=-sy*visH*.85;
     objs.forEach(o=>{
       o.y+=(o.ty-o.y)*.12;
