@@ -16,11 +16,11 @@
 --sh:0 22px 44px -22px rgba(70,35,160,.28),0 2px 8px rgba(21,17,43,.05);--shh:0 34px 60px -24px rgba(70,35,160,.38),0 4px 12px rgba(21,17,43,.06)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;overflow-x:hidden}
-body{background:#fff;color:var(--ink);font-family:'Figtree',sans-serif;font-weight:500;overflow-x:hidden}
+body{background:#fff;color:var(--ink);font-family:'Figtree',sans-serif;font-weight:500;overflow-x:clip}
 h1,h2,h3,.f{font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-.03em}
 a:focus-visible,button:focus-visible,.acc-tab:focus-visible{outline:2px solid var(--v);outline-offset:3px}
 main>*{position:relative;z-index:1}
-#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+#gl{position:fixed;left:0;top:0;width:100%;height:100vh;height:100lvh;z-index:0;pointer-events:none}
 #prog{position:fixed;top:0;left:0;height:4px;width:100%;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,var(--v),var(--pk),var(--lm));z-index:400}
 
 /* Cursor */
@@ -54,7 +54,8 @@ body.pre{overflow:hidden}body.pre .ch{animation-play-state:paused}
 #btt:hover{background:var(--v);transform:translateY(-4px)}
 
 /* HERO (portada centrada → izquierda al hacer scroll) */
-.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:130px 6vw 110px;position:relative}
+.hero-wrap{height:calc(100vh + 55vh);height:calc(100svh + 55svh)}
+.hero{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:130px 6vw 110px}
 .hero>*{align-self:flex-start}
 .hero::after{content:'';position:absolute;right:0;bottom:0;width:48vw;height:46vh;background-image:radial-gradient(var(--v) 2.4px,transparent 3px);background-size:20px 20px;opacity:.2;-webkit-mask-image:radial-gradient(circle at 100% 100%,#000,transparent 68%);mask-image:radial-gradient(circle at 100% 100%,#000,transparent 68%);pointer-events:none}
 .eyebrow{display:inline-flex;align-items:center;font-size:14px;font-weight:800;background:#fff;color:var(--ink);padding:9px 20px;border-radius:999px;box-shadow:var(--sh);margin-bottom:28px}
@@ -248,6 +249,10 @@ animation:bf 12s ease-in-out infinite,bw 5s ease-in-out infinite;animation-delay
 .hb-head span{color:var(--lm)}
 .hb-sub{font-size:16px;font-weight:600;line-height:1.65;color:rgba(255,255,255,.92);max-width:400px;margin-bottom:24px}
 .hb-cta{display:inline-block;background:var(--lm);color:var(--ink);font-weight:800;font-size:17px;padding:16px 38px;border-radius:999px;text-decoration:none;box-shadow:0 18px 30px -14px rgba(0,0,0,.45);transition:background .3s,transform .3s cubic-bezier(.34,1.56,.64,1)}
+.hb-btns{display:flex;flex-wrap:wrap;gap:12px}
+.hb-cta{display:inline-flex;align-items:center;gap:10px}
+.hb-cta svg{width:20px;height:20px;fill:currentColor;flex-shrink:0}
+.hb-wa{background:#25d366}
 .hb-cta:hover{background:#fff}
 .hb-soc{display:flex;gap:10px;margin-top:16px}
 .hb-soc a{color:#fff;background:rgba(255,255,255,.18);font-weight:800;padding:10px 24px;border-radius:999px;text-decoration:none;transition:.25s}
@@ -293,6 +298,7 @@ a.hb-row:hover small{color:var(--mut)}
 </nav>
 
 <main>
+<div class="hero-wrap" id="heroWrap">
 <section class="hero cover" id="hero">
   <div class="eyebrow rv-pop">Neeergraphs 2026</div>
   <h1 class="hero-title">
@@ -317,6 +323,7 @@ a.hb-row:hover small{color:var(--mut)}
     <span style="left:47%;top:90%;--s:28px;--d:-4s"></span>
   </div>
 </section>
+</div>
 
 <div class="bands">
   <div class="band b1"><div class="bt">
@@ -424,9 +431,9 @@ a.hb-row:hover small{color:var(--mut)}
     <div class="proj-grid rv" style="transition-delay:.08s">
       <a class="pcard" data-cat="mkt" href="proyecto-magnum.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Campaña 360 Magnum"><div class="pcard-img" data-bg="destacada-magnum-final.png"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">Campaña 360°</div><div class="pcard-title">Campaña 360 Magnum</div><div class="pcard-sub">Algunos placeres no entienden de estaciones</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
       <a class="pcard" data-cat="mkt" href="proyecto-ashwagandha.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Ashwagandha Gummies"><div class="pcard-img" data-bg="destacada-aswa.jpg"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">Campaña desde 0</div><div class="pcard-title">Ashwagandha Gummies</div><div class="pcard-sub">Photoshop, Illustrator y Cap Cut</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
+      <a class="pcard" data-cat="motion" href="proyecto-hotwheels.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Vídeo Hot Wheels"><div class="pcard-img" data-bg="destacada-hotwheel.png"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">IA Generativa</div><div class="pcard-title">Vídeo Hot Wheels</div><div class="pcard-sub">IA generativa y Premiere</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
       <a class="pcard" data-cat="motion" href="proyecto-home.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Vídeo inmersivo Home"><div class="pcard-img" data-bg="destacadas-HOME.png"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">After Effects</div><div class="pcard-title">Vídeo inmersivo Home</div><div class="pcard-sub">After Effects y Premiere</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
       <a class="pcard" data-cat="motion" href="proyecto-superboy.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Vídeo simulación Superboy"><div class="pcard-img" data-bg="destacadas-superboy.png"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">VFX</div><div class="pcard-title">Vídeo simulación Superboy</div><div class="pcard-sub">After Effects y Premiere</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
-      <a class="pcard" data-cat="motion" href="proyecto-hotwheels.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Vídeo Hot Wheels"><div class="pcard-img" data-bg="destacada-hotwheel.png"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">IA Generativa</div><div class="pcard-title">Vídeo Hot Wheels</div><div class="pcard-sub">IA generativa y Premiere</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
       <a class="pcard" data-cat="design" href="proyecto-dolcevitta.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Dolce Vitta"><div class="pcard-img" data-bg="destacadas-dolce-vitta.png"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">Branding & RRSS</div><div class="pcard-title">Dolce Vitta</div><div class="pcard-sub">Branding y RRSS</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
       <a class="pcard" data-cat="design" href="proyecto-nextfloor.html" target="_blank" rel="noopener" aria-label="Ver proyecto: Coworking Nextfloor"><div class="pcard-img" data-bg="destacada-nextfloor.png"><div class="pcard-wash"></div></div><div class="pcard-body"><div class="pcard-cat">Infografía RRSS</div><div class="pcard-title">Coworking Nextfloor</div><div class="pcard-sub">Infografía y diseño para RRSS</div><span class="pcard-more">Ver proyecto <span class="arr">→</span></span></div></a>
     </div>
@@ -441,7 +448,10 @@ a.hb-row:hover small{color:var(--mut)}
       <div class="rvL">
         <div class="hb-head f">Hablemos<span>:)</span></div>
         <p class="hb-sub">¿Tienes algo en mente? Me encantaría escucharte. Ya sea un proyecto, una idea loca o simplemente presentarte — escríbeme sin miedo.</p>
-        <a href="mailto:nerearamimarti@gmail.com" class="hb-cta mag">Escribir ahora</a>
+        <div class="hb-btns">
+          <a href="mailto:nerearamimarti@gmail.com" class="hb-cta mag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v.5l-10 6.2L2 6.5zM2 9l10 6.2L22 9v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z"/></svg>Escribir por correo</a>
+          <a href="https://wa.me/34653607909" target="_blank" rel="noopener" class="hb-cta hb-wa mag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>Escribir por WhatsApp</a>
+        </div>
         <div class="hb-soc">
           <a href="https://www.linkedin.com/in/nerearamirez/" target="_blank" rel="noopener">LinkedIn</a>
           <a href="https://www.behance.net/nerearamirez1" target="_blank" rel="noopener">Behance</a>
@@ -483,40 +493,49 @@ function init3D(){
   const rim=new THREE.DirectionalLight(0xb9c7ff,1.1);rim.position.set(-6,2,-6);S.add(rim);
   S.add(new THREE.HemisphereLight(0xffffff,0x3b2d6b,.35));
   const mat=c=>new THREE.MeshPhysicalMaterial({color:c,roughness:.12,metalness:.06,clearcoat:1,clearcoatRoughness:.04,envMapIntensity:1.5});
-  /* Sombra suave neutra (sprite) bajo cada objeto: mucho más ligera que un filtro CSS */
+  /* Sombra suave neutra (sprite) bajo cada objeto */
   const sc2=document.createElement('canvas');sc2.width=sc2.height=128;const sg=sc2.getContext('2d');
   const rg=sg.createRadialGradient(64,64,0,64,64,64);rg.addColorStop(0,'rgba(0,0,0,.5)');rg.addColorStop(.5,'rgba(0,0,0,.2)');rg.addColorStop(1,'rgba(0,0,0,0)');
   sg.fillStyle=rg;sg.fillRect(0,0,128,128);const shTex=new THREE.CanvasTexture(sc2);
-  /* [geometría, color, escala, lado, posición vertical, velocidad, posición horizontal (solo portada)] */
+  /* [geometría, color, escala, lado, posición vertical (portada), velocidad, posición horizontal (portada), ancla [sección, fracción]] */
   const defs=[
     [new THREE.TorusKnotGeometry(1,.36,170,26,2,3),0x5b1fd1,1.0, 1,-.04,.22,.30],
     [new THREE.SphereGeometry(1,40,40),0xf0157c,.7, 1,.38,.18,.12],
     [new THREE.TorusGeometry(1,.4,32,70),0x3db8ff,.55, 1,-.36,.3,.42],
-    [new THREE.TorusGeometry(1,.42,32,70),0xf0157c,.8, 1,1.7,.2],
-    [new THREE.SphereGeometry(1,40,40),0xbbe600,.7,-1,2.6,.16],
-    [new THREE.TorusKnotGeometry(1,.34,150,24,3,2),0x00c27f,1.0, 1,3.7,.2],
-    [new THREE.SphereGeometry(1,40,40),0x5b1fd1,.6,-1,4.7,.14],
-    [new THREE.TorusGeometry(1,.4,32,70),0x7436ea,.75, 1,5.6,.2]
+    [new THREE.TorusGeometry(1,.42,32,70),0xf0157c,.8, 1,0,.2,undefined,['sobre',.55]],
+    [new THREE.SphereGeometry(1,40,40),0xbbe600,.7,-1,0,.16,undefined,['servicios',.5]],
+    [new THREE.TorusKnotGeometry(1,.34,150,24,3,2),0x00c27f,1.0, 1,0,.2,undefined,['proyectos',.22]],
+    [new THREE.SphereGeometry(1,40,40),0x5b1fd1,.6,-1,0,.14,undefined,['proyectos',.72]],
+    [new THREE.TorusGeometry(1,.4,32,70),0x7436ea,.75, 1,0,.2,undefined,['contacto',.12]]
   ];
   const objs=defs.map((d,i)=>{const m=new THREE.Mesh(d[0],mat(d[1]));S.add(m);
     const sh=new THREE.Sprite(new THREE.SpriteMaterial({map:shTex,transparent:true,opacity:.5,depthWrite:false}));S.add(sh);
-    return{m,sh,s:d[2],side:d[3],v:d[4],sp:d[5],xk:d[6],i,fr:i>=3?[.2,.36,.55,.74,.9][i-3]:undefined}});
-  let visH,visW,narrow,maxv=1;
-  function calc(){maxv=Math.max(1,(document.documentElement.scrollHeight-innerHeight)/innerHeight)}
-  function size(){R.setSize(innerWidth,innerHeight,false);C.aspect=innerWidth/innerHeight;C.updateProjectionMatrix();
-    visH=2*12*Math.tan(THREE.MathUtils.degToRad(17.5));visW=visH*C.aspect;narrow=C.aspect<.9;calc()}
-  size();addEventListener('resize',size);addEventListener('load',calc);setInterval(calc,2500);
+    return{m,sh,s:d[2],side:d[3],v:d[4],sp:d[5],xk:d[6],anc:d[7],i,y:0,ty:0}});
+  let visH,visW,narrow,H=innerHeight;
+  /* Posiciones ancladas a las secciones: no dependen de la altura total, así no saltan */
+  function docTop(el){return el.getBoundingClientRect().top+scrollY}
+  function targets(snap){objs.forEach(o=>{let wy;
+    if(o.anc){const el=document.getElementById(o.anc[0]);if(!el)return;const y=docTop(el)+el.offsetHeight*o.anc[1];wy=-(Math.max(0,y-H/2)/H)*visH*.85}
+    else wy=-o.v*visH*.85;
+    o.ty=wy;if(snap)o.y=wy})}
+  function size(snap){const w=cv.clientWidth||innerWidth;H=cv.clientHeight||innerHeight;R.setSize(w,H,false);C.aspect=w/H;C.updateProjectionMatrix();
+    visH=2*12*Math.tan(THREE.MathUtils.degToRad(17.5));visW=visH*C.aspect;narrow=C.aspect<.9;targets(snap)}
+  size(true);
+  let lw=innerWidth;addEventListener('resize',()=>{if(innerWidth!==lw){lw=innerWidth;size(false)}});
+  addEventListener('load',()=>targets(false));
+  let roT;if(window.ResizeObserver)new ResizeObserver(()=>{clearTimeout(roT);roT=setTimeout(()=>targets(false),150)}).observe(document.querySelector('main'));
   const clock=new THREE.Clock();
   function tick(){
     requestAnimationFrame(tick);if(document.hidden)return;
-    const t=clock.getElapsedTime(),sy=scrollY/innerHeight;
+    const t=clock.getElapsedTime(),sy=scrollY/H;
     C.position.y=-sy*visH*.85;
     objs.forEach(o=>{
+      o.y+=(o.ty-o.y)*.12;
       const k=Math.min(1,Math.max(0,(t-.5-o.i*.12)/1.4)),e=1-Math.pow(1-k,4)*Math.cos(k*9);
       const sc=o.s*(narrow?.62:1)*Math.max(0,e);o.m.scale.setScalar(sc);
       const xk=o.xk!==undefined?(narrow?.40:o.xk):(narrow?.42:.34);
       o.m.position.x=o.side*visW*xk+Math.sin(t*.35+o.i*2)*.35;
-      o.m.position.y=-(o.fr!==undefined?o.fr*maxv:o.v)*visH*.85+Math.sin(t*.8+o.i)*.3;
+      o.m.position.y=o.y+Math.sin(t*.8+o.i)*.3;
       o.m.rotation.x=reduce?.4:t*o.sp+o.i;
       o.m.rotation.y=reduce?.6:t*o.sp*1.3;
       o.sh.position.set(o.m.position.x+.2*sc,o.m.position.y-.85*sc-.15,-1.8);
@@ -555,12 +574,13 @@ document.querySelectorAll('[data-split]').forEach((el,k)=>{
 /* Portada: centrada al inicio, a la izquierda al hacer scroll */
 const hero=document.getElementById('hero');
 const hEls=[...hero.querySelectorAll('.eyebrow,.l1,.l2,.hero-typerow,.hero-sub,.hero-ctas')];
-let hp=0,hW=0,hOff=[],heroH=0,docH=0;
+const heroWrap=document.getElementById('heroWrap');
+let hp=0,hW=0,hOff=[],heroH=0,docH=0,pin=1;
 function hPlace(){if(!hOff.length)return;const k=1-hp;hEls.forEach((e,i)=>{e.style.translate=(hOff[i]*k).toFixed(1)+'px 0px'});hero.classList.toggle('cover',hp<.45)}
 function measure(){const cs=getComputedStyle(hero);hW=hero.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
-  hOff=hEls.map(e=>(hW-e.offsetWidth)/2);heroH=hero.offsetHeight;docH=document.documentElement.scrollHeight;hPlace()}
+  hOff=hEls.map(e=>(hW-e.offsetWidth)/2);heroH=hero.offsetHeight;pin=Math.max(1,heroWrap.offsetHeight-heroH);docH=document.documentElement.scrollHeight;hPlace()}
 measure();addEventListener('load',measure);if(document.fonts)document.fonts.ready.then(measure);
-addEventListener('resize',()=>{clearTimeout(rsT);rsT=setTimeout(measure,150)},{passive:true});
+let lw2=innerWidth;addEventListener('resize',()=>{if(innerWidth===lw2)return;lw2=innerWidth;clearTimeout(rsT);rsT=setTimeout(measure,150)},{passive:true});
 
 /* Typing en bucle */
 const tEl=document.getElementById('typingEl'),phrase='Motion Designer';
@@ -597,7 +617,7 @@ function onScroll(){if(tick2)return;tick2=true;requestAnimationFrame(()=>{tick2=
   const y=scrollY,h=docH-innerHeight;
   nav.classList.toggle('show',y>heroH*.3);pg.style.transform=`scaleX(${h>0?Math.min(1,y/h):0})`;
   btt.style.opacity=y>500?1:0;btt.style.pointerEvents=y>500?'auto':'none';
-  const p=Math.min(1,Math.max(0,y/(innerHeight*.55)));const np=p*p*(3-2*p);if(np!==hp){hp=np;hPlace()}})}
+  const p=Math.min(1,Math.max(0,y/pin));const np=p*p*(3-2*p);if(np!==hp){hp=np;hPlace()}})}
 addEventListener('scroll',onScroll,{passive:true});onScroll();
 btt.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
 
