@@ -4,151 +4,145 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nerea Ramírez × hellofun! — Junior Graphic Designer</title>
-<meta name="description" content="Portfolio de Nerea Ramírez pensado para hellofun!: diseño gráfico, marketing, artes finales y mucha energía.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23edb744'/%3E%3Ctext x='32' y='46' font-family='sans-serif' font-size='40' font-weight='700' text-anchor='middle' fill='%2320190a'%3EN%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Portfolio de Nerea Ramírez para hellofun!: diseño gráfico, marketing y mucha energía.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23edb744'/%3E%3Ctext x='32' y='46' font-family='sans-serif' font-size='40' font-weight='700' text-anchor='middle' fill='white'%3EN%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Figtree:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--y:#edb744;--yd:#c8921c;--yt:#fff4d6;--ink:#20190a;--mut:rgba(32,25,10,.66);--sh:0 22px 44px -22px rgba(120,80,0,.35),0 2px 8px rgba(32,25,10,.05)}
+:root{--y:#edb744;--yd:#b9810f;--yl:#fdf0c9;--cream:#fffaf0;--ink:#3b2e12;--mut:rgba(59,46,18,.7);--sh:0 20px 40px -24px rgba(150,100,0,.35),0 2px 8px rgba(59,46,18,.04)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Figtree',sans-serif;font-weight:500;color:var(--ink);background:#fffdf7;overflow-x:hidden;line-height:1.6}
-h1,h2,h3,.f{font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-.03em;line-height:1.02}
-a{color:inherit}
+body{font-family:'Figtree',sans-serif;font-weight:500;color:var(--ink);background:#fff;line-height:1.6;overflow-x:hidden}
+h1,h2,h3,.f{font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-.03em;line-height:1.05}
 a:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .wrap{max-width:1120px;margin:0 auto;padding:0 6vw}
-section{padding:84px 0}
-.tag{display:inline-block;background:var(--ink);color:var(--y);font-weight:800;font-size:14px;padding:8px 18px;border-radius:999px;margin-bottom:20px}
-h2{font-size:clamp(34px,5.4vw,66px);font-weight:800;margin-bottom:14px}
-h2 em{font-style:normal;background:var(--y);padding:0 .15em;border-radius:.2em}
-.lead{font-size:18px;color:var(--mut);max-width:60ch;margin-bottom:40px;font-weight:600}
-.btn{display:inline-block;font-weight:800;font-size:16px;text-decoration:none;padding:16px 32px;border-radius:999px;transition:transform .25s cubic-bezier(.34,1.56,.64,1),background .25s}
-.btn:hover{transform:translateY(-4px)}
-.b-dark{background:var(--ink);color:#fff}.b-dark:hover{background:#3a2f12}
-.b-light{background:#fff;color:var(--ink);box-shadow:var(--sh)}
+section{padding:88px 0}
+.tag{display:inline-block;background:var(--yl);color:var(--yd);font-weight:800;font-size:13px;letter-spacing:.04em;text-transform:uppercase;padding:7px 16px;border-radius:999px;margin-bottom:18px}
+h2{font-size:clamp(32px,5vw,58px);font-weight:800;margin-bottom:14px}
+h2 em{font-style:normal;background:var(--y);color:#fff;padding:0 .2em;border-radius:.22em}
+.lead{font-size:18px;color:var(--mut);max-width:62ch;margin-bottom:40px;font-weight:600}
+.btn{display:inline-block;font-weight:800;font-size:15px;text-decoration:none;padding:14px 28px;border-radius:999px;transition:transform .25s,background .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-3px)}
+.b-white{background:#fff;color:var(--ink);box-shadow:var(--sh)}
+.b-white:hover{background:var(--yl)}
+.b-solid{background:var(--ink);color:#fff}
+.b-solid:hover{background:#574520}
 
 /* Nav */
-nav{position:sticky;top:0;z-index:50;background:var(--y);box-shadow:0 8px 24px -16px rgba(0,0,0,.4)}
+nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--yl)}
 .nav-in{display:flex;justify-content:space-between;align-items:center;padding:12px 6vw;max-width:1120px;margin:0 auto}
 .logo{font-family:'Bricolage Grotesque';font-weight:800;font-size:18px;text-decoration:none}
+.logo span{background:var(--y);color:#fff;padding:2px 10px;border-radius:999px;margin-left:4px}
 nav ul{display:flex;gap:4px;list-style:none}
-nav ul a{font-weight:800;font-size:14px;text-decoration:none;padding:8px 16px;border-radius:999px;transition:.2s}
-nav ul a:hover{background:var(--ink);color:var(--y)}
+nav ul a{font-weight:700;font-size:14px;text-decoration:none;padding:8px 16px;border-radius:999px;transition:.2s}
+nav ul a:hover{background:var(--y);color:#fff}
 @media(max-width:700px){nav ul li:not(:last-child){display:none}}
 
 /* Hero */
-.hero{background:var(--y);padding:70px 0 90px;position:relative;overflow:hidden}
-.hero::after{content:'';position:absolute;right:-60px;bottom:-60px;width:360px;height:360px;border-radius:50%;background:rgba(255,255,255,.28)}
-.hero-grid{display:grid;gap:50px;align-items:center;position:relative;z-index:1}
-@media(min-width:900px){.hero-grid{grid-template-columns:1.3fr 1fr}}
-.hero h1{font-size:clamp(44px,8vw,104px);font-weight:800;margin-bottom:22px}
-.hero h1 span{background:var(--ink);color:var(--y);padding:0 .12em;border-radius:.16em;display:inline-block;transform:rotate(-1.5deg)}
-.hero p{font-size:19px;font-weight:700;max-width:52ch;margin-bottom:30px}
+.hero{background:var(--y);padding:80px 0 96px;position:relative;overflow:hidden}
+.hero::before,.hero::after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,.22)}
+.hero::before{width:420px;height:420px;right:-90px;bottom:-130px}
+.hero::after{width:170px;height:170px;left:-50px;top:40px}
+.hero-grid{display:grid;gap:56px;align-items:center;position:relative;z-index:1}
+@media(min-width:900px){.hero-grid{grid-template-columns:1.25fr 1fr}}
+.hero .tag{background:#fff;color:var(--yd)}
+.hero h1{font-size:clamp(42px,7vw,92px);font-weight:800;margin-bottom:22px;color:#fff;text-shadow:0 2px 14px rgba(150,100,0,.25)}
+.hero h1 span{color:var(--ink);text-shadow:none}
+.hero p{font-size:18px;font-weight:600;max-width:54ch;margin-bottom:30px}
 .hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
-.photo{position:relative;justify-self:center;width:min(340px,80vw);aspect-ratio:1}
-.photo::before{content:'';position:absolute;inset:-14px;border-radius:44% 56% 52% 48%/50% 44% 56% 50%;background:var(--ink);animation:mor 9s ease-in-out infinite}
-.photo img{position:relative;width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:44% 56% 52% 48%/50% 44% 56% 50%;animation:mor 9s ease-in-out infinite;background:#fff}
+.photo{position:relative;justify-self:center;width:min(330px,78vw);aspect-ratio:1}
+.photo::before{content:'';position:absolute;inset:-12px;border-radius:44% 56% 52% 48%/50% 44% 56% 50%;background:#fff;animation:mor 10s ease-in-out infinite}
+.photo img{position:relative;width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:44% 56% 52% 48%/50% 44% 56% 50%;animation:mor 10s ease-in-out infinite;background:var(--yl)}
 @keyframes mor{50%{border-radius:56% 44% 46% 54%/44% 56% 44% 56%}}
-.sticker{position:absolute;right:-18px;bottom:6px;background:#fff;font-family:'Bricolage Grotesque';font-weight:800;padding:10px 18px;border-radius:999px;box-shadow:var(--sh);transform:rotate(6deg);font-size:15px}
 
-/* Cinta */
-.strip{background:var(--ink);color:var(--y);overflow:hidden;white-space:nowrap;padding:14px 0;transform:rotate(-1deg);margin:-20px -2% 0;position:relative;z-index:2}
-.strip div{display:inline-flex;gap:28px;animation:mq 30s linear infinite;font-family:'Bricolage Grotesque';font-weight:800;font-size:20px}
-@keyframes mq{to{transform:translateX(-50%)}}
-
-/* Encaje con el puesto */
-.fit{display:grid;gap:16px}
+/* Encaje */
+.fit{display:grid;gap:18px}
 @media(min-width:800px){.fit{grid-template-columns:1fr 1fr}}
-.fit-card{background:#fff;border-radius:28px;padding:26px 28px;box-shadow:var(--sh);border:2px solid transparent;transition:.3s}
-.fit-card:hover{border-color:var(--y);transform:translateY(-4px)}
-.fit-card small{display:block;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--yd);margin-bottom:6px}
+.fit-card{display:flex;flex-direction:column;align-items:flex-start;background:var(--cream);border-radius:28px;padding:28px 30px;border:2px solid var(--yl);transition:.3s}
+.fit-card:hover{border-color:var(--y);transform:translateY(-4px);box-shadow:var(--sh)}
+.fit-card small{font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--yd);margin-bottom:6px}
 .fit-card h3{font-size:22px;font-weight:800;margin-bottom:8px}
-.fit-card p{font-size:15.5px;color:var(--mut);font-weight:600}
-.fit-card a{font-weight:800;font-size:14px;color:var(--ink);text-decoration-color:var(--y);text-decoration-thickness:3px;text-underline-offset:3px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.chip{background:var(--yt);font-weight:800;font-size:13px;padding:6px 14px;border-radius:999px}
+.fit-card p{font-size:15.5px;color:var(--mut);font-weight:600;margin-bottom:18px}
+.fit-card .go{margin-top:auto;background:var(--y);color:#fff;font-weight:800;font-size:14px;text-decoration:none;padding:10px 20px;border-radius:999px;transition:.25s}
+.fit-card .go:hover{background:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.chip{background:#fff;border:1.5px solid var(--yl);font-weight:800;font-size:13px;padding:5px 14px;border-radius:999px}
 
 /* Proyectos */
-.alt{background:var(--yt)}
+.alt{background:var(--cream)}
 .proj{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
-.pc{display:flex;flex-direction:column;background:#fff;border-radius:28px;overflow:hidden;box-shadow:var(--sh);text-decoration:none;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.pc{display:flex;flex-direction:column;background:#fff;border-radius:28px;overflow:hidden;box-shadow:var(--sh);text-decoration:none;transition:transform .3s}
 .pc:hover{transform:translateY(-8px)}
-.pc-img{height:230px;background:var(--yt) center/cover no-repeat}
+.pc-img{height:230px;background:var(--yl) center/cover no-repeat}
 .pc-b{padding:20px 24px 24px}
-.pc-b span{display:inline-block;background:var(--y);font-size:12px;font-weight:800;padding:3px 12px;border-radius:999px;margin-bottom:10px}
+.pc-b span{display:inline-block;background:var(--yl);color:var(--yd);font-size:12px;font-weight:800;padding:3px 12px;border-radius:999px;margin-bottom:10px}
 .pc-b h3{font-size:22px;font-weight:800;margin-bottom:4px}
 .pc-b p{font-size:14px;color:var(--mut);font-weight:600;margin-bottom:14px}
-.pc-b b{font-size:14px}
+.pc-b b{font-size:14px;color:var(--yd)}
 
 /* Trayectoria */
-.tl{display:grid;gap:18px;margin-bottom:36px}
-.tl-i{background:#fff;border-radius:28px;padding:26px 30px;box-shadow:var(--sh);border-left:10px solid var(--y)}
+.tl{display:grid;gap:18px;margin:30px 0 36px}
+.tl-i{background:#fff;border-radius:28px;padding:26px 30px;box-shadow:var(--sh);border-left:8px solid var(--y)}
 .tl-i small{font-weight:800;color:var(--yd);font-size:13px}
 .tl-i h3{font-size:22px;font-weight:800}
 .tl-i h4{font-size:14px;font-weight:700;color:var(--mut);margin:2px 0 10px}
 .tl-i li{margin-left:18px;font-size:15px;font-weight:600;color:var(--mut)}
-.edu{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
-.edu div{background:var(--ink);color:#fff;border-radius:24px;padding:22px 24px}
-.edu b{font-family:'Bricolage Grotesque';font-size:30px;color:var(--y);display:block}
+.edu{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.edu div{background:var(--yl);border-radius:24px;padding:22px 24px}
+.edu b{font-family:'Bricolage Grotesque';font-size:30px;color:var(--yd);display:block}
 .edu span{font-weight:700;font-size:15px}
-.edu small{display:block;opacity:.7;font-weight:600}
+.edu small{display:block;color:var(--mut);font-weight:600}
 
 /* Contacto */
-.contact{background:var(--y);border-radius:48px;margin:0 3vw 30px;padding:70px 6vw;text-align:center}
-.contact h2{font-size:clamp(40px,7vw,90px)}
-.contact p{font-size:18px;font-weight:700;max-width:56ch;margin:0 auto 28px}
+.contact{background:var(--y);border-radius:44px;margin:0 3vw 30px;padding:72px 6vw;text-align:center;position:relative;overflow:hidden}
+.contact::before{content:'';position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.22);left:-80px;bottom:-120px}
+.contact>*{position:relative}
+.contact h2{font-size:clamp(38px,6.5vw,84px);color:#fff}
+.contact p{font-size:18px;font-weight:600;max-width:56ch;margin:0 auto 28px}
 .contact .hero-ctas{justify-content:center}
-.info{margin-top:24px;font-weight:800;font-size:15px}
-footer{text-align:center;padding:10px 6vw 30px;font-size:13px;font-weight:700;color:var(--mut)}
+.contact .info{margin:26px 0 0;font-weight:800;font-size:15px}
+footer{text-align:center;padding:6px 6vw 30px;font-size:13px;font-weight:700;color:var(--mut)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 
 <nav><div class="nav-in">
-  <a class="logo" href="#top">NEREA × hellofun!</a>
-  <ul><li><a href="#encaje">Encaje</a></li><li><a href="#proyectos">Proyectos</a></li><li><a href="#trayectoria">Trayectoria</a></li><li><a href="#contacto">Contacto</a></li></ul>
+  <a class="logo" href="#top">Nerea <span>× hellofun!</span></a>
+  <ul><li><a href="#encaje">Por qué encajo</a></li><li><a href="#proyectos">Proyectos</a></li><li><a href="#trayectoria">Trayectoria</a></li><li><a href="#contacto">Contacto</a></li></ul>
 </div></nav>
 
 <header class="hero" id="top"><div class="wrap hero-grid">
   <div>
-    <span class="tag">Para el equipo de hellofun!</span>
-    <h1>Hola, <span>hellofun!</span> soy Nerea</h1>
-    <p>Diseñadora gráfica y candidata a Junior Graphic Designer. Me dijisteis que en mi portfolio se veía poco diseño gráfico, así que he preparado esta página con todo lo que necesitáis ver para conocerme mejor :)</p>
+    <span class="tag">Junior Graphic Designer</span>
+    <h1>Hola, <span>hellofun!</span> Soy Nerea</h1>
+    <p>Diseñadora gráfica con muchísimas ganas de unirme a vosotros. Me encantan vuestros juegos, la energía que transmitís y, sobre todo, el equipo que sois: se nota el buen rollo y me haría mucha ilusión formar parte de él. Esta página es mi forma de enseñaros mi trabajo y por qué creo que encajo.</p>
     <div class="hero-ctas">
-      <a class="btn b-dark" href="#proyectos">Ver mi diseño gráfico</a>
-      <a class="btn b-light" href="#encaje">¿Por qué encajo?</a>
+      <a class="btn b-white" href="#proyectos">Ver mis proyectos</a>
+      <a class="btn b-solid" href="#encaje">¿Por qué encajo?</a>
     </div>
   </div>
-  <div class="photo">
-    <img src="nerea.ramirez.png" alt="Nerea Ramírez, diseñadora gráfica">
-    <div class="sticker">Vivo en San Sebastián de los Reyes</div>
-  </div>
+  <div class="photo"><img src="nerea.ramirez.png" alt="Nerea Ramírez, diseñadora gráfica"></div>
 </div></header>
 
-<div class="strip" aria-hidden="true"><div>
-  <span>Photoshop</span><span>●</span><span>Illustrator</span><span>●</span><span>InDesign</span><span>●</span><span>Branding</span><span>●</span><span>Campañas</span><span>●</span><span>Diseño BTL</span><span>●</span>
-  <span>Photoshop</span><span>●</span><span>Illustrator</span><span>●</span><span>InDesign</span><span>●</span><span>Branding</span><span>●</span><span>Campañas</span><span>●</span><span>Diseño BTL</span><span>●</span>
-</div></div>
-
 <section id="encaje"><div class="wrap">
-  <span class="tag">Lo que buscáis × lo que tengo</span>
-  <h2>Mi encaje con <em>el puesto</em></h2>
-  <p class="lead">He ido punto por punto por vuestra oferta. Solo cuento lo que he hecho de verdad, y donde aún tengo que aprender, os lo digo con ganas de hacerlo.</p>
+  <span class="tag">Lo que buscáis × lo que aporto</span>
+  <h2>¿<em>Por qué</em> encajo en el puesto?</h2>
+  <p class="lead">He repasado vuestra oferta punto por punto y esto es lo que he hecho de verdad.</p>
   <div class="fit">
-    <div class="fit-card"><small>Herramientas</small><h3>Illustrator, Photoshop e InDesign</h3><p>Es mi día a día en Ádraba desde junio de 2024: campañas digitales, ilustración y piezas para impresión. También me muevo con After Effects, Premiere y CapCut.</p><div class="chips"><span class="chip">Photoshop</span><span class="chip">Illustrator</span><span class="chip">InDesign</span><span class="chip">Herramientas afines</span></div></div>
-    <div class="fit-card"><small>Marketing y redes sociales</small><h3>Piezas para campañas y RRSS</h3><p>Diseño y gestiono contenido para redes, además de campañas de marketing digital. Estudié Marketing y Publicidad y dos másteres de diseño y marketing digital.</p><a href="#proyectos">Ver campañas →</a></div>
-    <div class="fit-card"><small>Impresión y producción</small><h3>Diseño BTL</h3><p>He diseñado flyers, tarjetas, trípticos y cartelería, además de spots de TV. Sé que en impresión los detalles lo son todo.</p></div>
-    <div class="fit-card"><small>Criterio, tipografía y composición</small><h3>Branding y piezas con criterio</h3><p>Identidad de marca, infografías y campañas donde la jerarquía y la tipografía hacen el trabajo.</p><a href="#proyectos">Ver proyectos →</a></div>
-    <div class="fit-card"><small>Cámara y contenido</small><h3>Cómoda detrás de una cámara</h3><p>En Ádraba me encargo de la producción integral del contenido: concepto, diseño, grabación, edición y publicación. Fotografía de producto es algo que quiero seguir desarrollando con vosotros.</p></div>
-    <div class="fit-card"><small>Autonomía y varios proyectos a la vez</small><h3>Organizada y con plazos</h3><p>Llevo campañas de principio a fin y gestiono RRSS en paralelo al diseño. Y feedback, siempre bienvenido: es la forma más rápida de mejorar.</p></div>
+    <div class="fit-card"><small>Herramientas</small><h3>Illustrator, Photoshop e InDesign</h3><p>Es mi día a día en Ádraba desde junio de 2024: campañas digitales, ilustración y piezas para impresión. También trabajo con After Effects, Premiere y CapCut.</p><div class="chips"><span class="chip">Photoshop</span><span class="chip">Illustrator</span><span class="chip">InDesign</span><span class="chip">Herramientas afines</span></div><a class="go" href="#proyectos">Ver lo que he hecho ↓</a></div>
+    <div class="fit-card"><small>Marketing y redes sociales</small><h3>Piezas para campañas y RRSS</h3><p>Grabo in situ los contenidos, gestiono lo que se publica y lo que no, edito y diseño, programo y después analizo los resultados para ir mejorando poco a poco.</p><a class="go" href="#proyectos">Ver lo que he hecho ↓</a></div>
+    <div class="fit-card"><small>Impresión y producción</small><h3>Diseño BTL</h3><p>He diseñado flyers, tarjetas, trípticos y cartelería, además de spots de TV. Sé que en impresión los detalles lo son todo.</p><a class="go" href="#proyectos">Ver lo que he hecho ↓</a></div>
+    <div class="fit-card"><small>Criterio, tipografía y composición</small><h3>Branding y piezas con criterio</h3><p>Identidad de marca, infografías y campañas donde la jerarquía y la tipografía hacen el trabajo.</p><a class="go" href="#proyectos">Ver lo que he hecho ↓</a></div>
+    <div class="fit-card"><small>Cámara y contenido</small><h3>Cómoda detrás de una cámara</h3><p>En Ádraba me encargo de la producción integral del contenido: concepto, diseño, grabación, edición y publicación. La fotografía de producto es algo que quiero seguir desarrollando con vosotros.</p><a class="go" href="#proyectos">Ver lo que he hecho ↓</a></div>
+    <div class="fit-card"><small>Autonomía y varios proyectos a la vez</small><h3>Organizada y con plazos</h3><p>Llevo campañas de principio a fin y gestiono RRSS en paralelo al diseño. Y el feedback siempre es bienvenido: es la forma más rápida de mejorar.</p><a class="go" href="#trayectoria">Ver mi trayectoria ↓</a></div>
   </div>
 </div></section>
 
 <section id="proyectos" class="alt"><div class="wrap">
   <span class="tag">Portfolio</span>
-  <h2>Diseño gráfico <em>de verdad</em></h2>
+  <h2>Mis proyectos <em>más recientes</em></h2>
   <p class="lead">Una selección de mis proyectos de diseño, branding y campañas. Cada uno abre su caso completo.</p>
   <div class="proj">
     <a class="pc" href="proyecto-magnum.html" target="_blank" rel="noopener"><div class="pc-img" style="background-image:url('destacada-magnum-final.png')"></div><div class="pc-b"><span>Campaña 360°</span><h3>Campaña 360 Magnum</h3><p>Algunos placeres no entienden de estaciones</p><b>Ver proyecto →</b></div></a>
@@ -157,13 +151,12 @@ footer{text-align:center;padding:10px 6vw 30px;font-size:13px;font-weight:700;co
     <a class="pc" href="proyecto-nextfloor.html" target="_blank" rel="noopener"><div class="pc-img" style="background-image:url('destacada-nextfloor.png')"></div><div class="pc-b"><span>Infografía RRSS</span><h3>Coworking Nextfloor</h3><p>Infografía y diseño para RRSS</p><b>Ver proyecto →</b></div></a>
     <a class="pc" href="proyecto-hotwheels.html" target="_blank" rel="noopener"><div class="pc-img" style="background-image:url('destacada-hotwheel.png')"></div><div class="pc-b"><span>IA generativa</span><h3>Vídeo Hot Wheels</h3><p>IA generativa y Premiere</p><b>Ver proyecto →</b></div></a>
   </div>
-  <p style="margin-top:28px;font-weight:700">¿Quieres ver más? <a href="https://www.behance.net/nerearamirez1" target="_blank" rel="noopener">Mi Behance</a> · <a href="index.html">Mi portfolio completo</a></p>
 </div></section>
 
 <section id="trayectoria"><div class="wrap">
   <span class="tag">Experiencia y formación</span>
   <h2>Mi <em>trayectoria</em></h2>
-  <div class="tl" style="margin-top:30px">
+  <div class="tl">
     <div class="tl-i"><small>Jun 2024 — Actual</small><h3>Ádraba</h3><h4>Diseñadora gráfica &amp; SoMe Manager</h4><ul>
       <li>Diseño gráfico e ilustración para campañas digitales.</li>
       <li>Diseño BTL: flyers, tarjetas, trípticos, spots TV, cartelería.</li>
@@ -187,11 +180,11 @@ footer{text-align:center;padding:10px 6vw 30px;font-size:13px;font-weight:700;co
 
 <section style="padding-top:0" id="contacto"><div class="contact">
   <h2 class="f">¿Jugamos juntos?</h2>
-  <p>Gracias por leerme, hellofun! Me encantaría formar parte de un equipo que se lo pasa bien creando cosas de las que estar orgulloso. Estoy deseando enseñaros más en persona.</p>
+  <p>Gracias por leerme, hellofun! Me encantaría formar parte de un equipo que trabaja duro y se lo pasa bien. Estoy deseando enseñaros más en persona.</p>
   <div class="hero-ctas">
-    <a class="btn b-dark" href="mailto:nerearamimarti@gmail.com">Escríbeme por correo</a>
-    <a class="btn b-light" href="https://wa.me/34653607909" target="_blank" rel="noopener">WhatsApp</a>
-    <a class="btn b-light" href="tel:+34653607909">653 607 909</a>
+    <a class="btn b-white" href="mailto:nerearamimarti@gmail.com">Escríbeme por correo</a>
+    <a class="btn b-white" href="https://wa.me/34653607909" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="btn b-solid" href="tel:+34653607909">653 607 909</a>
   </div>
   <p class="info">nerearamimarti@gmail.com · San Sebastián de los Reyes, Madrid</p>
 </div></section>
