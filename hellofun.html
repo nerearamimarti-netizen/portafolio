@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nerea Ramírez × hellofun! — Junior Graphic Designer</title>
+<meta name="description" content="Portfolio de Nerea Ramírez pensado para hellofun!: diseño gráfico, marketing, artes finales y mucha energía.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23edb744'/%3E%3Ctext x='32' y='46' font-family='sans-serif' font-size='40' font-weight='700' text-anchor='middle' fill='%2320190a'%3EN%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Figtree:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--y:#edb744;--yd:#c8921c;--yt:#fff4d6;--ink:#20190a;--mut:rgba(32,25,10,.66);--sh:0 22px 44px -22px rgba(120,80,0,.35),0 2px 8px rgba(32,25,10,.05)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Figtree',sans-serif;font-weight:500;color:var(--ink);background:#fffdf7;overflow-x:hidden;line-height:1.6}
+h1,h2,h3,.f{font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-.03em;line-height:1.02}
+a{color:inherit}
+a:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 6vw}
+section{padding:84px 0}
+.tag{display:inline-block;background:var(--ink);color:var(--y);font-weight:800;font-size:14px;padding:8px 18px;border-radius:999px;margin-bottom:20px}
+h2{font-size:clamp(34px,5.4vw,66px);font-weight:800;margin-bottom:14px}
+h2 em{font-style:normal;background:var(--y);padding:0 .15em;border-radius:.2em}
+.lead{font-size:18px;color:var(--mut);max-width:60ch;margin-bottom:40px;font-weight:600}
+.btn{display:inline-block;font-weight:800;font-size:16px;text-decoration:none;padding:16px 32px;border-radius:999px;transition:transform .25s cubic-bezier(.34,1.56,.64,1),background .25s}
+.btn:hover{transform:translateY(-4px)}
+.b-dark{background:var(--ink);color:#fff}.b-dark:hover{background:#3a2f12}
+.b-light{background:#fff;color:var(--ink);box-shadow:var(--sh)}
+
+/* Nav */
+nav{position:sticky;top:0;z-index:50;background:var(--y);box-shadow:0 8px 24px -16px rgba(0,0,0,.4)}
+.nav-in{display:flex;justify-content:space-between;align-items:center;padding:12px 6vw;max-width:1120px;margin:0 auto}
+.logo{font-family:'Bricolage Grotesque';font-weight:800;font-size:18px;text-decoration:none}
+nav ul{display:flex;gap:4px;list-style:none}
+nav ul a{font-weight:800;font-size:14px;text-decoration:none;padding:8px 16px;border-radius:999px;transition:.2s}
+nav ul a:hover{background:var(--ink);color:var(--y)}
+@media(max-width:700px){nav ul li:not(:last-child){display:none}}
+
+/* Hero */
+.hero{background:var(--y);padding:70px 0 90px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;right:-60px;bottom:-60px;width:360px;height:360px;border-radius:50%;background:rgba(255,255,255,.28)}
+.hero-grid{display:grid;gap:50px;align-items:center;position:relative;z-index:1}
+@media(min-width:900px){.hero-grid{grid-template-columns:1.3fr 1fr}}
+.hero h1{font-size:clamp(44px,8vw,104px);font-weight:800;margin-bottom:22px}
+.hero h1 span{background:var(--ink);color:var(--y);padding:0 .12em;border-radius:.16em;display:inline-block;transform:rotate(-1.5deg)}
+.hero p{font-size:19px;font-weight:700;max-width:52ch;margin-bottom:30px}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.photo{position:relative;justify-self:center;width:min(340px,80vw);aspect-ratio:1}
+.photo::before{content:'';position:absolute;inset:-14px;border-radius:44% 56% 52% 48%/50% 44% 56% 50%;background:var(--ink);animation:mor 9s ease-in-out infinite}
+.photo img{position:relative;width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:44% 56% 52% 48%/50% 44% 56% 50%;animation:mor 9s ease-in-out infinite;background:#fff}
+@keyframes mor{50%{border-radius:56% 44% 46% 54%/44% 56% 44% 56%}}
+.sticker{position:absolute;right:-18px;bottom:6px;background:#fff;font-family:'Bricolage Grotesque';font-weight:800;padding:10px 18px;border-radius:999px;box-shadow:var(--sh);transform:rotate(6deg);font-size:15px}
+
+/* Cinta */
+.strip{background:var(--ink);color:var(--y);overflow:hidden;white-space:nowrap;padding:14px 0;transform:rotate(-1deg);margin:-20px -2% 0;position:relative;z-index:2}
+.strip div{display:inline-flex;gap:28px;animation:mq 30s linear infinite;font-family:'Bricolage Grotesque';font-weight:800;font-size:20px}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* Encaje con el puesto */
+.fit{display:grid;gap:16px}
+@media(min-width:800px){.fit{grid-template-columns:1fr 1fr}}
+.fit-card{background:#fff;border-radius:28px;padding:26px 28px;box-shadow:var(--sh);border:2px solid transparent;transition:.3s}
+.fit-card:hover{border-color:var(--y);transform:translateY(-4px)}
+.fit-card small{display:block;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--yd);margin-bottom:6px}
+.fit-card h3{font-size:22px;font-weight:800;margin-bottom:8px}
+.fit-card p{font-size:15.5px;color:var(--mut);font-weight:600}
+.fit-card a{font-weight:800;font-size:14px;color:var(--ink);text-decoration-color:var(--y);text-decoration-thickness:3px;text-underline-offset:3px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{background:var(--yt);font-weight:800;font-size:13px;padding:6px 14px;border-radius:999px}
+
+/* Proyectos */
+.alt{background:var(--yt)}
+.proj{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.pc{display:flex;flex-direction:column;background:#fff;border-radius:28px;overflow:hidden;box-shadow:var(--sh);text-decoration:none;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.pc:hover{transform:translateY(-8px)}
+.pc-img{height:230px;background:var(--yt) center/cover no-repeat}
+.pc-b{padding:20px 24px 24px}
+.pc-b span{display:inline-block;background:var(--y);font-size:12px;font-weight:800;padding:3px 12px;border-radius:999px;margin-bottom:10px}
+.pc-b h3{font-size:22px;font-weight:800;margin-bottom:4px}
+.pc-b p{font-size:14px;color:var(--mut);font-weight:600;margin-bottom:14px}
+.pc-b b{font-size:14px}
+
+/* Trayectoria */
+.tl{display:grid;gap:18px;margin-bottom:36px}
+.tl-i{background:#fff;border-radius:28px;padding:26px 30px;box-shadow:var(--sh);border-left:10px solid var(--y)}
+.tl-i small{font-weight:800;color:var(--yd);font-size:13px}
+.tl-i h3{font-size:22px;font-weight:800}
+.tl-i h4{font-size:14px;font-weight:700;color:var(--mut);margin:2px 0 10px}
+.tl-i li{margin-left:18px;font-size:15px;font-weight:600;color:var(--mut)}
+.edu{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.edu div{background:var(--ink);color:#fff;border-radius:24px;padding:22px 24px}
+.edu b{font-family:'Bricolage Grotesque';font-size:30px;color:var(--y);display:block}
+.edu span{font-weight:700;font-size:15px}
+.edu small{display:block;opacity:.7;font-weight:600}
+
+/* Contacto */
+.contact{background:var(--y);border-radius:48px;margin:0 3vw 30px;padding:70px 6vw;text-align:center}
+.contact h2{font-size:clamp(40px,7vw,90px)}
+.contact p{font-size:18px;font-weight:700;max-width:56ch;margin:0 auto 28px}
+.contact .hero-ctas{justify-content:center}
+.info{margin-top:24px;font-weight:800;font-size:15px}
+footer{text-align:center;padding:10px 6vw 30px;font-size:13px;font-weight:700;color:var(--mut)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<nav><div class="nav-in">
+  <a class="logo" href="#top">NEREA × hellofun!</a>
+  <ul><li><a href="#encaje">Encaje</a></li><li><a href="#proyectos">Proyectos</a></li><li><a href="#trayectoria">Trayectoria</a></li><li><a href="#contacto">Contacto</a></li></ul>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap hero-grid">
+  <div>
+    <span class="tag">Para el equipo de hellofun!</span>
+    <h1>Hola, <span>hellofun!</span> soy Nerea</h1>
+    <p>Diseñadora gráfica y candidata a Junior Graphic Designer. Me dijisteis que en mi portfolio se veía poco diseño gráfico, así que he preparado esta página con todo lo que necesitáis ver para conocerme mejor :)</p>
+    <div class="hero-ctas">
+      <a class="btn b-dark" href="#proyectos">Ver mi diseño gráfico</a>
+      <a class="btn b-light" href="#encaje">¿Por qué encajo?</a>
+    </div>
+  </div>
+  <div class="photo">
+    <img src="nerea.ramirez.png" alt="Nerea Ramírez, diseñadora gráfica">
+    <div class="sticker">Vivo en San Sebastián de los Reyes</div>
+  </div>
+</div></header>
+
+<div class="strip" aria-hidden="true"><div>
+  <span>Photoshop</span><span>●</span><span>Illustrator</span><span>●</span><span>InDesign</span><span>●</span><span>Branding</span><span>●</span><span>Campañas</span><span>●</span><span>Diseño BTL</span><span>●</span>
+  <span>Photoshop</span><span>●</span><span>Illustrator</span><span>●</span><span>InDesign</span><span>●</span><span>Branding</span><span>●</span><span>Campañas</span><span>●</span><span>Diseño BTL</span><span>●</span>
+</div></div>
+
+<section id="encaje"><div class="wrap">
+  <span class="tag">Lo que buscáis × lo que tengo</span>
+  <h2>Mi encaje con <em>el puesto</em></h2>
+  <p class="lead">He ido punto por punto por vuestra oferta. Solo cuento lo que he hecho de verdad, y donde aún tengo que aprender, os lo digo con ganas de hacerlo.</p>
+  <div class="fit">
+    <div class="fit-card"><small>Herramientas</small><h3>Illustrator, Photoshop e InDesign</h3><p>Es mi día a día en Ádraba desde junio de 2024: campañas digitales, ilustración y piezas para impresión. También me muevo con After Effects, Premiere y CapCut.</p><div class="chips"><span class="chip">Photoshop</span><span class="chip">Illustrator</span><span class="chip">InDesign</span><span class="chip">Herramientas afines</span></div></div>
+    <div class="fit-card"><small>Marketing y redes sociales</small><h3>Piezas para campañas y RRSS</h3><p>Diseño y gestiono contenido para redes, además de campañas de marketing digital. Estudié Marketing y Publicidad y dos másteres de diseño y marketing digital.</p><a href="#proyectos">Ver campañas →</a></div>
+    <div class="fit-card"><small>Impresión y producción</small><h3>Diseño BTL</h3><p>He diseñado flyers, tarjetas, trípticos y cartelería, además de spots de TV. Sé que en impresión los detalles lo son todo.</p></div>
+    <div class="fit-card"><small>Criterio, tipografía y composición</small><h3>Branding y piezas con criterio</h3><p>Identidad de marca, infografías y campañas donde la jerarquía y la tipografía hacen el trabajo.</p><a href="#proyectos">Ver proyectos →</a></div>
+    <div class="fit-card"><small>Cámara y contenido</small><h3>Cómoda detrás de una cámara</h3><p>En Ádraba me encargo de la producción integral del contenido: concepto, diseño, grabación, edición y publicación. Fotografía de producto es algo que quiero seguir desarrollando con vosotros.</p></div>
+    <div class="fit-card"><small>Autonomía y varios proyectos a la vez</small><h3>Organizada y con plazos</h3><p>Llevo campañas de principio a fin y gestiono RRSS en paralelo al diseño. Y feedback, siempre bienvenido: es la forma más rápida de mejorar.</p></div>
+  </div>
+</div></section>
+
+<section id="proyectos" class="alt"><div class="wrap">
+  <span class="tag">Portfolio</span>
+  <h2>Diseño gráfico <em>de verdad</em></h2>
+  <p class="lead">Una selección de mis proyectos de diseño, branding y campañas. Cada uno abre su caso completo.</p>
+  <div class="proj">
+    <a class="pc" href="proyecto-magnum.html" target="_blank" rel="noopener"><div class="pc-img" style="background-image:url('destacada-magnum-final.png')"></div><div class="pc-b"><span>Campaña 360°</span><h3>Campaña 360 Magnum</h3><p>Algunos placeres no entienden de estaciones</p><b>Ver proyecto →</b></div></a>
+    <a class="pc" href="proyecto-ashwagandha.html" target="_blank" rel="noopener"><div class="pc-img" style="background-image:url('destacada-aswa.jpg')"></div><div class="pc-b"><span>Campaña desde 0</span><h3>Ashwagandha Gummies</h3><p>Photoshop, Illustrator y CapCut</p><b>Ver proyecto →</b></div></a>
+    <a class="pc" href="proyecto-dolcevitta.html" target="_blank" rel="noopener"><div class="pc-img" style="background-image:url('destacadas-dolce-vitta.png')"></div><div class="pc-b"><span>Branding y RRSS</span><h3>Dolce Vitta</h3><p>Branding y RRSS</p><b>Ver proyecto →</b></div></a>
+    <a class="pc" href="proyecto-nextfloor.html" target="_blank" rel="noopener"><div class="pc-img" style="background-image:url('destacada-nextfloor.png')"></div><div class="pc-b"><span>Infografía RRSS</span><h3>Coworking Nextfloor</h3><p>Infografía y diseño para RRSS</p><b>Ver proyecto →</b></div></a>
+    <a class="pc" href="proyecto-hotwheels.html" target="_blank" rel="noopener"><div class="pc-img" style="background-image:url('destacada-hotwheel.png')"></div><div class="pc-b"><span>IA generativa</span><h3>Vídeo Hot Wheels</h3><p>IA generativa y Premiere</p><b>Ver proyecto →</b></div></a>
+  </div>
+  <p style="margin-top:28px;font-weight:700">¿Quieres ver más? <a href="https://www.behance.net/nerearamirez1" target="_blank" rel="noopener">Mi Behance</a> · <a href="index.html">Mi portfolio completo</a></p>
+</div></section>
+
+<section id="trayectoria"><div class="wrap">
+  <span class="tag">Experiencia y formación</span>
+  <h2>Mi <em>trayectoria</em></h2>
+  <div class="tl" style="margin-top:30px">
+    <div class="tl-i"><small>Jun 2024 — Actual</small><h3>Ádraba</h3><h4>Diseñadora gráfica &amp; SoMe Manager</h4><ul>
+      <li>Diseño gráfico e ilustración para campañas digitales.</li>
+      <li>Diseño BTL: flyers, tarjetas, trípticos, spots TV, cartelería.</li>
+      <li>Producción integral de contenido visual: concepto, diseño, grabación, edición y publicación.</li>
+      <li>Vídeos animados 2D y motion graphics.</li>
+      <li>IA generativa para ideación, variaciones y optimización.</li>
+      <li>Gestión de campañas de marketing digital en RRSS.</li></ul></div>
+    <div class="tl-i"><small>Jun — Sep 2023</small><h3>Lunaro Solutions</h3><h4>Community Manager</h4><ul>
+      <li>Diseño de piezas visuales y contenido audiovisual orientado a marca.</li>
+      <li>Gestión de LinkedIn: contenido, calendario y análisis.</li></ul></div>
+    <div class="tl-i"><small>Mar — Jun 2023</small><h3>Jastag</h3><h4>Asistente Diseño y Comunicación Digital</h4><ul>
+      <li>Diseño de piezas para RRSS y producción y postproducción audiovisual.</li>
+      <li>Apoyo en diseño web (WordPress) y copywriting.</li></ul></div>
+  </div>
+  <div class="edu">
+    <div><b>2025</b><span>Máster Motion Graphics, VFX, Diseño 3D, 4D y Dirección de arte</span><small>CEI</small></div>
+    <div><b>2023</b><span>Máster Diseño Gráfico, Diseño web y Marketing Digital</span><small>CEI</small></div>
+    <div><b>2021</b><span>Grado Superior en Marketing y Publicidad</span><small>IES Clara del Rey</small></div>
+  </div>
+</div></section>
+
+<section style="padding-top:0" id="contacto"><div class="contact">
+  <h2 class="f">¿Jugamos juntos?</h2>
+  <p>Gracias por leerme, hellofun! Me encantaría formar parte de un equipo que se lo pasa bien creando cosas de las que estar orgulloso. Estoy deseando enseñaros más en persona.</p>
+  <div class="hero-ctas">
+    <a class="btn b-dark" href="mailto:nerearamimarti@gmail.com">Escríbeme por correo</a>
+    <a class="btn b-light" href="https://wa.me/34653607909" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="btn b-light" href="tel:+34653607909">653 607 909</a>
+  </div>
+  <p class="info">nerearamimarti@gmail.com · San Sebastián de los Reyes, Madrid</p>
+</div></section>
+
+<footer>© 2026 Nerea Ramírez · Hecho con cariño para hellofun!</footer>
+</body>
+</html>
