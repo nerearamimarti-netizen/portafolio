@@ -69,17 +69,8 @@ nav ul a:hover{background:var(--y);color:#fff}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
 .chip{background:#fff;border:1.5px solid var(--yl);font-weight:800;font-size:13px;padding:5px 14px;border-radius:999px}
 
-/* Proyectos */
+/* Trayectoria alterna */
 .alt{background:var(--cream)}
-.proj{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
-.pc{display:flex;flex-direction:column;background:#fff;border-radius:28px;overflow:hidden;box-shadow:var(--sh);text-decoration:none;transition:transform .3s}
-.pc:hover{transform:translateY(-8px)}
-.pc-img{height:230px;background:var(--yl) center/cover no-repeat}
-.pc-b{padding:20px 24px 24px}
-.pc-b span{display:inline-block;background:var(--yl);color:var(--yd);font-size:12px;font-weight:800;padding:3px 12px;border-radius:999px;margin-bottom:10px}
-.pc-b h3{font-size:22px;font-weight:800;margin-bottom:4px}
-.pc-b p{font-size:14px;color:var(--mut);font-weight:600;margin-bottom:14px}
-.pc-b b{font-size:14px;color:var(--yd)}
 
 /* Trayectoria */
 .tl{display:grid;gap:18px;margin:30px 0 36px}
@@ -110,17 +101,16 @@ footer{text-align:center;padding:6px 6vw 30px;font-size:13px;font-weight:700;col
 
 <nav><div class="nav-in">
   <a class="logo" href="#top">Nerea <span>× hellofun!</span></a>
-  <ul><li><a href="#encaje">Por qué encajo</a></li><li><a href="#proyectos">Proyectos</a></li><li><a href="#trayectoria">Trayectoria</a></li><li><a href="#contacto">Contacto</a></li></ul>
+  <ul><li><a href="#encaje">Por qué encajo</a></li><li><a href="#trayectoria">Trayectoria</a></li><li><a href="#contacto">Contacto</a></li></ul>
 </div></nav>
 
 <header class="hero" id="top"><div class="wrap hero-grid">
   <div>
-    <span class="tag">Junior Graphic Designer</span>
-    <h1>Hola, <span>hellofun!</span> Soy Nerea</h1>
-    <p>Diseñadora gráfica con muchísimas ganas de unirme a vosotros. Me encantan vuestros juegos, la energía que transmitís y, sobre todo, el equipo que sois: se nota el buen rollo y me haría mucha ilusión formar parte de él. Esta página es mi forma de enseñaros mi trabajo y por qué creo que encajo.</p>
+    <h1>Hello, <span>hellofun!</span> Soy Nerea</h1>
+    <p>Diseñadora gráfica con muchísimas ganas de unirme a vosotros. Me encantan vuestros juegos, la energía que transmitís y, sobre todo, el equipo que sois, y me haría mucha ilusión formar parte de él. Esta página es mi forma de enseñaros mi trabajo y por qué creo que encajo.</p>
     <div class="hero-ctas">
-      <a class="btn b-white" href="#proyectos">Ver mis proyectos</a>
-      <a class="btn b-solid" href="#encaje">¿Por qué encajo?</a>
+      <a class="btn b-white" href="#encaje">¿Por qué encajo?</a>
+      <a class="btn b-solid" href="#trayectoria">Mi trayectoria</a>
     </div>
   </div>
   <div class="photo"><img src="nerea.ramirez.png" alt="Nerea Ramírez, diseñadora gráfica"></div>
@@ -128,32 +118,18 @@ footer{text-align:center;padding:6px 6vw 30px;font-size:13px;font-weight:700;col
 
 <section id="encaje"><div class="wrap">
   <span class="tag">Lo que buscáis × lo que aporto</span>
-  <h2>¿<em>Por qué</em> encajo en el puesto?</h2>
-  <p class="lead">He repasado vuestra oferta punto por punto y esto es lo que he hecho de verdad.</p>
+  <h2 style="margin-bottom:40px">¿<em>Por qué</em> encajo en el puesto?</h2>
   <div class="fit">
-    <div class="fit-card"><small>Herramientas</small><h3>Illustrator, Photoshop e InDesign</h3><p>Es mi día a día en Ádraba desde junio de 2024: campañas digitales, ilustración y piezas para impresión. También trabajo con After Effects, Premiere y CapCut.</p><div class="chips"><span class="chip">Photoshop</span><span class="chip">Illustrator</span><span class="chip">InDesign</span><span class="chip">Herramientas afines</span></div><a class="go" href="#proyectos">Ver lo que he hecho ↓</a></div>
-    <div class="fit-card"><small>Marketing y redes sociales</small><h3>Piezas para campañas y RRSS</h3><p>Grabo in situ los contenidos, gestiono lo que se publica y lo que no, edito y diseño, programo y después analizo los resultados para ir mejorando poco a poco.</p><a class="go" href="#proyectos">Ver lo que he hecho ↓</a></div>
-    <div class="fit-card"><small>Impresión y producción</small><h3>Diseño BTL</h3><p>He diseñado flyers, tarjetas, trípticos y cartelería, además de spots de TV. Sé que en impresión los detalles lo son todo.</p><a class="go" href="#proyectos">Ver lo que he hecho ↓</a></div>
-    <div class="fit-card"><small>Criterio, tipografía y composición</small><h3>Branding y piezas con criterio</h3><p>Identidad de marca, infografías y campañas donde la jerarquía y la tipografía hacen el trabajo.</p><a class="go" href="#proyectos">Ver lo que he hecho ↓</a></div>
-    <div class="fit-card"><small>Cámara y contenido</small><h3>Cómoda detrás de una cámara</h3><p>En Ádraba me encargo de la producción integral del contenido: concepto, diseño, grabación, edición y publicación. La fotografía de producto es algo que quiero seguir desarrollando con vosotros.</p><a class="go" href="#proyectos">Ver lo que he hecho ↓</a></div>
-    <div class="fit-card"><small>Autonomía y varios proyectos a la vez</small><h3>Organizada y con plazos</h3><p>Llevo campañas de principio a fin y gestiono RRSS en paralelo al diseño. Y el feedback siempre es bienvenido: es la forma más rápida de mejorar.</p><a class="go" href="#trayectoria">Ver mi trayectoria ↓</a></div>
+    <div class="fit-card"><small>Herramientas</small><h3>Illustrator, Photoshop e InDesign</h3><p>Campañas digitales, ilustración y piezas para impresión. También trabajo con After Effects, Premiere y CapCut.</p><div class="chips"><span class="chip">Photoshop</span><span class="chip">Illustrator</span><span class="chip">InDesign</span><span class="chip">Herramientas afines</span></div><a class="go" href="https://nerearamimarti-netizen.github.io/portafolio/proyecto-magnum.html" target="_blank" rel="noopener">Descubre la campaña Magnum ↗</a></div>
+    <div class="fit-card"><small>Marketing y redes sociales</small><h3>Piezas para campañas y RRSS</h3><p>Grabo in situ los contenidos, gestiono lo que se publica y lo que no, edito y diseño, programo y después analizo los resultados para ir mejorando poco a poco.</p><a class="go" href="https://www.linkedin.com/company/centro-gr-fico-alborada/posts/" target="_blank" rel="noopener">Mira los posts de un cliente actual ↗</a></div>
+    <div class="fit-card"><small>Impresión y producción</small><h3>Diseño BTL</h3><p>He diseñado flyers, tarjetas, trípticos y cartelería, además de spots de TV. Sé que en impresión los detalles lo son todo.</p><a class="go" href="https://nerearamimarti-netizen.github.io/portafolio/proyecto-ashwagandha.html" target="_blank" rel="noopener">Entra en Ashwagandha Gummies ↗</a></div>
+    <div class="fit-card"><small>Criterio, tipografía y composición</small><h3>Branding y piezas con criterio</h3><p>Identidad de marca, infografías y campañas donde la jerarquía y la tipografía hacen el trabajo. Y con muchas ganas de seguir creciendo en diseño de producto.</p><a class="go" href="https://nerearamimarti-netizen.github.io/portafolio/proyecto-dolcevitta.html" target="_blank" rel="noopener">Pasa por Dolce Vitta ↗</a></div>
+    <div class="fit-card"><small>Cámara y contenido</small><h3>Cómoda detrás de una cámara</h3><p>En Ádraba me encargo de la producción integral del contenido: concepto, diseño, grabación, edición y publicación. La fotografía de producto es algo que quiero seguir desarrollando con vosotros.</p><a class="go" href="#trayectoria">Conoce mi experiencia ↓</a></div>
+    <div class="fit-card"><small>Autonomía y varios proyectos a la vez</small><h3>Organizada y con plazos</h3><p>Llevo campañas de principio a fin y gestiono RRSS en paralelo al diseño. Y el feedback siempre es bienvenido: es la forma más rápida de mejorar.</p><a class="go" href="#trayectoria">Sigue mi recorrido ↓</a></div>
   </div>
 </div></section>
 
-<section id="proyectos" class="alt"><div class="wrap">
-  <span class="tag">Portfolio</span>
-  <h2>Mis proyectos <em>más recientes</em></h2>
-  <p class="lead">Una selección de mis proyectos de diseño, branding y campañas. Cada uno abre su caso completo.</p>
-  <div class="proj">
-    <a class="pc" href="proyecto-magnum.html" target="_blank" rel="noopener"><div class="pc-img" style="background-image:url('destacada-magnum-final.png')"></div><div class="pc-b"><span>Campaña 360°</span><h3>Campaña 360 Magnum</h3><p>Algunos placeres no entienden de estaciones</p><b>Ver proyecto →</b></div></a>
-    <a class="pc" href="proyecto-ashwagandha.html" target="_blank" rel="noopener"><div class="pc-img" style="background-image:url('destacada-aswa.jpg')"></div><div class="pc-b"><span>Campaña desde 0</span><h3>Ashwagandha Gummies</h3><p>Photoshop, Illustrator y CapCut</p><b>Ver proyecto →</b></div></a>
-    <a class="pc" href="proyecto-dolcevitta.html" target="_blank" rel="noopener"><div class="pc-img" style="background-image:url('destacadas-dolce-vitta.png')"></div><div class="pc-b"><span>Branding y RRSS</span><h3>Dolce Vitta</h3><p>Branding y RRSS</p><b>Ver proyecto →</b></div></a>
-    <a class="pc" href="proyecto-nextfloor.html" target="_blank" rel="noopener"><div class="pc-img" style="background-image:url('destacada-nextfloor.png')"></div><div class="pc-b"><span>Infografía RRSS</span><h3>Coworking Nextfloor</h3><p>Infografía y diseño para RRSS</p><b>Ver proyecto →</b></div></a>
-    <a class="pc" href="proyecto-hotwheels.html" target="_blank" rel="noopener"><div class="pc-img" style="background-image:url('destacada-hotwheel.png')"></div><div class="pc-b"><span>IA generativa</span><h3>Vídeo Hot Wheels</h3><p>IA generativa y Premiere</p><b>Ver proyecto →</b></div></a>
-  </div>
-</div></section>
-
-<section id="trayectoria"><div class="wrap">
+<section id="trayectoria" class="alt"><div class="wrap">
   <span class="tag">Experiencia y formación</span>
   <h2>Mi <em>trayectoria</em></h2>
   <div class="tl">
